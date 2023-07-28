@@ -34,8 +34,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
-
 -- Listage de la structure de table ocprojet5. posts
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -49,8 +47,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
   KEY `FK_id_user_1` (`id_user`),
   CONSTRAINT `FK_id_user_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Les données exportées n'étaient pas sélectionnées.
 
 -- Listage de la structure de table ocprojet5. comments
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -66,8 +62,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
   CONSTRAINT `FK_id_post_1` FOREIGN KEY (`id_post`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
-
 -- Listage de la structure de table ocprojet5. contacts
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -78,8 +72,6 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Les données exportées n'étaient pas sélectionnées.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
