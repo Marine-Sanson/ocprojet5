@@ -1,1 +1,4 @@
-/vendor/
+/vendor/composer
+/vendor/symfony
+/vendor/twbs
+/vendor/twig
