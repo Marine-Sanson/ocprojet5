@@ -3,7 +3,12 @@
 require 'vendor/autoload.php';
 use App\Demo\Demo;
 
-$demo = new Demo();
-print_r($demo->getDemo());
+$test = new Demo();
+echo $test->getDemo();
 
-print_r("toto");
+$loader = new \Twig\Loader\FilesystemLoader('templates');
+$twig = new \Twig\Environment($loader, [
+      'cache' => false,
+]);
+
+echo $twig->render('index.html');
