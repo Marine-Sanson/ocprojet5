@@ -1,0 +1,19 @@
+{
+    "name": "marine/ocprojet5",
+    "description": "Projet de formation",
+    "authors": [
+        {
+            "name": "Marine Sanson",
+            "email": "marine_sanson@yahoo.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "twbs/bootstrap": "^5.3",
+        "twig/twig": "^3.0"
+    }
+}
