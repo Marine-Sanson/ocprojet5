@@ -1,14 +1,16 @@
 <?php
 
-require 'vendor/autoload.php';
-use App\Demo\Demo;
+    require 'vendor/autoload.php';
+    use App\Demo\Demo;
 
-$test = new Demo();
-echo $test->getDemo();
+    $test = new Demo();
+    echo $test->getDemo();
 
-$loader = new \Twig\Loader\FilesystemLoader('templates');
-$twig = new \Twig\Environment($loader, [
-      'cache' => false,
-]);
+    $loader = new \Twig\Loader\FilesystemLoader('templates');
+    $twig = new \Twig\Environment(
+        $loader, [
+        'cache' => false,
+        ]
+    );
 
-echo $twig->render('index.html');
+    echo $twig->render('index.html');
