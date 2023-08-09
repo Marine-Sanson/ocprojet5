@@ -30,6 +30,6 @@ class Router {
       {
             $route = $this->parseRoute();
             
-            require "templates/layout.phtml";
+            require "src/views/layout.phtml";
       }
 }

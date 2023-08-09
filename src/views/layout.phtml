@@ -12,10 +12,10 @@
 
         <?php 
 
-            $loader = new \Twig\Loader\FilesystemLoader('templates');
+            $loader = new \Twig\Loader\FilesystemLoader('src/views');
             $twig = new \Twig\Environment(
                 $loader, [
-                'cache' => false,
+                'cache' => false, // __DIR__ . '/tmp'
             ]
             );
 
