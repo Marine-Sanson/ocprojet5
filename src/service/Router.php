@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\service;
 
 use App\controller\TestController;
@@ -28,7 +30,7 @@ class Router
         }
 
         if (isset($routeParam) && count($routeParam) === 2) {
-            $id = $routeParam["1"];
+            $id = intval($routeParam["1"]);
         } else {
             $id = null;
         }
