@@ -2,6 +2,7 @@
 namespace App\service;
 
 use App\controller\TestController;
+use App\service\TwigService;
 
 /**
  * Summary of Router
@@ -9,10 +10,10 @@ use App\controller\TestController;
  */
 class Router
 {
-
     /**
      * Summary of parseRoute
-     * This methode parse the url $_GET["route"] and return an array $route with route and param if needed
+     * This methode parse the url $_GET["route"] and return an array $route
+     * with route and param if needed
      * 
      * @return array
      */
@@ -45,13 +46,7 @@ class Router
     public function route()
     {
         $route = $this->parseRoute();
-        
-        $loader = new \Twig\Loader\FilesystemLoader('src/view');
-        $twig = new \Twig\Environment(
-            $loader, [
-                'cache' => false, // __DIR__ . '/tmp'
-            ]
-        );
+        $twig = TwigService::twigLoader();
 
         if ($route["route"] === "home") {
             echo $twig->render('home.phtml');

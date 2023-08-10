@@ -4,16 +4,15 @@ namespace App\controller;
 
 class TestController
 {
-
-
     /**
      * Summary of index
      * this function is temporary, just to test
+     *
+     * @param mixed $id
      * 
-     * @param  int $id
      * @return void
      */
-    public function index(int $id) :void
+    public function index(?int $id) :void
     {
         echo "test";
         if ($id) {
