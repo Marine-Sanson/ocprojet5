@@ -15,5 +15,8 @@
     "require": {
         "twbs/bootstrap": "^5.3",
         "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*"
     }
 }
