@@ -3,5 +3,5 @@
     require 'vendor/autoload.php';
     use App\service\Router;
 
-    $router = new Router();
+    $router = Router::getInstance();
     $router->route();

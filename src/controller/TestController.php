@@ -1,19 +1,19 @@
 <?php
+declare(strict_types=1);
 
 namespace App\controller;
 
 class TestController
 {
-
-
     /**
      * Summary of index
      * this function is temporary, just to test
+     *
+     * @param int|null $id
      * 
-     * @param  int $id
      * @return void
      */
-    public function index(int $id) :void
+    public function index(?int $id) :void
     {
         echo "test";
         if ($id) {
