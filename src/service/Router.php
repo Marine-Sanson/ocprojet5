@@ -13,6 +13,44 @@ use App\service\TwigService;
 class Router
 {
     /**
+     * Summary of _twig
+     * 
+     * @var TwigService
+     */
+    private TwigService $_twig;
+    /**
+     * Summary of _instance
+     * 
+     * @var Router
+     */
+    private static $_instance;
+
+    /**
+     * Summary of __construct
+     */
+    private function __construct()
+    {
+        $this->_twig = TwigService::getInstance();
+    }
+
+
+    /**
+     * Summary of getInstance
+     * That methode create the unique instance of the class, if it doesn't
+     * exist and return it
+     * 
+     * @return \App\service\Router
+     */
+    public static function getInstance() :Router
+    { 
+        if (is_null(self::$_instance)) {
+            self::$_instance = new Router();  
+        }
+    
+        return self::$_instance;
+    }
+
+    /**
      * Summary of parseRoute
      * This methode parse the url $_GET["route"] and return an array $route
      * with route and param if needed
@@ -48,19 +86,17 @@ class Router
     public function route()
     {
         $route = $this->parseRoute();
-        $twigLoader = new TwigService;
-        $twig = $twigLoader->twigLoader();
 
         if ($route["route"] === "home") {
-            echo $twig->render('home.phtml');
+            echo $this->_twig->render('home.phtml');
         } else if ($route["route"] === "posts") {
             $id = $route["param"];
-            echo $twig->render('posts.phtml', ['id' => $id]);
+            echo $this->_twig->render('posts.phtml', ['id' => $id]);
         } else if ($route["route"] === "test") {
             $controller = new TestController();
             $controller->index($route["param"]);
         } else {
-            echo $twig->render('404.phtml');
+            echo $this->_twig->render('404.phtml');
         }
     }
 }
