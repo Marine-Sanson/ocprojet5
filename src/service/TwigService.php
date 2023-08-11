@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 namespace App\service;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class TwigService
 {
@@ -9,13 +11,13 @@ class TwigService
      * 
      * @var 
      */
-    private static $_loader;
+    private FilesystemLoader $_loader;
     /**
      * Summary of twig
      * 
      * @var 
      */
-    private static $_twig;
+    private Environment $_twig;
 
 
     /**

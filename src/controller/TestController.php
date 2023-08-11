@@ -9,7 +9,7 @@ class TestController
      * Summary of index
      * this function is temporary, just to test
      *
-     * @param mixed $id
+     * @param int|null $id
      * 
      * @return void
      */
