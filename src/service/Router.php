@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\controller\HomeController;
 use App\controller\TestController;
 use App\service\TwigService;
 
@@ -25,11 +26,17 @@ class Router
      */
     private static $_instance;
 
+    private HomeController $_homeController;
+
     /**
      * Summary of __construct
+     * 
+     * call an instance of HomeController
+     * call an instance of TwigService
      */
     private function __construct()
     {
+        $this->_homeController = HomeController::getInstance();
         $this->_twig = TwigService::getInstance();
     }
 
@@ -88,7 +95,7 @@ class Router
         $route = $this->parseRoute();
 
         if ($route["route"] === "home") {
-            echo $this->_twig->render('home.phtml');
+            $this->_homeController->index($route["param"]);
         } else if ($route["route"] === "posts") {
             $id = $route["param"];
             echo $this->_twig->render('posts.phtml', ['id' => $id]);
