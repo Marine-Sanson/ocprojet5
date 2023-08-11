@@ -48,7 +48,8 @@ class Router
     public function route()
     {
         $route = $this->parseRoute();
-        $twig = TwigService::twigLoader();
+        $twigLoader = new TwigService;
+        $twig = $twigLoader->twigLoader();
 
         if ($route["route"] === "home") {
             echo $twig->render('home.phtml');
