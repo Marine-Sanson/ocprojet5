@@ -18,7 +18,7 @@ class Router
      * 
      * @var TwigService
      */
-    private TwigService $_twig;
+    private TemplateInterface $templateEngine;
     /**
      * Summary of _instance
      * 
@@ -36,8 +36,8 @@ class Router
      */
     private function __construct()
     {
-        $this->_homeController = HomeController::getInstance();
-        $this->_twig = TwigService::getInstance();
+        $this->templateEngine = TwigService::getInstance();
+        $this->_homeController = HomeController::getInstance($this->templateEngine);
     }
 
 
@@ -98,12 +98,12 @@ class Router
             $this->_homeController->index($route["param"]);
         } else if ($route["route"] === "posts") {
             $id = $route["param"];
-            echo $this->_twig->render('posts.phtml', ['id' => $id]);
+            echo $this->templateEngine->render('posts.phtml', ['id' => $id]);
         } else if ($route["route"] === "test") {
             $controller = new TestController();
             $controller->index($route["param"]);
         } else {
-            echo $this->_twig->render('404.phtml');
+            echo $this->templateEngine->render('404.phtml');
         }
     }
 }
