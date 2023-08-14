@@ -9,12 +9,10 @@ use App\service\TwigService;
 class HomeController
 {
     /**
-     * Summary of _twig
+     * Summary of _templateEngine
      * 
-     * @var TwigService
+     * @var TemplateInterface
      */
-    private TwigService $_twig;
-    private TemplateInterface $_templateEngine;
     private TemplateInterface $_template;
 
     /**
@@ -26,13 +24,13 @@ class HomeController
 
     /**
      * Summary of __construct
-     * 
      * call an instance of TwigService
+     * 
+     * @param \App\service\TemplateInterface $template
      */
     private function __construct(TemplateInterface $template)
     {
-        $_templateEngine = TwigService::getInstance();
-        $this->_template = $_templateEngine;
+        $this->_template = $template;
     }
 
     /**
@@ -42,10 +40,10 @@ class HomeController
      * 
      * @return \App\controller\HomeController
      */
-    public static function getInstance(TemplateInterface $_templateEngine) :HomeController
+    public static function getInstance(TemplateInterface $templateEngine) :HomeController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new HomeController($_templateEngine);  
+            self::$_instance = new HomeController($templateEngine);  
         }
     
         return self::$_instance;
@@ -55,7 +53,7 @@ class HomeController
      * Summary of index
      * the content of this function is temporary, just to test
      *
-     * @param array|null $id
+     * @param int|null $id
      * 
      * @return void
      */
