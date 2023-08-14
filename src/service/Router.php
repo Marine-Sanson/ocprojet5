@@ -26,7 +26,7 @@ class Router
      */
     private static $_instance;
 
-    private HomeController $homeController;
+    private HomeController $_homeController;
 
     /**
      * Summary of __construct
@@ -37,6 +37,7 @@ class Router
     private function __construct()
     {
         $this->_templateEngine = TwigService::getInstance();
+        $this->_homeController = HomeController::getInstance($this->_templateEngine);
     }
 
 
@@ -94,7 +95,8 @@ class Router
         $route = $this->parseRoute();
 
         if ($route["route"] === "home") {
-            $homeController = $homeController::getInstance($this->_templateEngine);
+            $homeController = $this->_homeController::getInstance($this->_templateEngine);
+            $homeController->index($route["param"]);
         } else if ($route["route"] === "posts") {
             $id = $route["param"];
             echo $this->_templateEngine->render('posts.phtml', ['id' => $id]);
