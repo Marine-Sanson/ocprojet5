@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\service\TemplateInterface;
 use App\service\TwigService;
 
 class HomeController
 {
     /**
-     * Summary of _twig
+     * Summary of _templateEngine
      * 
-     * @var TwigService
+     * @var TemplateInterface
      */
-    private TwigService $_twig;
+    private TemplateInterface $_template;
 
     /**
      * Summary of _instance
@@ -23,12 +24,13 @@ class HomeController
 
     /**
      * Summary of __construct
-     * 
      * call an instance of TwigService
+     * 
+     * @param \App\service\TemplateInterface $template
      */
-    private function __construct()
+    private function __construct(TemplateInterface $template)
     {
-        $this->_twig = TwigService::getInstance();
+        $this->_template = $template;
     }
 
     /**
@@ -38,10 +40,10 @@ class HomeController
      * 
      * @return \App\controller\HomeController
      */
-    public static function getInstance() :HomeController
+    public static function getInstance(TemplateInterface $templateEngine) :HomeController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new HomeController();  
+            self::$_instance = new HomeController($templateEngine);  
         }
     
         return self::$_instance;
@@ -57,6 +59,6 @@ class HomeController
      */
     public function index(?int $id) :void
     {
-        echo $this->_twig->render('home.phtml');
+        echo $this->_template->render('home.phtml');
     }
 }
