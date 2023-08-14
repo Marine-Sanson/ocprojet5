@@ -13,10 +13,11 @@ use App\service\TwigService;
  */
 class Router
 {
+
     /**
-     * Summary of _twig
+     * Summary of _templateEngine
      * 
-     * @var TwigService
+     * @var TemplateInterface
      */
     private TemplateInterface $_templateEngine;
     /**
@@ -39,7 +40,7 @@ class Router
 
     /**
      * Summary of getInstance
-     * That methode create the unique instance of the class, if it doesn't
+     * That method create the unique instance of the class, if it doesn't
      * exist and return it
      * 
      * @return \App\service\Router
@@ -55,7 +56,7 @@ class Router
 
     /**
      * Summary of parseRoute
-     * This methode parse the url $_GET["route"] and return an array $route
+     * This method parse the url $_GET["route"] and return an array $route
      * with route and param if needed
      * 
      * @return array
@@ -82,7 +83,7 @@ class Router
 
     /**
      * Summary of route
-     * This methode call parseRoute and load the right controller
+     * This method call parseRoute and load the right controller
      * 
      * @return void
      */
@@ -95,12 +96,12 @@ class Router
             $homeController->index($route["param"]);
         } else if ($route["route"] === "posts") {
             $id = $route["param"];
-            echo $this->_templateEngine->render('posts.phtml', ['id' => $id]);
+            echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
         } else if ($route["route"] === "test") {
             $controller = new TestController();
             $controller->index($route["param"]);
         } else {
-            echo $this->_templateEngine->render('404.phtml');
+            echo $this->_templateEngine->render('404.html.twig');
         }
     }
 }

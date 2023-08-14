@@ -8,8 +8,9 @@ use App\service\TwigService;
 
 class HomeController
 {
+
     /**
-     * Summary of _templateEngine
+     * Summary of _template
      * 
      * @var TemplateInterface
      */
@@ -24,26 +25,29 @@ class HomeController
 
     /**
      * Summary of __construct
-     * call an instance of TwigService
+     * call an instance of TemplateInterface
      * 
-     * @param \App\service\TemplateInterface $template
+     * @param TemplateInterface $template
      */
     private function __construct(TemplateInterface $template)
     {
         $this->_template = $template;
     }
 
+
     /**
      * Summary of getInstance
-     * That methode create the unique instance of the class, if it doesn't
+     * That method create the unique instance of the class, if it doesn't
      * exist and return it
+     * 
+     * @param \App\service\TemplateInterface $template
      * 
      * @return \App\controller\HomeController
      */
-    public static function getInstance(TemplateInterface $templateEngine) :HomeController
+    public static function getInstance(TemplateInterface $template) :HomeController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new HomeController($templateEngine);  
+            self::$_instance = new HomeController($template);  
         }
     
         return self::$_instance;
@@ -59,6 +63,6 @@ class HomeController
      */
     public function index(?int $id) :void
     {
-        echo $this->_template->render('home.phtml');
+        echo $this->_template->render('home.html.twig');
     }
 }

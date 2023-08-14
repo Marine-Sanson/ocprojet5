@@ -33,7 +33,7 @@ class TwigService implements TemplateInterface
 
     /**
      * Summary of getInstance
-     * That methode create the unique instance of the class, if it doesn't
+     * That method create the unique instance of the class, if it doesn't
      * exist and return it
      * 
      * @return \App\service\TwigService
