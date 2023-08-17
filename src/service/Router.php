@@ -101,7 +101,7 @@ class Router
             $controller = new TestController();
             $controller->index($route["param"]);
         } else {
-            echo $this->_templateEngine->render('404.html.twig');
+            echo $this->_templateEngine->render('404.html.twig', []);
         }
     }
 }
