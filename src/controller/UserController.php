@@ -1,6 +1,6 @@
 <?php
 /**
- * HomeController File Doc Comment
+ * UserController File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -10,14 +10,14 @@
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-declare(strict_types=1);
+declare(strict_type=1);
 
 namespace App\controller;
 
 use App\service\TemplateInterface;
 
 /**
- * HomeController Class Doc Comment
+ * UserController Class Doc Comment
  * 
  * @category Controller
  * @package  App\controller
@@ -25,7 +25,7 @@ use App\service\TemplateInterface;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class HomeController
+class UserController
 {
 
     /**
@@ -38,16 +38,11 @@ class HomeController
     /**
      * Summary of _instance
      * 
-     * @var HomeController
+     * @var UserController
      */
     private static $_instance;
 
-    /**
-     * Summary of URL
-     * 
-     * @var string
-     */
-    const URL = "home";
+    const URL = "login";
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -59,35 +54,13 @@ class HomeController
         $this->_template = $template;
     }
 
-
-    /**
-     * Summary of getInstance
-     * That method create the unique instance of the class, if it doesn't
-     * exist and return it
-     * 
-     * @param \App\service\TemplateInterface $template template engine
-     * 
-     * @return \App\controller\HomeController
-     */
-    public static function getInstance(TemplateInterface $template) :HomeController
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new HomeController($template);  
-        }
-    
-        return self::$_instance;
-    }
-
     /**
      * Summary of index
-     * The content of this function is temporary, just to test
-     *
-     * @param int|null $id id of the post
      * 
      * @return void
      */
-    public function index(?int $id) :void
+    public function index() :void
     {
-        echo $this->_template->render('home.html.twig', []);
+        echo $this->_template->render('login.html.twig', []);
     }
 }
