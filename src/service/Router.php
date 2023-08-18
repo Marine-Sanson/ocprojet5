@@ -104,21 +104,26 @@ class Router
      * 
      * @return void
      */
-    public function route()
+    public function route() :void
     {
         $route = $this->parseRoute();
 
-        if ($route["route"] === "home") {
-            $homeController = HomeController::getInstance($this->_templateEngine);
-            $homeController->index($route["param"]);
-        } else if ($route["route"] === "posts") {
-            $id = $route["param"];
-            echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
-        } else if ($route["route"] === "test") {
-            $controller = new TestController();
-            $controller->index($route["param"]);
-        } else {
-            echo $this->_templateEngine->render('404.html.twig', []);
+        switch ($route["route"]) {
+            case HomeController::URL:
+                $homeController = HomeController::getInstance($this->_templateEngine);
+                $homeController->index($route["param"]);
+                break;
+            case "posts":
+                $id = $route["param"];
+                echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
+                break;
+            case "test":
+                $controller = new TestController();
+                $controller->index($route["param"]);
+                break;
+            default:
+                echo $this->_templateEngine->render('404.html.twig', []);
+                break;
         }
     }
 }
