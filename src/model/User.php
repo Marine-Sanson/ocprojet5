@@ -69,6 +69,18 @@ class UserController
      */
     private string $role;
     /**
+     * Summary of creationDate
+     * 
+     * @var DateTime
+     */
+    private DateTime $creationDate;
+    /**
+     * Summary of lastUpdateDate
+     * 
+     * @var DateTime $lastUpdateDate
+     */
+    private DateTime $lastUpdateDate;
+    /**
      * Summary of is_allowed
      * 
      * @var bool $is_allowed
@@ -169,7 +181,6 @@ class UserController
         return $this;
     }
 
-
     /**
      * Summary of password
      * Must be verified
@@ -214,7 +225,47 @@ class UserController
         return $this;
     }
 
-    /**
+	/**
+	 * Summary of creationDate
+	 * 
+	 * @return DateTime
+	 */
+	public function getCreationDate(): DateTime {
+		return $this->creationDate;
+	}
+	
+	/**
+	 * Summary of creationDate
+	 * 
+	 * @param DateTime $creationDate Summary of creationDate
+	 * @return self
+	 */
+	public function setCreationDate(DateTime $creationDate): self {
+		$this->creationDate = $creationDate;
+		return $this;
+	}
+
+	/**
+	 * Summary of lastUpdateDate
+	 * 
+	 * @return DateTime
+	 */
+	public function getLastUpdateDate(): DateTime {
+		return $this->lastUpdateDate;
+	}
+	
+	/**
+	 * Summary of lastUpdateDate
+	 * 
+	 * @param DateTime $lastUpdateDate Summary of lastUpdateDate
+	 * @return self
+	 */
+	public function setLastUpdateDate(DateTime $lastUpdateDate): self {
+		$this->lastUpdateDate = $lastUpdateDate;
+		return $this;
+	}
+
+     /**
      * Summary of is_allowed
      * 
      * @return bool
