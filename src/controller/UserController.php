@@ -10,7 +10,7 @@
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-declare(strict_type=1);
+declare(strict_types=1);
 
 namespace App\controller;
 
@@ -52,6 +52,24 @@ class UserController
     private function __construct(TemplateInterface $template)
     {
         $this->_template = $template;
+    }
+
+     /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't
+     * exist and return it
+     * 
+     * @param \App\service\TemplateInterface $template template engine
+     * 
+     * @return \App\controller\UserController
+     */
+    public static function getInstance(TemplateInterface $template) :UserController
+    { 
+        if (is_null(self::$_instance)) {
+            self::$_instance = new UserController($template);  
+        }
+    
+        return self::$_instance;
     }
 
     /**
