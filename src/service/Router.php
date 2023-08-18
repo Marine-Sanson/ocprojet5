@@ -16,6 +16,7 @@ namespace App\service;
 
 use App\controller\HomeController;
 use App\controller\TestController;
+use App\controller\UserController;
 use App\service\TwigService;
 
  /**
@@ -117,6 +118,9 @@ class Router
                 $id = $route["param"];
                 echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
                 break;
+            case UserController::URL:
+                $userController = UserController::getInstance($this->_templateEngine);
+                $userController->index();
             case "test":
                 $controller = new TestController();
                 $controller->index($route["param"]);
