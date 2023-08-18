@@ -45,6 +45,13 @@ class HomeController
     private static $_instance;
 
     /**
+     * Summary of URL
+     * 
+     * @var string
+     */
+    const URL = "home";
+
+    /**
      * Summary of __construct call an instance of TemplateInterface
      * 
      * @param TemplateInterface $template template engine
