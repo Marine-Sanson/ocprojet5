@@ -1,4 +1,16 @@
 <?php
+/**
+ * TwigService File Doc Comment
+ * Implements TemplateInterface
+ * 
+ * PHP Version 8.1.10
+ * 
+ * @category Service
+ * @package  App\service
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
+ */
 declare(strict_types=1);
 
 namespace App\service;
@@ -6,6 +18,16 @@ namespace App\service;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
+ /**
+  * TwigService Class Doc Comment
+  * This interface load Twig and create a Twig environment
+  * 
+  * @category Service
+  * @package  App\service
+  * @author   Marine Sanson <marine_sanson@yahoo.fr>
+  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
+  */
 class TwigService implements TemplateInterface
 {
 
@@ -50,10 +72,10 @@ class TwigService implements TemplateInterface
     /**
      * Summary of render
      * 
-     * @param string $templateName
-     * @param array  $parameters
+     * @param string $templateName Name of the template
+     * @param array  $parameters   Parameters
      * 
-     * @return string
+     * @return string template to display
      */
     public function render(string $templateName, array $parameters = []) :string
     {

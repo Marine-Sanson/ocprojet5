@@ -1,4 +1,15 @@
 <?php
+/**
+ * Router File Doc Comment
+ * 
+ * PHP Version 8.1.10
+ * 
+ * @category Service
+ * @package  App\service
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
+ */
 declare(strict_types=1);
 
 namespace App\service;
@@ -7,10 +18,16 @@ use App\controller\HomeController;
 use App\controller\TestController;
 use App\service\TwigService;
 
-/**
- * Summary of Router
- * This class parse the url and call the controller wanted
- */
+ /**
+  * Router Class Doc Comment
+  * This class parse the url and call the controller wanted
+  * 
+  * @category Service
+  * @package  App\service
+  * @author   Marine Sanson <marine_sanson@yahoo.fr>
+  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
+  */
 class Router
 {
 
@@ -30,7 +47,7 @@ class Router
     /**
      * Summary of __construct
      * 
-     * call an instance of TwigService
+     * Call an instance of TwigService
      */
     private function __construct()
     {
@@ -59,7 +76,7 @@ class Router
      * This method parse the url $_GET["route"] and return an array $route
      * with route and param if needed
      * 
-     * @return array
+     * @return array with route and param
      */
     public function parseRoute() :array
     {
