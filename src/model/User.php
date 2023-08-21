@@ -26,100 +26,111 @@ class UserController
     /**
      * Summary of id
      * 
-     * @var int|null $id autoincrement in the DB
+     * @var int|null $_id autoincrement in the DB
      */
-    private ?int $id;
+    private ?int $_id;
     /**
      * Summary of name
      * 
-     * @var string $name name of the user
+     * @var string $_name name of the user
      */
-    private string $name;
+    private string $_name;
     /**
      * Summary of firstName
      * 
-     * @var string $firstName first name of the user
+     * @var string $_firstName first name of the user
      */
-    private string $firstName;
+    private string $_firstName;
 
     /**
      * Summary of userName
      * Must be unique, used to login
      * 
-     * @var string $userName name used in the app
+     * @var string $_userName name used in the app
      */
-    private string $userName;
+    private string $_userName;
     /**
      * Summary of email
-     * @var string $email email of the user
+     *
+     * @var string $_email email of the user
      */
-    private string $email;
+    private string $_email;
     /**
      * Summary of password
      * Must be verified
      * 
-     * @var string $password saved encrypt in the DB
+     * @var string $_password saved encrypt in the DB
      */
-    private string $password;
+    private string $_password;
     /**
      * Summary of role
      * May be user or supAdmin
      * 
-     * @var string $role
+     * @var string $_role
      */
-    private string $role;
+    private string $_role;
     /**
      * Summary of creationDate
      * 
      * @var DateTime
      */
-    private DateTime $creationDate;
+    private DateTime $_creationDate;
     /**
      * Summary of lastUpdateDate
      * 
-     * @var DateTime $lastUpdateDate
+     * @var DateTime $_lastUpdateDate
      */
-    private DateTime $lastUpdateDate;
+    private DateTime $_lastUpdateDate;
     /**
      * Summary of is_allowed
      * 
-     * @var bool $is_allowed
+     * @var bool $_is_allowed
      */
-    private bool $is_allowed;
+    private bool $_is_allowed;
 
     /**
-     * Summary of id
+     * Summary of getId
      * 
      * @return int|null
      */
-    public function getId(): ?int {
-        return $this->id;
+    public function getId(): ?int
+    {
+        return $this->_id;
     }
     
     /**
-     * Summary of id
+     * Summary of setId
      * 
-     * @param  $id Summary of id
+     * @param $id id
+     * 
      * @return self
      */
-    public function setId(?int $id): self {
-        $this->id = $id;
+    public function setId(?int $id): self
+    {
+        $this->_id = $id;
         return $this;
     }
 
     /**
+     * Summary of getName
+     * 
      * @return string
      */
-    public function getName(): string {
-        return $this->name;
+    public function getName(): string
+    {
+        return $this->_name;
     }
     
     /**
-     * @param string $name 
+     * Summary of setName
+     * 
+     * @param string $name name
+     * 
      * @return self
      */
-    public function setName(string $name): self {
-        $this->name = $name;
+    public function setName(string $name): self
+    {
+        $this->_name = $name;
         return $this;
     }
 
@@ -128,160 +139,182 @@ class UserController
      * 
      * @return string
      */
-    public function getFirstName(): string {
-        return $this->firstName;
+    public function getFirstName(): string
+    {
+        return $this->_firstName;
     }
     
     /**
-     * Summary of firstName
+     * Summary of setFirstName
      * 
-     * @param string $firstName Summary of firstName
+     * @param string $firstName firstName
+     * 
      * @return self
      */
-    public function setFirstName(string $firstName): self {
-        $this->firstName = $firstName;
+    public function setFirstName(string $firstName): self
+    {
+        $this->_firstName = $firstName;
         return $this;
     }
 
     /**
-     * Summary of userName
+     * Summary of getUserName
      * 
      * @return string
      */
-    public function getUserName(): string {
-        return $this->userName;
+    public function getUserName(): string
+    {
+        return $this->_userName;
     }
     
     /**
-     * Summary of userName
+     * Summary of setUserName
      * 
-     * @param string $userName Summary of userName
+     * @param string $userName userName
+     * 
      * @return self
      */
-    public function setUserName(string $userName): self {
-        $this->userName = $userName;
+    public function setUserName(string $userName): self
+    {
+        $this->_userName = $userName;
         return $this;
     }
 
     /**
-     * Summary of email
+     * Summary of getEmail
+     *
      * @return string
      */
-    public function getEmail(): string {
-        return $this->email;
+    public function getEmail(): string
+    {
+        return $this->_email;
     }
     
     /**
-     * Summary of email
-     * @param string $email Summary of email
+     * Summary of setEmail
+     *
+     * @param string $email email
+     * 
      * @return self
      */
-    public function setEmail(string $email): self {
-        $this->email = $email;
+    public function setEmail(string $email): self
+    {
+        $this->_email = $email;
         return $this;
     }
 
     /**
-     * Summary of password
-     * Must be verified
-     * 
-     * @return string
-     */
-    public function getPassword(): string {
-        return $this->password;
-    }
-    
-    /**
-     * Summary of password
-     * Must be verified
-     * 
-     * @param string $password Summary of password
-     * @return self
-     */
-    public function setPassword(string $password): self {
-        $this->password = $password;
-        return $this;
-    }
-
-    /**
-     * Summary of role
-     * May be user or supAdmin
+     * Summary of getPassword
      * 
      * @return string
      */
-    public function getRole(): string {
-        return $this->role;
+    public function getPassword(): string
+    {
+        return $this->_password;
     }
     
     /**
-     * Summary of role
-     * May be user or supAdmin
+     * Summary of setPassword
      * 
-     * @param string $role Summary of role
+     * @param string $password password
+     * 
      * @return self
      */
-    public function setRole(string $role): self {
-        $this->role = $role;
+    public function setPassword(string $password): self
+    {
+        $this->_password = $password;
         return $this;
     }
 
-	/**
-	 * Summary of creationDate
-	 * 
-	 * @return DateTime
-	 */
-	public function getCreationDate(): DateTime {
-		return $this->creationDate;
-	}
-	
-	/**
-	 * Summary of creationDate
-	 * 
-	 * @param DateTime $creationDate Summary of creationDate
-	 * @return self
-	 */
-	public function setCreationDate(DateTime $creationDate): self {
-		$this->creationDate = $creationDate;
-		return $this;
-	}
+    /**
+     * Summary of getRole
+     * 
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->_role;
+    }
+    
+    /**
+     * Summary of setRole
+     * 
+     * @param string $role role
+     * 
+     * @return self
+     */
+    public function setRole(string $role): self
+    {
+        $this->_role = $role;
+        return $this;
+    }
 
-	/**
-	 * Summary of lastUpdateDate
-	 * 
-	 * @return DateTime
-	 */
-	public function getLastUpdateDate(): DateTime {
-		return $this->lastUpdateDate;
-	}
-	
-	/**
-	 * Summary of lastUpdateDate
-	 * 
-	 * @param DateTime $lastUpdateDate Summary of lastUpdateDate
-	 * @return self
-	 */
-	public function setLastUpdateDate(DateTime $lastUpdateDate): self {
-		$this->lastUpdateDate = $lastUpdateDate;
-		return $this;
-	}
+    /**
+     * Summary of getCreationDate
+     * 
+     * @return DateTime
+     */
+    public function getCreationDate(): DateTime
+    {
+        return $this->_creationDate;
+    }
+    
+    /**
+     * Summary of setCreationDate
+     * 
+     * @param DateTime $creationDate creationDate
+     * 
+     * @return self
+     */
+    public function setCreationDate(DateTime $creationDate): self
+    {
+        $this->_creationDate = $creationDate;
+        return $this;
+    }
+
+    /**
+     * Summary of getLastUpdateDate
+     * 
+     * @return DateTime
+     */
+    public function getLastUpdateDate(): DateTime
+    {
+        return $this->_lastUpdateDate;
+    }
+    
+    /**
+     * Summary of setLastUpdateDate
+     * 
+     * @param DateTime $lastUpdateDate lastUpdateDate
+     * 
+     * @return self
+     */
+    public function setLastUpdateDate(DateTime $lastUpdateDate): self
+    {
+        $this->_lastUpdateDate = $lastUpdateDate;
+        return $this;
+    }
 
      /**
-     * Summary of is_allowed
-     * 
-     * @return bool
-     */
-    public function getIs_allowed(): bool {
-        return $this->is_allowed;
+      * Summary of getIsAllowed
+      * 
+      * @return bool
+      */
+    public function getIsAllowed(): bool
+    {
+        return $this->_is_allowed;
     }
     
     /**
-     * Summary of is_allowed
+     * Summary of setIsAllowed
      * 
-     * @param bool $is_allowed Summary of is_allowed
+     * @param bool $is_allowed is_allowed
+     * 
      * @return self
      */
-    public function setIs_allowed(bool $is_allowed): self {
-        $this->is_allowed = $is_allowed;
+    public function setIsAllowed(bool $is_allowed): self
+    {
+        $this->_is_allowed = $is_allowed;
         return $this;
     }
 }

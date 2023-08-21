@@ -110,24 +110,25 @@ class Router
         $route = $this->parseRoute();
 
         switch ($route["route"]) {
-            case HomeController::URL:
-                $homeController = HomeController::getInstance($this->_templateEngine);
-                $homeController->index($route["param"]);
-                break;
-            case "posts":
-                $id = $route["param"];
-                echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
-                break;
-            case UserController::URL:
-                $userController = UserController::getInstance($this->_templateEngine);
-                $userController->index();
-            case "test":
-                $controller = new TestController();
-                $controller->index($route["param"]);
-                break;
-            default:
-                echo $this->_templateEngine->render('404.html.twig', []);
-                break;
+        case HomeController::URL:
+            $homeController = HomeController::getInstance($this->_templateEngine);
+            $homeController->index($route["param"]);
+            break;
+        case "posts":
+            $id = $route["param"];
+            echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
+            break;
+        case UserController::URL:
+            $userController = UserController::getInstance($this->_templateEngine);
+            $userController->index();
+            break;
+        case "test":
+            $controller = new TestController();
+            $controller->index($route["param"]);
+            break;
+        default:
+            echo $this->_templateEngine->render('404.html.twig', []);
+            break;
         }
     }
 }

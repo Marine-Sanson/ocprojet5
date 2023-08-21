@@ -1,12 +1,19 @@
 <!-- Masthead-->
 <header class="masthead">
+
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-        <div class="d-flex justify-content-center">
+
+        <div class="d-flex justify-content-center row">
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Bienvenue sur le Blog de M<span class="text-lowercase">arine </span>S</h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">Ici vous pouvez voir mon travail, mes articles, et me laisser des commentaires</h2>
                 <a class="btn btn-body" href="#about">C'est parti !</a>
             </div>
+                <div class="text-center mt-5">
+                    <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message }}</p>
+                    <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ error }}</p>
+                </div>
         </div>
+
     </div>
 </header>

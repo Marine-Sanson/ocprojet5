@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\repository;
+
 use PDO;
 
 /**
@@ -24,7 +25,6 @@ use PDO;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-declare(strict_types=1);
 abstract class AbstractManager
 {
     /**
@@ -44,7 +44,7 @@ abstract class AbstractManager
             'mysql:host=localhost;dbname=ocprojet5;charset=utf8',
             'root',
             ''
-            );
+        );
     }
 
     /**
