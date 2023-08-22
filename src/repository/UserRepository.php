@@ -30,17 +30,17 @@ class UserRepository extends AbstractManager
 {
 
     /**
-     * Summary of getLoginData
+     * Summary of getUser
      * 
      * @param string $username username
      * 
-     * @return array
+     * @return array with all the data of a User
      */
-    public function getPassword(string $username) :array
+    public function getUser(string $username) :array
     {
         $query = $this->db->prepare(
-            'SELECT password FROM users 
-            WHERE user_name = :username'
+            'SELECT * FROM users 
+            WHERE username = :username'
         );
         $parameters = [
             'username' => $username

@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\model\User;
 use App\repository\UserRepository;
 use App\service\TemplateInterface;
+use DateTime;
 
 /**
  * UserController Class Doc Comment
@@ -93,10 +95,11 @@ class UserController
     /**
      * Summary of checkConnection
      * 
-     * @return array
+     * @return array $data $template
      */
     public function checkConnection()
     {
+        $_SESSION["connected"] = false;
         $data = [];
 
         $username = $_POST["username"];
@@ -111,28 +114,63 @@ class UserController
         } else {
             $userRepository = new UserRepository;
 
-            $result = $userRepository->getPassword($username);
-     
+            $result = $userRepository->getUser($username);
+
             if ($result !== []) {
-                $dbPassword = password_verify($password, $result[0]["password"]);
+                $creationDate = $result[0]["creation_date"];
+                $creationDate = DateTime::createFromFormat(
+                    "Y-m-d H:i:s", 
+                    date("Y-m-d H:i:s")
+                );
     
+                $updateDate = $result[0]["last_update_date"];
+                $updateDate = DateTime::createFromFormat(
+                    "Y-m-d H:i:s", 
+                    date("Y-m-d H:i:s")
+                );
+    
+                $allowed = boolval($result[0]["is_allowed"]);
+    
+                $user = new User(
+                    $result[0]["id"], 
+                    $result[0]["name"], 
+                    $result[0]["first_name"], 
+                    $result[0]["username"], 
+                    $result[0]["email"], 
+                    $result[0]["password"], 
+                    $result[0]["role"], 
+                    $creationDate, 
+                    $updateDate,
+                    $allowed
+                );
+
+                $dbPassword = password_verify($password, $user->password);
+
                 if ($dbPassword) {
+                    $_SESSION["connected"] = true;
+                    $_SESSION["user"]= [
+                        "first_name" => $user->firstName,
+                        "role" => $user->role,
+                        "is_allowed" => $user->is_allowed
+                    ];
+
                     $template = "home.html.twig";
                     $data = [
-                        "username" => $username,
-                        "message" => "Bonjour " . $username . ", vous êtes connecté."
+                        "message" => 
+                        "Bonjour " . $user->firstName . " vous êtes connecté."
                     ];
+
                 } else {
                     $template = "login.html.twig";
                     $data = [
-                        "error" => "Problème d'identification - password."
+                        "error" => "Problème d'identification."
                     ];
                 }
     
             } else {
                 $template = "login.html.twig";
                 $data = [
-                    "error" => "Problème d'identification - username."
+                    "error" => "Problème d'identification."
                 ];
             }
         }
@@ -141,7 +179,8 @@ class UserController
             "data" => $data,
             "template" => $template
         ];
-
+        
+        var_dump($_SESSION);
         return $result;
     }
 
