@@ -68,6 +68,14 @@ class DatabaseService
         return self::$_instance;
     }
 
+    /**
+     * Summary of execute
+     * 
+     * @param string $request the sql request
+     * @param mixed $parameters if needed
+     * 
+     * @return array
+     */
     public function execute(string $request, ?array $parameters) :array
     {
         $query = $this->_db->prepare(

@@ -37,11 +37,6 @@ class UserRepository
      */
     private DatabaseService $_db;
 
-    function __construct()
-    {
-        $this->_db = DatabaseService::getInstance();
-    }
-
     /**
      * Summary of getUser
      * 
@@ -51,12 +46,12 @@ class UserRepository
      */
     public function getUser(string $username) 
     {
-        $db = DatabaseService::getInstance();
+        $this->_db = DatabaseService::getInstance();
         $request = 'SELECT * FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
         ];
-        $result = $db->execute($request, $parameters);
+        $result = $this->_db->execute($request, $parameters);
 
         return $result;
     }
