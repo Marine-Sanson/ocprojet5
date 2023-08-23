@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace App\repository;
 
-use App\repository\AbstractManager;
+use App\service\DatabaseService;
 use PDO;
+
+
 
 /**
  * UserRepository Class Doc Comment
@@ -26,8 +28,20 @@ use PDO;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class UserRepository extends AbstractManager
+class UserRepository
 {
+    /**
+     * Summary of _db
+     * 
+     * @var DatabaseService $_db connection between PHP and a database server
+     */
+    private DatabaseService $_db;
+
+    function __construct()
+    {
+        $this->_db = DatabaseService::getInstance();
+    }
+
     /**
      * Summary of getUser
      * 
@@ -37,16 +51,12 @@ class UserRepository extends AbstractManager
      */
     public function getUser(string $username) 
     {
-        $query = $this->db->prepare(
-            'SELECT * FROM users 
-            WHERE username = :username'
-        );
+        $db = DatabaseService::getInstance();
+        $request = 'SELECT * FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
         ];
-        $query->execute($parameters);
-
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $result = $db->execute($request, $parameters);
 
         return $result;
     }
