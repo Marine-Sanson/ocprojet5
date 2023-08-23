@@ -89,6 +89,18 @@ class UserController
             $template = $result["template"];
             $data = $result["data"];
             echo $this->_template->render($template, $data);
+        } else if ($_POST["action"] === "disconnect") {
+            $template = 'home.html.twig';
+            if ($_SESSION["connected"] === true) {
+                session_destroy();
+                $_SESSION["connected"] = false;
+                $data = [
+                    "message" => "Vous êtes déconnecté"
+                ];
+            } else {
+                $data = [];
+            }
+            echo $this->_template->render($template, $data);
         }
     }
 
