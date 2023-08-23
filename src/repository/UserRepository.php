@@ -28,7 +28,6 @@ use PDO;
  */
 class UserRepository extends AbstractManager
 {
-
     /**
      * Summary of getUser
      * 
@@ -36,7 +35,7 @@ class UserRepository extends AbstractManager
      * 
      * @return array with all the data of a User
      */
-    public function getUser(string $username) :array
+    public function getUser(string $username) 
     {
         $query = $this->db->prepare(
             'SELECT * FROM users 
@@ -46,6 +45,7 @@ class UserRepository extends AbstractManager
             'username' => $username
         ];
         $query->execute($parameters);
+
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;

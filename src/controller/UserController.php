@@ -84,7 +84,7 @@ class UserController
     {
         if ($_POST === []) {
             echo $this->_template->render('login.html.twig', []);
-        } else if ($_POST["action"] === "connection") {
+        } else if ($_POST["action"] === "connection") { // déplacer dans le router - connection en const de UserController
             $result = $this->checkConnection();
             $template = $result["template"];
             $data = $result["data"];
@@ -179,7 +179,7 @@ class UserController
             "data" => $data,
             "template" => $template
         ];
-        
+
         var_dump($_SESSION);
         return $result;
     }
@@ -196,4 +196,6 @@ class UserController
     {
         return password_hash($password, PASSWORD_DEFAULT, ["cost" => "14"]);
     }
+
+
 }

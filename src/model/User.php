@@ -109,7 +109,7 @@ class User
     public function __construct(
         ?int $id, string $name, string $firstName, string $username, 
         string $email, string $password, string $role, 
-        DateTime $creationDate, DateTime $lastUpdateDate, bool $is_allowed
+        DateTime $creationDate, DateTime $lastUpdateDate, bool $isAllowed
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -120,6 +120,6 @@ class User
         $this->role = $role;
         $this->creationDate = $creationDate;
         $this->lastUpdateDate = $lastUpdateDate;
-        $this->is_allowed = $is_allowed;
+        $this->is_allowed = $isAllowed;
     }
 }

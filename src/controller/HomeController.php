@@ -27,7 +27,6 @@ use App\service\TemplateInterface;
  */
 class HomeController
 {
-
     /**
      * Summary of _template
      * 
