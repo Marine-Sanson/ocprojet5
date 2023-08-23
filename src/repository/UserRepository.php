@@ -13,20 +13,41 @@
 declare(strict_types=1);
 
 namespace App\repository;
-use AbstractManager;
+
+use App\repository\AbstractManager;
 use PDO;
 
+/**
+ * UserRepository Class Doc Comment
+ * 
+ * @category Repository
+ * @package  App\repository
+ * @author   Marine Sanson <marine_sanson@yahoo.fr>
+ * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
+ */
 class UserRepository extends AbstractManager
 {
-    public function getLoginData(int $id)
+    /**
+     * Summary of getUser
+     * 
+     * @param string $username username
+     * 
+     * @return array with all the data of a User
+     */
+    public function getUser(string $username) 
     {
-        $query = $this->db->prepare('SELECT user_name, password FROM users WHERE id = : id');
+        $query = $this->db->prepare(
+            'SELECT * FROM users 
+            WHERE username = :username'
+        );
         $parameters = [
-            'id' => $id
+            'username' => $username
         ];
         $query->execute($parameters);
-        $loginData = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        return $loginData;
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 }

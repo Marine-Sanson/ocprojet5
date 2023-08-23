@@ -1,11 +1,26 @@
 <!-- Footer-->
-<footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Marine S 2023</div></footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="./public/js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<footer class="footer bg-black small text-center text-white-50">
+    <div class="container px-4 px-lg-5">
+        <p>Copyright &copy; Marine S 2023</p>
+            
+        <form id="disconnect" action="./login" method="post">
+            <input type="hidden" id="connectionAction" name="action" value="disconnect">
+
+            <div class="col-auto my-2 d-flex justify-content-end">
+                <button id="submitButton" class="btn btn-body" type="submit">
+                    <i class="fa-solid fa-power-off text-white"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="./public/js/scripts.js"></script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!--<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>-->

@@ -46,11 +46,15 @@ class TwigService implements TemplateInterface
     private function __construct() 
     {
         $loader = new FilesystemLoader('src/view');
-        $this->_twig = new Environment(
+        $twig = new Environment(
             $loader, [
                 'cache' => false, // __DIR__ . '/tmp'
+                'debug' => true
             ]
         );
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
+        $twig->addGlobal("session", $_SESSION);
+        $this->_twig = $twig;
     }
 
     /**
