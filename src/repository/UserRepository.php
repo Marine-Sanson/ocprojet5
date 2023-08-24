@@ -15,9 +15,6 @@ declare(strict_types=1);
 namespace App\repository;
 
 use App\service\DatabaseService;
-use PDO;
-
-
 
 /**
  * UserRepository Class Doc Comment

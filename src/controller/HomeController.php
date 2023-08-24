@@ -85,7 +85,7 @@ class HomeController
      * 
      * @return void
      */
-    public function index(?int $id) :void
+    public function index(?int $id) :void // temp function, will be removed
     {
         echo $this->_template->render('home.html.twig', []);
     }

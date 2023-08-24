@@ -19,7 +19,7 @@ use PDO;
 /**
  * DatabaseService Class Doc Comment
  * 
- * @category service
+ * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
@@ -36,10 +36,10 @@ class DatabaseService
     private PDO $_db;
 
      /**
-     * Summary of _instance
-     * 
-     * @var DatabaseService
-     */
+      * Summary of _instance
+      * 
+      * @var DatabaseService
+      */
     private static $_instance;
 
     /**
@@ -71,8 +71,8 @@ class DatabaseService
     /**
      * Summary of execute
      * 
-     * @param string $request the sql request
-     * @param mixed $parameters if needed
+     * @param string $request    the sql request
+     * @param mixed  $parameters if needed
      * 
      * @return array
      */

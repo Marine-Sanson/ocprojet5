@@ -11,6 +11,19 @@
                 <li class="nav-item"><a class="nav-link" href="./posts">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+                <li class="nav-item">
+                    {% if session.button == "disconnect" %}
+                    <form id="disconnect" action="./login" method="post">
+                        <input type="hidden" id="connectionAction" name="action" value="disconnect">
+
+                        <div class="col-auto my-2 d-flex justify-content-end">
+                            <button id="submitButton" class="btn btn-body" type="submit">
+                                <i class="fa-solid fa-power-off text-white"></i>
+                            </button>
+                        </div>
+                    </form>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </div>

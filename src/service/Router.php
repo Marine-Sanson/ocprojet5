@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\controller\HomeController;
-use App\controller\TestController;
 use App\controller\UserController;
 use App\service\TwigService;
 
@@ -31,7 +30,6 @@ use App\service\TwigService;
   */
 class Router
 {
-
     /**
      * Summary of _templateEngine
      * 
@@ -112,7 +110,7 @@ class Router
         switch ($route["route"]) {
         case HomeController::URL:
             $homeController = HomeController::getInstance($this->_templateEngine);
-            $homeController->index($route["param"]);
+            $homeController->index($route["param"]);                               // temp function
             break;
         case "posts":
             $id = $route["param"];
@@ -120,11 +118,21 @@ class Router
             break;
         case UserController::URL:
             $userController = UserController::getInstance($this->_templateEngine);
-            $userController->index();
-            break;
-        case "test":
-            $controller = new TestController();
-            $controller->index($route["param"]);
+            $data = [];
+            if ($_POST === []) {
+                $template = 'login.html.twig';
+            } else if ($_POST["action"] === "connection") {
+                $result = $userController->checkConnection();
+                $template = $result["template"];
+                $data = $result["data"];
+            } else if ($_POST["action"] === "disconnect") {
+                $template = 'home.html.twig';
+                if ($_SESSION["connected"] === true) {
+                    $result = $userController->disconnect();
+                    $data = $result["data"];
+                }
+            }
+            echo $userController->template->render($template, $data);
             break;
         default:
             echo $this->_templateEngine->render('404.html.twig', []);
