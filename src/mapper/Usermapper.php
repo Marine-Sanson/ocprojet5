@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace App\mapper;
 
 use App\entity\UserEntity;
-use App\model\ConnectionModel;
+use App\model\UserConnectionModel;
 
 /**
  * UserMapper Class Doc Comment
@@ -33,18 +33,16 @@ class UserMapper
      * 
      * @param \App\entity\UserEntity $user Entity UserEntity
      * 
-     * @return \App\model\ConnectionModel ConnectionModel
+     * @return \App\model\UserConnectionModel UserConnectionModel
      */
-    public function changeUserToConnection(UserEntity $user) :ConnectionModel
+    public function transformToUserConnectionModel(UserEntity $user) :UserConnectionModel
     {
-        $connectionModel = new ConnectionModel(
+        return new UserConnectionModel(
             $user->firstName, 
             $user->username, 
             $user->password, 
             $user->role, 
             $user->isAllowed
         );
-
-        return $connectionModel;
     }
 }

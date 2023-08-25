@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace App\service;
 use App\entity\UserEntity;
-use App\model\ConnectionModel;
+use App\model\UserConnectionModel;
 use App\mapper\UserMapper;
 use App\repository\UserRepository;
 use DateTime;
@@ -57,7 +57,7 @@ class UserService
             $userEntity = $this->getUserEntity($username, $password);
             if ($userEntity) {
                 $userMapper = new UserMapper;
-                $connectionModel = $userMapper->changeUserToConnection($userEntity);
+                $connectionModel = $userMapper->transformToUserConnectionModel($userEntity);
 
                 $result = $this->connect($password, $connectionModel);
                 $template = $result["template"];
@@ -81,30 +81,30 @@ class UserService
      * Summary of connect
      * verify password connect the user and put the data needed in $_SESSION
      * 
-     * @param string                     $password        come from form
-     * @param \App\model\ConnectionModel $connectionModel come from database
+     * @param string                         $password        come from form
+     * @param \App\model\UserConnectionModel $userConnectionModel come from database
      * 
      * @return array
      */
     public function connect(
         string $password, 
-        ConnectionModel $connectionModel
+        UserConnectionModel $userConnectionModel
     ) :array {
-        $dbPassword = password_verify($password, $connectionModel->password);
+        $dbPassword = password_verify($password, $userConnectionModel->password);
 
         if ($dbPassword) {
             $_SESSION["connected"] = true;
             $_SESSION["button"] = "disconnect";
             $_SESSION["user"]= [
-                "first_name" => $connectionModel->firstName,
-                "role" => $connectionModel->role,
-                "is_allowed" => $connectionModel->isAllowed
+                "first_name" => $userConnectionModel->firstName,
+                "role" => $userConnectionModel->role,
+                "is_allowed" => $userConnectionModel->isAllowed
             ];
 
             $template = "home.html.twig";
             $data = [
                 "message" => 
-                "Bonjour " . $connectionModel->firstName . " vous êtes connecté.",
+                "Bonjour " . $userConnectionModel->firstName . " vous êtes connecté.",
             ];
 
         } else {
@@ -180,11 +180,7 @@ class UserService
      */
     public function checkData(string $username, string $password)
     {
-        if ($username === "" || $password === "") {
-            return false;
-        } else {
+        if ($username === "" || $password === "") return false;
             return true;
-        }
     }
-
 }

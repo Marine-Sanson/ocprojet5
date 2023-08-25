@@ -1,6 +1,6 @@
 <?php
 /**
- * ConnectionModel File Doc Comment
+ * UserConnectionModel File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace App\model;
 
 /**
- * ConnectionModel Class Doc Comment
+ * UserConnectionModel Class Doc Comment
  * 
  * @category Model
  * @package  App\model
@@ -23,7 +23,7 @@ namespace App\model;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class ConnectionModel
+class UserConnectionModel
 {
     /**
      * Summary of __construct ConnectionModel
@@ -35,13 +35,12 @@ class ConnectionModel
      * @param bool   $isAllowed to know if this user is allowed
      */
     public function __construct(
-        public string $firstName, public string $username, 
-        public string $password, public string $role, public bool $isAllowed
+        public string $firstName, 
+        public string $username, 
+        public string $password, 
+        public string $role, 
+        public bool $isAllowed
     ) {
-        $this->firstName = $firstName;
-        $this->username = $username;
-        $this->password = $password;
-        $this->role = $role;
-        $this->isAllowed = $isAllowed;
+
     }
 }

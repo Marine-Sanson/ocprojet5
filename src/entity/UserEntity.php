@@ -42,20 +42,17 @@ class UserEntity
      * @param bool     $isAllowed      to know if this user is allowed
      */
     public function __construct(
-        public ?int $id, public string $name, public string $firstName, 
-        public string $username, public string $email, public string $password,
-        public string $role, public DateTime $creationDate, 
-        public DateTime $lastUpdateDate, public bool $isAllowed
+        public ?int $id, 
+        public string $name, 
+        public string $firstName, 
+        public string $username, 
+        public string $email, 
+        public string $password,
+        public string $role,
+        public DateTime $creationDate, 
+        public DateTime $lastUpdateDate, 
+        public bool $isAllowed
     ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->firstName = $firstName;
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
-        $this->role = $role;
-        $this->creationDate = $creationDate;
-        $this->lastUpdateDate = $lastUpdateDate;
-        $this->isAllowed = $isAllowed;
+
     }
 }
