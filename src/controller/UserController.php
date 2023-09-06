@@ -14,11 +14,9 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\entity\UserEntity;
-use App\repository\UserRepository;
+use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
-use DateTime;
 
 /**
  * UserController Class Doc Comment
@@ -59,8 +57,7 @@ class UserController
 
      /**
       * Summary of getInstance
-      * That method create the unique instance of the class, if it doesn't
-      * exist and return it
+      * That method create the unique instance of the class, if it doesn't exist and return it
       * 
       * @param \App\service\TemplateInterface $template template engine
       * 
@@ -85,7 +82,7 @@ class UserController
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        $userService = new UserService;
+        $userService = UserService::getInstance();
         $result = $userService->checkConnection($username, $password);
 
         return $result;
@@ -98,8 +95,11 @@ class UserController
      */
     public function disconnect() : array
     {
-        session_destroy();
-        $_SESSION["connected"] = false;
+        $session = SessionService::getInstance();
+        $session->clear();
+        $session->destroy();
+        $session->set("connected", false);
+        $session->set("button", "connect");
         $data = [
             "message" => "Vous êtes déconnecté"
         ];
@@ -111,8 +111,7 @@ class UserController
     }
 
     /**
-     * Summary of hashPassword - will hash the user password before insert it 
-     * to the db
+     * Summary of hashPassword - will hash the user password before insert it to the db
      * 
      * @param string $password password entered by the user
      * 
