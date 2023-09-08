@@ -64,7 +64,7 @@ class UserService
     /**
      * Summary of checkConnection
      * call the functions to verify if form datas aren't empty, get the ConnectionModel, then verify password, connect
-     * the user, put the data needed in the $_SESSION and finaly return the right template and datas for the render
+     * the user, put the data needed in the session and finaly return the right template and datas for the render
      * function
      * 
      * @param string $username come from the connection form
@@ -107,7 +107,7 @@ class UserService
 
     /**
      * Summary of connect
-     * verify password connect the user and put the data needed in $_SESSION
+     * verify password connect the user and put the data needed in the session
      * 
      * @param string                         $password            come from form
      * @param \App\model\UserConnectionModel $userConnectionModel come from database
