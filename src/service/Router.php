@@ -110,7 +110,7 @@ class Router
         switch ($route["route"]) {
         case HomeController::URL:
             $homeController = HomeController::getInstance($this->_templateEngine);
-            $homeController->index($route["param"]);                                                        // temp function
+            $homeController->index($route["param"]);                       // temp function
             break;
         case "posts":
             $id = $route["param"];
@@ -128,7 +128,7 @@ class Router
             } else if ($_POST["action"] === "disconnect") {
                 $template = 'home.html.twig';
                 $session = SessionService::getInstance();
-                if ($session->get("connected") === true) {
+                if ($session->isUserConnected()) {
                     $result = $userController->disconnect();
                     $data = $result["data"];
                 }

@@ -91,7 +91,6 @@ class UserService
                 $result = $this->connect($password, $connectionModel);
                 $template = $result["template"];
                 $data = $result["data"];
-
             } else {
                 $template = "login.html.twig";
                 $data = [
@@ -115,26 +114,13 @@ class UserService
      * 
      * @return array
      */
-    public function connect(
-        string $password, 
-        UserConnectionModel $userConnectionModel
-    ) :array {
+    public function connect(string $password, UserConnectionModel $userConnectionModel) :array
+    {
         $dbPassword = password_verify($password, $userConnectionModel->password);
 
         if ($dbPassword) {
             $session = SessionService::getInstance();
-            $session->remove("connected");
-            $session->remove("button");            
-            $session->set("connected", true);
-            $session->set("button", "disconnect");
-
-            $userData = [
-                "first_name" => $userConnectionModel->firstName,
-                "role" => $userConnectionModel->role,
-                "is_allowed" => $userConnectionModel->isAllowed
-            ];
-
-            $session->set("user", $userData);
+            $session->setUser($userConnectionModel);
 
             $template = "home.html.twig";
             $data = [

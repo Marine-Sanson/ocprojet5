@@ -5,14 +5,8 @@
     use App\service\Router;
     use App\service\SessionService;
 
-    $session = SessionService::getInstance();
-    $isConnected = $session->get("connected");
-
-    if(!isset($isConnected))
-    {
-        $session->set("connected", false);
-        $session->set("button", "connect");
-    }
+    $newSession = SessionService::getInstance();
+    $newSession->start();
 
     var_dump("<pre>");
     var_dump($_SESSION);

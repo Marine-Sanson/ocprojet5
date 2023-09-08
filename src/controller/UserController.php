@@ -98,8 +98,7 @@ class UserController
         $session = SessionService::getInstance();
         $session->clear();
         $session->destroy();
-        $session->set("connected", false);
-        $session->set("button", "connect");
+        
         $data = [
             "message" => "Vous êtes déconnecté"
         ];

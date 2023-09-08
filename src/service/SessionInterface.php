@@ -26,6 +26,13 @@ namespace App\service;
 interface SessionInterface
 {
     /**
+     * Summary of start
+     * 
+     * @return void
+     */
+    public function start() : void;
+    
+    /**
      * Summary of get
      * 
      * @param string $key key
