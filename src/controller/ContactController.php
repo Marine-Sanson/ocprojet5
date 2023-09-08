@@ -27,7 +27,7 @@ use App\service\TemplateInterface;
  */
 class ContactController
 {
-        /**
+    /**
      * Summary of template
      * 
      * @var TemplateInterface
@@ -53,14 +53,14 @@ class ContactController
         $this->template = $template;
     }
 
-     /**
-      * Summary of getInstance
-      * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
-      * @param \App\service\TemplateInterface $template template engine
-      * 
-      * @return \App\controller\ContactController
-      */
+    /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     * 
+     * @param \App\service\TemplateInterface $template template engine
+     * 
+     * @return \App\controller\ContactController
+     */
     public static function getInstance(TemplateInterface $template) :ContactController
     { 
         if (is_null(self::$_instance)) {
