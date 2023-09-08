@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\repository;
 
 use App\service\DatabaseService;
+use DateTime;
 
 /**
  * ContactRepository Class Doc Comment
@@ -38,15 +39,16 @@ class ContactRepository
      * Summary of insertContact
      * 
      */
-    public function insertContact($firstName, $name, $email, $content) 
+    public function insertContact(string $firstName, string $name, string $email, string $content, DateTime $creationDate) 
     {
         $this->_db = DatabaseService::getInstance();
-        $request = 'INSERT INTO contacts (first_name, name, email, content) VALUES (:first_name, :name, :email, :content)';
+        $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) VALUES (:first_name, :name, :email, :content, :creationDate)';
         $parameters = [
             'first_name' => $firstName,
             'name' => $name,
             'email' => $email,
-            'content' => $content
+            'content' => $content,
+            'creationDate' => $creationDate->format('Y-m-d H:i:s')
         ];
         $this->_db->execute($request, $parameters);
     }

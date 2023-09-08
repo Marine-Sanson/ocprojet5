@@ -56,25 +56,19 @@ class ContactService
         return self::$_instance;
     }
 
-    public function checkContactForm(string $firstName, string $name, string $email, string $message) :array
+    public function checkContactForm(string $firstName, string $name, string $email, string $content) :array
     {
 
         // doit sécuriser le formulaire -> htmlspecialchars()?
 
-        $template = "home.html.twig";
-        $data = [
+        $contactData = [
             "firstName" => $firstName,
             "name" => $name, 
             "email" => $email, 
-            "message" => $message
-        ];
-    
-        $result = [
-            "template" => $template,
-            "data" => $data
+            "content" => $content
         ];
 
-        return $result;
+        return $contactData;
     }
 
 }
