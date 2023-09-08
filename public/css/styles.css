@@ -11243,3 +11243,8 @@ body {
 #connectionButton {
   font-size: 1.1rem;
 }
+
+.more-space {
+  margin: 5rem auto;
+}
+
