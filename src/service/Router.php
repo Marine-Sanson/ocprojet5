@@ -147,6 +147,10 @@ class Router
             $data = [];
             if ($_POST === []) {
                 $template = 'contact.html.twig';
+            } else if ($_POST["action"] === "contact") {
+                $result = $contactController->checkContactForm();
+                $template = $result["template"];
+                $data = $result["data"];
             }
             echo $contactController->template->render($template, $data);
             break;
