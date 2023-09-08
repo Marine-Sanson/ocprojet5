@@ -3,12 +3,14 @@
     require 'vendor/autoload.php';
 
     use App\service\Router;
+    use App\service\SessionService;
 
-    session_start();
-    if(!isset($_SESSION["connected"]))
-    {
-        $_SESSION["connected"] = [];
-    }
+    $newSession = SessionService::getInstance();
+    $newSession->start();
+
+    var_dump("<pre>");
+    var_dump($_SESSION);
+    var_dump("</pre>");
 
     $router = Router::getInstance();
     $router->route();

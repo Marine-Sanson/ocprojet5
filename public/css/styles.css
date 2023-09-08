@@ -11240,6 +11240,6 @@ body {
   padding: 6rem 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 1) 75%, #000 100%);
 }
-#submitButton {
+#connectionButton {
   font-size: 1.1rem;
 }

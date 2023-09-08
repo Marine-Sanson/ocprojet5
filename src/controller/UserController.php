@@ -14,10 +14,9 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\model\User;
-use App\repository\UserRepository;
+use App\service\SessionService;
 use App\service\TemplateInterface;
-use DateTime;
+use App\service\UserService;
 
 /**
  * UserController Class Doc Comment
@@ -30,13 +29,12 @@ use DateTime;
  */
 class UserController
 {
-
     /**
-     * Summary of _template
+     * Summary of template
      * 
      * @var TemplateInterface
      */
-    private TemplateInterface $_template;
+    public TemplateInterface $template;
 
     /**
      * Summary of _instance
@@ -52,15 +50,14 @@ class UserController
      * 
      * @param TemplateInterface $template template engine
      */
-    private function __construct(TemplateInterface $template)
+    public function __construct(TemplateInterface $template)
     {
-        $this->_template = $template;
+        $this->template = $template;
     }
 
      /**
       * Summary of getInstance
-      * That method create the unique instance of the class, if it doesn't
-      * exist and return it
+      * That method create the unique instance of the class, if it doesn't exist and return it
       * 
       * @param \App\service\TemplateInterface $template template engine
       * 
@@ -76,129 +73,44 @@ class UserController
     }
 
     /**
-     * Summary of index
-     * 
-     * @return void
-     */
-    public function index() :void
-    {
-        if ($_POST === []) {
-            echo $this->_template->render('login.html.twig', []);
-        } else if ($_POST["action"] === "connection") { // déplacer dans le router - connection en const de UserController
-            $result = $this->checkConnection();
-            $template = $result["template"];
-            $data = $result["data"];
-            echo $this->_template->render($template, $data);
-        } else if ($_POST["action"] === "disconnect") {
-            $template = 'home.html.twig';
-            if ($_SESSION["connected"] === true) {
-                session_destroy();
-                $_SESSION["connected"] = false;
-                $data = [
-                    "message" => "Vous êtes déconnecté"
-                ];
-            } else {
-                $data = [];
-            }
-            echo $this->_template->render($template, $data);
-        }
-    }
-
-    /**
      * Summary of checkConnection
      * 
      * @return array $data $template
      */
-    public function checkConnection()
+    public function checkConnection() :array
     {
-        $_SESSION["connected"] = false;
-        $data = [];
-
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        if ($username === "" || $password === "") {
-            $template = "login.html.twig";
-            $data = [
-                "error" => "Veuillez rentrer vos informations de connexion ou 
-                vous enregistrer."
-            ];
-        } else {
-            $userRepository = new UserRepository;
+        $userService = UserService::getInstance();
+        $result = $userService->checkConnection($username, $password);
 
-            $result = $userRepository->getUser($username);
-
-            if ($result !== []) {
-                $creationDate = $result[0]["creation_date"];
-                $creationDate = DateTime::createFromFormat(
-                    "Y-m-d H:i:s", 
-                    date("Y-m-d H:i:s")
-                );
-    
-                $updateDate = $result[0]["last_update_date"];
-                $updateDate = DateTime::createFromFormat(
-                    "Y-m-d H:i:s", 
-                    date("Y-m-d H:i:s")
-                );
-    
-                $allowed = boolval($result[0]["is_allowed"]);
-    
-                $user = new User(
-                    $result[0]["id"], 
-                    $result[0]["name"], 
-                    $result[0]["first_name"], 
-                    $result[0]["username"], 
-                    $result[0]["email"], 
-                    $result[0]["password"], 
-                    $result[0]["role"], 
-                    $creationDate, 
-                    $updateDate,
-                    $allowed
-                );
-
-                $dbPassword = password_verify($password, $user->password);
-
-                if ($dbPassword) {
-                    $_SESSION["connected"] = true;
-                    $_SESSION["user"]= [
-                        "first_name" => $user->firstName,
-                        "role" => $user->role,
-                        "is_allowed" => $user->is_allowed
-                    ];
-
-                    $template = "home.html.twig";
-                    $data = [
-                        "message" => 
-                        "Bonjour " . $user->firstName . " vous êtes connecté."
-                    ];
-
-                } else {
-                    $template = "login.html.twig";
-                    $data = [
-                        "error" => "Problème d'identification."
-                    ];
-                }
-    
-            } else {
-                $template = "login.html.twig";
-                $data = [
-                    "error" => "Problème d'identification."
-                ];
-            }
-        }
-
-        $result = [
-            "data" => $data,
-            "template" => $template
-        ];
-
-        var_dump($_SESSION);
         return $result;
     }
 
     /**
-     * Summary of hashPassword - will hash the user password before insert it 
-     * to the db
+     * Summary of disconnect - destroy the session
+     * 
+     * @return array $data
+     */
+    public function disconnect() : array
+    {
+        $session = SessionService::getInstance();
+        $session->clear();
+        $session->destroy();
+        
+        $data = [
+            "message" => "Vous êtes déconnecté"
+        ];
+        $result = [
+            "data" => $data
+        ];
+
+        return $result;
+    }
+
+    /**
+     * Summary of hashPassword - will hash the user password before insert it to the db
      * 
      * @param string $password password entered by the user
      * 
@@ -208,6 +120,5 @@ class UserController
     {
         return password_hash($password, PASSWORD_DEFAULT, ["cost" => "14"]);
     }
-
 
 }

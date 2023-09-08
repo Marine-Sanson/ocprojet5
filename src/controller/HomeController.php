@@ -61,8 +61,7 @@ class HomeController
 
     /**
      * Summary of getInstance
-     * That method create the unique instance of the class, if it doesn't
-     * exist and return it
+     * That method create the unique instance of the class, if it doesn't exist and return it
      * 
      * @param \App\service\TemplateInterface $template template engine
      * 
@@ -85,7 +84,7 @@ class HomeController
      * 
      * @return void
      */
-    public function index(?int $id) :void
+    public function index(?int $id) :void                                    // temp function, will be removed
     {
         echo $this->_template->render('home.html.twig', []);
     }
