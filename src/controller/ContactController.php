@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\service\ContactService;
 use App\service\TemplateInterface;
 
 /**
@@ -70,5 +71,27 @@ class ContactController
         return self::$_instance;
     }
 
+    public function checkContactForm() :array
+    {
+        var_dump("<pre>");
+        var_dump($_POST);
+        var_dump("</pre>");
+        
+        $firstName = $_POST["firstName"];
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $message = $_POST["message"];
+        $contactService = ContactService::getInstance();
+        $result = $contactService->checkContactForm($firstName, $name, $email, $message);
+
+        var_dump("<pre>");
+        var_dump($result);
+        var_dump("</pre>");
+
+        return $result;
+      //  if ($_POST["action"] === "contact") {
+
+        //}
+    }
     
 }
