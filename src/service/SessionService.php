@@ -93,6 +93,17 @@ class SessionService implements SessionInterface
     }
 
     /**
+     * Summary of getSession
+     *
+     * @return array $_SESSION
+     */
+    public function getSession() : array
+    {
+        return $_SESSION;
+    }
+
+    
+    /**
      * Summary of get
      * 
      * @param string $key key

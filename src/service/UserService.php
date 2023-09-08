@@ -124,8 +124,7 @@ class UserService
 
             $template = "home.html.twig";
             $data = [
-                "message" => 
-                "Bonjour " . $userConnectionModel->firstName . " vous êtes connecté.",
+                "message" => "Bonjour " . $userConnectionModel->firstName . " vous êtes connecté.",
             ];
 
         } else {

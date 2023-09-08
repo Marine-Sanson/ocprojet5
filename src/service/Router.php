@@ -16,6 +16,7 @@ namespace App\service;
 
 use App\controller\HomeController;
 use App\controller\UserController;
+use App\service\SessionService;
 use App\service\TwigService;
 
  /**
@@ -133,6 +134,12 @@ class Router
                     $data = $result["data"];
                 }
             }
+            $sessionService = SessionService::getInstance();
+            $sessionData = $sessionService->getSession();
+            $data[] = [
+                "session" => $sessionData
+            ];
+
             echo $userController->template->render($template, $data);
             break;
         default:
