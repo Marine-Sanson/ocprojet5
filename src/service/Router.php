@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\controller\ContactController;
 use App\controller\HomeController;
 use App\controller\UserController;
 use App\service\SessionService;
@@ -139,9 +140,17 @@ class Router
             $data[] = [
                 "session" => $sessionData
             ];
-
             echo $userController->template->render($template, $data);
             break;
+        case ContactController::URL :
+            $contactController = ContactController::getInstance($this->_templateEngine);
+            $data = [];
+            if ($_POST === []) {
+                $template = 'contact.html.twig';
+            }
+            echo $contactController->template->render($template, $data);
+            break;
+
         default:
             echo $this->_templateEngine->render('404.html.twig', []);
             break;
