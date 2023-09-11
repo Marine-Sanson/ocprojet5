@@ -41,6 +41,8 @@ class SessionService implements SessionInterface
      */
     private ?array $_session = null;
 
+    const USER_KEY = "user";
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -58,18 +60,19 @@ class SessionService implements SessionInterface
 
     /**
      * Summary of start
+     * start the session and assign $_session by reference at $_SESSION
      * 
      * @return void
      */
     public function start() : void
     {
         session_start();
-        $this->_session = $_SESSION;
+        $this->_session = &$_SESSION;
     }
 
     /**
      * Summary of setUser
-     * put user's data in the $_SESSION
+     * put user's data in the $_session
      * 
      * @param \App\model\UserConnectionModel $user user's data
      * 
@@ -78,7 +81,6 @@ class SessionService implements SessionInterface
     public function setUser(UserConnectionModel $user) : void
     {
         $this->_session["user"] = $user;
-        $_SESSION = $this->_session;
     }
 
     /**
@@ -89,19 +91,18 @@ class SessionService implements SessionInterface
      */
     public function isUserConnected() : bool 
     {
-        return !empty($_SESSION["user"]);
+        return !empty($this->_session["user"]);
     }
 
     /**
      * Summary of getSession
      *
-     * @return array $_SESSION
+     * @return array $_session
      */
     public function getSession() : array
     {
-        return $_SESSION;
+        return $this->_session;
     }
-
     
     /**
      * Summary of get
@@ -113,7 +114,7 @@ class SessionService implements SessionInterface
     public function get(string $key)
     {
         if ($this->has($key)) {
-            return $_SESSION[$key];
+            return $this->_session[$key];
         }
 
         return null;
@@ -129,7 +130,7 @@ class SessionService implements SessionInterface
      */
     public function set(string $key, $value): SessionInterface
     {
-        $_SESSION[$key] = $value;
+        $this->_session[$key] = $value;
         return $this;
     }
 
@@ -143,7 +144,7 @@ class SessionService implements SessionInterface
     public function remove(string $key): void
     {
         if ($this->has($key)) {
-            unset($_SESSION[$key]);
+            unset($this->_session[$key]);
         }
     }
 
@@ -176,6 +177,6 @@ class SessionService implements SessionInterface
      */
     public function has(string $key): bool
     {
-        return array_key_exists($key, $_SESSION);
+        return array_key_exists($key, $this->_session);
     }
 }

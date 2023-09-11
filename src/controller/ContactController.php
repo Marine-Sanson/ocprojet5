@@ -73,6 +73,11 @@ class ContactController
         return self::$_instance;
     }
 
+    /**
+     * Summary of manageContact
+     * 
+     * @return array with template and data
+     */
     public function manageContact() :array
     {
         if ($_POST["action"] === "contact") {
@@ -100,9 +105,6 @@ class ContactController
             "template" => $template,
             "data" => $data
         ];
-        var_dump("<pre>");
-        var_dump($result);
-        var_dump("</pre>");
 
         return $result;
     }

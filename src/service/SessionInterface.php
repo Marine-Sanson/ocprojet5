@@ -27,11 +27,37 @@ interface SessionInterface
 {
     /**
      * Summary of start
+     * start the session and assign $_session by reference at $_SESSION
      * 
      * @return void
      */
     public function start() : void;
     
+    /**
+     * Summary of setUser
+     * put user's data in the $_session
+     * 
+     * @param \App\model\UserConnectionModel $user user's data
+     * 
+     * @return void
+     */
+    public function setUser(UserConnectionModel $user) : void;
+
+    /**
+     * Summary of isUserConnected
+     * check if there is a user connected or not
+     * 
+     * @return bool
+     */
+    public function isUserConnected() : bool;
+
+    /**
+     * Summary of getSession
+     *
+     * @return array $_session
+     */
+    public function getSession() : array;
+
     /**
      * Summary of get
      * 
