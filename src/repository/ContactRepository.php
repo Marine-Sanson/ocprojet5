@@ -35,9 +35,18 @@ class ContactRepository
      */
     private DatabaseService $_db;
 
+
     /**
      * Summary of insertContact
+     * execute the request to save the contact data in the db
      * 
+     * @param string $firstName       firstName
+     * @param string $name            name
+     * @param string $email           email
+     * @param string $content         content
+     * @param \DateTime $creationDate creationDate
+     * 
+     * @return void
      */
     public function insertContact(string $firstName, string $name, string $email, string $content, DateTime $creationDate) 
     {

@@ -56,6 +56,17 @@ class ContactService
         return self::$_instance;
     }
 
+    /**
+     * Summary of checkContactForm
+     * check the data received by the contact form
+     * 
+     * @param string $firstName firstName
+     * @param string $name      name
+     * @param string $email     email
+     * @param string $content   content
+     * 
+     * @return array with the same data securized
+     */
     public function checkContactForm(string $firstName, string $name, string $email, string $content) :array
     {
 
