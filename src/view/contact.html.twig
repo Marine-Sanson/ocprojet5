@@ -35,7 +35,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-comment-alt text-primary"></i></span>
                             </div>
-                            <textarea name="message" id="message" class="form-control" placeholder="Laissez moi un message" cols="30" rows="4" required></textarea>
+                            <textarea name="content" id="content" class="form-control" placeholder="Laissez moi un message" cols="30" rows="4" required></textarea>
                         </div>
                         <div class="form-group d-flex">
                             <div class="mx-auto my-4">
@@ -43,6 +43,10 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="text-center mt-5">
+                    <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ result.message }}</p>
+                    <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ result.error }}</p>
                 </div>
             </div>
         </div>

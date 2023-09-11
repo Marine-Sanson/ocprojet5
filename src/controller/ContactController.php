@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\repository\ContactRepository;
 use App\service\ContactService;
 use App\service\TemplateInterface;
+use DateTime;
 
 /**
  * ContactController Class Doc Comment
@@ -71,27 +73,37 @@ class ContactController
         return self::$_instance;
     }
 
-    public function checkContactForm() :array
+    public function manageContact() :array
     {
-        var_dump("<pre>");
-        var_dump($_POST);
-        var_dump("</pre>");
-        
-        $firstName = $_POST["firstName"];
-        $name = $_POST["name"];
-        $email = $_POST["email"];
-        $message = $_POST["message"];
-        $contactService = ContactService::getInstance();
-        $result = $contactService->checkContactForm($firstName, $name, $email, $message);
+        if ($_POST["action"] === "contact") {
+            $firstName = $_POST["firstName"];
+            $name = $_POST["name"];
+            $email = $_POST["email"];
+            $content = $_POST["content"];
+            $contactService = ContactService::getInstance();
+            $contactData = $contactService->checkContactForm($firstName, $name, $email, $content);
 
+            $contactRepository = new ContactRepository;
+            $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+            $contactRepository->insertContact($contactData["firstName"], $contactData["name"], $contactData["email"], $contactData["content"], $currentDate);
+            $template = "home.html.twig";
+            $data = [
+                "message" => "votre message a bien été pris en compte"
+            ];
+        } else {
+            $template = "contact.html.twig";
+            $data = [
+                "error" => "il y a eu un problème, merci de bien vouloir recommencer"
+            ];
+        }
+        $result = [
+            "template" => $template,
+            "data" => $data
+        ];
         var_dump("<pre>");
         var_dump($result);
         var_dump("</pre>");
 
         return $result;
-      //  if ($_POST["action"] === "contact") {
-
-        //}
     }
-    
 }
