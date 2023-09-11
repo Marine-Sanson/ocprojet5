@@ -149,9 +149,8 @@ class UserService
      * 
      * @return \App\entity\UserEntity
      */
-    public function getUserEntity(
-        string $username, string $password
-    ) :UserEntity {
+    public function getUserEntity(string $username, string $password) :UserEntity
+    {
         $userRepository = new UserRepository;
 
         $result = $userRepository->getUser($username);
