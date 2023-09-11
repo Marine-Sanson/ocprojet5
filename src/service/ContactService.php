@@ -14,7 +14,14 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\entity\ContactEntity;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
+// require 'path/to/PHPMailer/src/Exception.php';
+// require 'path/to/PHPMailer/src/PHPMailer.php';
+// require 'path/to/PHPMailer/src/SMTP.php';
 
 /**
  * ContactService Class Doc Comment
@@ -60,26 +67,47 @@ class ContactService
      * Summary of checkContactForm
      * check the data received by the contact form
      * 
-     * @param string $firstName firstName
      * @param string $name      name
+     * @param string $firstName firstName
      * @param string $email     email
      * @param string $content   content
      * 
      * @return array with the same data securized
      */
-    public function checkContactForm(string $firstName, string $name, string $email, string $content) :array
+    public function checkContactForm(string $name, string $firstName, string $email, string $content) :array
     {
 
         // doit sécuriser le formulaire -> htmlspecialchars()?
 
         $contactData = [
-            "firstName" => $firstName,
             "name" => $name, 
+            "firstName" => $firstName,
             "email" => $email, 
             "content" => $content
         ];
 
         return $contactData;
+    }
+
+    /**
+     * Summary of sendMail
+     * 
+     * @param \App\entity\ContactEntity $newContact send the contact message by email
+     * 
+     * @return bool
+     */
+    public function sendMail(ContactEntity $newContact) :bool
+    {
+        $to = "marine_sanson@yahoo.fr";
+        $subject = "contact depuis le blog";
+        $message = "De : " . $newContact->firstName . " " . $newContact->name . " Email : " . $newContact->email . " Le " . $newContact->creationDate . " Message : " . $newContact->content;
+
+        $mail = mail($to, $subject, $message);
+        if ($mail) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

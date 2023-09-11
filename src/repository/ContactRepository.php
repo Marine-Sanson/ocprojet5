@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\entity\ContactEntity;
 use App\service\DatabaseService;
 use DateTime;
+use PDO;
 
 /**
  * ContactRepository Class Doc Comment
@@ -40,18 +42,27 @@ class ContactRepository
      * Summary of insertContact
      * execute the request to save the contact data in the db
      * 
-     * @param string $firstName       firstName
-     * @param string $name            name
-     * @param string $email           email
-     * @param string $content         content
+     * @param ContactEntity $newContact
+     * string    $firstName    firstName
+     * 
+     * @param string    $name         name
+     * @param string    $email        email
+     * @param string    $content      content
      * @param \DateTime $creationDate creationDate
      * 
      * @return void
      */
-    public function insertContact(string $firstName, string $name, string $email, string $content, DateTime $creationDate) 
+    public function insertContact(ContactEntity $newContact) :int
     {
+        $firstName = $newContact->firstName;
+        $name = $newContact->name;
+        $email = $newContact->email;
+        $content = $newContact->content;
+        $creationDate = $newContact->creationDate;
+
         $this->_db = DatabaseService::getInstance();
-        $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) VALUES (:first_name, :name, :email, :content, :creationDate)';
+        $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) 
+                    VALUES (:first_name, :name, :email, :content, :creationDate)';
         $parameters = [
             'first_name' => $firstName,
             'name' => $name,
@@ -60,5 +71,10 @@ class ContactRepository
             'creationDate' => $creationDate->format('Y-m-d H:i:s')
         ];
         $this->_db->execute($request, $parameters);
+        $newReq = 'SELECT LAST_INSERT_ID()';
+        $lastInsertId = $this->_db->execute($newReq, null);
+        $id = $lastInsertId[0]["LAST_INSERT_ID()"];
+
+        return $id;
     }
 }

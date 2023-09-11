@@ -13,7 +13,8 @@
         }
     },
     "require": {
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "phpmailer/phpmailer": "^6.8"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "*"
