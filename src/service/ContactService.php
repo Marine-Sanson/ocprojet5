@@ -76,8 +76,10 @@ class ContactService
      */
     public function checkContactForm(string $name, string $firstName, string $email, string $content) :array
     {
+// a déplacer controller
 
         // doit sécuriser le formulaire -> htmlspecialchars()?
+        // vérifie si champs sont pas vides -> isset
 
         $contactData = [
             "name" => $name, 
@@ -86,7 +88,7 @@ class ContactService
             "content" => $content
         ];
 
-        return $contactData;
+        return $contactData; // return ContactModel
     }
 
     /**

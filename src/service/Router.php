@@ -110,54 +110,57 @@ class Router
         $route = $this->parseRoute();
 
         switch ($route["route"]) {
-        case HomeController::URL:
-            $homeController = HomeController::getInstance($this->_templateEngine);
-            $homeController->index($route["param"]);                       // temp function
-            break;
-        case "posts":
-            $id = $route["param"];
-            echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
-            break;
-        case UserController::URL:
-            $userController = UserController::getInstance($this->_templateEngine);
-            $data = [];
-            if ($_POST === []) {
-                $template = 'login.html.twig';
-            } else if ($_POST["action"] === "connection") {
-                $result = $userController->checkConnection();
-                $template = $result["template"];
-                $data = $result["data"];
-            } else if ($_POST["action"] === "disconnect") {
-                $template = 'home.html.twig';
-                $session = SessionService::getInstance();
-                if ($session->isUserConnected()) {
-                    $result = $userController->disconnect();
+            case HomeController::URL:
+                $homeController = HomeController::getInstance($this->_templateEngine);
+                $homeController->index($route["param"]);                       // temp function
+                break;
+            case "posts":
+                $id = $route["param"];
+                echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
+                break;
+            case UserController::URL:
+                $userController = UserController::getInstance($this->_templateEngine);
+                $data = [];
+                if (empty($_POST)) {
+                    $template = 'login.html.twig';
+                }
+                if ($_POST === []) {
+                    $template = 'login.html.twig';
+                } else if ($_POST["action"] === "connection") {
+                    $result = $userController->checkConnection();
+                    $template = $result["template"];
+                    $data = $result["data"];
+                } else if ($_POST["action"] === "disconnect") {
+                    $template = 'home.html.twig';
+                    $session = SessionService::getInstance();
+                    if ($session->isUserConnected()) {
+                        $result = $userController->disconnect();
+                        $data = $result["data"];
+                    }
+                }
+                $sessionService = SessionService::getInstance();
+                $sessionData = $sessionService->getSession();
+                $data[] = [
+                    "session" => $sessionData
+                ];
+                echo $userController->template->render($template, $data);
+                break;
+            case ContactController::URL :
+                $contactController = ContactController::getInstance($this->_templateEngine);
+                $data = [];
+                if ($_POST === []) {
+                    $template = 'contact.html.twig';
+                } else if ($_POST["action"] === "contact") {
+                    $result = $contactController->manageContact();
+                    $template = $result["template"];
                     $data = $result["data"];
                 }
-            }
-            $sessionService = SessionService::getInstance();
-            $sessionData = $sessionService->getSession();
-            $data[] = [
-                "session" => $sessionData
-            ];
-            echo $userController->template->render($template, $data);
-            break;
-        case ContactController::URL :
-            $contactController = ContactController::getInstance($this->_templateEngine);
-            $data = [];
-            if ($_POST === []) {
-                $template = 'contact.html.twig';
-            } else if ($_POST["action"] === "contact") {
-                $result = $contactController->manageContact();
-                $template = $result["template"];
-                $data = $result["data"];
-            }
-            echo $contactController->template->render($template, $data);
-            break;
+                echo $contactController->template->render($template, $data);
+                break;
 
-        default:
-            echo $this->_templateEngine->render('404.html.twig', []);
-            break;
+            default:
+                echo $this->_templateEngine->render('404.html.twig', []);
+                break;
         }
     }
 }
