@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\entity\ContactEntity;
 use App\repository\ContactRepository;
 use App\service\ContactService;
 use App\service\TemplateInterface;
@@ -73,6 +74,16 @@ class ContactController
         return self::$_instance;
     }
 
+    // private function isSubmitted() : bool
+    // {
+    //     return $_POST["action"] === "contact";
+    // }
+
+    // private function isValid() : bool
+    // {
+
+    // }
+
     /**
      * Summary of manageContact
      * 
@@ -81,20 +92,35 @@ class ContactController
     public function manageContact() :array
     {
         if ($_POST["action"] === "contact") {
-            $firstName = $_POST["firstName"];
             $name = $_POST["name"];
+            $firstName = $_POST["firstName"];
             $email = $_POST["email"];
             $content = $_POST["content"];
+
             $contactService = ContactService::getInstance();
-            $contactData = $contactService->checkContactForm($firstName, $name, $email, $content);
+// $contactService->createContact() va appeller le repo créer le model enregistrement db
+// $contactService->notify (privée) envoie le mail -- appelle $mailerService -> sendEmail
+            $contactData = $contactService->checkContactForm($name, $firstName, $email, $content);  // remettre dans le controller
 
             $contactRepository = new ContactRepository;
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
-            $contactRepository->insertContact($contactData["firstName"], $contactData["name"], $contactData["email"], $contactData["content"], $currentDate);
-            $template = "home.html.twig";
-            $data = [
-                "message" => "votre message a bien été pris en compte"
-            ];
+            $contactId = null;
+
+            $newContact = new ContactEntity($contactId, $contactData["name"], $contactData["firstName"], $contactData["email"], $contactData["content"], $currentDate);
+            $sendMail = $contactService->sendMail($newContact); // passer par service puis par MailerService
+            if ($sendMail) {
+                $contactRepository->insertContact($newContact); // appelle une fonction du service qui le fait // génere le message réussi ou non
+    
+                $template = "home.html.twig";
+                $data = [
+                    "message" => "votre message a bien été envoyé"
+                ];
+            } else {
+                $template = "contact.html.twig";
+                $data = [
+                    "error" => "il y a eu un problème, merci de bien vouloir recommencer"
+                ];
+            }
         } else {
             $template = "contact.html.twig";
             $data = [
