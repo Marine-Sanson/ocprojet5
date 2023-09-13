@@ -15,8 +15,10 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\entity\ContactEntity;
+use App\model\ContactModel;
 use App\repository\ContactRepository;
 use App\service\ContactService;
+use App\service\GlobalService;
 use App\service\TemplateInterface;
 use DateTime;
 
@@ -39,6 +41,13 @@ class ContactController
     public TemplateInterface $template;
 
     /**
+     * Summary of global
+     * 
+     * @var GlobalService
+     */
+    public GlobalService $globalService;
+
+    /**
      * Summary of _instance
      * 
      * @var ContactController
@@ -55,6 +64,7 @@ class ContactController
     public function __construct(TemplateInterface $template)
     {
         $this->template = $template;
+        $this->globalService = GlobalService::getInstance();
     }
 
     /**
@@ -74,16 +84,6 @@ class ContactController
         return self::$_instance;
     }
 
-    // private function isSubmitted() : bool
-    // {
-    //     return $_POST["action"] === "contact";
-    // }
-
-    // private function isValid() : bool
-    // {
-
-    // }
-
     /**
      * Summary of manageContact
      * 
@@ -91,26 +91,25 @@ class ContactController
      */
     public function manageContact() :array
     {
-        if ($_POST["action"] === "contact") {
-            $name = $_POST["name"];
-            $firstName = $_POST["firstName"];
-            $email = $_POST["email"];
-            $content = $_POST["content"];
+        $action = "contact";
+        $isSubmitted = $this->globalService->isSubmitted($action);
+        $isValid = $this->globalService->isValid($_POST);
+
+        if ($isSubmitted && $isValid) {
+
+            $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+            $contact = new ContactModel($_POST["name"], $_POST["firstName"], $_POST["email"], $_POST["content"], $currentDate);
+
+            $validateContact = $this->validContactForm($contact);
 
             $contactService = ContactService::getInstance();
-// $contactService->createContact() va appeller le repo créer le model enregistrement db
-// $contactService->notify (privée) envoie le mail -- appelle $mailerService -> sendEmail
-            $contactData = $contactService->checkContactForm($name, $firstName, $email, $content);  // remettre dans le controller
+            $contactCreated = $contactService->createContact($validateContact);
 
-            $contactRepository = new ContactRepository;
-            $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
-            $contactId = null;
+            if ($contactCreated) {
+                $sendMail = $contactService->notify($validateContact); // passer par service puis par MailerService
+            }
 
-            $newContact = new ContactEntity($contactId, $contactData["name"], $contactData["firstName"], $contactData["email"], $contactData["content"], $currentDate);
-            $sendMail = $contactService->sendMail($newContact); // passer par service puis par MailerService
-            if ($sendMail) {
-                $contactRepository->insertContact($newContact); // appelle une fonction du service qui le fait // génere le message réussi ou non
-    
+            if ($sendMail) {    
                 $template = "home.html.twig";
                 $data = [
                     "message" => "votre message a bien été envoyé"
@@ -134,4 +133,22 @@ class ContactController
 
         return $result;
     }
+
+    /**
+     * Summary of validContactForm
+     * 
+     * @param \App\model\ContactModel $contact contact from the form
+     * 
+     * @return \App\model\ContactModel
+     */
+    public function validContactForm(ContactModel $contact) :ContactModel
+    {
+        $contact->name = $this->globalService->cleanInput($contact->name);
+        $contact->firstName = $this->globalService->cleanInput($contact->firstName);
+        $contact->email = $this->globalService->cleanInput($contact->email);
+        $contact->content = $this->globalService->cleanInput($contact->content);
+
+        return $contact; 
+    }
+
 }

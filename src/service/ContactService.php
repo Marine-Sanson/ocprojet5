@@ -15,13 +15,9 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\ContactEntity;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
-
-// require 'path/to/PHPMailer/src/Exception.php';
-// require 'path/to/PHPMailer/src/PHPMailer.php';
-// require 'path/to/PHPMailer/src/SMTP.php';
+use App\model\ContactModel;
+use App\repository\ContactRepository;
+use App\service\MailerService;
 
 /**
  * ContactService Class Doc Comment
@@ -64,47 +60,54 @@ class ContactService
     }
 
     /**
-     * Summary of checkContactForm
-     * check the data received by the contact form
+     * Summary of createContact
+     * Create a ContactEntity and insert it in the DB
      * 
-     * @param string $name      name
-     * @param string $firstName firstName
-     * @param string $email     email
-     * @param string $content   content
-     * 
-     * @return array with the same data securized
-     */
-    public function checkContactForm(string $name, string $firstName, string $email, string $content) :array
-    {
-// a déplacer controller
-
-        // doit sécuriser le formulaire -> htmlspecialchars()?
-        // vérifie si champs sont pas vides -> isset
-
-        $contactData = [
-            "name" => $name, 
-            "firstName" => $firstName,
-            "email" => $email, 
-            "content" => $content
-        ];
-
-        return $contactData; // return ContactModel
-    }
-
-    /**
-     * Summary of sendMail
-     * 
-     * @param \App\entity\ContactEntity $newContact send the contact message by email
+     * @param \App\model\ContactModel $contactModel ContactModel
      * 
      * @return bool
      */
-    public function sendMail(ContactEntity $newContact) :bool
+    public function createContact(ContactModel $contactModel) :bool
     {
+        $contactId = null;
+        $newContact = new ContactEntity(
+            $contactId, 
+            $contactModel->name, 
+            $contactModel->firstName, 
+            $contactModel->email, 
+            $contactModel->content, 
+            $contactModel->creationDate
+        );
+
+        $contactRepository = new ContactRepository;
+        $id = $contactRepository->insertContact($newContact);
+
+        if (isset($id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Summary of notify
+     * 
+     * @param \App\entity\ContactEntity $newContact call the MailerService to send the contact message by email
+     * 
+     * @return bool
+     */
+    public function notify(ContactModel $newContact) :bool
+    {
+        $content = htmlspecialchars_decode($newContact->content);
+
         $to = "marine_sanson@yahoo.fr";
         $subject = "contact depuis le blog";
-        $message = "De : " . $newContact->firstName . " " . $newContact->name . " Email : " . $newContact->email . " Le " . $newContact->creationDate . " Message : " . $newContact->content;
+        $message = "De : " . $newContact->firstName . " " . $newContact->name . " Email : " . $newContact->email . 
+        " Le " . $newContact->creationDate->format('Y-m-d H:i:s') . " Message : " . $content;
 
-        $mail = mail($to, $subject, $message);
+        $mailerService = new MailerService;
+        $mail = $mailerService->sendMail($to, $subject, $message);
+
         if ($mail) {
             return true;
         } else {
