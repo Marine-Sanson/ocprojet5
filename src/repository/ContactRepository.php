@@ -37,20 +37,13 @@ class ContactRepository
      */
     private DatabaseService $_db;
 
-
     /**
      * Summary of insertContact
-     * execute the request to save the contact data in the db
+     * prepare and execute the request to save the contact data in the db
      * 
      * @param ContactEntity $newContact
-     * string    $firstName    firstName
      * 
-     * @param string    $name         name
-     * @param string    $email        email
-     * @param string    $content      content
-     * @param \DateTime $creationDate creationDate
-     * 
-     * @return void
+     * @return int
      */
     public function insertContact(ContactEntity $newContact) :int
     {
