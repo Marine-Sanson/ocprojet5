@@ -1,2 +1,2 @@
 /vendor
-/src/service/MailerService.php
+src/service/MailerService.php
