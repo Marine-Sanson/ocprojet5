@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\service\config;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -50,16 +51,16 @@ class MailerService
         $mail->isSMTP();
         $mail->SMTPAuth = true;
 
-        $mail->Host = "***";
-        $mail->Port = "***";
-        $mail->Username = "***";
-        $mail->Password = "****";
+        $mail->Host = config::SMTP_HOST;
+        $mail->Port = config::SMTP_PORT;
+        $mail->Username = config::SMTP_USERNAME;
+        $mail->Password = config::SMTP_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-        $mail->From = "contact@marinesanson.fr";
+        $mail->From = config::SMTP_USERNAME;
 
         $mail->Sender = $contactEmail;
-        $mail->addAddress('contact@marinesanson.fr', 'Marine Sanson');
+        $mail->addAddress(config::SMTP_USERNAME, config::SMTP_NAME);
 
         $mail->isHTML(true);
         $mail->Subject = $subject;
