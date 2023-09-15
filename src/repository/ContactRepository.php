@@ -39,7 +39,7 @@ class ContactRepository
      * Summary of insertContact
      * prepare and execute the request to save the contact data in the db
      * 
-     * @param ContactEntity $newContact
+     * @param ContactEntity $newContact ContactEntity
      * 
      * @return int
      */
