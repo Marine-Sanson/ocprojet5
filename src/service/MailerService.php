@@ -50,10 +50,10 @@ class MailerService
         $mail->isSMTP();
         $mail->SMTPAuth = true;
 
-        $mail->Host = "ssl0.ovh.net";
-        $mail->Port = "587";
-        $mail->Username = "contact@marinesanson.fr";
-        $mail->Password = "nfbRJfjVttK24jj";
+        $mail->Host = "***";
+        $mail->Port = "***";
+        $mail->Username = "***";
+        $mail->Password = "***";
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
         $mail->From = "contact@marinesanson.fr";
