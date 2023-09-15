@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\model;
+
 use DateTime;
 
 /**
@@ -29,10 +30,10 @@ class ContactModel
     /**
      * Summary of __construct ContactModel
      * 
-     * @param string    $name         name of the sender
-     * @param string    $firstName    first name of the sender
-     * @param string    $email        email of the sender
-     * @param string    $content      message from the sender
+     * @param string   $name         name of the sender
+     * @param string   $firstName    first name of the sender
+     * @param string   $email        email of the sender
+     * @param string   $content      message from the sender
      * @param DateTime $creationDate date of the message
      */
     public function __construct(

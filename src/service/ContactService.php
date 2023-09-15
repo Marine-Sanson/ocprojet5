@@ -100,13 +100,13 @@ class ContactService
     {
         $content = htmlspecialchars_decode($newContact->content);
 
-        $to = "marine_sanson@yahoo.fr";
+        $contactName = $newContact->firstName . " " . $newContact->name;
+        $contactEmail = $newContact->email;
         $subject = "contact depuis le blog";
-        $message = "De : " . $newContact->firstName . " " . $newContact->name . " Email : " . $newContact->email . 
-        " Le " . $newContact->creationDate->format('Y-m-d H:i:s') . " Message : " . $content;
+        $message = " De : " . $contactName . " Email : " . $newContact->email . " Le " . $newContact->creationDate->format('Y-m-d H:i:s') . " Message : " . $content;
 
         $mailerService = new MailerService;
-        $mail = $mailerService->sendMail($to, $subject, $message);
+        $mail = $mailerService->sendMail($contactName, $contactEmail, $subject, $message);
 
         if ($mail) {
             return true;
