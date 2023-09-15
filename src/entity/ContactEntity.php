@@ -35,7 +35,7 @@ class ContactEntity
      * @param string   $firstName    first name of the contact
      * @param string   $email        email of the contact
      * @param string   $content      message send by the contact
-     * @param DateTime $creationDate creation dat in the db
+     * @param DateTime $creationDate creation date in the db
      */
     public function __construct(
         public ?int $id, 
