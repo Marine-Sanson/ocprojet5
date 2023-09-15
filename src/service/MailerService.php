@@ -36,6 +36,7 @@ class MailerService
     /**
      * Summary of sendMail
      * Create an instance of phpmailer, configure it, send the mail and verify if the sending is true
+     * Use the constant of local config.php
      * 
      * @param string $contactName  full name of the sender
      * @param string $contactEmail mail adress to send the email
