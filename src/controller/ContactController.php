@@ -14,9 +14,7 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\entity\ContactEntity;
 use App\model\ContactModel;
-use App\repository\ContactRepository;
 use App\service\ContactService;
 use App\service\GlobalService;
 use App\service\TemplateInterface;

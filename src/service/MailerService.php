@@ -14,6 +14,13 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './vendor/phpmailer/phpmailer/src/Exception.php';
+require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require './vendor/phpmailer/phpmailer/src/SMTP.php';
+
 /**
  * MailerService Class Doc Comment
  * 
@@ -27,18 +34,49 @@ class MailerService
 {
     /**
      * Summary of sendMail
+     * Create an instance of phpmailer, configure it, send the mail and verify if the sending is true
      * 
-     * @param string $to      mail adress to send the email
-     * @param string $subject subjet of the mail
-     * @param string $message name and adress of the sender, and message
+     * @param string $contactName  full name of the sender
+     * @param string $contactEmail mail adress to send the email
+     * @param string $subject      subjet of the mail
+     * @param string $message      name and adress of the sender, and message
      * 
      * @return bool
      */
-    public function sendMail(string $to, string $subject, string $message) :bool
+    public function sendMail(string $contactName, string $contactEmail, string $subject, string $message) :bool
     {
-        $headers = 'Content-Type: text/plain; charset=utf-8';
-        $mail = mail($to, $subject, $message, $headers);
+        $mail = new PHPMailer(true);
 
-        return $mail;
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+
+        $mail->Host = "ssl0.ovh.net";
+        $mail->Port = "587";
+        $mail->Username = "contact@marinesanson.fr";
+        $mail->Password = "nfbRJfjVttK24jj";
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+
+        $mail->From = "contact@marinesanson.fr";
+
+        $mail->Sender = $contactEmail;
+        $mail->addAddress('contact@marinesanson.fr', 'Marine Sanson');
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $message;
+        $mail->AltBody = $message;
+
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+
+        $test = $mail->send();
+
+        if (!$test) {
+            echo $mail->ErrorInfo;
+            $mailSend = false;
+        } else {
+            $mailSend = true;
+        }
+        return $mailSend;
     }
 }
