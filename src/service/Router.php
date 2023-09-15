@@ -16,6 +16,7 @@ namespace App\service;
 
 use App\controller\ContactController;
 use App\controller\HomeController;
+use App\controller\PostController;
 use App\controller\UserController;
 use App\service\SessionService;
 use App\service\TwigService;
@@ -114,9 +115,10 @@ class Router
                 $homeController = HomeController::getInstance($this->_templateEngine);
                 $homeController->index($route["param"]);                       // temp function
                 break;
-            case "posts": // have to change after PostController's creation
+            case PostController::URL :
                 $id = $route["param"];
-                echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
+                $postController = PostController::getInstance($this->_templateEngine);
+                echo $postController->template->render('posts.html.twig', ['id' => $id]);
                 break;
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
