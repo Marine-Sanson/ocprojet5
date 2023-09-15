@@ -114,7 +114,7 @@ class Router
                 $homeController = HomeController::getInstance($this->_templateEngine);
                 $homeController->index($route["param"]);                       // temp function
                 break;
-            case "posts":
+            case "posts": // have to change after PostController's creation
                 $id = $route["param"];
                 echo $this->_templateEngine->render('posts.html.twig', ['id' => $id]);
                 break;
