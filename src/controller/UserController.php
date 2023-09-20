@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\mapper\UserMapper;
 use App\service\MessageService;
 use App\service\SessionService;
 use App\service\TemplateInterface;
@@ -44,6 +45,8 @@ class UserController
      */
     private static $_instance;
 
+    private $_userService;
+
     const URL = "login";
 
     /**
@@ -54,6 +57,7 @@ class UserController
     public function __construct(TemplateInterface $template)
     {
         $this->template = $template;
+        $this->_userService = UserService::getInstance();
     }
 
      /**
@@ -83,8 +87,33 @@ class UserController
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        $userService = UserService::getInstance();
-        $result = $userService->checkConnection($username, $password);
+        $checkConnectionData = $this->_userService->checkData($username, $password);
+        $data = [];
+
+        if (!$checkConnectionData) {
+            $template = "login.html.twig";
+            $data = [
+                MessageService::ERROR => MessageService::CONNECTION_ERROR
+            ];
+        } else {
+            $userEntity = $this->_userService->getUser($username, $password);
+            if ($userEntity) {
+                $userMapper = new UserMapper;
+                $connectionModel = $userMapper->transformToUserConnectionModel($userEntity);
+                $result = $this->_userService->connect($password, $connectionModel);
+                $template = $result["template"];
+                $data = $result["data"];
+            } else {
+                $template = "login.html.twig";
+                $data = [
+                    MessageService::ERROR => MessageService::LOGIN_PROBLEM
+                ];
+            }
+        }
+        $result = [
+            "template" => $template,
+            "data" => $data
+        ];
 
         return $result;
     }

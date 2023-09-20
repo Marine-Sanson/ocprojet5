@@ -16,7 +16,6 @@ namespace App\service;
 
 use App\entity\UserEntity;
 use App\model\UserConnectionModel;
-use App\mapper\UserMapper;
 use App\repository\UserRepository;
 use App\service\SessionService;
 use DateTime;
@@ -72,38 +71,6 @@ class UserService
      * 
      * @return array $result with template and datas
      */
-    public function checkConnection(string $username, string $password) :array
-    {
-
-        $checkConnectionData = $this->checkData($username, $password);
-        $data = [];
-
-        if (!$checkConnectionData) {
-            $template = "login.html.twig";
-            $data = [
-                MessageService::ERROR => MessageService::CONNECTION_ERROR
-            ];
-        } else {
-            $userEntity = $this->getUserEntity($username, $password);
-            if ($userEntity) {
-                $userMapper = new UserMapper;
-                $connectionModel = $userMapper->transformToUserConnectionModel($userEntity);
-                $result = $this->connect($password, $connectionModel);
-                $template = $result["template"];
-                $data = $result["data"];
-            } else {
-                $template = "login.html.twig"; // doit etre dans le controller
-                $data = [
-                    MessageService::ERROR => MessageService::LOGIN_PROBLEM
-                ];
-            }
-        }
-        $result = [
-            "template" => $template,
-            "data" => $data
-        ];
-        return $result;
-    }
 
     /**
      * Summary of connect
@@ -142,14 +109,14 @@ class UserService
     }
 
     /**
-     * Summary of getUserEntity
+     * Summary of getUser
      * 
      * @param string $username come from the connection form
      * @param string $password come from the connection form
      * 
      * @return \App\entity\UserEntity
      */
-    public function getUserEntity(string $username, string $password) :UserEntity
+    public function getUser(string $username, string $password) :UserEntity
     {
         $userRepository = new UserRepository();
 
