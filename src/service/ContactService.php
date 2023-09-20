@@ -72,10 +72,10 @@ class ContactService
         $contactId = null;
         $newContact = new ContactEntity(
             $contactId, 
-            $contactModel->name, 
-            $contactModel->firstName, 
+            htmlspecialchars_decode($contactModel->name), 
+            htmlspecialchars_decode($contactModel->firstName), 
             $contactModel->email, 
-            $contactModel->content, 
+            htmlspecialchars_decode($contactModel->content), 
             $contactModel->creationDate
         );
 

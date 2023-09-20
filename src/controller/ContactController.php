@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\model\ContactModel;
+use App\controller\AbstractController;
 use App\service\ContactService;
-use App\service\GlobalService;
 use App\service\TemplateInterface;
 use DateTime;
 
@@ -29,7 +29,7 @@ use DateTime;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class ContactController
+class ContactController extends AbstractController
 {
     /**
      * Summary of template
@@ -37,13 +37,6 @@ class ContactController
      * @var TemplateInterface
      */
     public TemplateInterface $template;
-
-    /**
-     * Summary of global
-     * 
-     * @var GlobalService
-     */
-    public GlobalService $globalService;
 
     /**
      * Summary of _instance
@@ -62,7 +55,6 @@ class ContactController
     public function __construct(TemplateInterface $template)
     {
         $this->template = $template;
-        $this->globalService = GlobalService::getInstance();
     }
 
     /**
@@ -90,8 +82,8 @@ class ContactController
     public function manageContact() :array
     {
         $action = "contact";
-        $isSubmitted = $this->globalService->isSubmitted($action);
-        $isValid = $this->globalService->isValid($_POST);
+        $isSubmitted = $this->isSubmitted($action);
+        $isValid = $this->isValid($_POST);
 
         if ($isSubmitted && $isValid) {
 
@@ -104,7 +96,7 @@ class ContactController
             $contactCreated = $contactService->createContact($validateContact);
 
             if ($contactCreated) {
-                $sendMail = $contactService->notify($validateContact); // passer par service puis par MailerService
+                $sendMail = $contactService->notify($validateContact);
             }
 
             if ($sendMail) {    
@@ -141,10 +133,10 @@ class ContactController
      */
     public function validContactForm(ContactModel $contact) :ContactModel
     {
-        $contact->name = $this->globalService->cleanInput($contact->name);
-        $contact->firstName = $this->globalService->cleanInput($contact->firstName);
-        $contact->email = $this->globalService->cleanInput($contact->email);
-        $contact->content = $this->globalService->cleanInput($contact->content);
+        $contact->name = $this->cleanInput($contact->name);
+        $contact->firstName = $this->cleanInput($contact->firstName);
+        $contact->email = $this->cleanInput($contact->email);
+        $contact->content = $this->cleanInput($contact->content);
 
         return $contact; 
     }
