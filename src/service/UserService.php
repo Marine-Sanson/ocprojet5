@@ -81,7 +81,7 @@ class UserService
         if (!$checkConnectionData) {
             $template = "login.html.twig";
             $data = [
-                "error" => "Veuillez rentrer vos informations de connexion ou vous enregistrer."
+                MessageService::ERROR => MessageService::CONNECTION_ERROR
             ];
         } else {
             $userEntity = $this->getUserEntity($username, $password);
@@ -94,7 +94,7 @@ class UserService
             } else {
                 $template = "login.html.twig"; // doit etre dans le controller
                 $data = [
-                    "error" => "Problème d'identification."
+                    MessageService::ERROR => MessageService::LOGIN_PROBLEM
                 ];
             }
         }
@@ -124,13 +124,13 @@ class UserService
 
             $template = "home.html.twig";
             $data = [
-                "message" => "Bonjour " . $userConnectionModel->firstName . " vous êtes connecté.",
+                MessageService::MESSAGE => ucfirst($userConnectionModel->firstName) . MessageService::LOGIN_SUCCESS
             ];
 
         } else {
             $template = "login.html.twig";
             $data = [
-                "error" => "Problème d'identification."
+                MessageService::ERROR => MessageService::LOGIN_ERROR
             ];
         }
         $result = [

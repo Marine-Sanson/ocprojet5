@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\service\MessageService;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
@@ -100,7 +101,7 @@ class UserController
         $session->destroy();
         
         $data = [
-            "message" => "Vous êtes déconnecté"
+            MessageService::MESSAGE => MessageService::DISCONNECT
         ];
         $result = [
             "data" => $data

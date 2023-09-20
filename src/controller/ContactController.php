@@ -17,6 +17,7 @@ namespace App\controller;
 use App\model\ContactModel;
 use App\controller\AbstractController;
 use App\service\ContactService;
+use App\service\MessageService;
 use App\service\TemplateInterface;
 use DateTime;
 
@@ -102,18 +103,18 @@ class ContactController extends AbstractController
             if ($sendMail) {    
                 $template = "home.html.twig";
                 $data = [
-                    "message" => "votre message a bien été envoyé"
+                    MessageService::MESSAGE => MessageService::MAIL_VALID
                 ];
             } else {
                 $template = "contact.html.twig";
                 $data = [
-                    "error" => "il y a eu un problème, merci de bien vouloir recommencer"
+                    MessageService::ERROR => MessageService::MAIL_ERROR
                 ];
             }
         } else {
             $template = "contact.html.twig";
             $data = [
-                "error" => "il y a eu un problème, merci de bien vouloir recommencer"
+                MessageService::ERROR => MessageService::MAIL_ERROR
             ];
         }
         $result = [

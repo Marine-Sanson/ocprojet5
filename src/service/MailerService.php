@@ -72,7 +72,6 @@ class MailerService
         $test = $mail->send();
 
         if (!$test) {
-            echo $mail->ErrorInfo;
             $mailSend = false;
         } else {
             $mailSend = true;
