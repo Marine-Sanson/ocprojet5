@@ -91,7 +91,7 @@ class SessionService implements SessionInterface
      */
     public function isUserConnected() : bool 
     {
-        return !empty($this->_session["user"]);
+        return !empty($this->_session[self::USER_KEY]);
     }
 
     /**

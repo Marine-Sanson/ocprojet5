@@ -42,6 +42,7 @@ class PostController extends AbstractController
     private static $_instance;
 
     const URL = "posts";
+    const POST_VIEW = 'posts.html.twig';
 
     /**
      * Summary of __construct call an instance of TemplateInterface

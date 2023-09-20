@@ -47,6 +47,7 @@ class HomeController
      * @var string
      */
     const URL = "home";
+    const HOME_VIEW = 'home.html.twig';
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -86,6 +87,6 @@ class HomeController
      */
     public function index(?int $id) :void                                    // temp function, will be removed
     {
-        echo $this->_template->render('home.html.twig', []);
+        echo $this->_template->render(self::HOME_VIEW, []);
     }
 }

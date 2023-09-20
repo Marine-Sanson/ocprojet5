@@ -48,6 +48,9 @@ class UserController
     private $_userService;
 
     const URL = "login";
+    const LOGIN_VIEW = "login.html.twig";
+    const CONNECT = "connection";
+    const DISCONNECT = "disconnect";
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -91,7 +94,7 @@ class UserController
         $data = [];
 
         if (!$checkConnectionData) {
-            $template = "login.html.twig";
+            $template = self::LOGIN_VIEW;
             $data = [
                 MessageService::ERROR => MessageService::CONNECTION_ERROR
             ];
@@ -104,7 +107,7 @@ class UserController
                 $template = $result["template"];
                 $data = $result["data"];
             } else {
-                $template = "login.html.twig";
+                $template = self::LOGIN_VIEW;
                 $data = [
                     MessageService::ERROR => MessageService::LOGIN_PROBLEM
                 ];

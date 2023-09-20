@@ -118,22 +118,23 @@ class Router
             case PostController::URL :
                 $id = $route["param"];
                 $postController = PostController::getInstance($this->_templateEngine);
-                echo $postController->template->render('posts.html.twig', ['id' => $id]);
+                echo $postController->template->render($postController::POST_VIEW, ['id' => $id]);
                 break;
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
                 $data = [];
                 if (empty($_POST)) {
-                    $template = 'login.html.twig';
+                    $template = $userController::LOGIN_VIEW;
                 }
                 if ($_POST === []) {
-                    $template = 'login.html.twig';
-                } else if ($_POST["action"] === "connection") {
+                    $template = $userController::LOGIN_VIEW;
+                } else if ($_POST["action"] === $userController::CONNECT) {
                     $result = $userController->checkConnection();
                     $template = $result["template"];
                     $data = $result["data"];
-                } else if ($_POST["action"] === "disconnect") {
-                    $template = 'home.html.twig';
+                } else if ($_POST["action"] === $userController::DISCONNECT) {
+                    $homeController = HomeController::getInstance($this->_templateEngine);
+                    $template = $homeController::HOME_VIEW;
                     $session = SessionService::getInstance();
                     if ($session->isUserConnected()) {
                         $result = $userController->disconnect();
@@ -150,8 +151,8 @@ class Router
                 $contactController = ContactController::getInstance($this->_templateEngine);
                 $data = [];
                 if ($_POST === []) {
-                    $template = 'contact.html.twig';
-                } else if ($_POST["action"] === "contact") {
+                    $template = $contactController::CONTACT_VIEW;
+                } else if ($_POST["action"] === $contactController::ACTION) {
                     $result = $contactController->manageContact();
                     $template = $result["template"];
                     $data = $result["data"];

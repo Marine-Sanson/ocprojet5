@@ -47,6 +47,8 @@ class ContactController extends AbstractController
     private static $_instance;
 
     const URL = "contact";
+    const CONTACT_VIEW = 'contact.html.twig';
+    const ACTION = "contact";
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -82,7 +84,7 @@ class ContactController extends AbstractController
      */
     public function manageContact() :array
     {
-        $action = "contact";
+        $action = self::ACTION;
         $isSubmitted = $this->isSubmitted($action);
         $isValid = $this->isValid($_POST);
 
@@ -100,19 +102,19 @@ class ContactController extends AbstractController
                 $sendMail = $contactService->notify($validateContact);
             }
 
-            if ($sendMail) {    
-                $template = "home.html.twig";
+            if ($sendMail) {
+                $template = HomeController::HOME_VIEW;
                 $data = [
                     MessageService::MESSAGE => MessageService::MAIL_VALID
                 ];
             } else {
-                $template = "contact.html.twig";
+                $template = self::CONTACT_VIEW;
                 $data = [
                     MessageService::ERROR => MessageService::MAIL_ERROR
                 ];
             }
         } else {
-            $template = "contact.html.twig";
+            $template = self::CONTACT_VIEW;
             $data = [
                 MessageService::ERROR => MessageService::MAIL_ERROR
             ];

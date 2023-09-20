@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\controller\HomeController;
+use App\controller\UserController;
 use App\entity\UserEntity;
 use App\model\UserConnectionModel;
 use App\repository\UserRepository;
@@ -89,13 +91,13 @@ class UserService
             $session = SessionService::getInstance();
             $session->setUser($userConnectionModel);
 
-            $template = "home.html.twig";
+            $template = HomeController::HOME_VIEW;
             $data = [
                 MessageService::MESSAGE => ucfirst($userConnectionModel->firstName) . MessageService::LOGIN_SUCCESS
             ];
 
         } else {
-            $template = "login.html.twig";
+            $template = UserController::LOGIN_VIEW;
             $data = [
                 MessageService::ERROR => MessageService::LOGIN_ERROR
             ];
