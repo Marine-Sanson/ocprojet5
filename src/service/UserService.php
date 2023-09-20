@@ -92,7 +92,7 @@ class UserService
                 $template = $result["template"];
                 $data = $result["data"];
             } else {
-                $template = "login.html.twig";
+                $template = "login.html.twig"; // doit etre dans le controller
                 $data = [
                     "error" => "Problème d'identification."
                 ];
@@ -151,7 +151,7 @@ class UserService
      */
     public function getUserEntity(string $username, string $password) :UserEntity
     {
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
 
         $result = $userRepository->getUser($username);
 
@@ -201,8 +201,9 @@ class UserService
     {
         if ($username === "" || $password === "") {
             return false;
-        } else {
-            return true;
         }
+        
+        return true;
+        
     }
 }

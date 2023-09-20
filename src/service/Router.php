@@ -142,9 +142,8 @@ class Router
                 }
                 $sessionService = SessionService::getInstance();
                 $sessionData = $sessionService->getSession();
-                $data[] = [
-                    "session" => $sessionData
-                ];
+                var_dump($sessionData);
+
                 echo $userController->template->render($template, $data);
                 break;
             case ContactController::URL :

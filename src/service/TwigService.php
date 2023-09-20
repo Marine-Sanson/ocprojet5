@@ -53,7 +53,7 @@ class TwigService implements TemplateInterface
             ]
         );
         $twig->addExtension(new \Twig\Extension\DebugExtension());
-        $twig->addGlobal("session", $_SESSION);
+        $twig->addGlobal("session", SessionService::getInstance()->getSession());
         $this->_twig = $twig;
     }
 
