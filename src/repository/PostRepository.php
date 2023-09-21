@@ -34,5 +34,13 @@ class PostRepository
      */
     private DatabaseService $_db;
     
-    
+    public function getAllPostsWithAuthors()
+    {
+        $this->_db = DatabaseService::getInstance();
+        $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id';
+
+        $result = $this->_db->execute($request, null);
+
+        return $result;
+    }
 }
