@@ -72,7 +72,7 @@ class DatabaseService
      * Summary of execute
      * 
      * @param string $request    the sql request
-     * @param mixed  $parameters if needed
+     * @param array | null  $parameters if needed
      * 
      * @return array
      */

@@ -14,7 +14,11 @@ declare(strict_types=1);
 
 namespace App\controller;
 use App\controller\AbstractController;
+use App\mapper\PostsMapper;
+use App\model\PostModel;
+use App\repository\PostRepository;
 use App\service\TemplateInterface;
+use DateTime;
 
 /**
  * PostController Class Doc Comment
@@ -42,7 +46,9 @@ class PostController extends AbstractController
     private static $_instance;
 
     const URL = "posts";
-    const POST_VIEW = 'posts.html.twig';
+    const URL_ONE_POST = "post";
+    const POSTS_VIEW = 'posts.html.twig';
+    const ONEPOST_VIEW = 'posts.html.twig'; // a changer
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -71,4 +77,14 @@ class PostController extends AbstractController
         return self::$_instance;
     }
 
+    public function getPosts() :array
+    {
+        $postRepository = new PostRepository();
+        $results= $postRepository->getAllPostsWithAuthors();
+
+        $postmapper = new PostsMapper();
+        $posts = $postmapper->transformToListOfPostModel($results);
+
+        return $posts;
+    }
 }
