@@ -1,29 +1,9 @@
 {% extends "base.html.twig" %}
 {% block body %}
-                    {% if session.user.firstName %}
-                        <form id="disconnect" action="./login" method="post">
-                            <input type="hidden" id="connectionAction" name="action" value="disconnect">
-
-                            <div class="col-auto my-2 d-flex justify-content-end">
-                                <button id="submitButton" class="btn btn-body" type="submit">
-                                    <i class="fa-solid fa-power-off text-white"></i>
-                                </button>
-                            </div>
-                        </form>
-                    {% else %}
-                            <div class="col-auto my-2 d-flex justify-content-end">
-                                <a href="./login">
-                                    <button id="submitButton" class="btn btn-body" type="button">
-                                        <i class="fa-solid fa-arrow-right-to-bracket text-white"></i>
-                                    </button>
-                                </a>
-                            </div>
-                    {% endif %}
 
 {% include 'header.html.twig' %}
 
 <!-- About-->
-{{ dump(session.user.firstName) }}
 <section class="about-section text-center" id="about">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">

@@ -116,16 +116,17 @@ class UserService
      * @param string $username come from the connection form
      * @param string $password come from the connection form
      * 
-     * @return \App\entity\UserEntity
+     * @return \App\entity\UserEntity | null
      */
-    public function getUser(string $username, string $password) :UserEntity
+    public function getUser(string $username, string $password) :?UserEntity
     {
-        $userRepository = new UserRepository();
 
+        $userRepository = new UserRepository();
         $result = $userRepository->getUser($username);
 
         if ($result !== []) {
-            $creationDate = $result[0]["creation_date"];
+
+                $creationDate = $result[0]["creation_date"];
             $creationDate = DateTime::createFromFormat(
                 "Y-m-d H:i:s", 
                 date("Y-m-d H:i:s")

@@ -72,10 +72,10 @@ class ContactService
         $contactId = null;
         $newContact = new ContactEntity(
             $contactId, 
-            htmlspecialchars_decode($contactModel->name), 
-            htmlspecialchars_decode($contactModel->firstName), 
+            $contactModel->name, 
+            $contactModel->firstName, 
             $contactModel->email, 
-            htmlspecialchars_decode($contactModel->content), 
+            $contactModel->content, 
             $contactModel->creationDate
         );
 
@@ -98,7 +98,7 @@ class ContactService
      */
     public function notify(ContactModel $newContact) :bool
     {
-        $content = htmlspecialchars_decode($newContact->content);
+        $content = $newContact->content;
 
         $contactName = $newContact->firstName . " " . $newContact->name;
         $contactEmail = $newContact->email;

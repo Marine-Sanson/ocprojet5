@@ -99,6 +99,9 @@ class ContactController extends AbstractController
             $contactCreated = $contactService->createContact($validateContact);
 
             if ($contactCreated) {
+                $validateContact->content = htmlspecialchars_decode($validateContact->content);
+
+                // $validateContact = htmlspecialchars_decode($validateContact);
                 $sendMail = $contactService->notify($validateContact);
             }
 

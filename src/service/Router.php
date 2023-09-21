@@ -143,7 +143,7 @@ class Router
                 }
                 $sessionService = SessionService::getInstance();
                 $sessionData = $sessionService->getSession();
-                var_dump($sessionData);
+                $data["session"] = [$sessionData];
 
                 echo $userController->template->render($template, $data);
                 break;

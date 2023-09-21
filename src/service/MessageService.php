@@ -25,13 +25,6 @@ namespace App\service;
  */
 class MessageService
 {
-    /**
-     * Summary of _instance
-     * 
-     * @var MessageService
-     */
-    private static $_instance;
-
     const MESSAGE = "message";
     const ERROR = "error";
     const MAIL_VALID = "votre message a bien été envoyé";

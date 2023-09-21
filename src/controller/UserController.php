@@ -29,7 +29,7 @@ use App\service\UserService;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class UserController
+class UserController extends AbstractController
 {
     /**
      * Summary of template
@@ -45,6 +45,11 @@ class UserController
      */
     private static $_instance;
 
+    /**
+     * Summary of _userService
+     * 
+     * @var UserService
+     */
     private $_userService;
 
     const URL = "login";
@@ -87,7 +92,7 @@ class UserController
      */
     public function checkConnection() :array
     {
-        $username = $_POST["username"];
+        $username = self::cleanInput($_POST["username"]);
         $password = $_POST["password"];
 
         $checkConnectionData = $this->_userService->checkData($username, $password);
