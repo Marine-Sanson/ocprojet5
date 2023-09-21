@@ -14,9 +14,10 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\controller\HomeController;
+use App\controller\UserController;
 use App\entity\UserEntity;
 use App\model\UserConnectionModel;
-use App\mapper\UserMapper;
 use App\repository\UserRepository;
 use App\service\SessionService;
 use DateTime;
@@ -72,38 +73,6 @@ class UserService
      * 
      * @return array $result with template and datas
      */
-    public function checkConnection(string $username, string $password) :array
-    {
-
-        $checkConnectionData = $this->checkData($username, $password);
-        $data = [];
-
-        if (!$checkConnectionData) {
-            $template = "login.html.twig";
-            $data = [
-                "error" => "Veuillez rentrer vos informations de connexion ou vous enregistrer."
-            ];
-        } else {
-            $userEntity = $this->getUserEntity($username, $password);
-            if ($userEntity) {
-                $userMapper = new UserMapper;
-                $connectionModel = $userMapper->transformToUserConnectionModel($userEntity);
-                $result = $this->connect($password, $connectionModel);
-                $template = $result["template"];
-                $data = $result["data"];
-            } else {
-                $template = "login.html.twig"; // doit etre dans le controller
-                $data = [
-                    "error" => "Problème d'identification."
-                ];
-            }
-        }
-        $result = [
-            "template" => $template,
-            "data" => $data
-        ];
-        return $result;
-    }
 
     /**
      * Summary of connect
@@ -122,15 +91,15 @@ class UserService
             $session = SessionService::getInstance();
             $session->setUser($userConnectionModel);
 
-            $template = "home.html.twig";
+            $template = HomeController::HOME_VIEW;
             $data = [
-                "message" => "Bonjour " . $userConnectionModel->firstName . " vous êtes connecté.",
+                MessageService::MESSAGE => ucfirst($userConnectionModel->firstName) . MessageService::LOGIN_SUCCESS
             ];
 
         } else {
-            $template = "login.html.twig";
+            $template = UserController::LOGIN_VIEW;
             $data = [
-                "error" => "Problème d'identification."
+                MessageService::ERROR => MessageService::LOGIN_ERROR
             ];
         }
         $result = [
@@ -142,21 +111,22 @@ class UserService
     }
 
     /**
-     * Summary of getUserEntity
+     * Summary of getUser
      * 
      * @param string $username come from the connection form
      * @param string $password come from the connection form
      * 
-     * @return \App\entity\UserEntity
+     * @return \App\entity\UserEntity | null
      */
-    public function getUserEntity(string $username, string $password) :UserEntity
+    public function getUser(string $username, string $password) :?UserEntity
     {
-        $userRepository = new UserRepository();
 
+        $userRepository = new UserRepository();
         $result = $userRepository->getUser($username);
 
         if ($result !== []) {
-            $creationDate = $result[0]["creation_date"];
+
+                $creationDate = $result[0]["creation_date"];
             $creationDate = DateTime::createFromFormat(
                 "Y-m-d H:i:s", 
                 date("Y-m-d H:i:s")

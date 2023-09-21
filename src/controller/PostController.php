@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 namespace App\controller;
-use App\service\GlobalService;
+use App\controller\AbstractController;
 use App\service\TemplateInterface;
 
 /**
@@ -25,7 +25,7 @@ use App\service\TemplateInterface;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class PostController
+class PostController extends AbstractController
 {
     /**
      * Summary of template
@@ -35,13 +35,6 @@ class PostController
     public TemplateInterface $template;
 
     /**
-     * Summary of global
-     * 
-     * @var GlobalService
-     */
-    public GlobalService $globalService;
-
-    /**
      * Summary of _instance
      * 
      * @var PostController
@@ -49,6 +42,7 @@ class PostController
     private static $_instance;
 
     const URL = "posts";
+    const POST_VIEW = 'posts.html.twig';
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -58,7 +52,6 @@ class PostController
     public function __construct(TemplateInterface $template)
     {
         $this->template = $template;
-        $this->globalService = GlobalService::getInstance();
     }
 
     /**

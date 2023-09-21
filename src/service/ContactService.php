@@ -98,7 +98,7 @@ class ContactService
      */
     public function notify(ContactModel $newContact) :bool
     {
-        $content = htmlspecialchars_decode($newContact->content);
+        $content = $newContact->content;
 
         $contactName = $newContact->firstName . " " . $newContact->name;
         $contactEmail = $newContact->email;

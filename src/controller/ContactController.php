@@ -15,8 +15,9 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\model\ContactModel;
+use App\controller\AbstractController;
 use App\service\ContactService;
-use App\service\GlobalService;
+use App\service\MessageService;
 use App\service\TemplateInterface;
 use DateTime;
 
@@ -29,7 +30,7 @@ use DateTime;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class ContactController
+class ContactController extends AbstractController
 {
     /**
      * Summary of template
@@ -39,13 +40,6 @@ class ContactController
     public TemplateInterface $template;
 
     /**
-     * Summary of global
-     * 
-     * @var GlobalService
-     */
-    public GlobalService $globalService;
-
-    /**
      * Summary of _instance
      * 
      * @var ContactController
@@ -53,6 +47,8 @@ class ContactController
     private static $_instance;
 
     const URL = "contact";
+    const CONTACT_VIEW = 'contact.html.twig';
+    const ACTION = "contact";
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -62,7 +58,6 @@ class ContactController
     public function __construct(TemplateInterface $template)
     {
         $this->template = $template;
-        $this->globalService = GlobalService::getInstance();
     }
 
     /**
@@ -89,9 +84,9 @@ class ContactController
      */
     public function manageContact() :array
     {
-        $action = "contact";
-        $isSubmitted = $this->globalService->isSubmitted($action);
-        $isValid = $this->globalService->isValid($_POST);
+        $action = self::ACTION;
+        $isSubmitted = $this->isSubmitted($action);
+        $isValid = $this->isValid($_POST);
 
         if ($isSubmitted && $isValid) {
 
@@ -104,24 +99,27 @@ class ContactController
             $contactCreated = $contactService->createContact($validateContact);
 
             if ($contactCreated) {
-                $sendMail = $contactService->notify($validateContact); // passer par service puis par MailerService
+                $validateContact->content = htmlspecialchars_decode($validateContact->content);
+
+                // $validateContact = htmlspecialchars_decode($validateContact);
+                $sendMail = $contactService->notify($validateContact);
             }
 
-            if ($sendMail) {    
-                $template = "home.html.twig";
+            if ($sendMail) {
+                $template = HomeController::HOME_VIEW;
                 $data = [
-                    "message" => "votre message a bien été envoyé"
+                    MessageService::MESSAGE => MessageService::MAIL_VALID
                 ];
             } else {
-                $template = "contact.html.twig";
+                $template = self::CONTACT_VIEW;
                 $data = [
-                    "error" => "il y a eu un problème, merci de bien vouloir recommencer"
+                    MessageService::ERROR => MessageService::MAIL_ERROR
                 ];
             }
         } else {
-            $template = "contact.html.twig";
+            $template = self::CONTACT_VIEW;
             $data = [
-                "error" => "il y a eu un problème, merci de bien vouloir recommencer"
+                MessageService::ERROR => MessageService::MAIL_ERROR
             ];
         }
         $result = [
@@ -141,10 +139,10 @@ class ContactController
      */
     public function validContactForm(ContactModel $contact) :ContactModel
     {
-        $contact->name = $this->globalService->cleanInput($contact->name);
-        $contact->firstName = $this->globalService->cleanInput($contact->firstName);
-        $contact->email = $this->globalService->cleanInput($contact->email);
-        $contact->content = $this->globalService->cleanInput($contact->content);
+        $contact->name = $this->cleanInput($contact->name);
+        $contact->firstName = $this->cleanInput($contact->firstName);
+        $contact->email = $this->cleanInput($contact->email);
+        $contact->content = $this->cleanInput($contact->content);
 
         return $contact; 
     }

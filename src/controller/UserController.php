@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\mapper\UserMapper;
+use App\service\MessageService;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
@@ -27,7 +29,7 @@ use App\service\UserService;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class UserController
+class UserController extends AbstractController
 {
     /**
      * Summary of template
@@ -43,7 +45,17 @@ class UserController
      */
     private static $_instance;
 
+    /**
+     * Summary of _userService
+     * 
+     * @var UserService
+     */
+    private $_userService;
+
     const URL = "login";
+    const LOGIN_VIEW = "login.html.twig";
+    const CONNECT = "connection";
+    const DISCONNECT = "disconnect";
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -53,6 +65,7 @@ class UserController
     public function __construct(TemplateInterface $template)
     {
         $this->template = $template;
+        $this->_userService = UserService::getInstance();
     }
 
      /**
@@ -79,11 +92,36 @@ class UserController
      */
     public function checkConnection() :array
     {
-        $username = $_POST["username"];
+        $username = self::cleanInput($_POST["username"]);
         $password = $_POST["password"];
 
-        $userService = UserService::getInstance();
-        $result = $userService->checkConnection($username, $password);
+        $checkConnectionData = $this->_userService->checkData($username, $password);
+        $data = [];
+
+        if (!$checkConnectionData) {
+            $template = self::LOGIN_VIEW;
+            $data = [
+                MessageService::ERROR => MessageService::CONNECTION_ERROR
+            ];
+        } else {
+            $userEntity = $this->_userService->getUser($username, $password);
+            if ($userEntity) {
+                $userMapper = new UserMapper;
+                $connectionModel = $userMapper->transformToUserConnectionModel($userEntity);
+                $result = $this->_userService->connect($password, $connectionModel);
+                $template = $result["template"];
+                $data = $result["data"];
+            } else {
+                $template = self::LOGIN_VIEW;
+                $data = [
+                    MessageService::ERROR => MessageService::LOGIN_PROBLEM
+                ];
+            }
+        }
+        $result = [
+            "template" => $template,
+            "data" => $data
+        ];
 
         return $result;
     }
@@ -100,7 +138,7 @@ class UserController
         $session->destroy();
         
         $data = [
-            "message" => "Vous êtes déconnecté"
+            MessageService::MESSAGE => MessageService::DISCONNECT
         ];
         $result = [
             "data" => $data

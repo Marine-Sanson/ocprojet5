@@ -1,37 +1,30 @@
 <?php
 /**
- * GlobalService File Doc Comment
+ * AbstractController File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
- * @category Service
- * @package  App\service
+ * @category Controller
+ * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
 declare(strict_types=1);
 
-namespace App\service;
+namespace App\controller;
 
 /**
- * GlobalService Class Doc Comment
+ * AbstractController Class Doc Comment
  * 
- * @category Service
- * @package  App\service
+ * @category Controller
+ * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class GlobalService
+class AbstractController
 {
-
-     /**
-      * Summary of _instance
-      * 
-      * @var GlobalService
-      */
-    private static $_instance;
 
     /**
      * Summary of __construct get a connection between PHP and a database server
@@ -39,20 +32,6 @@ class GlobalService
     private function __construct()
     {
 
-    }
-
-    /**
-     * Summary of getInstance
-     * 
-     * @return GlobalService
-     */
-    public static function getInstance() :GlobalService
-    {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new GlobalService();  
-        }
-    
-        return self::$_instance;
     }
 
     /**
@@ -106,6 +85,7 @@ class GlobalService
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
+        $data = htmlentities($data);
 
         return $data;
     }

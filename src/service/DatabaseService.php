@@ -48,9 +48,9 @@ class DatabaseService
     private function __construct()
     {
         $this->_db = new PDO(
-            'mysql:host=localhost;dbname=ocprojet5;charset=utf8',
-            'root',
-            ''
+            "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'] . ";charset=utf8",
+            $_ENV['DB_USER'],
+            $_ENV['DB_PASS']
         );
     }
 
