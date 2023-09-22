@@ -123,6 +123,7 @@ class Router
             case PostController::URL_ONE_POST :
                 $id = $route["param"];
                 $postController = PostController::getInstance($this->_templateEngine);
+                
                 echo $postController->template->render($postController::ONEPOST_VIEW, ['id' => $id]);
                 break;
                 case UserController::URL:
