@@ -4,40 +4,41 @@
 <section class="blackground">
     <div class="scales">
         <div class="p-section bg-light" id="posts">
-                            <ul class="list-unstyled">
-                    {% for post in posts %}
-            <div class="container px-4 px-lg-5">
-
+            <ul class="list-unstyled">
+                {% for post in posts %}
+                    <div class="container px-4 px-lg-5">
                         <li>
-                            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                                <div class="col-lg-2">
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="bg-black text-center h-100 project">
-                                        <div class="d-flex h-100">
-                                            <div class="project-text w-100 my-auto text-center 
-                                                        text-lg-left">
-                                                <h4 class="text-white">{{post.title|capitalize}}</h4>
-                                                <p class="my-2 text-white-50">{{ post.summary }}</p>
-                                                <div class="row text-white-50">
-                                                    <span class="col-lg-1"></span>
-                                                    <span class="col-lg-3">Auteur : {{ post.author|capitalize }}</span>
-                                                    <span class="col-lg-1"></span>
-                                                    <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
-                                                    <span class="col-lg-1"></span>
+                            <a href="./post/{{post.id}}"  class="text-decoration-none">
+                                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                                    <div class="col-lg-2">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="bg-black text-center h-100 project">
+                                            <div class="d-flex h-100">
+                                                <div class="project-text w-100 my-auto text-center 
+                                                            text-lg-left">
+                                                    <h4 class="text-primary fw-bolder">{{post.title|capitalize}}</h4>
+                                                    <p class="my-2 text-white">{{ post.summary }}</p>
+                                                    <div class="row text-white">
+                                                        <span class="col-lg-1"></span>
+                                                        <span class="col-lg-3">Auteur : {{ post.author|capitalize }}</span>
+                                                        <span class="col-lg-1"></span>
+                                                        <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                        <span class="col-lg-1"></span>
+                                                        <hr class="my-4">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-2">
+                                    </div>
                                 </div>
-                                <div class="col-lg-2">
-                                </div>
-                            </div>
+                            </a>
                         </li>
-
-            </div>
-                                {% endfor %}
-                </ul>
+                    </div>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </section>
