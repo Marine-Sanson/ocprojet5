@@ -115,7 +115,7 @@ class Router
                 $homeController = HomeController::getInstance($this->_templateEngine);
                 $homeController->index($route["param"]);                       // temp function
                 break;
-            case PostController::URL :
+            case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
                 $result = $postController->getPosts();
                 echo $postController->template->render($postController::POSTS_VIEW, ['posts' => $result]);
