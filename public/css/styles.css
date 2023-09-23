@@ -11126,124 +11126,132 @@ body {
 }
 
 .p-section {
-  padding: 10rem 0;
-}
-.p-section .featured-text {
-  padding: 2rem;
-}
-@media (min-width: 992px) {
+    padding: 10rem 0;
+  }
   .p-section .featured-text {
-    padding: 0 0 0 2rem;
-    border-left: 0.5rem solid var(--bs-main-color);
+    padding: 2rem;
   }
-}
-.p-section .project-text {
-  padding: 3rem;
-  font-size: 90%;
-}
-@media (min-width: 992px) {
+  @media (min-width: 992px) {
+    .p-section .featured-text {
+      padding: 0 0 0 2rem;
+      border-left: 0.5rem solid var(--bs-main-color);
+    }
+  }
   .p-section .project-text {
-    padding: 5rem;
+    padding: 3rem;
+    font-size: 90%;
   }
-}
-
-.signup-section {
-  padding: 10rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/scales.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: cover;
-}
-.signup-section .form-signup input {
-  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
-  padding: 1.25rem 2rem;
-  height: auto;
-  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 80%;
-  text-transform: uppercase;
-  letter-spacing: 0.15rem;
-  border: 0;
-}
-
-.contact-section {
-  padding-top: 5rem;
-}
-.contact-section .card {
-  border: 0;
-  border-bottom: 0.25rem solid var(--bs-main-color);
-}
-.contact-section .card h4, .contact-section .card .h4 {
-  font-size: 0.8rem;
-  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  text-transform: uppercase;
-  letter-spacing: 0.15rem;
-}
-.contact-section .card hr {
-  opacity: 1;
-  border-color: var(--bs-main-color);
-  border-width: 0.25rem;
-  width: 3rem;
-}
-.contact-section .social {
-  margin-top: 5rem;
-}
-.contact-section .social a {
-  text-align: center;
-  height: 3rem;
-  width: 3rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 100%;
-  line-height: 3rem;
-  color: rgba(255, 255, 255, 0.3);
-}
-.contact-section .social a:hover {
-  color: rgba(255, 255, 255, 0.5);
-}
-.contact-section .social a:active {
-  color: #fff;
-}
-
-.footer {
-  padding: 5rem 0;
-}
-
-.btn-body {
-  font-weight: bold;
-  --bs-btn-color: #fff;
-  --bs-btn-bg: var(--bs-indigo);
-  --bs-btn-border-color: var(--bs-indigo);
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: var(--bs-indigo-dark);
-  --bs-btn-hover-border-color: #fff;
-  --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: var(--bs-indigo);
-  --bs-btn-active-border-color: var(--bs-indigo);
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: var(--bs-indigo);
-  --bs-btn-disabled-border-color: var(--bs-indigo);
-}
-.scales {
-  position: relative;
-  width: 100%;
-  height: auto;
-  min-height: 25rem;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/porte.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: cover;
-}
-.blackground {
-  padding: 5rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 1) 75%, #000 100%);
-}
-#connectionButton {
-  font-size: 1.1rem;
-}
-
-.more-space {
-  margin: 5rem auto;
-}
+  @media (min-width: 992px) {
+    .p-section .project-text {
+      padding: 5rem;
+    }
+  }
+  
+  .signup-section {
+    padding: 10rem 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/scales.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+  }
+  .signup-section .form-signup input {
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 2rem;
+    height: auto;
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    border: 0;
+  }
+  
+  .contact-section {
+    padding-top: 5rem;
+  }
+  .contact-section .card {
+    border: 0;
+    border-bottom: 0.25rem solid var(--bs-main-color);
+  }
+  .contact-section .card h4, .contact-section .card .h4 {
+    font-size: 0.8rem;
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+  }
+  .contact-section .card hr {
+    opacity: 1;
+    border-color: var(--bs-main-color);
+    border-width: 0.25rem;
+    width: 3rem;
+  }
+  .contact-section .social {
+    margin-top: 5rem;
+  }
+  .contact-section .social a {
+    text-align: center;
+    height: 3rem;
+    width: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100%;
+    line-height: 3rem;
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .contact-section .social a:hover {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .contact-section .social a:active {
+    color: #fff;
+  }
+  
+  .footer {
+    padding: 5rem 0;
+  }
+  
+  .btn-body {
+    font-weight: bold;
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--bs-indigo);
+    --bs-btn-border-color: var(--bs-indigo);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--bs-indigo-dark);
+    --bs-btn-hover-border-color: #fff;
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--bs-indigo);
+    --bs-btn-active-border-color: var(--bs-indigo);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--bs-indigo);
+    --bs-btn-disabled-border-color: var(--bs-indigo);
+  }
+  .scales {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 25rem;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/porte.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+  }
+  .blackground {
+    padding: 5rem 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 1) 75%, #000 100%);
+  }
+  #connectionButton {
+    font-size: 1.1rem;
+  }
+  
+  .more-space {
+    margin: 5rem auto;
+  }
+  
+  .separator {
+    height: 4rem;
+  }
+  
+  .justify {
+    text-align: justify;
+  }

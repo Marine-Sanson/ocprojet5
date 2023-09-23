@@ -1,1 +1,48 @@
-{{dump(post)}}
+{% extends "base.html.twig" %}
+{% block icon %}
+<link rel="icon" type="image/x-icon" href="../public/assets/img/favicon.png" />
+{% endblock %}
+{% block stylesheets %}
+    <link href="../public/css/styles.css" rel="stylesheet"/>
+{% endblock %}
+{% block navHome %}
+<a class="navbar-brand" href="http:localhost/ocprojet5">Marine S</a>
+{% endblock %}
+
+{% block body %}
+<section class="blackground">
+    <div class="scales">
+        <div class="p-section bg-light" id="posts">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                    <div class="col-lg-1">
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="bg-black h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto">
+                                    <div class="border border-primary rounded m-2 p-5 text-justify">
+                                        <h4 class="text-primary fw-bolder text-center">{{post.title|capitalize}}</h4>
+                                        <p class="mt-4 justify text-white fw-bold">{{ post.summary }}</p>
+                                        <p class="mt-4 justify text-white">{{ post.content }}</p>
+                                        <div class="row text-white">
+                                            <span class="col-lg-1"></span>
+                                            <span class="col-lg-3">Auteur : {{ post.username|capitalize }}</span>
+                                            <span class="col-lg-1"></span>
+                                            <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                            <span class="col-lg-1"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
