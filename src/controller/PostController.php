@@ -48,7 +48,7 @@ class PostController extends AbstractController
     const URL = "posts";
     const URL_ONE_POST = "post";
     const POSTS_VIEW = 'posts.html.twig';
-    const ONEPOST_VIEW = 'posts.html.twig'; // a changer
+    const ONEPOST_VIEW = 'one-post.html.twig'; // a changer
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -86,5 +86,13 @@ class PostController extends AbstractController
         $posts = $postmapper->transformToListOfPostModel($results);
 
         return $posts;
+    }
+
+    public function getPostData(int $id)
+    {
+        $postRepository = new PostRepository();
+        $post= $postRepository->getOnePostData($id);
+
+        return $post;
     }
 }

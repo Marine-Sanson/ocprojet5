@@ -43,4 +43,16 @@ class PostRepository
 
         return $result;
     }
+
+    public function getOnePostData(int $id) :array
+    {
+        $this->_db = DatabaseService::getInstance();
+        $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id WHERE posts.id = :id ';
+        $parameters = [
+            'id' => $id
+        ];
+        $result = $this->_db->execute($request, $parameters);
+
+        return $result[0];
+    }
 }
