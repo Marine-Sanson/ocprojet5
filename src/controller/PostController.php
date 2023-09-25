@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\controller\AbstractController;
+use App\controller\CommentController;
 use App\mapper\PostsMapper;
 use App\repository\PostRepository;
 use App\service\TemplateInterface;
@@ -102,7 +103,13 @@ class PostController extends AbstractController
     public function getPostData(int $id) :array
     {
         $postRepository = new PostRepository();
-        $post= $postRepository->getOnePostData($id);
+        $post = $postRepository->getOnePostData($id);
+        $commentController = CommentController::getInstance();
+        $comments = $commentController->getOnePostComments($id);
+
+        var_dump("<pre>");
+        var_dump($comments);
+        var_dump("/<pre>");
 
         return $post;
     }

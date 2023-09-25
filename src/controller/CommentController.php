@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\controller\AbstractController;
+use App\repository\CommentRepository;
 
 /**
  * CommentController Class Doc Comment
@@ -36,6 +37,14 @@ class CommentController extends AbstractController
     private static $_instance;
 
     /**
+     * Summary of __construct
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
      * 
@@ -50,6 +59,12 @@ class CommentController extends AbstractController
         return self::$_instance;
     }
 
+    public function getOnePostComments(int $id) :array
+    {
+        $commentRepository = new CommentRepository();
+        $comments = $commentRepository->getOnePostComments($id);
 
+        return $comments;
+    }
 
 }

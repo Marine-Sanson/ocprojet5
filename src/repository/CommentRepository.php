@@ -34,6 +34,16 @@ class CommentRepository
      */
     private DatabaseService $_db;
 
-    
+    public function getOnePostComments(int $id) :array
+    {
+        $this->_db = DatabaseService::getInstance();
+        $request = 'SELECT comments.*, username FROM comments JOIN users ON comments.id_user = users.id WHERE id_post = :id ';
+        $parameters = [
+            'id' => $id
+        ];
+        $result = $this->_db->execute($request, $parameters);
+
+        return $result;
+    }
     
 }
