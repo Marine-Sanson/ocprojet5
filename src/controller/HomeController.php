@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\mapper\PostsMapper;
+use App\repository\PostRepository;
 use App\service\TemplateInterface;
 
 /**
@@ -87,6 +89,16 @@ class HomeController
      */
     public function index(?int $id) :void                                    // temp function, will be removed
     {
-        echo $this->_template->render(self::HOME_VIEW, []);
+        $postRepository = new PostRepository;
+        $results = $postRepository->getLastPosts();
+
+        $postmapper = new PostsMapper();
+        $lastPosts = $postmapper->transformToListOfPostModel($results);
+
+        echo $this->_template->render(
+            self::HOME_VIEW, [
+                "lastPosts" => $lastPosts
+            ]
+        );
     }
 }

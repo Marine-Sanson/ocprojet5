@@ -96,7 +96,7 @@ class PostController extends AbstractController
     /**
      * Summary of getPostData
      * 
-     * @param int $id
+     * @param int $id id of the post
      * 
      * @return array
      */
