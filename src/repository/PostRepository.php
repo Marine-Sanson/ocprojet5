@@ -67,4 +67,20 @@ class PostRepository
 
         return $result[0];
     }
+
+    /**
+     * Summary of getLastPosts
+     * 
+     * @return array
+     */
+    public function getLastPosts() :array
+    {
+        $this->_db = DatabaseService::getInstance();
+        $request = 'SELECT posts.*, username FROM posts 
+        JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
+        $parameters = [];
+        $result = $this->_db->execute($request, $parameters);
+
+        return $result;
+    }
 }
