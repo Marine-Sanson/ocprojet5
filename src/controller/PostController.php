@@ -77,6 +77,11 @@ class PostController extends AbstractController
         return self::$_instance;
     }
 
+    /**
+     * Summary of getPosts
+     * 
+     * @return array
+     */
     public function getPosts() :array
     {
         $postRepository = new PostRepository();
@@ -88,7 +93,14 @@ class PostController extends AbstractController
         return $posts;
     }
 
-    public function getPostData(int $id)
+    /**
+     * Summary of getPostData
+     * 
+     * @param int $id
+     * 
+     * @return array
+     */
+    public function getPostData(int $id) :array
     {
         $postRepository = new PostRepository();
         $post= $postRepository->getOnePostData($id);

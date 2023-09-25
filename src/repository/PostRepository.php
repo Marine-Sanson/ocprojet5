@@ -34,6 +34,11 @@ class PostRepository
      */
     private DatabaseService $_db;
     
+    /**
+     * Summary of getAllPostsWithAuthors
+     * 
+     * @return array
+     */
     public function getAllPostsWithAuthors()
     {
         $this->_db = DatabaseService::getInstance();
@@ -44,6 +49,13 @@ class PostRepository
         return $result;
     }
 
+    /**
+     * Summary of getOnePostData
+     * 
+     * @param int $id id of the post
+     * 
+     * @return array
+     */
     public function getOnePostData(int $id) :array
     {
         $this->_db = DatabaseService::getInstance();

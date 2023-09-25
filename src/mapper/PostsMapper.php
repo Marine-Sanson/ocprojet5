@@ -27,7 +27,14 @@ use DateTime;
  */
 class PostsMapper
 {
-    public function transformToListOfPostModel($posts) :array
+    /**
+     * Summary of transformToListOfPostModel
+     * 
+     * @param array $posts posts datas
+     * 
+     * @return array
+     */
+    public function transformToListOfPostModel(array $posts) :array
     {
         $listOfPosts = [];
         foreach ($posts as $key => $post) {

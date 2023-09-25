@@ -103,7 +103,8 @@ class ContactService
         $contactName = $newContact->firstName . " " . $newContact->name;
         $contactEmail = $newContact->email;
         $subject = "contact depuis le blog";
-        $message = " De : " . $contactName . " Email : " . $newContact->email . " Le " . $newContact->creationDate->format('Y-m-d H:i:s') . " Message : " . $content;
+        $message = " De : " . $contactName . " Email : " . $newContact->email . " Le " . 
+        $newContact->creationDate->format('Y-m-d H:i:s') . " Message : " . $content;
 
         $mailerService = new MailerService;
         $mail = $mailerService->sendMail($contactName, $contactEmail, $subject, $message);
