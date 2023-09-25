@@ -12,25 +12,42 @@
 {% block body %}
 <section class="blackground">
     <div class="scales">
-        <div class="p-section bg-light" id="posts">
-            <div class="container px-4 px-lg-5">
+        <div class="p-section bg-light" id="post">
+            <div class="container px-2 px-lg-5">
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                     <div class="col-lg-1">
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-12 col-lg-10">
                         <div class="bg-black h-100 project">
                             <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto">
-                                    <div class="border border-primary rounded m-2 p-5 text-justify">
-                                        <h4 class="text-primary fw-bolder text-center">{{post.title|capitalize}}</h4>
-                                        <p class="mt-4 justify text-white fw-bold">{{ post.summary }}</p>
-                                        <p class="mt-4 justify text-white">{{ post.content }}</p>
-                                        <div class="row text-white">
-                                            <span class="col-lg-1"></span>
-                                            <span class="col-lg-3">Auteur : {{ post.username|capitalize }}</span>
-                                            <span class="col-lg-1"></span>
-                                            <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
-                                            <span class="col-lg-1"></span>
+                                <div class="project-text w-100">
+                                    <div class="border border-primary rounded p-2 p-lg-5 text-justify">
+                                        <div>
+                                            <h4 class="text-primary fw-bolder text-center">{{post.title|capitalize}}</h4>
+                                            <p class="mt-4 justify text-white fw-bold">{{ post.summary }}</p>
+                                            <p class="mt-4 justify text-white">{{ post.content }}</p>
+                                            <div class="row text-white">
+                                                <span class="col-lg-1"></span>
+                                                <span class="col-lg-3">Auteur : {{ post.username|capitalize }}</span>
+                                                <span class="col-lg-5"></span>
+                                                <span class="col-lg-2 text-right">Date : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                <span class="col-lg-1"></span>
+                                            </div>
+                                            {% if comments %}
+                                            <h4 class="pt-5 text-white">Commentaires :</h4>
+                                            {% endif %}
+                                            {% for comment in comments %}
+                                                <div class="p-2 px-lg-5 py-lg-2">
+                                                    <p class="mt-4 justify text-white">{{ comment.content }}</p>
+                                                    <div class="row text-white">
+                                                        <span class="col-lg-1"></span>
+                                                        <span class="col-lg-3">Auteur : {{ comment.username|capitalize }}</span>
+                                                        <span class="col-lg-5"></span>
+                                                        <span class="col-lg-2 text-right">Date : {{ comment.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                        <span class="col-lg-1"></span>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>

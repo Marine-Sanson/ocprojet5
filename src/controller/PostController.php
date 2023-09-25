@@ -104,13 +104,15 @@ class PostController extends AbstractController
     {
         $postRepository = new PostRepository();
         $post = $postRepository->getOnePostData($id);
+
+        return $post;
+    }
+
+    public function getPostComments(int $id) :array
+    {
         $commentController = CommentController::getInstance();
         $comments = $commentController->getOnePostComments($id);
 
-        var_dump("<pre>");
-        var_dump($comments);
-        var_dump("/<pre>");
-
-        return $post;
+        return $comments;
     }
 }
