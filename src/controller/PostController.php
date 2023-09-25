@@ -13,12 +13,11 @@
 declare(strict_types=1);
 
 namespace App\controller;
+
 use App\controller\AbstractController;
 use App\mapper\PostsMapper;
-use App\model\PostModel;
 use App\repository\PostRepository;
 use App\service\TemplateInterface;
-use DateTime;
 
 /**
  * PostController Class Doc Comment

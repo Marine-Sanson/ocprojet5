@@ -29,6 +29,7 @@ class CommentModel
 
     /**
      * Summary of __construct
+     * 
      * @param mixed     $id             id of the comment
      * @param int       $id_post        id of the post
      * @param string    $author         user firstName and name

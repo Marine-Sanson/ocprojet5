@@ -29,6 +29,7 @@ class CommentEntity
 
     /**
      * Summary of __construct
+     * 
      * @param mixed     $id             id of the comment
      * @param int       $id_post        id of the post
      * @param string    $id_user        id of the user
