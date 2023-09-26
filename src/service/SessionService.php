@@ -80,7 +80,7 @@ class SessionService implements SessionInterface
      */
     public function setUser(UserConnectionModel $user) : void
     {
-        $this->_session[self::USER_KEY] = $user;
+        $this->_session[self::USER_KEY] = $user->toArray();
     }
 
     /**

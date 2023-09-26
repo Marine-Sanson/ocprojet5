@@ -19,6 +19,7 @@ use App\controller\UserController;
 use App\entity\UserEntity;
 use App\model\UserConnectionModel;
 use App\repository\UserRepository;
+use App\service\SessionInterface;
 use App\service\SessionService;
 use DateTime;
 
@@ -47,6 +48,12 @@ class UserService
      */
     private static $_instance;
 
+    private SessionInterface $session;
+
+    private function __construct()
+    {
+        $this->session = SessionService::getInstance();
+    }
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
@@ -56,7 +63,7 @@ class UserService
     public static function getInstance() :UserService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserService();  
+            self::$_instance = new UserService();
         }
     
         return self::$_instance;
@@ -88,8 +95,7 @@ class UserService
         $dbPassword = password_verify($password, $userConnectionModel->password);
 
         if ($dbPassword) {
-            $session = SessionService::getInstance();
-            $session->setUser($userConnectionModel);
+            $this->session->setUser($userConnectionModel);
 
             $template = HomeController::HOME_VIEW;
             $data = [

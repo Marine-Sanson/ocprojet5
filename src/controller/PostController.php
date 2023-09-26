@@ -36,7 +36,7 @@ class PostController extends AbstractController
      * 
      * @var TemplateInterface
      */
-    public TemplateInterface $template;
+    // private TemplateInterface $_template;
 
     /**
      * Summary of _instance
@@ -55,9 +55,9 @@ class PostController extends AbstractController
      * 
      * @param TemplateInterface $template template engine
      */
-    public function __construct(TemplateInterface $template)
+    public function __construct(public TemplateInterface $template)
     {
-        $this->template = $template;
+        // $this->postService = PostService::getInstance();
     }
 
     /**
@@ -71,7 +71,7 @@ class PostController extends AbstractController
     public static function getInstance(TemplateInterface $template) :PostController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new PostController($template);  
+            self::$_instance = new PostController($template);
         }
     
         return self::$_instance;
@@ -93,6 +93,19 @@ class PostController extends AbstractController
         return $posts;
     }
 
+    public function showPostDetails(int $id) :void
+    {
+        $post = $this->getPostData($id);
+        $comments = $this->getPostComments($id);
+        // $this->postService->getPostDetails($postId);
+        echo $this->template->render(
+            $this::ONEPOST_VIEW, [
+                'id' => $id,
+                'post' => $post,
+                'comments' => $comments
+            ]);
+    }
+
     /**
      * Summary of getPostData
      * 
@@ -100,7 +113,7 @@ class PostController extends AbstractController
      * 
      * @return array
      */
-    public function getPostData(int $id) :array
+    private function getPostData(int $id) :array // dans le postService
     {
         $postRepository = new PostRepository();
         $post = $postRepository->getOnePostData($id);
@@ -108,7 +121,7 @@ class PostController extends AbstractController
         return $post;
     }
 
-    public function getPostComments(int $id) :array
+    private function getPostComments(int $id) :array // déplacer dans un postService ou commentService
     {
         $commentController = CommentController::getInstance();
         $comments = $commentController->getOnePostComments($id);

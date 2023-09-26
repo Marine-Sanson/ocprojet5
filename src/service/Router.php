@@ -109,7 +109,6 @@ class Router
     public function route() :void
     {
         $route = $this->parseRoute();
-
         switch ($route["route"]) {
             case HomeController::URL:
                 $homeController = HomeController::getInstance($this->_templateEngine);
@@ -117,21 +116,13 @@ class Router
                 break;
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
-                $result = $postController->getPosts();
-                echo $postController->template->render($postController::POSTS_VIEW, ['posts' => $result]);
-                break;
-            case PostController::URL_ONE_POST :
-                $id = $route["param"];
-                $postController = PostController::getInstance($this->_templateEngine);
-                $post = $postController->getPostData($id);
-                $comments = $postController->getPostComments($id);
-
-                echo $postController->template->render(
-                    $postController::ONEPOST_VIEW, [
-                        'id' => $id,
-                        'post' => $post,
-                        'comments' => $comments
-                    ]);
+                if (isset($route["param"])) {
+                    $id = $route["param"];
+                    $postController->showPostDetails($id);
+                    break;
+                }
+                $result = $postController->getPosts(); // function showPost dans le controller
+                echo $postController->template->render($postController::POSTS_VIEW, ['posts' => $result]);                                          
                 break;
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
