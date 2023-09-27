@@ -26,13 +26,12 @@ use DateTime;
  */
 class CommentEntity
 {
-
     /**
      * Summary of __construct
      * 
      * @param mixed     $id             id of the comment
      * @param int       $id_post        id of the post
-     * @param string    $id_user        id of the user
+     * @param int       $id_user        id of the user
      * @param string    $content        content
      * @param \DateTime $creationDate   creation date
      * @param \DateTime $lastUpdateDate last update date
@@ -41,7 +40,7 @@ class CommentEntity
     public function __construct(
         public ?int $id,
         public int $id_post,
-        public string $id_user,
+        public int $id_user,
         public string $content,
         public DateTime $creationDate,
         public DateTime $lastUpdateDate,

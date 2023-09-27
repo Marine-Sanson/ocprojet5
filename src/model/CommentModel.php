@@ -26,16 +26,15 @@ use DateTime;
  */
 class CommentModel
 {
-
     /**
      * Summary of __construct
      * 
-     * @param mixed     $id             id of the comment
-     * @param int       $id_post        id of the post
-     * @param string    $author         user firstName and name
-     * @param string    $content        content
-     * @param \DateTime $lastUpdateDate last update date
-     * @param bool      $is_validate    default 0
+     * @param int | null $id             id of the comment
+     * @param int        $id_post        id of the post
+     * @param string     $author         user firstName and name
+     * @param string     $content        content
+     * @param \DateTime  $lastUpdateDate last update date
+     * @param bool       $is_validate    default 0
      */
     public function __construct(
         public ?int $id,

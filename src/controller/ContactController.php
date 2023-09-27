@@ -113,13 +113,13 @@ class ContactController extends AbstractController
             } else {
                 $template = self::CONTACT_VIEW;
                 $data = [
-                    MessageService::ERROR => MessageService::MAIL_ERROR
+                    MessageService::ERROR => MessageService::GENERAL_ERROR
                 ];
             }
         } else {
             $template = self::CONTACT_VIEW;
             $data = [
-                MessageService::ERROR => MessageService::MAIL_ERROR
+                MessageService::ERROR => MessageService::GENERAL_ERROR
             ];
         }
         $result = [

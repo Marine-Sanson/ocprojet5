@@ -28,10 +28,12 @@ class MessageService
     const MESSAGE = "message";
     const ERROR = "error";
     const MAIL_VALID = "votre message a bien été envoyé";
-    const MAIL_ERROR = "il y a eu un problème, merci de bien vouloir recommencer";
+    const GENERAL_ERROR = "il y a eu un problème, merci de bien vouloir recommencer";
     const CONNECTION_ERROR = "Veuillez rentrer vos informations de connexion ou vous enregistrer.";
     const LOGIN_PROBLEM = "Problème d'identification.";
     const LOGIN_SUCCESS = " bonjour, vous êtes connecté.";
     const LOGIN_ERROR = "Problème d'identification.";
     const DISCONNECT = "Vous êtes déconnecté";
+    const COMMENT_CREATED = "Votre commentaire à bien été enregistré, il apparaitra dès qu'il sera validé";
+
 }

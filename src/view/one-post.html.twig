@@ -49,6 +49,36 @@
                                                 </div>
                                             {% endfor %}
                                         </div>
+                                        {% if session.user.firstName %}
+                                            {# formulaire d'ajout de commentaire #}
+                                            <div class="text-center mt-5">
+                                                <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message.message }}</p>
+                                                <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ message.error }}</p>
+                                            </div>
+                                            <div class="col-md-8 bg-light bg-opacity-50 rounded more-space">
+                                                <h1 class="text-center font-weight-bold text-primary mt-4">Commenter :</h1>
+                                                <hr class="bg-light">
+                                                <h5 class="text-center text-success"></h5>
+                                                <form action="" method="post" id="form-box" class="p-2">
+                                                    <input type="hidden" id="commentAction" name="action" value="addComment">
+                                                    <input type="hidden" id="tokenContactForm" name="token" value="###">
+                                                    <input type="hidden" id="username" name="username" value="{{ session.user.username }}">
+                                                    <input type="hidden" id="postId" name="postId" value="{{ post.id }}">
+                                                    
+                                                    <div class="form-group input-group my-2">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-comment-alt text-primary"></i></span>
+                                                        </div>
+                                                        <textarea name="content" id="content" class="form-control" placeholder="Commenter cet article" cols="30" rows="4" required></textarea>
+                                                    </div>
+                                                    <div class="form-group d-flex">
+                                                        <div class="mx-auto my-4">
+                                                            <input type="submit" id="contactSubmit" class="btn btn-body btn-block" value="Envoyer">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

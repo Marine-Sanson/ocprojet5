@@ -48,11 +48,27 @@ class UserService
      */
     private static $_instance;
 
-    private SessionInterface $session;
+    /**
+     * Summary of session
+     * 
+     * @var SessionInterface
+     */
+    private SessionInterface $_session;
+    /**
+     * Summary of _userRepository
+     * 
+     * @var UserRepository
+     */
+    private UserRepository $_userRepository;
 
+    /**
+     * Summary of __construct
+     */
     private function __construct()
     {
-        $this->session = SessionService::getInstance();
+        $this->_session = SessionService::getInstance();
+        $this->_userRepository = new UserRepository();
+
     }
      /**
       * Summary of getInstance
@@ -95,7 +111,7 @@ class UserService
         $dbPassword = password_verify($password, $userConnectionModel->password);
 
         if ($dbPassword) {
-            $this->session->setUser($userConnectionModel);
+            $this->_session->setUser($userConnectionModel);
 
             $template = HomeController::HOME_VIEW;
             $data = [
@@ -126,9 +142,7 @@ class UserService
      */
     public function getUser(string $username, string $password) :?UserEntity
     {
-
-        $userRepository = new UserRepository();
-        $result = $userRepository->getUser($username);
+        $result = $this->_userRepository->getUser($username);
 
         if ($result !== []) {
 
@@ -180,6 +194,19 @@ class UserService
         }
         
         return true;
-        
+    }
+
+    /**
+     * Summary of getUserId
+     * 
+     * @param string $username username
+     * 
+     * @return int
+     */
+    public function getUserId(string $username) :int
+    {
+        $userId = $this->_userRepository->getUserId($username);
+
+        return $userId;
     }
 }

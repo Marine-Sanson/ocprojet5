@@ -121,8 +121,7 @@ class Router
                     $postController->showPostDetails($id);
                     break;
                 }
-                $result = $postController->getPosts(); // function showPost dans le controller
-                echo $postController->template->render($postController::POSTS_VIEW, ['posts' => $result]);                                          
+                $postController->showPosts();
                 break;
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);

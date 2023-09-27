@@ -44,6 +44,11 @@ class UserConnectionModel
 
     }
 
+    /**
+     * Summary of toArray
+     * 
+     * @return array
+     */
     public function toArray() :array
     {
         return [

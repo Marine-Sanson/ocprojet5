@@ -30,6 +30,12 @@ class CommentController extends AbstractController
 {
 
     /**
+     * Summary of _commentRepository
+     * 
+     * @var CommentRepository
+     */
+    private $_commentRepository;
+    /**
      * Summary of _instance
      * 
      * @var CommentController
@@ -41,6 +47,7 @@ class CommentController extends AbstractController
      */
     public function __construct()
     {
+        $this->_commentRepository = new CommentRepository();
 
     }
 
@@ -59,10 +66,16 @@ class CommentController extends AbstractController
         return self::$_instance;
     }
 
-    public function getOnePostComments(int $id) :array
+    /**
+     * Summary of getOnePostComments
+     * 
+     * @param int $postId id of the post
+     * 
+     * @return array
+     */
+    public function getOnePostComments(int $postId) :array
     {
-        $commentRepository = new CommentRepository();
-        $comments = $commentRepository->getOnePostComments($id);
+        $comments = $this->_commentRepository->getOnePostComments($postId);
 
         return $comments;
     }
