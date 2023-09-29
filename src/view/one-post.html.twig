@@ -23,6 +23,10 @@
                                 <div class="project-text w-100">
                                     <div class="border border-primary rounded p-2 p-lg-5 text-justify">
                                         <div>
+                                            <div class="text-center mt-5">
+                                                <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message.message }}</p>
+                                                <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ message.error }}</p>
+                                            </div>
                                             <h4 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h4>
                                             <p class="mt-4 justify text-white fw-bold">{{ postDetails.summary }}</p>
                                             <p class="mt-4 justify text-white">{{ postDetails.content }}</p>
@@ -51,10 +55,6 @@
                                         </div>
                                         {% if session.user.firstName %}
                                             {# formulaire d'ajout de commentaire #}
-                                            <div class="text-center mt-5">
-                                                <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message.message }}</p>
-                                                <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ message.error }}</p>
-                                            </div>
                                             <div class="col-md-8 bg-light bg-opacity-50 rounded more-space">
                                                 <h1 class="text-center font-weight-bold text-primary mt-4">Commenter :</h1>
                                                 <hr class="bg-light">
