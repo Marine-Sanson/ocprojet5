@@ -36,29 +36,53 @@ class CommentRepository
     private DatabaseService $_db;
 
     /**
+     * Summary of _instance
+     * 
+     * @var CommentRepository
+     */
+    private static $_instance;
+
+    /**
+     * Summary of __construct
+     */
+    private function __construct()
+    {
+        $this->_db = DatabaseService::getInstance();
+    }
+
+    /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     * 
+     * @return \App\controller\CommentController
+     */
+    public static function getInstance(): CommentRepository
+    { 
+        if (is_null(self::$_instance)) {
+            self::$_instance = new CommentRepository();  
+        }
+    
+        return self::$_instance;
+    }
+
+    /**
      * Summary of insertComment
      * 
      * @param \App\entity\CommentEntity $newComment comment from the form
      * 
      * @return int
      */
-    public function insertComment(CommentEntity $newComment) :int
+    public function insertComment(CommentEntity $newComment): int
     {
-        $id_post = $newComment->id_post;
-        $id_user = $newComment->id_user;
-        $content = $newComment->content;
-        $creationDate = $newComment->creationDate;
-        $lastUpdateDate = $newComment->lastUpdateDate;
 
-        $this->_db = DatabaseService::getInstance();
         $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, last_update_date, is_validate) 
                     VALUES (:id_post, :id_user, :content, :creation_date, :last_update_date, :is_validate)';
         $parameters = [
-            'id_post' => $id_post,
-            'id_user' => $id_user,
-            'content' => $content,
-            'creation_date' => $creationDate->format('Y-m-d H:i:s'),
-            'last_update_date' => $lastUpdateDate->format('Y-m-d H:i:s'),
+            'id_post' => $newComment->id_post,
+            'id_user' => $newComment->id_user,
+            'content' => $newComment->content,
+            'creation_date' => $newComment->creationDate->format('Y-m-d H:i:s'),
+            'last_update_date' => $newComment->lastUpdateDate->format('Y-m-d H:i:s'),
             'is_validate' => 0
         ];
         $this->_db->execute($request, $parameters);
@@ -76,9 +100,8 @@ class CommentRepository
      * 
      * @return array
      */
-    public function getOnePostComments(int $postId) :array
+    public function getOnePostComments(int $postId): array
     {
-        $this->_db = DatabaseService::getInstance();
         $request = 'SELECT comments.*, username FROM comments JOIN users ON comments.id_user = users.id WHERE id_post = :id AND is_validate = :is_validate';
         $parameters = [
             'id' => $postId,

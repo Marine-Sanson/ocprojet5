@@ -23,20 +23,20 @@
                                 <div class="project-text w-100">
                                     <div class="border border-primary rounded p-2 p-lg-5 text-justify">
                                         <div>
-                                            <h4 class="text-primary fw-bolder text-center">{{post.title|capitalize}}</h4>
-                                            <p class="mt-4 justify text-white fw-bold">{{ post.summary }}</p>
-                                            <p class="mt-4 justify text-white">{{ post.content }}</p>
+                                            <h4 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h4>
+                                            <p class="mt-4 justify text-white fw-bold">{{ postDetails.summary }}</p>
+                                            <p class="mt-4 justify text-white">{{ postDetails.content }}</p>
                                             <div class="row text-white">
                                                 <span class="col-lg-1"></span>
-                                                <span class="col-lg-3">Auteur : {{ post.username|capitalize }}</span>
+                                                <span class="col-lg-3">Auteur : {{ postDetails.username|capitalize }}</span>
                                                 <span class="col-lg-5"></span>
-                                                <span class="col-lg-2 text-right">Date : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                <span class="col-lg-2 text-right">Date : {{ postDetails.lastUpdateDate_at|date("m/d/Y")}}</span>
                                                 <span class="col-lg-1"></span>
                                             </div>
                                             {% if comments %}
                                             <h4 class="pt-5 text-white">Commentaires :</h4>
                                             {% endif %}
-                                            {% for comment in comments %}
+                                            {% for comment in postDetails.comments %}
                                                 <div class="p-2 px-lg-5 py-lg-2">
                                                     <p class="mt-4 justify text-white">{{ comment.content }}</p>
                                                     <div class="row text-white">
@@ -63,7 +63,7 @@
                                                     <input type="hidden" id="commentAction" name="action" value="addComment">
                                                     <input type="hidden" id="tokenContactForm" name="token" value="###">
                                                     <input type="hidden" id="username" name="username" value="{{ session.user.username }}">
-                                                    <input type="hidden" id="postId" name="postId" value="{{ post.id }}">
+                                                    <input type="hidden" id="postId" name="postId" value="{{ postDetails.id }}">
                                                     
                                                     <div class="form-group input-group my-2">
                                                         <div class="input-group-prepend">

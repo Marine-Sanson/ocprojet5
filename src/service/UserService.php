@@ -76,7 +76,7 @@ class UserService
       * 
       * @return \App\service\UserService
       */
-    public static function getInstance() :UserService
+    public static function getInstance(): UserService
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new UserService();
@@ -106,7 +106,7 @@ class UserService
      * 
      * @return array
      */
-    public function connect(string $password, UserConnectionModel $userConnectionModel) :array
+    public function connect(string $password, UserConnectionModel $userConnectionModel): array
     {
         $dbPassword = password_verify($password, $userConnectionModel->password);
 
@@ -140,7 +140,7 @@ class UserService
      * 
      * @return \App\entity\UserEntity | null
      */
-    public function getUser(string $username, string $password) :?UserEntity
+    public function getUser(string $username, string $password): ?UserEntity
     {
         $result = $this->_userRepository->getUser($username);
 
@@ -203,7 +203,7 @@ class UserService
      * 
      * @return int
      */
-    public function getUserId(string $username) :int
+    public function getUserId(string $username): int
     {
         $userId = $this->_userRepository->getUserId($username);
 

@@ -59,7 +59,7 @@ class DatabaseService
      * 
      * @return DatabaseService
      */
-    public static function getInstance() :DatabaseService
+    public static function getInstance(): DatabaseService
     {
         if (is_null(self::$_instance)) {
             self::$_instance = new DatabaseService();  
@@ -76,7 +76,7 @@ class DatabaseService
      * 
      * @return array
      */
-    public function execute(string $request, ?array $parameters) :array
+    public function execute(string $request, ?array $parameters): array
     {
         $query = $this->_db->prepare(
             $request

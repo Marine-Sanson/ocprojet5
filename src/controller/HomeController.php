@@ -70,7 +70,7 @@ class HomeController
      * 
      * @return \App\controller\HomeController
      */
-    public static function getInstance(TemplateInterface $template) :HomeController
+    public static function getInstance(TemplateInterface $template): HomeController
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new HomeController($template);  
@@ -87,7 +87,7 @@ class HomeController
      * 
      * @return void
      */
-    public function index(?int $id) :void                                    // temp function, will be removed
+    public function index(?int $id): void                                    // temp function, will be removed
     {
         $postRepository = new PostRepository;
         $results = $postRepository->getLastPosts();

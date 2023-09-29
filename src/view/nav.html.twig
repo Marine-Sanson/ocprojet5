@@ -1,7 +1,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container px-4 px-lg-5">
-        {% if post.id %}
+        {% if postDetails.id %}
             <a class="navbar-brand" href="../home">Marine S</a>
         {% else %}
             <a class="navbar-brand" href="./home">Marine S</a>
@@ -13,7 +13,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                {% if post.id %}
+                {% if postDetails.id %}
                 <li class="nav-item"><a class="nav-link" href=".././posts">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href=".././home#projects">Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href=".././contact">Contact</a></li>
@@ -24,8 +24,8 @@
                 {% endif %}
 
                 <li class="nav-item">
-                    {% if session.0.user.firstName %}
-                        <form id="disconnect" {% if post.id %}action=".././login"{% else %}action="./login"{% endif %} method="post">
+                    {% if (session.0.user.firstName) or (session.user.firstName) %}
+                        <form id="disconnect" {% if postDetails.id %}action=".././login"{% else %}action="./login"{% endif %} method="post">
                             <input type="hidden" id="connectionAction" name="action" value="disconnect">
 
                             <div class="col-auto my-2 d-flex justify-content-end">
@@ -36,7 +36,7 @@
                         </form>
                     {% else %}
                             <div class="col-auto my-2 d-flex justify-content-end">
-                                <a {% if post.id %}href=".././login"{% else %}href="./login"{% endif %}>
+                                <a {% if postDetails.id %}href=".././login"{% else %}href="./login"{% endif %}>
                                     <button id="submitButton" class="btn btn-body" type="button">
                                         <i class="fa-solid fa-arrow-right-to-bracket text-white"></i>
                                     </button>

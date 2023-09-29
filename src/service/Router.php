@@ -64,7 +64,7 @@ class Router
      * 
      * @return \App\service\Router
      */
-    public static function getInstance() :Router
+    public static function getInstance(): Router
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new Router();  
@@ -80,7 +80,7 @@ class Router
      * 
      * @return array with route and param
      */
-    public function parseRoute() :array
+    public function parseRoute(): array
     {
         $route = [];
         if (isset($_GET["route"])) {
@@ -106,7 +106,7 @@ class Router
      * 
      * @return void
      */
-    public function route() :void
+    public function route(): void
     {
         $route = $this->parseRoute();
         switch ($route["route"]) {
@@ -150,7 +150,7 @@ class Router
 
                 echo $userController->template->render($template, $data);
                 break;
-            case ContactController::URL :
+            case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine);
                 $data = [];
                 if ($_POST === []) {

@@ -13,13 +13,9 @@
 declare(strict_types=1);
 
 namespace App\service;
-use App\controller\CommentController;
-use App\controller\PostController;
-use App\controller\UserController;
+
 use App\entity\CommentEntity;
-use App\mapper\PostsMapper;
 use App\repository\CommentRepository;
-use App\repository\PostRepository;
 use App\service\UserService;
 use DateTime;
 
@@ -46,7 +42,7 @@ class CommentService
      * 
      * @var CommentRepository
      */
-    private $_commentRepository;
+    private CommentRepository $_commentRepository;
 
     /**
      * Summary of _instance
@@ -54,6 +50,7 @@ class CommentService
      * @var CommentService
      */
     private static $_instance;
+    
     const ACTION = "addComment";
 
     /**
@@ -61,8 +58,7 @@ class CommentService
      */
     public function __construct()
     {
-        $this->_postService = PostService::getInstance();
-        $this->_commentRepository = new CommentRepository();
+        $this->_commentRepository = CommentRepository::getInstance();
     }
 
     /**
@@ -71,29 +67,46 @@ class CommentService
      * 
      * @return \App\service\CommentService
      */
-    public static function getInstance() :CommentService
+    public static function getInstance(): CommentService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new CommentService();  
+            self::$_instance = new CommentService();
         }
     
         return self::$_instance;
     }
 
     /**
+     * Summary of getComments
+     * 
+     * @param mixed $postId id of the post
+     * 
+     * @return array
+     */
+    public function getComments(int $postId): array
+    {
+        $comments = $this->_commentRepository->getOnePostComments($postId);
+
+        return $comments;
+    }
+
+    /**
      * Summary of manageComment
+     * 
+     * @param string $username username
+     * @param int    $postId   postId
+     * @param string $content  content
      * 
      * @return \App\entity\CommentEntity
      */
-    public function manageComment() :CommentEntity
+    public function manageComment(string $username, int $postId, string $content): CommentEntity
     {
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
             $userService = UserService::getInstance();
-            $id_user = $userService->getUserId($_POST["username"]);
+            $id_user = $userService->getUserId($username);
             
-            $postId = intval($_POST["postId"]);
-            $comment = new CommentEntity(null, $postId, $id_user, $_POST["content"], $currentDate, $currentDate, false);
+            $comment = new CommentEntity(null, $postId, $id_user, $content, $currentDate, $currentDate, false);
 
             return $comment;
     }

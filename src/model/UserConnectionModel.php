@@ -58,6 +58,5 @@ class UserConnectionModel
             "role" => $this->role,
             "isAllowed" => $this->isAllowed
         ];
-
     }
 }

@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\mapper;
+
 use App\model\PostModel;
 use DateTime;
 
@@ -34,7 +35,7 @@ class PostsMapper
      * 
      * @return array
      */
-    public function transformToListOfPostModel(array $posts) :array
+    public function transformToListOfPostModel(array $posts): array
     {
 
         $listOfPosts = [];

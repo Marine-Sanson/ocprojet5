@@ -36,5 +36,5 @@ interface TemplateInterface
      * 
      * @return string template to display
      */
-    public function render(string $templateName, array $parameters) :string;
+    public function render(string $templateName, array $parameters): string;
 }

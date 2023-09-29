@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\controller\AbstractController;
-use App\repository\CommentRepository;
+use App\service\CommentService;
 
 /**
  * CommentController Class Doc Comment
@@ -32,9 +32,9 @@ class CommentController extends AbstractController
     /**
      * Summary of _commentRepository
      * 
-     * @var CommentRepository
+     * @var CommentService
      */
-    private $_commentRepository;
+    private CommentService $_commentService;
     /**
      * Summary of _instance
      * 
@@ -45,10 +45,9 @@ class CommentController extends AbstractController
     /**
      * Summary of __construct
      */
-    public function __construct()
+    private function __construct()
     {
-        $this->_commentRepository = new CommentRepository();
-
+        $this->_commentService = new CommentService();
     }
 
     /**
@@ -57,7 +56,7 @@ class CommentController extends AbstractController
      * 
      * @return \App\controller\CommentController
      */
-    public static function getInstance() :CommentController
+    public static function getInstance(): CommentController
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new CommentController();  
@@ -73,9 +72,9 @@ class CommentController extends AbstractController
      * 
      * @return array
      */
-    public function getOnePostComments(int $postId) :array
+    public function getOnePostComments(int $postId): array
     {
-        $comments = $this->_commentRepository->getOnePostComments($postId);
+        $comments = $this->_commentService->getComments($postId);
 
         return $comments;
     }

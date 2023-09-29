@@ -15,13 +15,10 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\controller\AbstractController;
-use App\entity\CommentEntity;
 use App\service\CommentService;
 use App\service\MessageService;
 use App\service\PostService;
 use App\service\TemplateInterface;
-use App\service\UserService;
-use DateTime;
 
 /**
  * PostController Class Doc Comment
@@ -46,14 +43,14 @@ class PostController extends AbstractController
      * 
      * @var PostService
      */
-    private $_postService;
+    private PostService $_postService;
 
     /**
      * Summary of _commentService
      * 
      * @var CommentService
      */
-    private $_commentService;
+    private CommentService $_commentService;
     
     const URL = "posts";
     const POSTS_VIEW = 'posts.html.twig';
@@ -64,7 +61,7 @@ class PostController extends AbstractController
      * 
      * @param TemplateInterface $template template engine
      */
-    public function __construct(public TemplateInterface $template)
+    private function __construct(public TemplateInterface $template)
     {
         $this->_postService = PostService::getInstance();
         $this->_commentService = CommentService::getInstance();
@@ -78,7 +75,7 @@ class PostController extends AbstractController
      * 
      * @return \App\controller\PostController
      */
-    public static function getInstance(TemplateInterface $template) :PostController
+    public static function getInstance(TemplateInterface $template): PostController
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new PostController($template);
@@ -92,7 +89,7 @@ class PostController extends AbstractController
      * 
      * @return void
      */
-    public function showPosts() :void
+    public function showPosts(): void
     {
         $result = $this->_postService->getPosts();
         echo $this->template->render($this::POSTS_VIEW, ['posts' => $result]);
@@ -105,47 +102,56 @@ class PostController extends AbstractController
      * 
      * @return void
      */
-    public function showPostDetails(int $postId) :void
+    public function showPostDetails(int $postId): void
     {
         $message = null;
-        if (isset($_POST["action"])) {
-            if ($_POST["action"] === $this->_commentService::ACTION) {
-                $isSubmitted = $this->isSubmitted($this->_commentService::ACTION);
-                $isValid = $this->isValid($_POST);
-                if ($isSubmitted && $isValid) {
-                    $comment = $this->_commentService->manageComment();
-                    $validateComment = $this->validCommentForm($comment);
+        if (isset($_POST["action"]) && $_POST["action"] === $this->_commentService::ACTION) {
 
-                    $message = $this->_commentService->createNewComment($validateComment);
-                } else {
-                    $message = [
-                        MessageService::ERROR => MessageService::GENERAL_ERROR
-                    ];
-                }
+            if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($_POST)) {
+
+                $username = $_POST["username"];            
+                $postId = intval($_POST["postId"]);
+                $content = $_POST["content"];
+
+                $validateContent = $this->validCommentForm($content);
+                $comment = $this->_commentService->manageComment($username, $postId, $validateContent);
+                $message = $this->_commentService->createNewComment($comment);
+            } else {
+                $message = [
+                    MessageService::ERROR => MessageService::GENERAL_ERROR
+                ];
             }
         }
+
         $postDetails = $this->_postService->getPostDetails($postId);
+        $comments = [];
+        foreach ($postDetails->getComments() as $postCom) {
+            $postCom["content"] = $this->toDisplay($postCom["content"]);
+            $comments[] = $postCom;
+        }
+        $postDetails->setComments($comments);
+
         echo $this->template->render(
             self::ONEPOST_VIEW, [
                 'id' => $postId,
-                'post' => $postDetails["post"],
-                'comments' => $postDetails["comments"],
+                'postDetails' => $postDetails,
                 'message' => $message
             ]
         );
     }
 
+
     /**
      * Summary of validCommentForm
      * 
-     * @param \App\entity\CommentEntity $comment comment
+     * @param string $content content
      * 
-     * @return \App\entity\CommentEntity
+     * @return string
      */
-    public function validCommentForm(CommentEntity $comment) :CommentEntity
+    public function validCommentForm(string $content): string
     {
-        $comment->content = $this->cleanInput($comment->content);
+        $content = $this->cleanInput($content);
 
-        return $comment; 
+        return $content; 
     }
 }

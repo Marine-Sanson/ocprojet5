@@ -13,12 +13,13 @@
 declare(strict_types=1);
 
 namespace App\service;
-use App\controller\CommentController;
-use App\controller\UserController;
 use App\entity\CommentEntity;
+use App\mapper\PostDetailsMapper;
 use App\mapper\PostsMapper;
+use App\model\PostDetailsModel;
 use App\repository\CommentRepository;
 use App\repository\PostRepository;
+use App\service\CommentService;
 
 /**
  * PostService Class Doc Comment
@@ -39,11 +40,18 @@ class PostService
     public TemplateInterface $template;
 
     /**
-     * Summary of _postService
+     * Summary of _postRepository
      * 
      * @var PostRepository
      */
-    private $_postRepository;
+    private PostRepository $_postRepository;
+
+    /**
+     * Summary of _postService
+     * 
+     * @var CommentService $_commentService
+     */
+    private CommentService $_commentService;
 
     /**
      * Summary of _instance
@@ -58,6 +66,7 @@ class PostService
     public function __construct()
     {
         $this->_postRepository = new PostRepository();
+        $this->_commentService = CommentService::getInstance();
     }
 
     /**
@@ -66,7 +75,7 @@ class PostService
      * 
      * @return \App\service\PostService
      */
-    public static function getInstance() :PostService
+    public static function getInstance(): PostService
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new PostService();  
@@ -80,7 +89,7 @@ class PostService
      * 
      * @return array
      */
-    public function getPosts() :array
+    public function getPosts(): array
     {
         $results= $this->_postRepository->getAllPostsWithAuthors();
 
@@ -97,15 +106,14 @@ class PostService
      * 
      * @return array
      */
-    public function getPostDetails(int $postId) :array
+    public function getPostDetails(int $postId): PostDetailsModel
     {
         $post = $this->_getPostData($postId);
         $comments = $this->_getPostComments($postId);
-        $result = [
-            "post" => $post,
-            "comments" => $comments
-        ];
-        return $result;
+        $postDetailsMapper = PostDetailsMapper::getInstance();
+        $postDetails = $postDetailsMapper->getPostDetailsModel($post, $comments);
+
+        return $postDetails;
     }
 
     /**
@@ -115,7 +123,7 @@ class PostService
      * 
      * @return array
      */
-    private function _getPostData(int $postId) :array // dans le postService
+    private function _getPostData(int $postId): array // dans le postService
     {
         $post = $this->_postRepository->getOnePostData($postId);
 
@@ -129,10 +137,9 @@ class PostService
      * 
      * @return array
      */
-    private function _getPostComments(int $postId) :array
+    private function _getPostComments(int $postId): array
     {
-        $commentController = CommentController::getInstance();
-        $comments = $commentController->getOnePostComments($postId);
+        $comments = $this->_commentService->getComments($postId);
 
         return $comments;
     }
@@ -144,7 +151,7 @@ class PostService
      * 
      * @return bool
      */
-    public function createNewComment(CommentEntity $newComment) :bool
+    public function createNewComment(CommentEntity $newComment): bool
     {
         $commentRepository = new CommentRepository();
         $id = $commentRepository->insertComment($newComment);

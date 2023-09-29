@@ -56,7 +56,7 @@ class PostRepository
      * 
      * @return array
      */
-    public function getOnePostData(int $id) :array
+    public function getOnePostData(int $id): array
     {
         $this->_db = DatabaseService::getInstance();
         $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id WHERE posts.id = :id ';
@@ -73,7 +73,7 @@ class PostRepository
      * 
      * @return array
      */
-    public function getLastPosts() :array
+    public function getLastPosts(): array
     {
         $this->_db = DatabaseService::getInstance();
         $request = 'SELECT posts.*, username FROM posts 
