@@ -29,6 +29,28 @@ use DateTime;
 class PostsMapper
 {
     /**
+     * Summary of _instance
+     * 
+     * @var PostsMapper
+     */
+    private static $_instance;
+
+    /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     * 
+     * @return \App\service\PostService
+     */
+    public static function getInstance(): PostsMapper
+    { 
+        if (is_null(self::$_instance)) {
+            self::$_instance = new PostsMapper();  
+        }
+    
+        return self::$_instance;
+    }
+
+    /**
      * Summary of transformToListOfPostModel
      * 
      * @param array $posts posts datas

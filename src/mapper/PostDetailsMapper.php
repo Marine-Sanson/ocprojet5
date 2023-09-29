@@ -64,7 +64,16 @@ class PostDetailsMapper
         $date = $post["last_update_date"];
         $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
-        $postDetails = new PostDetailsModel($post["id"], $post["id_user"], $post["title"], $post["summary"], $post["content"], $date, $post["username"], $comments);
+        $postDetails = new PostDetailsModel(
+            $post["id"],
+            $post["id_user"], 
+            $post["title"], 
+            $post["summary"], 
+            $post["content"], 
+            $date, 
+            $post["username"], 
+            $comments
+        );
 
         return $postDetails;
     }

@@ -31,13 +31,6 @@ use DateTime;
 class CommentService
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    public TemplateInterface $template;
-
-    /**
      * Summary of _postService
      * 
      * @var CommentRepository
@@ -56,7 +49,7 @@ class CommentService
     /**
      * Summary of __construct
      */
-    public function __construct()
+    private function __construct()
     {
         $this->_commentRepository = CommentRepository::getInstance();
     }
@@ -83,11 +76,16 @@ class CommentService
      * 
      * @return array
      */
-    public function getComments(int $postId): array
+    public function getpostComments(int $postId): array
     {
-        $comments = $this->_commentRepository->getOnePostComments($postId);
-
-        return $comments;
+        return $this->_commentRepository->getOnePostComments($postId);
+        // foreach ($comments as $comment) {
+        //     $comment["content"] = $this->toDisplay($comment["content"]);
+        // }
+        
+        // var_dump("<pre>");
+        // var_dump($comments);
+        // var_dump("</pre>");
     }
 
     /**
@@ -104,11 +102,9 @@ class CommentService
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
             $userService = UserService::getInstance();
-            $id_user = $userService->getUserId($username);
+            $userId = $userService->getUserId($username);
             
-            $comment = new CommentEntity(null, $postId, $id_user, $content, $currentDate, $currentDate, false);
-
-            return $comment;
+            return new CommentEntity(null, $postId, $userId, $content, $currentDate, $currentDate, false);
     }
 
     /**
@@ -118,7 +114,7 @@ class CommentService
      * 
      * @return array
      */
-    public function createNewComment(CommentEntity $validateComment)
+    public function createNewComment(CommentEntity $validateComment): array
     {
         $createNewComment = $this->_commentRepository->insertComment($validateComment);
         if ($createNewComment) {

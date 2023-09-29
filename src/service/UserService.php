@@ -205,8 +205,6 @@ class UserService
      */
     public function getUserId(string $username): int
     {
-        $userId = $this->_userRepository->getUserId($username);
-
-        return $userId;
+        return $this->_userRepository->getUserId($username);
     }
 }

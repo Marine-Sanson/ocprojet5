@@ -89,11 +89,9 @@ class HomeController
      */
     public function index(?int $id): void                                    // temp function, will be removed
     {
-        $postRepository = new PostRepository;
-        $results = $postRepository->getLastPosts();
+        $results = PostRepository::getInstance()->getLastPosts();
 
-        $postmapper = new PostsMapper();
-        $lastPosts = $postmapper->transformToListOfPostModel($results);
+        $lastPosts = PostsMapper::getInstance()->transformToListOfPostModel($results);
 
         echo $this->_template->render(
             self::HOME_VIEW, [

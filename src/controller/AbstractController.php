@@ -82,12 +82,7 @@ class AbstractController
      */
     public function cleanInput(string $data): string
     {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        $data = htmlentities($data);
-
-        return $data;
+        return htmlspecialchars(htmlentities(stripslashes(trim($data))));
     }
 
     /**
@@ -99,9 +94,6 @@ class AbstractController
      */
     public function toDisplay(string $data): string
     {
-        $data = html_entity_decode($data);
-        $data = htmlspecialchars_decode($data);
-
-        return $data;
+        return htmlspecialchars_decode(html_entity_decode($data));
     }
 }

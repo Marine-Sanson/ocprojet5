@@ -117,8 +117,7 @@ class Router
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
                 if (isset($route["param"])) {
-                    $id = $route["param"];
-                    $postController->showPostDetails($id);
+                    $postController->showPostDetails($route["param"]);
                     break;
                 }
                 $postController->showPosts();

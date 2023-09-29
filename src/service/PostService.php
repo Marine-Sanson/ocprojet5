@@ -33,11 +33,11 @@ use App\service\CommentService;
 class PostService
 {
     /**
-     * Summary of template
+     * Summary of _postsMapper
      * 
-     * @var TemplateInterface
+     * @var PostsMapper
      */
-    public TemplateInterface $template;
+    private PostsMapper $_postsMapper;
 
     /**
      * Summary of _postRepository
@@ -54,6 +54,20 @@ class PostService
     private CommentService $_commentService;
 
     /**
+     * Summary of _postDetailsMapper
+     * 
+     * @var PostDetailsMapper
+     */
+    private PostDetailsMapper $_postDetailsMapper;
+
+    /**
+     * Summary of _commentRepository
+     * 
+     * @var CommentRepository
+     */
+    private CommentRepository $_commentRepository;
+
+    /**
      * Summary of _instance
      * 
      * @var PostService
@@ -63,10 +77,13 @@ class PostService
     /**
      * Summary of __construct
      */
-    public function __construct()
+    private function __construct()
     {
-        $this->_postRepository = new PostRepository();
+        $this->_postsMapper = PostsMapper::getInstance();
+        $this->_postRepository = PostRepository::getInstance();
         $this->_commentService = CommentService::getInstance();
+        $this->_postDetailsMapper = PostDetailsMapper::getInstance();
+        $this->_commentRepository = CommentRepository::getInstance();
     }
 
     /**
@@ -93,8 +110,7 @@ class PostService
     {
         $results= $this->_postRepository->getAllPostsWithAuthors();
 
-        $postmapper = new PostsMapper();
-        $posts = $postmapper->transformToListOfPostModel($results);
+        $posts = $this->_postsMapper->transformToListOfPostModel($results);
 
         return $posts;
     }
@@ -109,12 +125,10 @@ class PostService
     public function getPostDetails(int $postId): PostDetailsModel
     {
         $post = $this->_getPostData($postId);
-        $comments = $this->_getPostComments($postId);
-        $postDetailsMapper = PostDetailsMapper::getInstance();
-        $postDetails = $postDetailsMapper->getPostDetailsModel($post, $comments);
-
-        return $postDetails;
-    }
+        $comments = $this->_commentService->getpostComments($postId);
+ 
+        return $this->_postDetailsMapper->getPostDetailsModel($post, $comments);
+     }
 
     /**
      * Summary of getPostData
@@ -123,25 +137,9 @@ class PostService
      * 
      * @return array
      */
-    private function _getPostData(int $postId): array // dans le postService
+    private function _getPostData(int $postId): array
     {
-        $post = $this->_postRepository->getOnePostData($postId);
-
-        return $post;
-    }
-
-    /**
-     * Summary of getPostComments
-     * 
-     * @param int $postId id of the post
-     * 
-     * @return array
-     */
-    private function _getPostComments(int $postId): array
-    {
-        $comments = $this->_commentService->getComments($postId);
-
-        return $comments;
+        return $this->_postRepository->getOnePostData($postId);
     }
 
     /**
@@ -153,13 +151,10 @@ class PostService
      */
     public function createNewComment(CommentEntity $newComment): bool
     {
-        $commentRepository = new CommentRepository();
-        $id = $commentRepository->insertComment($newComment);
+        $id = $this->_commentRepository->insertComment($newComment);
 
-        if (isset($id)) {
-            return true;
-        } else {
-            return false;
-        }
+        if (!isset($id)) { return false; }
+
+        return true;
     }
 }

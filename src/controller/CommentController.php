@@ -47,7 +47,7 @@ class CommentController extends AbstractController
      */
     private function __construct()
     {
-        $this->_commentService = new CommentService();
+        $this->_commentService = CommentService::getInstance();
     }
 
     /**
@@ -65,18 +65,6 @@ class CommentController extends AbstractController
         return self::$_instance;
     }
 
-    /**
-     * Summary of getOnePostComments
-     * 
-     * @param int $postId id of the post
-     * 
-     * @return array
-     */
-    public function getOnePostComments(int $postId): array
-    {
-        $comments = $this->_commentService->getComments($postId);
 
-        return $comments;
-    }
 
 }

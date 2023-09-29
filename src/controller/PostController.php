@@ -61,7 +61,7 @@ class PostController extends AbstractController
      * 
      * @param TemplateInterface $template template engine
      */
-    private function __construct(public TemplateInterface $template)
+    private function __construct(private readonly TemplateInterface $template)
     {
         $this->_postService = PostService::getInstance();
         $this->_commentService = CommentService::getInstance();
@@ -139,7 +139,6 @@ class PostController extends AbstractController
             ]
         );
     }
-
 
     /**
      * Summary of validCommentForm
