@@ -17,6 +17,7 @@ namespace App\service;
 use App\controller\HomeController;
 use App\controller\UserController;
 use App\entity\UserEntity;
+use App\mapper\UserMapper;
 use App\model\UserConnectionModel;
 use App\repository\UserRepository;
 use App\service\SessionInterface;
@@ -62,12 +63,20 @@ class UserService
     private UserRepository $_userRepository;
 
     /**
+     * Summary of _userMapper
+     * 
+     * @var UserMapper
+     */
+    private UserMapper $_userMapper;
+
+    /**
      * Summary of __construct
      */
     private function __construct()
     {
         $this->_session = SessionService::getInstance();
         $this->_userRepository = new UserRepository();
+        $this->_userMapper = UserMapper::getInstance();
 
     }
      /**
@@ -86,50 +95,41 @@ class UserService
     }
 
     /**
-     * Summary of checkConnection
-     * call the functions to verify if form datas aren't empty, get the ConnectionModel, then verify password, connect
-     * the user, put the data needed in the session and finaly return the right template and datas for the render
-     * function
-     * 
-     * @param string $username come from the connection form
-     * @param string $password come from the connection form
-     * 
-     * @return array $result with template and datas
-     */
-
-    /**
      * Summary of connect
      * verify password connect the user and put the data needed in the session
      * 
-     * @param string                         $password            come from form
-     * @param \App\model\UserConnectionModel $userConnectionModel come from database
+     * @param string                 $password   come from form
+     * @param \App\entity\UserEntity $userEntity UserEntity
      * 
      * @return array
      */
-    public function connect(string $password, UserConnectionModel $userConnectionModel): array
+    public function connect(string $password, UserEntity $userEntity): bool
     {
-        $dbPassword = password_verify($password, $userConnectionModel->password);
+        return password_verify($password, $userEntity->password);
+    }
 
-        if ($dbPassword) {
-            $this->_session->setUser($userConnectionModel);
+    /**
+     * Summary of getUserConnectionModel
+     * 
+     * @param UserEntity $userEntity UserEntity
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function getUserConnectionModel(UserEntity $userEntity): UserConnectionModel
+    {
+        return $this->_userMapper->transformToUserConnectionModel($userEntity);
+    }
 
-            $template = HomeController::HOME_VIEW;
-            $data = [
-                MessageService::MESSAGE => ucfirst($userConnectionModel->firstName) . MessageService::LOGIN_SUCCESS
-            ];
-
-        } else {
-            $template = UserController::LOGIN_VIEW;
-            $data = [
-                MessageService::ERROR => MessageService::LOGIN_ERROR
-            ];
-        }
-        $result = [
-            "template" => $template,
-            "data" => $data
-        ];
-
-        return $result;
+    /**
+     * Summary of startUserSession
+     * 
+     * @param \App\model\UserConnectionModel $connectionModel UserConnectionModel
+     * 
+     * @return void
+     */
+    public function startUserSession(UserConnectionModel $connectionModel): void
+    {
+        $this->_session->setUser($connectionModel);
     }
 
     /**
@@ -146,7 +146,7 @@ class UserService
 
         if ($result !== []) {
 
-                $creationDate = $result[0]["creation_date"];
+            $creationDate = $result[0]["creation_date"];
             $creationDate = DateTime::createFromFormat(
                 "Y-m-d H:i:s", 
                 date("Y-m-d H:i:s")

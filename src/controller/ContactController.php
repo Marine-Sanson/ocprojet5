@@ -85,6 +85,11 @@ class ContactController extends AbstractController
         return self::$_instance;
     }
 
+    /**
+     * Summary of displayContactPage
+     * 
+     * @return void
+     */
     public function displayContactPage(): void
     {
         echo $this->template->render(self::CONTACT_VIEW, []);

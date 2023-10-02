@@ -50,7 +50,14 @@ class UserController extends AbstractController
      * 
      * @var UserService
      */
-    private $_userService;
+    private UserService $_userService;
+
+    /**
+     * Summary of _sessionService
+     * 
+     * @var SessionService
+     */
+    private SessionService $_sessionService;
 
     const URL = "login";
     const LOGIN_VIEW = "login.html.twig";
@@ -58,14 +65,16 @@ class UserController extends AbstractController
     const DISCONNECT = "disconnect";
 
     /**
-     * Summary of __construct call an instance of TemplateInterface
+     * Summary of __construct
+     * call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $_template template engine
+     * @param TemplateInterface $template template engine
      */
     public function __construct(TemplateInterface $template)
     {
         $this->_template = $template;
         $this->_userService = UserService::getInstance();
+        $this->_sessionService = SessionService::getInstance();
     }
 
      /**
@@ -85,6 +94,11 @@ class UserController extends AbstractController
         return self::$_instance;
     }
 
+    /**
+     * Summary of displayLoginPage
+     * 
+     * @return void
+     */
     public function displayLoginPage(): void
     {
         $template = self::LOGIN_VIEW;
@@ -92,67 +106,78 @@ class UserController extends AbstractController
         echo $this->_template->render($template, []);
     }
 
+    /**
+     * Summary of checkAction
+     * 
+     * @return void
+     */
     public function checkAction(): void
     {
-        if ($_POST["action"] === self::CONNECT) {
-            $result = $this->checkConnection();
-            $template = $result["template"];
-            $data = $result["data"];
-        } else if ($_POST["action"] === self::DISCONNECT) {
-            $homeController = HomeController::getInstance($this->_template);
-            $template = $homeController::HOME_VIEW;
-            $session = SessionService::getInstance();
-            if ($session->isUserConnected()) {
-                $result = $this->disconnect();
-                $data = $result["data"];
-            }
-        }
-        $sessionService = SessionService::getInstance();
-        $sessionData = $sessionService->getSession();
-        $data["session"] = [$sessionData];
-
-        echo $this->_template->render($template, $data);
-    }
-
-    /**
-     * Summary of checkConnection
-     * 
-     * @return array $data $template
-     */
-    public function checkConnection(): array
-    {
-        $username = self::cleanInput($_POST["username"]);
-        $password = $_POST["password"];
-
-        $checkConnectionData = $this->_userService->checkData($username, $password);
+        $template = self::LOGIN_VIEW;
         $data = [];
 
-        if (!$checkConnectionData) {
-            $template = self::LOGIN_VIEW;
-            $data = [
-                MessageService::ERROR => MessageService::CONNECTION_ERROR
-            ];
-        } else {
-            $userEntity = $this->_userService->getUser($username, $password);
-            if ($userEntity) {
-                $userMapper = new UserMapper;
-                $connectionModel = $userMapper->transformToUserConnectionModel($userEntity);
-                $result = $this->_userService->connect($password, $connectionModel);
-                $template = $result["template"];
-                $data = $result["data"];
-            } else {
-                $template = self::LOGIN_VIEW;
-                $data = [
-                    MessageService::ERROR => MessageService::LOGIN_PROBLEM
-                ];
-            }
-        }
-        $result = [
-            "template" => $template,
-            "data" => $data
-        ];
+        switch ($_POST["action"]) {
+            case self::CONNECT:
+                $username = self::cleanInput($_POST["username"]);
+                $password = $_POST["password"];
+                $checkConnectionData = $this->_userService->checkData($username, $password);
 
-        return $result;
+                if ($checkConnectionData) {
+                    $userEntity = $this->_userService->getUser($username, $password);
+
+                    if ($userEntity) {
+                        $connect = $this->_userService->connect($password, $userEntity);
+
+                        if ($connect) {
+                            $connectionModel = $this->_userService->getUserConnectionModel($userEntity);
+                            $this->_userService->startUserSession($connectionModel);
+
+                            $sessionData = $this->_sessionService->getSession();
+
+                            $data["session"] = [$sessionData];
+
+                            $template = HomeController::HOME_VIEW;
+                            $data[] = [
+                                MessageService::MESSAGE => ucfirst($connectionModel->firstName) . MessageService::LOGIN_SUCCESS
+                            ];
+
+                        } else {
+                            $data[] = [
+                                MessageService::ERROR => MessageService::LOGIN_ERROR
+                            ];
+                        }
+                    } else {
+                        $data[] = [
+                            MessageService::ERROR => MessageService::LOGIN_PROBLEM
+                        ];
+                    }
+
+                    echo $this->_template->render($template, $data);
+                    break;
+                }
+
+                $data = [
+                    MessageService::ERROR => MessageService::CONNECTION_ERROR
+                ];
+                echo $this->_template->render($template, $data);
+                break;
+
+            case self::DISCONNECT:
+                $homeController = HomeController::getInstance($this->_template);
+                $template = $homeController::HOME_VIEW;
+                $session = SessionService::getInstance();
+                if ($session->isUserConnected()) {
+                    $result = $this->disconnect();
+                    $data = $result["data"];
+                }
+                $sessionData = $this->_sessionService->getSession();
+                $data["session"] = [$sessionData];
+                echo $this->_template->render($template, $data);
+                break;
+            default:
+                echo $this->_template->render($template, $data);
+                break;
+            }
     }
 
     /**
