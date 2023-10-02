@@ -124,35 +124,17 @@ class Router
                 break;
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
-                $data = [];
-                if (empty($_POST)) {
-                    $template = $userController::LOGIN_VIEW;
+                if (isset($_POST["action"])) {
+                    $userController->checkAction();
+                    break;
                 }
-                if ($_POST === []) {
-                    $template = $userController::LOGIN_VIEW;
-                } else if ($_POST["action"] === $userController::CONNECT) {
-                    $result = $userController->checkConnection();
-                    $template = $result["template"];
-                    $data = $result["data"];
-                } else if ($_POST["action"] === $userController::DISCONNECT) {
-                    $homeController = HomeController::getInstance($this->_templateEngine);
-                    $template = $homeController::HOME_VIEW;
-                    $session = SessionService::getInstance();
-                    if ($session->isUserConnected()) {
-                        $result = $userController->disconnect();
-                        $data = $result["data"];
-                    }
-                }
-                $sessionService = SessionService::getInstance();
-                $sessionData = $sessionService->getSession();
-                $data["session"] = [$sessionData];
-
-                echo $userController->template->render($template, $data);
+                $userController->displayLoginPage();
                 break;
+
             case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"]) && $_POST["action"] === $contactController::ACTION) {
-                    $result = $contactController->manageContact();
+                    $contactController->manageContact();
                     break;
                 }
                 $contactController->displayContactPage();
