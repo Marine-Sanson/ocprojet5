@@ -46,6 +46,13 @@ class ContactController extends AbstractController
      */
     private static $_instance;
 
+    /**
+     * Summary of _contactService
+     * 
+     * @var ContactService
+     */
+    private ContactService $_contactService;
+
     const URL = "contact";
     const CONTACT_VIEW = 'contact.html.twig';
     const ACTION = "contact";
@@ -58,6 +65,7 @@ class ContactController extends AbstractController
     public function __construct(TemplateInterface $template)
     {
         $this->template = $template;
+        $this->_contactService = ContactService::getInstance();
     }
 
     /**
@@ -77,12 +85,18 @@ class ContactController extends AbstractController
         return self::$_instance;
     }
 
+    public function displayContactPage(): void
+    {
+        echo $this->template->render(self::CONTACT_VIEW, []);
+    }
+
+
     /**
      * Summary of manageContact
      * 
-     * @return array with template and data
+     * @return void
      */
-    public function manageContact(): array
+    public function manageContact(): void
     {
         $action = self::ACTION;
         $isSubmitted = $this->isSubmitted($action);
@@ -101,14 +115,13 @@ class ContactController extends AbstractController
 
             $validateContact = $this->validContactForm($contact);
 
-            $contactService = ContactService::getInstance();
-            $contactCreated = $contactService->createContact($validateContact);
+            $contactCreated = $this->_contactService->createContact($validateContact);
 
             if ($contactCreated) {
                 $validateContact->content = htmlspecialchars_decode($validateContact->content);
 
                 // $validateContact = htmlspecialchars_decode($validateContact);
-                $sendMail = $contactService->notify($validateContact);
+                $sendMail = $this->_contactService->notify($validateContact);
             }
 
             if ($sendMail) {
@@ -128,12 +141,7 @@ class ContactController extends AbstractController
                 MessageService::ERROR => MessageService::GENERAL_ERROR
             ];
         }
-        $result = [
-            "template" => $template,
-            "data" => $data
-        ];
-
-        return $result;
+        echo $this->template->render($template, $data);
     }
 
     /**

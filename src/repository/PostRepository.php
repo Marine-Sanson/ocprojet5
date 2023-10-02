@@ -101,7 +101,7 @@ class PostRepository
      * 
      * @return array
      */
-    public function getLastPosts(): array
+    public function getListOfPosts(): array
     {
         $request = 'SELECT posts.*, username FROM posts 
         JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';

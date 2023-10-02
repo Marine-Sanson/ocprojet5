@@ -36,7 +36,7 @@ class UserController extends AbstractController
      * 
      * @var TemplateInterface
      */
-    public TemplateInterface $template;
+    private TemplateInterface $_template;
 
     /**
      * Summary of _instance
@@ -60,11 +60,11 @@ class UserController extends AbstractController
     /**
      * Summary of __construct call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $template template engine
+     * @param TemplateInterface $_template template engine
      */
     public function __construct(TemplateInterface $template)
     {
-        $this->template = $template;
+        $this->_template = $template;
         $this->_userService = UserService::getInstance();
     }
 
@@ -83,6 +83,35 @@ class UserController extends AbstractController
         }
     
         return self::$_instance;
+    }
+
+    public function displayLoginPage(): void
+    {
+        $template = self::LOGIN_VIEW;
+
+        echo $this->_template->render($template, []);
+    }
+
+    public function checkAction(): void
+    {
+        if ($_POST["action"] === self::CONNECT) {
+            $result = $this->checkConnection();
+            $template = $result["template"];
+            $data = $result["data"];
+        } else if ($_POST["action"] === self::DISCONNECT) {
+            $homeController = HomeController::getInstance($this->_template);
+            $template = $homeController::HOME_VIEW;
+            $session = SessionService::getInstance();
+            if ($session->isUserConnected()) {
+                $result = $this->disconnect();
+                $data = $result["data"];
+            }
+        }
+        $sessionService = SessionService::getInstance();
+        $sessionData = $sessionService->getSession();
+        $data["session"] = [$sessionData];
+
+        echo $this->_template->render($template, $data);
     }
 
     /**
