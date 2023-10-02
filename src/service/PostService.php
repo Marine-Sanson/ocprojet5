@@ -128,7 +128,7 @@ class PostService
         $comments = $this->_commentService->getpostComments($postId);
  
         return $this->_postDetailsMapper->getPostDetailsModel($post, $comments);
-     }
+    }
 
     /**
      * Summary of getPostData
