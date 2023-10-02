@@ -29,6 +29,28 @@ use App\model\UserConnectionModel;
 class UserMapper
 {
     /**
+     * Summary of _instance
+     * 
+     * @var UserMapper
+     */
+    private static $_instance;
+
+    /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     * 
+     * @return \App\mapper\UserMapper
+     */
+    public static function getInstance(): UserMapper
+    { 
+        if (is_null(self::$_instance)) {
+            self::$_instance = new UserMapper();
+        }
+    
+        return self::$_instance;
+    }
+
+    /**
      * Summary of changeUserToConnection
      * 
      * @param \App\entity\UserEntity $user Entity UserEntity

@@ -93,8 +93,6 @@ class HomeController
      * Summary of index
      * The content of this function is temporary, just to test
      *
-     * @param int|null $id id of the post
-     * 
      * @return void
      */
     public function displayHome(): void

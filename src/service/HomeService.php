@@ -70,12 +70,20 @@ class HomeService
         return self::$_instance;
     }
 
+    /**
+     * Summary of __construct
+     */
     private function __construct()
     {
         $this->_postRepository = PostRepository::getInstance();
         $this->_postsMapper = PostsMapper::getInstance();
     }
 
+    /**
+     * Summary of getLastPosts
+     * 
+     * @return array
+     */
     public function getLastPosts(): array
     {
         $results = $this->_postRepository->getListOfPosts();
