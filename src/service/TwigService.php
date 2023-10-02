@@ -63,7 +63,7 @@ class TwigService implements TemplateInterface
      * 
      * @return \App\service\TwigService
      */
-    public static function getInstance() :TwigService
+    public static function getInstance(): TwigService
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new TwigService();  
@@ -80,7 +80,7 @@ class TwigService implements TemplateInterface
      * 
      * @return string template to display
      */
-    public function render(string $templateName, array $parameters = []) :string
+    public function render(string $templateName, array $parameters = []): string
     {
         return $this->_twig->render($templateName, $parameters);
     }

@@ -68,7 +68,7 @@ class ContactController extends AbstractController
      * 
      * @return \App\controller\ContactController
      */
-    public static function getInstance(TemplateInterface $template) :ContactController
+    public static function getInstance(TemplateInterface $template): ContactController
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new ContactController($template);  
@@ -82,7 +82,7 @@ class ContactController extends AbstractController
      * 
      * @return array with template and data
      */
-    public function manageContact() :array
+    public function manageContact(): array
     {
         $action = self::ACTION;
         $isSubmitted = $this->isSubmitted($action);
@@ -91,7 +91,13 @@ class ContactController extends AbstractController
         if ($isSubmitted && $isValid) {
 
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
-            $contact = new ContactModel($_POST["name"], $_POST["firstName"], $_POST["email"], $_POST["content"], $currentDate);
+            $contact = new ContactModel(
+                $_POST["name"], 
+                $_POST["firstName"], 
+                $_POST["email"], 
+                $_POST["content"], 
+                $currentDate
+            );
 
             $validateContact = $this->validContactForm($contact);
 
@@ -113,13 +119,13 @@ class ContactController extends AbstractController
             } else {
                 $template = self::CONTACT_VIEW;
                 $data = [
-                    MessageService::ERROR => MessageService::MAIL_ERROR
+                    MessageService::ERROR => MessageService::GENERAL_ERROR
                 ];
             }
         } else {
             $template = self::CONTACT_VIEW;
             $data = [
-                MessageService::ERROR => MessageService::MAIL_ERROR
+                MessageService::ERROR => MessageService::GENERAL_ERROR
             ];
         }
         $result = [
@@ -137,7 +143,7 @@ class ContactController extends AbstractController
      * 
      * @return \App\model\ContactModel
      */
-    public function validContactForm(ContactModel $contact) :ContactModel
+    public function validContactForm(ContactModel $contact): ContactModel
     {
         $contact->name = $this->cleanInput($contact->name);
         $contact->firstName = $this->cleanInput($contact->firstName);

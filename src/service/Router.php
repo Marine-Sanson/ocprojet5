@@ -64,7 +64,7 @@ class Router
      * 
      * @return \App\service\Router
      */
-    public static function getInstance() :Router
+    public static function getInstance(): Router
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new Router();  
@@ -80,7 +80,7 @@ class Router
      * 
      * @return array with route and param
      */
-    public function parseRoute() :array
+    public function parseRoute(): array
     {
         $route = [];
         if (isset($_GET["route"])) {
@@ -106,10 +106,9 @@ class Router
      * 
      * @return void
      */
-    public function route() :void
+    public function route(): void
     {
         $route = $this->parseRoute();
-
         switch ($route["route"]) {
             case HomeController::URL:
                 $homeController = HomeController::getInstance($this->_templateEngine);
@@ -117,14 +116,11 @@ class Router
                 break;
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
-                $result = $postController->getPosts();
-                echo $postController->template->render($postController::POSTS_VIEW, ['posts' => $result]);
-                break;
-            case PostController::URL_ONE_POST :
-                $id = $route["param"];
-                $postController = PostController::getInstance($this->_templateEngine);
-                $result = $postController->getPostData($id);
-                echo $postController->template->render($postController::ONEPOST_VIEW, ['id' => $id, 'post' => $result]);
+                if (isset($route["param"])) {
+                    $postController->showPostDetails($route["param"]);
+                    break;
+                }
+                $postController->showPosts();
                 break;
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
@@ -153,7 +149,7 @@ class Router
 
                 echo $userController->template->render($template, $data);
                 break;
-            case ContactController::URL :
+            case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine);
                 $data = [];
                 if ($_POST === []) {

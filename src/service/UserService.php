@@ -19,6 +19,7 @@ use App\controller\UserController;
 use App\entity\UserEntity;
 use App\model\UserConnectionModel;
 use App\repository\UserRepository;
+use App\service\SessionInterface;
 use App\service\SessionService;
 use DateTime;
 
@@ -47,16 +48,38 @@ class UserService
      */
     private static $_instance;
 
+    /**
+     * Summary of session
+     * 
+     * @var SessionInterface
+     */
+    private SessionInterface $_session;
+    /**
+     * Summary of _userRepository
+     * 
+     * @var UserRepository
+     */
+    private UserRepository $_userRepository;
+
+    /**
+     * Summary of __construct
+     */
+    private function __construct()
+    {
+        $this->_session = SessionService::getInstance();
+        $this->_userRepository = new UserRepository();
+
+    }
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
       * 
       * @return \App\service\UserService
       */
-    public static function getInstance() :UserService
+    public static function getInstance(): UserService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserService();  
+            self::$_instance = new UserService();
         }
     
         return self::$_instance;
@@ -83,13 +106,12 @@ class UserService
      * 
      * @return array
      */
-    public function connect(string $password, UserConnectionModel $userConnectionModel) :array
+    public function connect(string $password, UserConnectionModel $userConnectionModel): array
     {
         $dbPassword = password_verify($password, $userConnectionModel->password);
 
         if ($dbPassword) {
-            $session = SessionService::getInstance();
-            $session->setUser($userConnectionModel);
+            $this->_session->setUser($userConnectionModel);
 
             $template = HomeController::HOME_VIEW;
             $data = [
@@ -118,11 +140,9 @@ class UserService
      * 
      * @return \App\entity\UserEntity | null
      */
-    public function getUser(string $username, string $password) :?UserEntity
+    public function getUser(string $username, string $password): ?UserEntity
     {
-
-        $userRepository = new UserRepository();
-        $result = $userRepository->getUser($username);
+        $result = $this->_userRepository->getUser($username);
 
         if ($result !== []) {
 
@@ -174,6 +194,17 @@ class UserService
         }
         
         return true;
-        
+    }
+
+    /**
+     * Summary of getUserId
+     * 
+     * @param string $username username
+     * 
+     * @return int
+     */
+    public function getUserId(string $username): int
+    {
+        return $this->_userRepository->getUserId($username);
     }
 }

@@ -41,7 +41,7 @@ class AbstractController
      * 
      * @return bool
      */
-    public function isSubmitted(string $action) : bool
+    public function isSubmitted(string $action): bool
     {
         return $_POST["action"] === $action;
     }
@@ -53,7 +53,7 @@ class AbstractController
      * 
      * @return bool
      */
-    public function isValid(array $post) : bool
+    public function isValid(array $post): bool
     {
         $test = true;
 
@@ -80,14 +80,20 @@ class AbstractController
      * 
      * @return string
      */
-    public function cleanInput(string $data) :string
+    public function cleanInput(string $data): string
     {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        $data = htmlentities($data);
-
-        return $data;
+        return htmlspecialchars(htmlentities(stripslashes(trim($data))));
     }
 
+    /**
+     * Summary of toDisplay
+     * 
+     * @param string $data data
+     * 
+     * @return string
+     */
+    public function toDisplay(string $data): string
+    {
+        return htmlspecialchars_decode(html_entity_decode($data));
+    }
 }

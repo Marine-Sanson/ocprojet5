@@ -12,26 +12,73 @@
 {% block body %}
 <section class="blackground">
     <div class="scales">
-        <div class="p-section bg-light" id="posts">
-            <div class="container px-4 px-lg-5">
+        <div class="p-section bg-light" id="post">
+            <div class="container px-2 px-lg-5">
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                     <div class="col-lg-1">
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-12 col-lg-10">
                         <div class="bg-black h-100 project">
                             <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto">
-                                    <div class="border border-primary rounded m-2 p-5 text-justify">
-                                        <h4 class="text-primary fw-bolder text-center">{{post.title|capitalize}}</h4>
-                                        <p class="mt-4 justify text-white fw-bold">{{ post.summary }}</p>
-                                        <p class="mt-4 justify text-white">{{ post.content }}</p>
-                                        <div class="row text-white">
-                                            <span class="col-lg-1"></span>
-                                            <span class="col-lg-3">Auteur : {{ post.username|capitalize }}</span>
-                                            <span class="col-lg-1"></span>
-                                            <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
-                                            <span class="col-lg-1"></span>
+                                <div class="project-text w-100">
+                                    <div class="border border-primary rounded p-2 p-lg-5 text-justify">
+                                        <div>
+                                            <div class="text-center mt-5">
+                                                <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message.message }}</p>
+                                                <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ message.error }}</p>
+                                            </div>
+                                            <h4 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h4>
+                                            <p class="mt-4 justify text-white fw-bold">{{ postDetails.summary }}</p>
+                                            <p class="mt-4 justify text-white">{{ postDetails.content }}</p>
+                                            <div class="row text-white">
+                                                <span class="col-lg-1"></span>
+                                                <span class="col-lg-3">Auteur : {{ postDetails.username|capitalize }}</span>
+                                                <span class="col-lg-5"></span>
+                                                <span class="col-lg-2 text-right">Date : {{ postDetails.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                <span class="col-lg-1"></span>
+                                            </div>
+                                            {% if comments %}
+                                            <h4 class="pt-5 text-white">Commentaires :</h4>
+                                            {% endif %}
+                                            {% for comment in postDetails.comments %}
+                                                <div class="p-2 px-lg-5 py-lg-2">
+                                                    <p class="mt-4 justify text-white">{{ comment.content }}</p>
+                                                    <div class="row text-white">
+                                                        <span class="col-lg-1"></span>
+                                                        <span class="col-lg-3">Auteur : {{ comment.username|capitalize }}</span>
+                                                        <span class="col-lg-5"></span>
+                                                        <span class="col-lg-2 text-right">Date : {{ comment.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                        <span class="col-lg-1"></span>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
                                         </div>
+                                        {% if session.user.firstName %}
+                                            {# formulaire d'ajout de commentaire #}
+                                            <div class="col-md-8 bg-light bg-opacity-50 rounded more-space">
+                                                <h1 class="text-center font-weight-bold text-primary mt-4">Commenter :</h1>
+                                                <hr class="bg-light">
+                                                <h5 class="text-center text-success"></h5>
+                                                <form action="" method="post" id="form-box" class="p-2">
+                                                    <input type="hidden" id="commentAction" name="action" value="addComment">
+                                                    <input type="hidden" id="tokenContactForm" name="token" value="###">
+                                                    <input type="hidden" id="username" name="username" value="{{ session.user.username }}">
+                                                    <input type="hidden" id="postId" name="postId" value="{{ postDetails.id }}">
+                                                    
+                                                    <div class="form-group input-group my-2">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-comment-alt text-primary"></i></span>
+                                                        </div>
+                                                        <textarea name="content" id="content" class="form-control" placeholder="Commenter cet article" cols="30" rows="4" required></textarea>
+                                                    </div>
+                                                    <div class="form-group d-flex">
+                                                        <div class="mx-auto my-4">
+                                                            <input type="submit" id="contactSubmit" class="btn btn-body btn-block" value="Envoyer">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

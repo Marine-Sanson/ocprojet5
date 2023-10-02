@@ -76,7 +76,7 @@ class UserController extends AbstractController
       * 
       * @return \App\controller\UserController
       */
-    public static function getInstance(TemplateInterface $template) :UserController
+    public static function getInstance(TemplateInterface $template): UserController
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new UserController($template);  
@@ -90,7 +90,7 @@ class UserController extends AbstractController
      * 
      * @return array $data $template
      */
-    public function checkConnection() :array
+    public function checkConnection(): array
     {
         $username = self::cleanInput($_POST["username"]);
         $password = $_POST["password"];
@@ -131,7 +131,7 @@ class UserController extends AbstractController
      * 
      * @return array $data
      */
-    public function disconnect() : array
+    public function disconnect():  array
     {
         $session = SessionService::getInstance();
         $session->clear();
@@ -154,7 +154,7 @@ class UserController extends AbstractController
      * 
      * @return string
      */
-    public function hashPassword(string $password) :string
+    public function hashPassword(string $password): string
     {
         return password_hash($password, PASSWORD_DEFAULT, ["cost" => "14"]);
     }

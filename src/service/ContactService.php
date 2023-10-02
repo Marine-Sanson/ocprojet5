@@ -50,7 +50,7 @@ class ContactService
       * 
       * @return \App\service\ContactService
       */
-    public static function getInstance() :ContactService
+    public static function getInstance(): ContactService
     { 
         if (is_null(self::$_instance)) {
             self::$_instance = new ContactService();  
@@ -67,7 +67,7 @@ class ContactService
      * 
      * @return bool
      */
-    public function createContact(ContactModel $contactModel) :bool
+    public function createContact(ContactModel $contactModel): bool
     {
         $contactId = null;
         $newContact = new ContactEntity(
@@ -96,15 +96,15 @@ class ContactService
      * 
      * @return bool
      */
-    public function notify(ContactModel $newContact) :bool
+    public function notify(ContactModel $newContact): bool
     {
         $content = $newContact->content;
 
         $contactName = $newContact->firstName . " " . $newContact->name;
         $contactEmail = $newContact->email;
         $subject = "contact depuis le blog";
-        $message = " De : " . $contactName . " Email : " . $newContact->email . " Le " . 
-        $newContact->creationDate->format('Y-m-d H:i:s') . " Message : " . $content;
+        $message = " De:  " . $contactName . " Email:  " . $newContact->email . " Le " . 
+        $newContact->creationDate->format('Y-m-d H:i:s') . " Message:  " . $content;
 
         $mailerService = new MailerService;
         $mail = $mailerService->sendMail($contactName, $contactEmail, $subject, $message);

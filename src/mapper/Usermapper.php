@@ -35,7 +35,7 @@ class UserMapper
      * 
      * @return \App\model\UserConnectionModel UserConnectionModel
      */
-    public function transformToUserConnectionModel(UserEntity $user) :UserConnectionModel
+    public function transformToUserConnectionModel(UserEntity $user): UserConnectionModel
     {
         return new UserConnectionModel(
             $user->firstName, 

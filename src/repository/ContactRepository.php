@@ -43,7 +43,7 @@ class ContactRepository
      * 
      * @return int
      */
-    public function insertContact(ContactEntity $newContact) :int
+    public function insertContact(ContactEntity $newContact): int
     {
         $firstName = $newContact->firstName;
         $name = $newContact->name;

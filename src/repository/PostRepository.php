@@ -33,6 +33,36 @@ class PostRepository
      * @var DatabaseService $_db connection between PHP and a database server
      */
     private DatabaseService $_db;
+
+    /**
+     * Summary of _instance
+     * 
+     * @var PostRepository
+     */
+    private static $_instance;
+
+    /**
+     * Summary of __construct
+     */
+    private function __construct()
+    {
+        $this->_db = DatabaseService::getInstance();
+    }
+
+    /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     * 
+     * @return \App\service\PostService
+     */
+    public static function getInstance(): PostRepository
+    { 
+        if (is_null(self::$_instance)) {
+            self::$_instance = new PostRepository();  
+        }
+    
+        return self::$_instance;
+    }
     
     /**
      * Summary of getAllPostsWithAuthors
@@ -41,7 +71,6 @@ class PostRepository
      */
     public function getAllPostsWithAuthors()
     {
-        $this->_db = DatabaseService::getInstance();
         $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id';
 
         $result = $this->_db->execute($request, null);
@@ -56,9 +85,8 @@ class PostRepository
      * 
      * @return array
      */
-    public function getOnePostData(int $id) :array
+    public function getOnePostData(int $id): array
     {
-        $this->_db = DatabaseService::getInstance();
         $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id WHERE posts.id = :id ';
         $parameters = [
             'id' => $id
@@ -73,9 +101,8 @@ class PostRepository
      * 
      * @return array
      */
-    public function getLastPosts() :array
+    public function getLastPosts(): array
     {
-        $this->_db = DatabaseService::getInstance();
         $request = 'SELECT posts.*, username FROM posts 
         JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
         $parameters = [];

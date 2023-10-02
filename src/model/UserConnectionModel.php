@@ -43,4 +43,20 @@ class UserConnectionModel
     ) {
 
     }
+
+    /**
+     * Summary of toArray
+     * 
+     * @return array
+     */
+    public function toArray() :array
+    {
+        return [
+            "firstName" => $this->firstName,
+            "username" => $this->username,
+            "password" => $this->password,
+            "role" => $this->role,
+            "isAllowed" => $this->isAllowed
+        ];
+    }
 }
