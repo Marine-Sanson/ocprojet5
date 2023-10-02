@@ -151,15 +151,11 @@ class Router
                 break;
             case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine);
-                $data = [];
-                if ($_POST === []) {
-                    $template = $contactController::CONTACT_VIEW;
-                } else if ($_POST["action"] === $contactController::ACTION) {
+                if (isset($_POST["action"]) && $_POST["action"] === $contactController::ACTION) {
                     $result = $contactController->manageContact();
-                    $template = $result["template"];
-                    $data = $result["data"];
+                    break;
                 }
-                echo $contactController->template->render($template, $data);
+                $contactController->displayContactPage();
                 break;
 
             default:
