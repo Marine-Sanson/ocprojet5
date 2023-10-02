@@ -112,7 +112,7 @@ class Router
         switch ($route["route"]) {
             case HomeController::URL:
                 $homeController = HomeController::getInstance($this->_templateEngine);
-                $homeController->index($route["param"]);                       // temp function
+                $homeController->displayHome();
                 break;
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);

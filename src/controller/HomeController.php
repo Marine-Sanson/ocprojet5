@@ -16,6 +16,7 @@ namespace App\controller;
 
 use App\mapper\PostsMapper;
 use App\repository\PostRepository;
+use App\service\HomeService;
 use App\service\TemplateInterface;
 
 /**
@@ -44,6 +45,14 @@ class HomeController
     private static $_instance;
 
     /**
+     * Summary of _homeService
+     * 
+     * @var HomeService
+     */
+    private HomeService $_homeService;
+
+
+    /**
      * Summary of URL
      * 
      * @var string
@@ -59,6 +68,7 @@ class HomeController
     private function __construct(TemplateInterface $template)
     {
         $this->_template = $template;
+        $this->_homeService = HomeService::getInstance();
     }
 
 
@@ -87,11 +97,9 @@ class HomeController
      * 
      * @return void
      */
-    public function index(?int $id): void                                    // temp function, will be removed
+    public function displayHome(): void
     {
-        $results = PostRepository::getInstance()->getLastPosts();
-
-        $lastPosts = PostsMapper::getInstance()->transformToListOfPostModel($results);
+        $lastPosts = $this->_homeService->getLastPosts();
 
         echo $this->_template->render(
             self::HOME_VIEW, [
