@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\model\RegisterModel;
 use App\service\DatabaseService;
+use DateTime;
 
 /**
  * UserRepository Class Doc Comment
@@ -35,6 +37,86 @@ class UserRepository
     private DatabaseService $_db;
 
     /**
+     * Summary of _instance
+     * 
+     * @var UserRepository
+     */
+    private static $_instance;
+
+    /**
+     * Summary of __construct
+     */
+    private function __construct()
+    {
+        $this->_db = DatabaseService::getInstance();
+    }
+
+    /**
+     * Summary of getInstance
+     * 
+     * @return \App\repository\UserRepository
+     */
+    public static function getInstance(): UserRepository
+    { 
+        if (is_null(self::$_instance)) {
+            self::$_instance = new UserRepository();
+        }
+    
+        return self::$_instance;
+    }
+
+    /**
+     * Summary of insertNewUser
+     * 
+     * @param \App\model\RegisterModel $registerModel RegisterModel
+     * 
+     * @return int
+     */
+    public function insertNewUser(RegisterModel $registerModel): int
+    {
+        $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+        $request = 'INSERT INTO users (
+                name,
+                first_name,
+                username,
+                email,
+                password,
+                role,
+                creation_date,
+                last_update_date,
+                is_allowed
+                ) 
+            VALUES (
+                :name,
+                :first_name,
+                :username,
+                :email,
+                :password,
+                :role,
+                :creation_date,
+                :last_update_date,
+                :is_allowed
+                )';
+        $parameters = [
+            'name' => $registerModel->getName(),
+            'first_name' => $registerModel->getFirstName(),
+            'username' => $registerModel->getUsername(),
+            'email' => $registerModel->getEmail(),
+            'password' => $registerModel->getPassword(),
+            'role' => 'user',
+            'creation_date' => $date->format('Y-m-d H:i:s'),
+            'last_update_date' => $date->format('Y-m-d H:i:s'),
+            'is_allowed' => 0
+        ];
+        $this->_db->execute($request, $parameters);
+        $newReq = 'SELECT LAST_INSERT_ID()';
+        $lastInsertId = $this->_db->execute($newReq, null);
+        $id = $lastInsertId[0]["LAST_INSERT_ID()"];
+
+        return $id;
+    }
+
+    /**
      * Summary of getUser
      * 
      * @param string $username username
@@ -43,7 +125,6 @@ class UserRepository
      */
     public function getUser(string $username): array
     {
-        $this->_db = DatabaseService::getInstance();
         $request = 'SELECT * FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
@@ -62,7 +143,6 @@ class UserRepository
      */
     public function getUserId(string $username): int
     {
-        $this->_db = DatabaseService::getInstance();
         $request = 'SELECT id FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
@@ -70,6 +150,18 @@ class UserRepository
         $id = $this->_db->execute($request, $parameters);
 
         return $id[0]["id"];
+    }
+
+    /**
+     * Summary of getAllUsernames
+     * 
+     * @return array
+     */
+    public function getAllUsernames(): array
+    {
+        $request = 'SELECT username FROM users';
+
+        return $this->_db->execute($request, []);
     }
 
     // // Préparez la requête SQL

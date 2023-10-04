@@ -17,6 +17,7 @@ namespace App\service;
 use App\controller\ContactController;
 use App\controller\HomeController;
 use App\controller\PostController;
+use App\controller\RegisterController;
 use App\controller\UserController;
 use App\service\SessionService;
 use App\service\TwigService;
@@ -124,14 +125,29 @@ class Router
                 break;
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
-                if (isset($_POST["action"])) {
-                    $userController->checkAction();
+                if (!isset($_POST["action"])) {
+                    $userController->displayLoginPage();
                     break;
                 }
-                $userController->displayLoginPage();
+                if ($_POST["action"] === UserController::CONNECT) {
+                    $userController->login($_POST["username"], $_POST["password"]);
+                    break;
+                }
+                if ($_POST["action"] === UserController::DISCONNECT) {
+                    $userController->logout();
+                    break;
+                }
+                echo $this->_templateEngine->render('404.html.twig', []);
                 break;
-
-            case ContactController::URL: 
+            case RegisterController::URL:
+                $registerController = RegisterController::getInstance($this->_templateEngine);
+                if (isset($_POST["action"])) {
+                    $registerController->manageRegister();
+                    break;
+                }
+                $registerController->displayRegisterPage();
+                break;
+                case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"]) && $_POST["action"] === $contactController::ACTION) {
                     $contactController->manageContact();

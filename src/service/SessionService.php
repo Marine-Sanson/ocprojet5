@@ -179,4 +179,15 @@ class SessionService implements SessionInterface
     {
         return array_key_exists($key, $this->_session);
     }
+
+    /**
+     * Summary of cleanSession
+     * 
+     * @return void
+     */
+    public function cleanSession(): void
+    {
+        $this->clear();
+        $this->destroy();
+    }
 }

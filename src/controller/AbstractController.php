@@ -80,7 +80,7 @@ class AbstractController
      * 
      * @return string
      */
-    public function cleanInput(string $data): string
+    public function sanitize(string $data): string
     {
         return htmlspecialchars(htmlentities(stripslashes(trim($data))));
     }

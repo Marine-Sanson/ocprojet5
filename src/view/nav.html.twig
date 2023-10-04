@@ -24,7 +24,7 @@
                 {% endif %}
 
                 <li class="nav-item">
-                    {% if (session.0.user.firstName) or (session.user.firstName) %}
+                    {% if (session.user.firstName) %}
                         <form id="disconnect" {% if postDetails.id %}action=".././login"{% else %}action="./login"{% endif %} method="post">
                             <input type="hidden" id="connectionAction" name="action" value="disconnect">
 

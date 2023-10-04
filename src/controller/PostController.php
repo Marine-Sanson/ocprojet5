@@ -149,7 +149,7 @@ class PostController extends AbstractController
      */
     public function validCommentForm(string $content): string
     {
-        $content = $this->cleanInput($content);
+        $content = $this->sanitize($content);
 
         return $content; 
     }

@@ -75,9 +75,8 @@ class UserService
     private function __construct()
     {
         $this->_session = SessionService::getInstance();
-        $this->_userRepository = new UserRepository();
+        $this->_userRepository = UserRepository::getInstance();
         $this->_userMapper = UserMapper::getInstance();
-
     }
      /**
       * Summary of getInstance
@@ -118,18 +117,6 @@ class UserService
     public function getUserConnectionModel(UserEntity $userEntity): UserConnectionModel
     {
         return $this->_userMapper->transformToUserConnectionModel($userEntity);
-    }
-
-    /**
-     * Summary of startUserSession
-     * 
-     * @param \App\model\UserConnectionModel $connectionModel UserConnectionModel
-     * 
-     * @return void
-     */
-    public function startUserSession(UserConnectionModel $connectionModel): void
-    {
-        $this->_session->setUser($connectionModel);
     }
 
     /**
@@ -179,21 +166,30 @@ class UserService
     }
 
     /**
-     * Summary of checkData
-     * verify the data entered by the user and verify if they are empty
+     * Summary of connection
      * 
-     * @param string $username come from the connection form
-     * @param string $password come from the connection form
+     * @param string $username username
+     * @param string $password password
      * 
-     * @return bool
+     * @return UserConnectionModel|null
      */
-    public function checkData(string $username, string $password)
+    public function connection(string $username, string $password): ?UserConnectionModel
     {
-        if ($username === "" || $password === "") {
-            return false;
+        $userEntity = $this->getUser($username, $password);
+
+        if (!$userEntity) {
+            return null;            
         }
-        
-        return true;
+
+        $connect = $this->connect($password, $userEntity);
+
+        if (!$connect) {
+            return null;
+        }
+
+        $connectionModel = $this->getUserConnectionModel($userEntity);
+
+        return $connectionModel;
     }
 
     /**
@@ -206,5 +202,15 @@ class UserService
     public function getUserId(string $username): int
     {
         return $this->_userRepository->getUserId($username);
+    }
+
+    /**
+     * Summary of getUsedUsernames
+     * 
+     * @return array
+     */
+    public function getUsedUsernames(): array
+    {
+        return $this->_userRepository->getAllUsernames();
     }
 }
