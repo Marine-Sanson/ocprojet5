@@ -102,8 +102,14 @@ class ContactController extends AbstractController
      */
     public function manageContact(): void
     {
-        if ($this->isSubmitted(self::ACTION) && $this->isValid($_POST)) {
+        if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
+            $template = RouteService::CONTACT_VIEW;
+            $data = [
+                MessageService::ERROR => MessageService::GENERAL_ERROR
+            ];
+        }
 
+        if (!isset($data[MessageService::ERROR])) {
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
             $contact = new ContactModel(
                 $_POST["name"], 
@@ -114,7 +120,6 @@ class ContactController extends AbstractController
             );
 
             $validateContact = $this->validContactForm($contact);
-
             $contactCreated = $this->_contactService->createContact($validateContact);
 
             if ($contactCreated) {
@@ -124,23 +129,21 @@ class ContactController extends AbstractController
                 $sendMail = $this->_contactService->notify($validateContact);
             }
 
-            if ($sendMail) {
-                $template = HomeController::HOME_VIEW;
-                $data = [
-                    MessageService::MESSAGE => MessageService::MAIL_VALID
-                ];
-            } else {
+            if (!$sendMail) {
                 $template = RouteService::CONTACT_VIEW;
                 $data = [
                     MessageService::ERROR => MessageService::GENERAL_ERROR
                 ];
             }
-        } else {
-            $template = RouteService::CONTACT_VIEW;
-            $data = [
-                MessageService::ERROR => MessageService::GENERAL_ERROR
-            ];
+
+            if (!isset($data[MessageService::ERROR])) {
+                $template = RouteService::HOME_VIEW;
+                $data = [
+                    MessageService::MESSAGE => MessageService::MAIL_VALID
+                ];
+            }
         }
+
         echo $this->template->render($template, $data);
     }
 

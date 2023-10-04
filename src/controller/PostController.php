@@ -104,24 +104,6 @@ class PostController extends AbstractController
     public function showPostDetails(int $postId): void
     {
         $message = null;
-        if (isset($_POST["action"]) && $_POST["action"] === $this->_commentService::ACTION) {
-
-            if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($_POST)) {
-
-                $username = $_POST["username"];            
-                $postId = intval($_POST["postId"]);
-                $content = $_POST["content"];
-
-                $validateContent = $this->validCommentForm($content);
-                $comment = $this->_commentService->manageComment($username, $postId, $validateContent);
-                $message = $this->_commentService->createNewComment($comment);
-            } else {
-                $message = [
-                    MessageService::ERROR => MessageService::GENERAL_ERROR
-                ];
-            }
-        }
-
         $postDetails = $this->_postService->getPostDetails($postId);
         $comments = [];
         foreach ($postDetails->getComments() as $postCom) {
@@ -130,6 +112,31 @@ class PostController extends AbstractController
         }
         $postDetails->setComments($comments);
 
+        echo $this->template->render(
+            RouteService::ONEPOST_VIEW, [
+                'id' => $postId,
+                'postDetails' => $postDetails,
+                'message' => $message
+            ]
+        );
+    }
+
+    public function addComment(int $postId): void
+    {
+        $postDetails = $this->_postService->getPostDetails($postId);
+        if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($_POST)) {
+            $username = $_POST["username"];            
+            $postId = intval($_POST["postId"]);
+            $content = $_POST["content"];
+
+            $validateContent = $this->validCommentForm($content);
+            $comment = $this->_commentService->manageComment($username, $postId, $validateContent);
+            $message = $this->_commentService->createNewComment($comment);
+        } else {
+            $message = [
+                MessageService::ERROR => MessageService::GENERAL_ERROR
+            ];
+        }
         echo $this->template->render(
             RouteService::ONEPOST_VIEW, [
                 'id' => $postId,
