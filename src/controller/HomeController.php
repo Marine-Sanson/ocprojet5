@@ -17,6 +17,7 @@ namespace App\controller;
 use App\mapper\PostsMapper;
 use App\repository\PostRepository;
 use App\service\HomeService;
+use App\service\RouteService;
 use App\service\TemplateInterface;
 
 /**
@@ -58,7 +59,6 @@ class HomeController
      * @var string
      */
     const URL = "home";
-    const HOME_VIEW = 'home.html.twig';
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -70,7 +70,6 @@ class HomeController
         $this->_template = $template;
         $this->_homeService = HomeService::getInstance();
     }
-
 
     /**
      * Summary of getInstance
@@ -100,7 +99,7 @@ class HomeController
         $lastPosts = $this->_homeService->getLastPosts();
 
         echo $this->_template->render(
-            self::HOME_VIEW, [
+            RouteService::HOME_VIEW, [
                 "lastPosts" => $lastPosts
             ]
         );

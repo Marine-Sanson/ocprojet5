@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\mapper\UserMapper;
 use App\service\MessageService;
+use App\service\RouteService;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
@@ -60,12 +60,8 @@ class UserController extends AbstractController
     private SessionService $_sessionService;
 
     const URL = "login";
-    const LOGIN_VIEW = "login.html.twig";
-    const REGISTER_VIEW = "register.html.twig";
     const CONNECT = "connection";
     const DISCONNECT = "disconnect";
-    const REGISTER_PAGE = "registerPage";
-    const REGISTER = "register";
 
     /**
      * Summary of __construct
@@ -104,7 +100,7 @@ class UserController extends AbstractController
      */
     public function displayLoginPage(): void
     {
-        $template = self::LOGIN_VIEW;
+        $template = RouteService::LOGIN_VIEW;
 
         echo $this->_template->render($template, []);
     }
@@ -119,7 +115,7 @@ class UserController extends AbstractController
      */
     public function login(string $username, string $password)
     {
-        $template = self::LOGIN_VIEW;
+        $template = RouteService::LOGIN_VIEW;
         $data = [];
         $username = self::sanitize($username);
         $user = $this->_userService->connection($username, $password);
@@ -133,7 +129,7 @@ class UserController extends AbstractController
 
             $data["session"] = $this->_sessionService->getSession();
     
-            $template = HomeController::HOME_VIEW;
+            $template = RouteService::HOME_VIEW;
             $data[MessageService::MESSAGE] = ucfirst($user->firstName) . MessageService::LOGIN_SUCCESS;     // mettre le ucfirst avant la db + erreur generique
         }
 
@@ -147,7 +143,7 @@ class UserController extends AbstractController
      */
     public function logout()
     {
-        $template = HomeController::HOME_VIEW; // eviter 
+        $template = RouteService::HOME_VIEW;
         if ($this->_sessionService->isUserConnected()) {
 
             $this->_sessionService->cleanSession();

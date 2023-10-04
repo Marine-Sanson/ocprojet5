@@ -18,6 +18,7 @@ use App\model\ContactModel;
 use App\controller\AbstractController;
 use App\service\ContactService;
 use App\service\MessageService;
+use App\service\RouteService;
 use App\service\TemplateInterface;
 use DateTime;
 
@@ -54,7 +55,6 @@ class ContactController extends AbstractController
     private ContactService $_contactService;
 
     const URL = "contact";
-    const CONTACT_VIEW = 'contact.html.twig';
     const ACTION = "contact";
 
     /**
@@ -92,9 +92,8 @@ class ContactController extends AbstractController
      */
     public function displayContactPage(): void
     {
-        echo $this->template->render(self::CONTACT_VIEW, []);
+        echo $this->template->render(RouteService::CONTACT_VIEW, []);
     }
-
 
     /**
      * Summary of manageContact
@@ -131,13 +130,13 @@ class ContactController extends AbstractController
                     MessageService::MESSAGE => MessageService::MAIL_VALID
                 ];
             } else {
-                $template = self::CONTACT_VIEW;
+                $template = RouteService::CONTACT_VIEW;
                 $data = [
                     MessageService::ERROR => MessageService::GENERAL_ERROR
                 ];
             }
         } else {
-            $template = self::CONTACT_VIEW;
+            $template = RouteService::CONTACT_VIEW;
             $data = [
                 MessageService::ERROR => MessageService::GENERAL_ERROR
             ];
