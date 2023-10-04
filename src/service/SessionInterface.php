@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\service;
+
 use App\model\UserConnectionModel;
 
 /**
@@ -87,9 +88,10 @@ interface SessionInterface
      */
     public function remove(string $key): void;
 
+
     /**
      * Summary of clear
-     *
+     * 
      * @return void
      */
     public function clear(): void;

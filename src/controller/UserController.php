@@ -61,8 +61,11 @@ class UserController extends AbstractController
 
     const URL = "login";
     const LOGIN_VIEW = "login.html.twig";
+    const REGISTER_VIEW = "register.html.twig";
     const CONNECT = "connection";
     const DISCONNECT = "disconnect";
+    const REGISTER_PAGE = "registerPage";
+    const REGISTER = "register";
 
     /**
      * Summary of __construct
@@ -107,110 +110,54 @@ class UserController extends AbstractController
     }
 
     /**
-     * Summary of checkAction
+     * Summary of login
+     * 
+     * @param string $username username
+     * @param string $password password
      * 
      * @return void
      */
-    public function checkAction(): void
+    public function login(string $username, string $password)
     {
         $template = self::LOGIN_VIEW;
         $data = [];
+        $username = self::sanitize($username);
+        $user = $this->_userService->connection($username, $password);
 
-        switch ($_POST["action"]) {
-            case self::CONNECT:
-                $username = self::cleanInput($_POST["username"]);
-                $password = $_POST["password"];
-                $checkConnectionData = $this->_userService->checkData($username, $password);
+        if ($user === null) {
+            $data[MessageService::ERROR] = MessageService::LOGIN_PROBLEM;
+        }
 
-                if ($checkConnectionData) {
-                    $userEntity = $this->_userService->getUser($username, $password);
+        if (!isset($data[MessageService::ERROR])) {
+            $this->_sessionService->setUser($user);
 
-                    if ($userEntity) {
-                        $connect = $this->_userService->connect($password, $userEntity);
+            $data["session"] = $this->_sessionService->getSession();
+    
+            $template = HomeController::HOME_VIEW;
+            $data[MessageService::MESSAGE] = ucfirst($user->firstName) . MessageService::LOGIN_SUCCESS;     // mettre le ucfirst avant la db + erreur generique
+        }
 
-                        if ($connect) {
-                            $connectionModel = $this->_userService->getUserConnectionModel($userEntity);
-                            $this->_userService->startUserSession($connectionModel);
-
-                            $sessionData = $this->_sessionService->getSession();
-
-                            $data["session"] = [$sessionData];
-
-                            $template = HomeController::HOME_VIEW;
-                            $data[] = [
-                                MessageService::MESSAGE => ucfirst($connectionModel->firstName) . MessageService::LOGIN_SUCCESS
-                            ];
-
-                        } else {
-                            $data[] = [
-                                MessageService::ERROR => MessageService::LOGIN_ERROR
-                            ];
-                        }
-                    } else {
-                        $data[] = [
-                            MessageService::ERROR => MessageService::LOGIN_PROBLEM
-                        ];
-                    }
-
-                    echo $this->_template->render($template, $data);
-                    break;
-                }
-
-                $data = [
-                    MessageService::ERROR => MessageService::CONNECTION_ERROR
-                ];
-                echo $this->_template->render($template, $data);
-                break;
-
-            case self::DISCONNECT:
-                $homeController = HomeController::getInstance($this->_template);
-                $template = $homeController::HOME_VIEW;
-                $session = SessionService::getInstance();
-                if ($session->isUserConnected()) {
-                    $result = $this->disconnect();
-                    $data = $result["data"];
-                }
-                $sessionData = $this->_sessionService->getSession();
-                $data["session"] = [$sessionData];
-                echo $this->_template->render($template, $data);
-                break;
-            default:
-                echo $this->_template->render($template, $data);
-                break;
-            }
+        echo $this->_template->render($template, $data);
     }
 
     /**
-     * Summary of disconnect - destroy the session
+     * Summary of logout
      * 
-     * @return array $data
+     * @return void
      */
-    public function disconnect():  array
+    public function logout()
     {
-        $session = SessionService::getInstance();
-        $session->clear();
-        $session->destroy();
-        
-        $data = [
-            MessageService::MESSAGE => MessageService::DISCONNECT
-        ];
-        $result = [
-            "data" => $data
-        ];
+        $template = HomeController::HOME_VIEW; // eviter 
+        if ($this->_sessionService->isUserConnected()) {
 
-        return $result;
-    }
+            $this->_sessionService->cleanSession();
+            $data = [
+                MessageService::MESSAGE => MessageService::DISCONNECT
+            ];
+        }
+        $data["session"] = $this->_sessionService->getSession();
 
-    /**
-     * Summary of hashPassword - will hash the user password before insert it to the db
-     * 
-     * @param string $password password entered by the user
-     * 
-     * @return string
-     */
-    public function hashPassword(string $password): string
-    {
-        return password_hash($password, PASSWORD_DEFAULT, ["cost" => "14"]);
+        echo $this->_template->render($template, $data);
     }
 
 }

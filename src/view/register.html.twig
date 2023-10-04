@@ -6,24 +6,22 @@
     <div class="scales">
         <div class="container">
             <div class="row justify-content-center">
+                <div class="text-center mt-5">
+                    <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message }}</p>
+                    <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ error }}</p>
+                </div>
                 <div class="col-md-4 bg-light bg-opacity-50 rounded more-space">
-                    <h1 class="text-center font-weight-bold text-primary mt-4">Contactez moi</h1>
+                    <h1 class="text-center font-weight-bold text-primary mt-4">Enregistrez vous</h1>
                     <hr class="bg-light text-primary">
                     <h5 class="text-center text-success"></h5>
                     <form action="" method="post" id="form-box" class="p-2">
-                        <input type="hidden" id="contactAction" name="action" value="contact">
+                        <input type="hidden" id="registerAction" name="action" value="register">
                         <input type="hidden" id="tokenContactForm" name="token" value="###">
                         <div class="form-group input-group my-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user text-primary"></i></span>
                             </div>
-                            <input type="text" name="firstName" class="form-control" 
-                            {% if session.user.firstName %}
-                                value={{session.user.firstName}}
-                            {% else %}
-                                placeholder="Entrez votre prénom"
-                            {% endif %}
-                            required>
+                            <input type="text" name="firstName" class="form-control" placeholder="Entrez votre prénom" required>
                         </div>
                         <div class="form-group input-group my-2">
                             <div class="input-group-prepend">
@@ -33,26 +31,34 @@
                         </div>
                         <div class="form-group input-group my-2">
                             <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa-solid fa-user-secret text-primary"></i></i></span>
+                            </div>
+                            <input type="text" name="username" class="form-control" placeholder="Entrez votre nom d'utilisateur" required>
+                        </div>
+                        <div class="form-group input-group my-2">
+                            <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-envelope text-primary"></i></span>
                             </div>
                             <input type="email" name="email" class="form-control" placeholder="Entrez votre email" required>
                         </div>
                         <div class="form-group input-group my-2">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-comment-alt text-primary"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-lock text-primary"></i></i></span>
                             </div>
-                            <textarea name="content" id="content" class="form-control" placeholder="Laissez moi un message" cols="30" rows="4" required></textarea>
+                            <input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                        </div>
+                        <div class="form-group input-group my-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa-solid fa-unlock text-primary"></i></i></span>
+                            </div>
+                            <input type="password" name="passwordVerify" class="form-control" placeholder="Entrez votre mot de passe à nouveau" required>
                         </div>
                         <div class="form-group d-flex">
                             <div class="mx-auto my-4">
-                                <input type="submit" id="contactSubmit" class="btn btn-body btn-block" value="Envoyer">
+                                <input type="submit" id="registerSubmit" class="btn btn-body btn-block" value="Envoyer">
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="text-center mt-5">
-                    <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ result.message }}</p>
-                    <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ result.error }}</p>
                 </div>
             </div>
         </div>

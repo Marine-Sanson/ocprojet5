@@ -103,11 +103,7 @@ class ContactController extends AbstractController
      */
     public function manageContact(): void
     {
-        $action = self::ACTION;
-        $isSubmitted = $this->isSubmitted($action);
-        $isValid = $this->isValid($_POST);
-
-        if ($isSubmitted && $isValid) {
+        if ($this->isSubmitted(self::ACTION) && $this->isValid($_POST)) {
 
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
             $contact = new ContactModel(
