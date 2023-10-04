@@ -73,7 +73,7 @@ class UserController extends AbstractController
      * 
      * @param TemplateInterface $template template engine
      */
-    public function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template)
     {
         $this->_template = $template;
         $this->_userService = UserService::getInstance();

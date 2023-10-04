@@ -62,7 +62,7 @@ class ContactController extends AbstractController
      * 
      * @param TemplateInterface $template template engine
      */
-    public function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template)
     {
         $this->template = $template;
         $this->_contactService = ContactService::getInstance();
@@ -154,10 +154,10 @@ class ContactController extends AbstractController
      */
     public function validContactForm(ContactModel $contact): ContactModel
     {
-        $contact->name = $this->cleanInput($contact->name);
-        $contact->firstName = $this->cleanInput($contact->firstName);
-        $contact->email = $this->cleanInput($contact->email);
-        $contact->content = $this->cleanInput($contact->content);
+        $contact->name = $this->sanitize($contact->name);
+        $contact->firstName = $this->sanitize($contact->firstName);
+        $contact->email = $this->sanitize($contact->email);
+        $contact->content = $this->sanitize($contact->content);
 
         return $contact; 
     }
