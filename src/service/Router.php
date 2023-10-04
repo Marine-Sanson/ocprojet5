@@ -115,14 +115,24 @@ class Router
                 $homeController = HomeController::getInstance($this->_templateEngine);
                 $homeController->displayHome();
                 break;
+                
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
+                if (!isset($route["param"])) {
+                    $postController->showPosts();
+                    break;
+                }
                 if (isset($route["param"])) {
+                    if (isset($_POST["action"]) && $_POST["action"] === CommentService::ACTION) {
+                        $postController->addComment($route["param"]);
+                        break;
+                    }
                     $postController->showPostDetails($route["param"]);
                     break;
                 }
-                $postController->showPosts();
+                echo $this->_templateEngine->render('404.html.twig', []);
                 break;
+
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
                 if (!isset($_POST["action"])) {
@@ -139,6 +149,7 @@ class Router
                 }
                 echo $this->_templateEngine->render('404.html.twig', []);
                 break;
+
             case RegisterController::URL:
                 $registerController = RegisterController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"])) {
@@ -147,7 +158,8 @@ class Router
                 }
                 $registerController->displayRegisterPage();
                 break;
-                case ContactController::URL: 
+
+            case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"]) && $_POST["action"] === $contactController::ACTION) {
                     $contactController->manageContact();
