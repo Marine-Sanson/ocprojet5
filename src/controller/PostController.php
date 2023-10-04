@@ -18,6 +18,7 @@ use App\controller\AbstractController;
 use App\service\CommentService;
 use App\service\MessageService;
 use App\service\PostService;
+use App\service\RouteService;
 use App\service\TemplateInterface;
 
 /**
@@ -53,8 +54,6 @@ class PostController extends AbstractController
     private CommentService $_commentService;
     
     const URL = "posts";
-    const POSTS_VIEW = 'posts.html.twig';
-    const ONEPOST_VIEW = 'one-post.html.twig'; // a changer
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -92,7 +91,7 @@ class PostController extends AbstractController
     public function showPosts(): void
     {
         $result = $this->_postService->getPosts();
-        echo $this->template->render($this::POSTS_VIEW, ['posts' => $result]);
+        echo $this->template->render(RouteService::POSTS_VIEW, ['posts' => $result]);
     }
 
     /**
@@ -132,7 +131,7 @@ class PostController extends AbstractController
         $postDetails->setComments($comments);
 
         echo $this->template->render(
-            self::ONEPOST_VIEW, [
+            RouteService::ONEPOST_VIEW, [
                 'id' => $postId,
                 'postDetails' => $postDetails,
                 'message' => $message

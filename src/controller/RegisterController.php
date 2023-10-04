@@ -17,6 +17,7 @@ use App\controller\UserController;
 use App\model\RegisterModel;
 use App\service\MessageService;
 use App\service\RegisterService;
+use App\service\RouteService;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
@@ -63,7 +64,6 @@ class RegisterController extends AbstractController
     private SessionService $_sessionService;
 
     const URL = "enregistrement";
-    const REGISTER_VIEW = "register.html.twig";
     const ACTION = "register";
 
     /**
@@ -104,7 +104,7 @@ class RegisterController extends AbstractController
      */
     public function displayRegisterPage(): void
     {
-        $template = self::REGISTER_VIEW;
+        $template = RouteService::REGISTER_VIEW;
 
         echo $this->_template->render($template, []);
     }
@@ -116,11 +116,11 @@ class RegisterController extends AbstractController
      */
     public function manageRegister(): void
     {
-        $template = self::REGISTER_VIEW;
+        $template = RouteService::REGISTER_VIEW;
         $data = [];
         if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
 
-            $template = self::REGISTER_VIEW;
+            $template = RouteService::REGISTER_VIEW;
             $data = [
                 MessageService::ERROR => MessageService::GENERAL_ERROR
             ];
