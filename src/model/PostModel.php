@@ -44,4 +44,51 @@ class PostModel
     ) {
 
     }
+
+    /**
+     * Summary of getTitle
+     * 
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * Summary of setTitle
+     * 
+     * @param string $title title
+     * 
+     * @return \App\model\PostModel
+     */
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Summary of getSummary
+     * 
+     * @return string
+     */
+    public function getSummary(): string
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Summary of setSummary
+     * 
+     * @param string $summary summary
+     * 
+     * @return \App\model\PostModel
+     */
+    public function setSummary(string $summary): self
+    {
+        $this->summary = $summary;
+        return $this;
+    }
+
 }

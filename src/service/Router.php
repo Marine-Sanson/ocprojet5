@@ -119,6 +119,10 @@ class Router
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
                 if (!isset($route["param"])) {
+                    if (isset($_POST["action"]) && $_POST["action"] === PostController::ACTION) {
+                        $postController->addPost();
+                        break;
+                    }
                     $postController->showPosts();
                     break;
                 }
@@ -171,6 +175,6 @@ class Router
             default:
                 echo $this->_templateEngine->render('404.html.twig', []);
                 break;
-        }
+            }
     }
 }

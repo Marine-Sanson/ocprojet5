@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\model\NewPostModel;
 use App\service\DatabaseService;
+use DateTime;
 
 /**
  * PostRepository Class Doc Comment
@@ -65,13 +67,73 @@ class PostRepository
     }
     
     /**
+     * Summary of insertNewPost
+     * 
+     * @param \App\model\NewPostModel $newPostModel newPostModel
+     * 
+     * @return int
+     */
+    public function insertNewPost(NewPostModel $newPostModel): int
+    {
+        $request = 'INSERT INTO posts (
+            id_user,
+            title,
+            summary,
+            content,
+            creation_date,
+            last_update_date
+            ) 
+            VALUES (
+            :id_user,
+            :title,
+            :summary,
+            :content,
+            :creation_date,
+            :last_update_date
+                )';
+        $parameters = [
+            'id_user' => $newPostModel->getIdUser(),
+            'title' => $newPostModel->getTitle(),
+            'summary' => $newPostModel->getSummary(),
+            'content' => $newPostModel->getContent(),
+            'creation_date' => $newPostModel->getCreationDate()->format('Y-m-d H:i:s'),
+            'last_update_date' => $newPostModel->getCreationDate()->format('Y-m-d H:i:s')
+        ];
+        $this->_db->execute($request, $parameters);
+        $newReq = 'SELECT LAST_INSERT_ID()';
+        $lastInsertId = $this->_db->execute($newReq, null);
+        $id = $lastInsertId[0]["LAST_INSERT_ID()"];
+
+        return $id;
+    }
+
+    /**
      * Summary of getAllPostsWithAuthors
+     * 
+     * @return array
+     */
+    public function getPostsWithAuthors()
+    {
+        $request = 'SELECT posts.*, username FROM posts 
+                    JOIN users ON posts.id_user = users.id 
+                    ORDER BY last_update_date DESC LIMIT 12';
+
+        $result = $this->_db->execute($request, null);
+
+        return $result;
+    }
+
+    /**
+     * Summary of getAllPostsWithAuthors
+     *             // VOIR AVEC ANTOINE COMMENT GERER CA
      * 
      * @return array
      */
     public function getAllPostsWithAuthors()
     {
-        $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id';
+        $request = 'SELECT posts.*, username FROM posts 
+                    JOIN users ON posts.id_user = users.id 
+                    ORDER BY last_update_date DESC';
 
         $result = $this->_db->execute($request, null);
 

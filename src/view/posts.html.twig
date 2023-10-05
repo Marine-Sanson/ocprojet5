@@ -5,39 +5,77 @@
     <div class="scales">
         <div class="p-section bg-light" id="posts">
             <ul class="list-unstyled">
-                {% for post in posts %}
-                    <div class="container px-4 px-lg-5">
-                        <li>
-                            <a href="./posts/{{post.id}}"  class="text-decoration-none">
-                                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                                    <div class="col-lg-2">
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="bg-black text-center h-100 project">
-                                            <div class="d-flex h-100">
-                                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                                    <div class="border border-primary rounded m-2 p-5">
-                                                        <h4 class="text-primary fw-bolder">{{post.title|capitalize}}</h4>
-                                                        <p class="my-2 text-white">{{ post.summary }}</p>
-                                                        <div class="row text-white">
-                                                            <span class="col-lg-1"></span>
-                                                            <span class="col-lg-3">Auteur : {{ post.author|capitalize }}</span>
-                                                            <span class="col-lg-1"></span>
-                                                            <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
-                                                            <span class="col-lg-1"></span>
-                                                        </div>
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                        <div class="col-lg-2">
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="bg-black text-center h-100 project">
+                            {% for post in posts %}
+                                <li>
+                                    <a href="./posts/{{post.id}}"  class="text-decoration-none">
+                                        <div class="d-flex h-100">
+                                            <div class="project-text w-100 my-auto text-center text-lg-left">
+                                                <div class="border border-primary rounded m-2 p-5">
+                                                    <h4 class="text-primary fw-bolder">{{post.title|capitalize}}</h4>
+                                                    <p class="my-2 text-white">{{ post.summary }}</p>
+                                                    <div class="row text-white">
+                                                        <span class="col-lg-1"></span>
+                                                        <span class="col-lg-3">Auteur : {{ post.author|capitalize }}</span>
+                                                        <span class="col-lg-1"></span>
+                                                        <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                        <span class="col-lg-1"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            {% if session.user.isAllowed == "1" %}
+                                <li>
+                                    <div class="col-md-8 bg-light bg-opacity-50 rounded more-space">
+                                        <h1 class="text-center font-weight-bold text-primary mt-4">Ajouter un article :</h1>
+                                        <hr class="bg-light text-primary">
+                                        <h5 class="text-center text-primary"></h5>
+                                        <form action="./posts" method="post" id="form-box" class="p-2">
+                                            <input type="hidden" id="newPostAction" name="action" value="addPost">
+                                            <input type="hidden" id="tokenContactForm" name="token" value="###">
+                                            <input type="hidden" id="userId" name="userId" value="{{ session.user.id }}">
+                                            
+                                            <div class="form-group input-group my-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa-solid fa-heading text-primary"></i></span>
+                                                </div>
+                                                <input type="text" name="title" class="form-control" placeholder="Entrez le titre" required>
+                                            </div>
+                                            <div class="form-group input-group my-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa-regular fa-newspaper text-primary"></i></span>
+                                                </div>
+                                                <textarea name="summary" id="summary" class="form-control" placeholder="Entrez le résumé (max 250 caractères)" cols="30" rows="4" required></textarea>
+                                            </div>
+                                            <div class="form-group input-group my-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa-solid fa-newspaper text-primary"></i></span>
+                                                </div>
+                                                <textarea name="content" id="content" class="form-control" placeholder="Entrez l'article" cols="30" rows="12" required></textarea>
+                                            </div>
+                                            <div class="form-group d-flex">
+                                                <div class="mx-auto my-4">
+                                                    <input type="submit" id="contactSubmit" class="btn btn-body btn-block" value="Envoyer">
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="col-lg-2">
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                                </li>
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                        </div>
                     </div>
-                {% endfor %}
+                </div>
             </ul>
         </div>
     </div>

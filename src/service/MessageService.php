@@ -37,4 +37,5 @@ class MessageService
     const NOT_AVAILABE_USERNAME = "Ce nom d'utilisateur est déjà pris, merci d'en choisir un autre";
     const REGISTER_PASSWORD_ERROR = "Attention à bien entrer 2 fois le même mot de passe";
     const REGISTER_SUCCESS = "Bienvenue! Vous pourrez commenter des posts dès que vous y serez autorisé. Vous serez averti par mail quand ça sera le cas.";
+    const NEW_POST_SUCCESS = "Votre article a bien été pris en compte.";
 }

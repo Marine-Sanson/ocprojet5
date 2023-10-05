@@ -94,6 +94,6 @@ class AbstractController
      */
     public function toDisplay(string $data): string
     {
-        return htmlspecialchars_decode(html_entity_decode($data));
+        return html_entity_decode(htmlspecialchars_decode($data));
     }
 }

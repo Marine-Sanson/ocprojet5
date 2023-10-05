@@ -60,6 +60,7 @@ class UserMapper
     public function transformToUserConnectionModel(UserEntity $user): UserConnectionModel
     {
         return new UserConnectionModel(
+            $user->id,
             $user->firstName, 
             $user->username, 
             $user->password, 

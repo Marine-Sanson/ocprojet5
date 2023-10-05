@@ -54,6 +54,7 @@ class PostController extends AbstractController
     private CommentService $_commentService;
     
     const URL = "posts";
+    const ACTION = "addPost";
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -91,6 +92,8 @@ class PostController extends AbstractController
     public function showPosts(): void
     {
         $result = $this->_postService->getPosts();
+        $result = $this->postsToDisplay($result);
+        
         echo $this->template->render(RouteService::POSTS_VIEW, ['posts' => $result]);
     }
 
@@ -121,16 +124,22 @@ class PostController extends AbstractController
         );
     }
 
+    /**
+     * Summary of addComment
+     * 
+     * @param int $postId id of the post
+     * 
+     * @return void
+     */
     public function addComment(int $postId): void
     {
         $postDetails = $this->_postService->getPostDetails($postId);
         if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($_POST)) {
             $username = $_POST["username"];            
             $postId = intval($_POST["postId"]);
-            $content = $_POST["content"];
+            $content = $this->sanitize($_POST["content"]);
 
-            $validateContent = $this->validCommentForm($content);
-            $comment = $this->_commentService->manageComment($username, $postId, $validateContent);
+            $comment = $this->_commentService->manageComment($username, $postId, $content);
             $message = $this->_commentService->createNewComment($comment);
         } else {
             $message = [
@@ -147,16 +156,58 @@ class PostController extends AbstractController
     }
 
     /**
-     * Summary of validCommentForm
+     * Summary of addPost
      * 
-     * @param string $content content
-     * 
-     * @return string
+     * @return void
      */
-    public function validCommentForm(string $content): string
+    public function addPost()
     {
-        $content = $this->sanitize($content);
+        if ($this->isSubmitted(self::ACTION) && $this->isValid($_POST)) {
 
-        return $content; 
+            $userId = intval($_POST["userId"]);
+            $title = $this->sanitize($_POST["title"]);
+            $summary = $this->sanitize($_POST["summary"]);
+            $content = $this->sanitize($_POST["content"]);
+
+            $isPostCreated = $this->_postService->createNewPost($userId, $title, $summary, $content);
+            if (!$isPostCreated) {
+                $data = [
+                    MessageService::ERROR => MessageService::GENERAL_ERROR
+                ];
+            }
+
+            if (!isset($data[MessageService::ERROR])) {
+                $message = [
+                    MessageService::MESSAGE => MessageService::NEW_POST_SUCCESS
+                ];
+            }
+        }
+        $posts = $this->_postService->getPosts();
+        $posts = $this->postsToDisplay($posts);
+
+        echo $this->template->render(
+            RouteService::POSTS_VIEW, [
+                'posts' => $posts,
+                'message' => $message
+            ]
+        );
+    }
+
+    /**
+     * Summary of postsToDisplay
+     * 
+     * @param array $posts list of PostModels
+     * 
+     * @return array
+     */
+    public function postsToDisplay(array $posts)
+    {
+        $postsToDisplay = [];
+        foreach ($posts as $post) {
+            $post->setTitle($this->toDisplay($post->getTitle()));
+            $post->setSummary($this->toDisplay($post->getSummary()));
+            $postsToDisplay[] = $post;
+        }
+        return $postsToDisplay;
     }
 }
