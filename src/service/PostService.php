@@ -16,10 +16,12 @@ namespace App\service;
 use App\entity\CommentEntity;
 use App\mapper\PostDetailsMapper;
 use App\mapper\PostsMapper;
+use App\model\NewPostModel;
 use App\model\PostDetailsModel;
 use App\repository\CommentRepository;
 use App\repository\PostRepository;
 use App\service\CommentService;
+use DateTime;
 
 /**
  * PostService Class Doc Comment
@@ -156,5 +158,30 @@ class PostService
         if (!isset($id)) { return false; }
 
         return true;
+    }
+
+    /**
+     * Summary of createNewPost
+     * 
+     * @param int    $userId  userId
+     * @param string $title   title
+     * @param string $summary summary
+     * @param string $content content
+     * 
+     * @return bool
+     */
+    public function createNewPost(int $userId, string $title, string $summary, string $content): bool
+    {
+        $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+
+        $newPost = new NewPostModel($userId, $title, $summary, $content, $currentDate);
+
+        $insertPost = $this->_postRepository->insertNewPost($newPost);
+
+        if ($insertPost) {
+            return true;
+        }
+
+        return false;
     }
 }

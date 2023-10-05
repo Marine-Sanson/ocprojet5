@@ -117,7 +117,7 @@ class UserController extends AbstractController
     {
         $template = RouteService::LOGIN_VIEW;
         $data = [];
-        $username = self::sanitize($username);
+        $username = $this->sanitize($username);
         $user = $this->_userService->connection($username, $password);
 
         if ($user === null) {
@@ -130,7 +130,7 @@ class UserController extends AbstractController
             $data["session"] = $this->_sessionService->getSession();
     
             $template = RouteService::HOME_VIEW;
-            $data[MessageService::MESSAGE] = ucfirst($user->firstName) . MessageService::LOGIN_SUCCESS;     // mettre le ucfirst avant la db + erreur generique
+            $data[MessageService::MESSAGE] = $user->firstName . MessageService::LOGIN_SUCCESS;
         }
 
         echo $this->_template->render($template, $data);
