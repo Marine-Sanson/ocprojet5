@@ -18,8 +18,8 @@ use App\controller\ContactController;
 use App\controller\HomeController;
 use App\controller\PostController;
 use App\controller\RegisterController;
+use App\controller\UpgradeController;
 use App\controller\UserController;
-use App\service\SessionService;
 use App\service\TwigService;
 
  /**
@@ -152,6 +152,15 @@ class Router
                     break;
                 }
                 echo $this->_templateEngine->render('404.html.twig', []);
+                break;
+
+            case UpgradeController::URL:
+                $upgradeController = UpgradeController::getInstance($this->_templateEngine);
+                if (isset($_POST["action"])) {
+                    $upgradeController->manageUpgrade(intval($_POST['userId']), $_POST['role'],  $_POST['isAllowed']);
+                    break;
+                }
+                $upgradeController->displayUpgradePage();
                 break;
 
             case RegisterController::URL:

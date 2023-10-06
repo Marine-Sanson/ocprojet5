@@ -36,14 +36,152 @@ class UserConnectionModel
      * @param bool   $isAllowed to know if this user is allowed
      */
     public function __construct(
-        public int $id,
-        public string $firstName, 
-        public string $username, 
-        public string $password, 
-        public string $role, 
-        public bool $isAllowed
+        private int $id,
+        private string $firstName,
+        private string $username,
+        private string $password,
+        private string $role,
+        private bool $isAllowed
     ) {
 
+    }
+
+    /**
+     * Summary of getId
+     * 
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Summary of setId
+     * 
+     * @param int $id id
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * Summary of getFirstName
+     * 
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Summary of setFirstName
+     * 
+     * @param string $firstName firstName
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    /**
+     * Summary of getUsername
+     * 
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * Summary of setUsername
+     * 
+     * @param string $username username
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * Summary of getPassword
+     * 
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * Summary of setPassword
+     * 
+     * @param string $password password
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * Summary of getRole
+     * 
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    /**
+     * Summary of setRole
+     * 
+     * @param string $role role
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+    /**
+     * Summary of getIsAllowed
+     * 
+     * @return bool
+     */
+    public function getIsAllowed(): bool
+    {
+        return $this->isAllowed;
+    }
+
+    /**
+     * Summary of setIsAllowed
+     * 
+     * @param bool $isAllowed isAllowed
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function setIsAllowed(bool $isAllowed): self
+    {
+        $this->isAllowed = $isAllowed;
+        return $this;
     }
 
     /**

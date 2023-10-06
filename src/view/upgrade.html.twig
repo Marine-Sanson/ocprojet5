@@ -1,0 +1,87 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<section class="blackground">
+    <div class="p-section pt-5 bg-light" id="upgrade">
+        <div class="container">
+            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-8">
+                    <div class="bg-black text-center">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-left">
+                                <div class="border border-primary rounded p-1">
+                                    <h1 class="text-primary fw-bolder my-4">Upgrade users</h1>
+                                    <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message }}</p>
+                                    <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ error }}</p>
+                                    <ul class="list-unstyled">
+                                        {% for user in users %}
+                                            <li class="row g-0 p-2">
+                                                <p class="my-5 col-lg text-white fs-5">{{ user.username }} :</p>
+                                                <form action="./roles" method="post" id="form-box" class="p-2 col-lg-10 row">
+                                                    <input type="hidden" id="newPostAction" name="action" value="upgrade">
+                                                    <input type="hidden" id="tokenContactForm" name="token" value="###">
+                                                    <input type="hidden" id="userId" name="userId" value="{{ user.id }}">
+                                                        <div class="border border-primary rounded p-1 m-2 col-lg-5 row">
+                                                            <fieldset>
+                                                                <legend class="fs-6">Role :</legend>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" value="user" id="user" name="role" {% if user.role == "user" %} checked {% endif %}>
+                                                                    <label class="form-check-label" for="user">
+                                                                        User
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" value="supadmin" id="supAdmin" name="role" {% if user.role == "supadmin" %} checked {% endif %}>
+                                                                    <label class="form-check-label" for="supAdmin">
+                                                                        SupAdmin
+                                                                    </label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="border border-primary rounded p-1 m-2 col-lg-5 row">
+                                                            <fieldset>
+                                                            <legend class="fs-6">Autorisation :</legend>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" value="1" id="allowed" name="isAllowed" {% if user.isAllowed == true %} checked {% endif %}>
+                                                                    <label class="form-check-label" for="allowed">
+                                                                        Autorisé
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                </div>
+                                                                <div class="form-check-inline">
+                                                                    <input class="form-check-input" type="radio" value="0" id="notAllowed"  name="isAllowed" {% if user.isAllowed == false %} checked {% endif %}>
+                                                                    <label class="form-check-label text-left" for="notAllowed">
+                                                                        Non autorisé
+                                                                    </label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-group d-flex mx-auto">
+                                                            <div class="mx-auto my-4">
+                                                                <input type="submit" id="upgradeSubmit" class="btn btn-body btn-block m-2" value="Modifier">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </li>
+                                            <hr class="bg-light text-primary w-75 mx-auto">
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

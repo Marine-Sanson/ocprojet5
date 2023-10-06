@@ -164,6 +164,38 @@ class UserRepository
         return $this->_db->execute($request, []);
     }
 
+    /**
+     * Summary of getAllUsers
+     * 
+     * @return array
+     */
+    public function getAllUsers(): array
+    {
+        $request = 'SELECT * FROM users';
+
+        return $this->_db->execute($request, []);
+    }
+
+    /**
+     * Summary of updateRole
+     * 
+     * @param int    $userId    id of the user
+     * @param string $role      role of the user
+     * @param int    $isAllowed 1 if the user is allowed
+     * 
+     * @return void
+     */
+    public function updateRole(int $userId, string $role, int $isAllowed): void
+    {
+        $request = 'UPDATE users SET role = :role, is_allowed =:is_allowed WHERE id = :id';
+        $parameters = [
+            'id' => $userId,
+            'role' => $role,
+            'is_allowed' => $isAllowed
+        ];
+        $this->_db->execute($request, $parameters);
+    }
+
     // // Préparez la requête SQL
     // $sql = "SELECT * FROM ma_table WHERE condition = :valeur";
 

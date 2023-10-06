@@ -31,4 +31,5 @@ class RouteService
     const ONEPOST_VIEW = 'one-post.html.twig';
     const REGISTER_VIEW = "register.html.twig";
     const LOGIN_VIEW = "login.html.twig";
+    const UPGRADE_VIEW = "upgrade.html.twig";
 }

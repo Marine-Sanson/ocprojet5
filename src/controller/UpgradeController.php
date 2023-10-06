@@ -1,6 +1,6 @@
 <?php
 /**
- * UserController File Doc Comment
+ * UpgradeController File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -21,7 +21,7 @@ use App\service\TemplateInterface;
 use App\service\UserService;
 
 /**
- * UserController Class Doc Comment
+ * UpgradeController Class Doc Comment
  * 
  * @category Controller
  * @package  App\controller
@@ -29,7 +29,7 @@ use App\service\UserService;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class UserController extends AbstractController
+class UpgradeController extends AbstractController
 {
     /**
      * Summary of template
@@ -41,7 +41,7 @@ class UserController extends AbstractController
     /**
      * Summary of _instance
      * 
-     * @var UserController
+     * @var UpgradeController
      */
     private static $_instance;
 
@@ -59,9 +59,8 @@ class UserController extends AbstractController
      */
     private SessionService $_sessionService;
 
-    const URL = "login";
-    const CONNECT = "connection";
-    const DISCONNECT = "disconnect";
+    const URL = "roles";
+    const ACTION = "roles";
 
     /**
      * Summary of __construct
@@ -82,78 +81,57 @@ class UserController extends AbstractController
       * 
       * @param \App\service\TemplateInterface $template template engine
       * 
-      * @return \App\controller\UserController
+      * @return \App\controller\UpgradeController
       */
-    public static function getInstance(TemplateInterface $template): UserController
+    public static function getInstance(TemplateInterface $template): UpgradeController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserController($template);  
+            self::$_instance = new UpgradeController($template);  
         }
     
         return self::$_instance;
     }
 
     /**
-     * Summary of displayLoginPage
+     * Summary of displayUpgradePage
      * 
      * @return void
      */
-    public function displayLoginPage(): void
+    public function displayUpgradePage(): void
     {
-        $template = RouteService::LOGIN_VIEW;
-
-        echo $this->_template->render($template, []);
-    }
-
-    /**
-     * Summary of login
-     * 
-     * @param string $username username
-     * @param string $password password
-     * 
-     * @return void
-     */
-    public function login(string $username, string $password)
-    {
-        $template = RouteService::LOGIN_VIEW;
         $data = [];
-        $username = $this->sanitize($username);
-        $user = $this->_userService->connection($username, $password);
-
-        if ($user === null) {
-            $data[MessageService::ERROR] = MessageService::LOGIN_PROBLEM;
+        $role = $this->_sessionService->getSession()[SessionService::USER_KEY]["role"];
+        if (!isset($role) || $role !== "supadmin") {
+            $template = RouteService::HOME_VIEW;
+            $data[MessageService::ERROR] = MessageService::GENERAL_ERROR;
         }
 
-        if (!isset($data[MessageService::ERROR])) {
-            $this->_sessionService->setUser($user);
-
-            $data["session"] = $this->_sessionService->getSession();
-    
-            $template = RouteService::HOME_VIEW;
-            $data[MessageService::MESSAGE] = $user->getFirstName() . MessageService::LOGIN_SUCCESS;
+        if (isset($role) && $role === "supadmin") {
+            $template = RouteService::UPGRADE_VIEW;
+            $users = $this->_userService->getAllUsers();
+            $data["users"] = $users;
         }
 
         echo $this->_template->render($template, $data);
     }
 
     /**
-     * Summary of logout
+     * Summary of manageUpgrade
+     * 
+     * @param int    $userId    id of the user
+     * @param string $role      role of the user
+     * @param string $isAllowed 1 if the user is allowed
      * 
      * @return void
      */
-    public function logout()
+    public function manageUpgrade(int $userId, string $role, string $isAllowed): void
     {
-        $template = RouteService::HOME_VIEW;
-        if ($this->_sessionService->isUserConnected()) {
-
-            $this->_sessionService->cleanSession();
-            $data = [
-                MessageService::MESSAGE => MessageService::DISCONNECT
-            ];
-        }
-        $data["session"] = $this->_sessionService->getSession();
+        $template = RouteService::UPGRADE_VIEW;
+        $this->_userService->modifyRole($userId, $role, intval($isAllowed));
+        $users = $this->_userService->getAllUsers();
+        $data["users"] = $users;
+        $data[MessageService::MESSAGE] = MessageService::UPDATE_SUCCES;
 
         echo $this->_template->render($template, $data);
     }
-
 }

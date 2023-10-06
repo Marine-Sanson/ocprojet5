@@ -213,4 +213,59 @@ class UserService
     {
         return $this->_userRepository->getAllUsernames();
     }
+
+    /**
+     * Summary of getAllUsers
+     * 
+     * @return array
+     */
+    public function getAllUsers(): array
+    {
+        $users = $this->_userRepository->getAllUsers();
+        $list = [];
+        foreach ($users as $user) {
+
+            $userModel = $this->transformToUserConnectionModel($user);
+            $list[] = $userModel;
+        }
+        return $list;
+    }
+
+    /**
+     * Summary of transformToUserConnectionModel
+     * 
+     * @param array $user user
+     * 
+     * @return \App\model\UserConnectionModel
+     */
+    public function transformToUserConnectionModel(array $user): UserConnectionModel
+    {
+        if ($user["is_allowed"] === 1) {
+            $bool = true;
+        } else {
+            $bool = false;
+        }
+        return new UserConnectionModel(
+            $user["id"],
+            $user["first_name"],
+            $user["username"],
+            $user["password"],
+            $user["role"],
+            $bool
+        );
+    }
+
+    /**
+     * Summary of modifyRole
+     * 
+     * @param int    $userId    id of the user
+     * @param string $role      role of the user
+     * @param int    $isAllowed 1 if the user is allowed
+     * 
+     * @return void
+     */
+    public function modifyRole(int $userId, string $role, int $isAllowed): void
+    {
+        $this->_userRepository->updateRole($userId, $role, $isAllowed);
+    }
 }
