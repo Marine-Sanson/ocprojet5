@@ -102,7 +102,7 @@ class CommentRepository
      */
     public function getOnePostComments(int $postId): array
     {
-        $request = 'SELECT comments.*, username FROM comments 
+        $request = 'SELECT comments.id_user, content, comments.last_update_date, username FROM comments 
                     JOIN users ON comments.id_user = users.id 
                     WHERE id_post = :id AND is_validate = :is_validate';
         $parameters = [

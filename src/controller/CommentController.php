@@ -61,10 +61,7 @@ class CommentController extends AbstractController
         if (is_null(self::$_instance)) {
             self::$_instance = new CommentController();  
         }
-    
         return self::$_instance;
     }
-
-
 
 }

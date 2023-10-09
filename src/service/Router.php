@@ -18,7 +18,7 @@ use App\controller\ContactController;
 use App\controller\HomeController;
 use App\controller\PostController;
 use App\controller\RegisterController;
-use App\controller\UpgradeController;
+use App\controller\PromotingController;
 use App\controller\UserController;
 use App\service\TwigService;
 
@@ -154,13 +154,13 @@ class Router
                 echo $this->_templateEngine->render('404.html.twig', []);
                 break;
 
-            case UpgradeController::URL:
-                $upgradeController = UpgradeController::getInstance($this->_templateEngine);
+            case PromotingController::URL:
+                $promotingController = PromotingController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"])) {
-                    $upgradeController->manageUpgrade(intval($_POST['userId']), $_POST['role'],  $_POST['isAllowed']);
+                    $promotingController->managePromoting(intval($_POST['userId']), $_POST['role'],  $_POST['isAllowed']);
                     break;
                 }
-                $upgradeController->displayUpgradePage();
+                $promotingController->displayPromotingPage();
                 break;
 
             case RegisterController::URL:

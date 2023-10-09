@@ -224,9 +224,7 @@ class UserService
         $users = $this->_userRepository->getAllUsers();
         $list = [];
         foreach ($users as $user) {
-
-            $userModel = $this->transformToUserConnectionModel($user);
-            $list[] = $userModel;
+            $list[] = $this->transformToUserConnectionModel($user);
         }
         return $list;
     }
@@ -241,9 +239,9 @@ class UserService
     public function transformToUserConnectionModel(array $user): UserConnectionModel
     {
         if ($user["is_allowed"] === 1) {
-            $bool = true;
+            $isUserAllowed = true;
         } else {
-            $bool = false;
+            $isUserAllowed = false;
         }
         return new UserConnectionModel(
             $user["id"],
@@ -251,7 +249,7 @@ class UserService
             $user["username"],
             $user["password"],
             $user["role"],
-            $bool
+            $isUserAllowed
         );
     }
 

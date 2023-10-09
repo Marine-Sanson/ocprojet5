@@ -1,6 +1,6 @@
 <?php
 /**
- * UpgradeController File Doc Comment
+ * PromotingController File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -19,9 +19,10 @@ use App\service\RouteService;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
+use App\service\RoleService;
 
 /**
- * UpgradeController Class Doc Comment
+ * PromotingController Class Doc Comment
  * 
  * @category Controller
  * @package  App\controller
@@ -29,7 +30,7 @@ use App\service\UserService;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class UpgradeController extends AbstractController
+class PromotingController extends AbstractController
 {
     /**
      * Summary of template
@@ -41,7 +42,7 @@ class UpgradeController extends AbstractController
     /**
      * Summary of _instance
      * 
-     * @var UpgradeController
+     * @var PromotingController
      */
     private static $_instance;
 
@@ -81,33 +82,34 @@ class UpgradeController extends AbstractController
       * 
       * @param \App\service\TemplateInterface $template template engine
       * 
-      * @return \App\controller\UpgradeController
+      * @return \App\controller\PromotingController
       */
-    public static function getInstance(TemplateInterface $template): UpgradeController
+    public static function getInstance(TemplateInterface $template): PromotingController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UpgradeController($template);  
+            self::$_instance = new PromotingController($template);  
         }
     
         return self::$_instance;
     }
 
     /**
-     * Summary of displayUpgradePage
+     * Summary of displayPromotingPage
      * 
      * @return void
      */
-    public function displayUpgradePage(): void
+    public function displayPromotingPage(): void
     {
         $data = [];
-        $role = $this->_sessionService->getSession()[SessionService::USER_KEY]["role"];
-        if (!isset($role) || $role !== "supadmin") {
-            $template = RouteService::HOME_VIEW;
+        $role = $this->_sessionService->getUser()["role"];
+
+        if (!isset($role) || $role !== RoleService::Supadmin->getLabel()) {
+            $template = RouteService::HomeView->getLabel();
             $data[MessageService::ERROR] = MessageService::GENERAL_ERROR;
         }
 
-        if (isset($role) && $role === "supadmin") {
-            $template = RouteService::UPGRADE_VIEW;
+        if (isset($role) && $role === RoleService::Supadmin->getLabel()) {
+            $template = RouteService::PromotingView->getLabel();
             $users = $this->_userService->getAllUsers();
             $data["users"] = $users;
         }
@@ -116,7 +118,7 @@ class UpgradeController extends AbstractController
     }
 
     /**
-     * Summary of manageUpgrade
+     * Summary of managePromoting
      * 
      * @param int    $userId    id of the user
      * @param string $role      role of the user
@@ -124,9 +126,9 @@ class UpgradeController extends AbstractController
      * 
      * @return void
      */
-    public function manageUpgrade(int $userId, string $role, string $isAllowed): void
+    public function managePromoting(int $userId, string $role, string $isAllowed): void
     {
-        $template = RouteService::UPGRADE_VIEW;
+        $template = RouteService::PromotingView->getLabel();
         $this->_userService->modifyRole($userId, $role, intval($isAllowed));
         $users = $this->_userService->getAllUsers();
         $data["users"] = $users;

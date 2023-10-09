@@ -104,7 +104,7 @@ class RegisterController extends AbstractController
      */
     public function displayRegisterPage(): void
     {
-        $template = RouteService::REGISTER_VIEW;
+        $template = RouteService::RegisterView->getLabel();
 
         echo $this->_template->render($template, []);
     }
@@ -116,11 +116,11 @@ class RegisterController extends AbstractController
      */
     public function manageRegister(): void
     {
-        $template = RouteService::REGISTER_VIEW;
+        $template = RouteService::RegisterView->getLabel();
         $data = [];
         if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
 
-            $template = RouteService::REGISTER_VIEW;
+            $template = RouteService::RegisterView->getLabel();
             $data = [
                 MessageService::ERROR => MessageService::GENERAL_ERROR
             ];

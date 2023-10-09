@@ -99,7 +99,7 @@ class HomeController
         $lastPosts = $this->_homeService->getLastPosts();
 
         echo $this->_template->render(
-            RouteService::HOME_VIEW, [
+            RouteService::HomeView->getLabel(), [
                 "lastPosts" => $lastPosts
             ]
         );

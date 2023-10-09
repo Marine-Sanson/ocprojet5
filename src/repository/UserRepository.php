@@ -125,7 +125,18 @@ class UserRepository
      */
     public function getUser(string $username): array
     {
-        $request = 'SELECT * FROM users WHERE username = :username';
+        $request = 'SELECT
+            id,
+            name,
+            first_name,
+            username,
+            email,
+            password,
+            role,
+            creation_date,
+            last_update_date,
+            is_allowed
+        FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
         ];
@@ -171,7 +182,7 @@ class UserRepository
      */
     public function getAllUsers(): array
     {
-        $request = 'SELECT * FROM users';
+        $request = 'SELECT id, first_name, username, password, role, is_allowed FROM users';
 
         return $this->_db->execute($request, []);
     }

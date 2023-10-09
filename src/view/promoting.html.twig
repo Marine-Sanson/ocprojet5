@@ -3,7 +3,7 @@
 {% block body %}
 
 <section class="blackground">
-    <div class="p-section pt-5 bg-light" id="upgrade">
+    <div class="p-section pt-5 bg-light" id="promoting">
         <div class="container">
             <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                 <div class="col-lg-2">
@@ -13,7 +13,7 @@
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <div class="border border-primary rounded p-1">
-                                    <h1 class="text-primary fw-bolder my-4">Upgrade users</h1>
+                                    <h1 class="text-primary fw-bolder my-4">Promoting users</h1>
                                     <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message }}</p>
                                     <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ error }}</p>
                                     <ul class="list-unstyled">
@@ -21,7 +21,7 @@
                                             <li class="row g-0 p-2">
                                                 <p class="my-5 col-lg text-white fs-5">{{ user.username }} :</p>
                                                 <form action="./roles" method="post" id="form-box" class="p-2 col-lg-10 row">
-                                                    <input type="hidden" id="newPostAction" name="action" value="upgrade">
+                                                    <input type="hidden" id="newPostAction" name="action" value="promoting">
                                                     <input type="hidden" id="tokenContactForm" name="token" value="###">
                                                     <input type="hidden" id="userId" name="userId" value="{{ user.id }}">
                                                         <div class="border border-primary rounded p-1 m-2 col-lg-5 row">
@@ -64,7 +64,7 @@
                                                         </div>
                                                         <div class="form-group d-flex mx-auto">
                                                             <div class="mx-auto my-4">
-                                                                <input type="submit" id="upgradeSubmit" class="btn btn-body btn-block m-2" value="Modifier">
+                                                                <input type="submit" id="promotingSubmit" class="btn btn-body btn-block m-2" value="Modifier">
                                                         </div>
                                                     </div>
                                                 </form>

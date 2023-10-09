@@ -100,7 +100,7 @@ class UserController extends AbstractController
      */
     public function displayLoginPage(): void
     {
-        $template = RouteService::LOGIN_VIEW;
+        $template = RouteService::LoginView->getLabel();
 
         echo $this->_template->render($template, []);
     }
@@ -115,7 +115,7 @@ class UserController extends AbstractController
      */
     public function login(string $username, string $password)
     {
-        $template = RouteService::LOGIN_VIEW;
+        $template = RouteService::LoginView->getLabel();
         $data = [];
         $username = $this->sanitize($username);
         $user = $this->_userService->connection($username, $password);
@@ -129,7 +129,7 @@ class UserController extends AbstractController
 
             $data["session"] = $this->_sessionService->getSession();
     
-            $template = RouteService::HOME_VIEW;
+            $template = RouteService::HomeView->getLabel();
             $data[MessageService::MESSAGE] = $user->getFirstName() . MessageService::LOGIN_SUCCESS;
         }
 
@@ -143,7 +143,7 @@ class UserController extends AbstractController
      */
     public function logout()
     {
-        $template = RouteService::HOME_VIEW;
+        $template = RouteService::HomeView->getLabel();
         if ($this->_sessionService->isUserConnected()) {
 
             $this->_sessionService->cleanSession();
