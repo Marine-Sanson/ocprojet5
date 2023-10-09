@@ -94,7 +94,7 @@ class PostController extends AbstractController
         $result = $this->_postService->getPosts();
         $result = $this->postsToDisplay($result);
         
-        echo $this->template->render(RouteService::POSTS_VIEW, ['posts' => $result]);
+        echo $this->template->render(RouteService::PostsView->getLabel(), ['posts' => $result]);
     }
 
     /**
@@ -116,7 +116,7 @@ class PostController extends AbstractController
         $postDetails->setComments($comments);
 
         echo $this->template->render(
-            RouteService::ONEPOST_VIEW, [
+            RouteService::OnePostView->getLabel(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
                 'message' => $message
@@ -147,7 +147,7 @@ class PostController extends AbstractController
             ];
         }
         echo $this->template->render(
-            RouteService::ONEPOST_VIEW, [
+            RouteService::OnePostView->getLabel(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
                 'message' => $message
@@ -186,7 +186,7 @@ class PostController extends AbstractController
         $posts = $this->postsToDisplay($posts);
 
         echo $this->template->render(
-            RouteService::POSTS_VIEW, [
+            RouteService::PostsView->getLabel(), [
                 'posts' => $posts,
                 'message' => $message
             ]

@@ -18,8 +18,8 @@ use App\controller\ContactController;
 use App\controller\HomeController;
 use App\controller\PostController;
 use App\controller\RegisterController;
+use App\controller\PromotingController;
 use App\controller\UserController;
-use App\service\SessionService;
 use App\service\TwigService;
 
  /**
@@ -152,6 +152,15 @@ class Router
                     break;
                 }
                 echo $this->_templateEngine->render('404.html.twig', []);
+                break;
+
+            case PromotingController::URL:
+                $promotingController = PromotingController::getInstance($this->_templateEngine);
+                if (isset($_POST["action"])) {
+                    $promotingController->managePromoting(intval($_POST['userId']), $_POST['role'],  $_POST['isAllowed']);
+                    break;
+                }
+                $promotingController->displayPromotingPage();
                 break;
 
             case RegisterController::URL:

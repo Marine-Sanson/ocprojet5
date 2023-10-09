@@ -125,7 +125,18 @@ class UserRepository
      */
     public function getUser(string $username): array
     {
-        $request = 'SELECT * FROM users WHERE username = :username';
+        $request = 'SELECT
+            id,
+            name,
+            first_name,
+            username,
+            email,
+            password,
+            role,
+            creation_date,
+            last_update_date,
+            is_allowed
+        FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
         ];
@@ -162,6 +173,38 @@ class UserRepository
         $request = 'SELECT username FROM users';
 
         return $this->_db->execute($request, []);
+    }
+
+    /**
+     * Summary of getAllUsers
+     * 
+     * @return array
+     */
+    public function getAllUsers(): array
+    {
+        $request = 'SELECT id, first_name, username, password, role, is_allowed FROM users';
+
+        return $this->_db->execute($request, []);
+    }
+
+    /**
+     * Summary of updateRole
+     * 
+     * @param int    $userId    id of the user
+     * @param string $role      role of the user
+     * @param int    $isAllowed 1 if the user is allowed
+     * 
+     * @return void
+     */
+    public function updateRole(int $userId, string $role, int $isAllowed): void
+    {
+        $request = 'UPDATE users SET role = :role, is_allowed =:is_allowed WHERE id = :id';
+        $parameters = [
+            'id' => $userId,
+            'role' => $role,
+            'is_allowed' => $isAllowed
+        ];
+        $this->_db->execute($request, $parameters);
     }
 
     // // Préparez la requête SQL

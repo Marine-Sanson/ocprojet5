@@ -84,6 +84,16 @@ class SessionService implements SessionInterface
     }
 
     /**
+     * Summary of getUser
+     * 
+     * @return array
+     */
+    public function getUser(): array
+    {
+        return $this->_session[self::USER_KEY];
+    }
+
+    /**
      * Summary of isUserConnected
      * check if there is a user connected or not
      * 

@@ -92,7 +92,7 @@ class ContactController extends AbstractController
      */
     public function displayContactPage(): void
     {
-        echo $this->template->render(RouteService::CONTACT_VIEW, []);
+        echo $this->template->render(RouteService::ContactView->getLabel(), []);
     }
 
     /**
@@ -103,7 +103,7 @@ class ContactController extends AbstractController
     public function manageContact(): void
     {
         if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
-            $template = RouteService::CONTACT_VIEW;
+            $template = RouteService::ContactView->getLabel();
             $data = [
                 MessageService::ERROR => MessageService::GENERAL_ERROR
             ];
@@ -130,14 +130,14 @@ class ContactController extends AbstractController
             }
 
             if (!$sendMail) {
-                $template = RouteService::CONTACT_VIEW;
+                $template = RouteService::ContactView->getLabel();
                 $data = [
                     MessageService::ERROR => MessageService::GENERAL_ERROR
                 ];
             }
 
             if (!isset($data[MessageService::ERROR])) {
-                $template = RouteService::HOME_VIEW;
+                $template = RouteService::HomeView->getLabel();
                 $data = [
                     MessageService::MESSAGE => MessageService::MAIL_VALID
                 ];
