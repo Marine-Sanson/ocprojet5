@@ -14,12 +14,14 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\controller\CommentController;
 use App\controller\ContactController;
 use App\controller\HomeController;
 use App\controller\PostController;
 use App\controller\RegisterController;
 use App\controller\PromotingController;
 use App\controller\UserController;
+use App\controller\ValidationController;
 use App\service\TwigService;
 
  /**
@@ -161,6 +163,19 @@ class Router
                     break;
                 }
                 $promotingController->displayPromotingPage();
+                break;
+
+            case CommentController::URL:
+                $commentController = CommentController::getInstance($this->_templateEngine);
+                if (isset($_POST["action"]) && ($_POST["action"] === $commentController::VALIDATION)) {
+                    $commentController->validateComment(intval($_POST["commentId"]));
+                    break;
+                }
+                if (isset($_POST["action"]) && ($_POST["action"] === $commentController::DELETE)) {
+                    $commentController->deleteComment(intval($_POST["commentId"]));
+                    break;
+                }
+                $commentController->displayValidationPage();
                 break;
 
             case RegisterController::URL:

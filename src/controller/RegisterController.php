@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 namespace App\controller;
-use App\controller\UserController;
+
 use App\model\RegisterModel;
 use App\service\MessageService;
 use App\service\RegisterService;

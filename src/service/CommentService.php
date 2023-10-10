@@ -129,4 +129,61 @@ class CommentService
     
         return $data;
     }
+
+    /**
+     * Summary of getPendingComments
+     * 
+     * @return array
+     */
+    public function getPendingComments(): array
+    {
+        return $this->_commentRepository->getPendingComments();
+    }
+
+    /**
+     * Summary of validateComments
+     * 
+     * @param int $commentId id of the comment
+     * 
+     * @return void
+     */
+    public function validateComments(int $commentId):void
+    {
+        $this->_commentRepository->updateCommentValidation($commentId);        
+    }
+
+    /**
+     * Summary of deleteComments
+     * 
+     * @param int $commentId id of the comment
+     * 
+     * @return void
+     */
+    public function deleteComments(int $commentId):void
+    {
+        $this->_commentRepository->deleteComment($commentId);        
+    }
+
+    
+    /**
+     * Summary of validCommentId
+     * 
+     * @param mixed $commentId commentId
+     * 
+     * @return bool
+     */
+    public function validCommentId($commentId): bool
+    {
+        $comments = $this->getPendingComments();
+        $pendingCommentsIds = [];
+        foreach ($comments as $comment) {
+            $pendingCommentsIds[] = $comment["id"];
+        }
+        $isValid = in_array($commentId, $pendingCommentsIds);
+
+        if ($isValid) {
+            return true;
+        }
+        return false;
+    }
 }
