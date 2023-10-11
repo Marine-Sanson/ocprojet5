@@ -23,19 +23,25 @@ namespace App\service;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-enum RouteService: string
+enum RouteService: string // routeMapper
 {
-    case ContactView = 'contact.html.twig';
+    case ContactView = 'contactView';
     case HomeView = 'home.html.twig';
     case PostsView = 'posts.html.twig';
     case OnePostView = 'one-post.html.twig';
     case RegisterView = "register.html.twig";
     case LoginView = "login.html.twig";
     case PromotingView = "promoting.html.twig";
+    case ValidationComments = "validation.html.twig";
 
-    public function getLabel(): string
+    /**
+     * Summary of getLabel
+     * 
+     * @return string
+     */
+    public function getLabel(): string  // getTemplate
     {
-        return match($this) {
+        return match ($this) {
             static::ContactView => 'contact.html.twig',
             static::HomeView => 'home.html.twig',
             static::PostsView => 'posts.html.twig',
@@ -43,6 +49,8 @@ enum RouteService: string
             static::RegisterView => "register.html.twig",
             static::LoginView => "login.html.twig",
             static::PromotingView => "promoting.html.twig",
+            static::ValidationComments => 'validation.html.twig',
         };
     }
+
 }

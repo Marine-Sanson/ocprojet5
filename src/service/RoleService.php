@@ -28,9 +28,14 @@ enum RoleService: string
     case User = 'user';
     case Supadmin = 'supadmin';
 
+    /**
+     * Summary of getLabel
+     * 
+     * @return string
+     */
     public function getLabel(): string
     {
-        return match($this) {
+        return match ($this) {
             static::User => 'user',
             static::Supadmin => 'supadmin',
         };

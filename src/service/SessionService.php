@@ -80,15 +80,15 @@ class SessionService implements SessionInterface
      */
     public function setUser(UserConnectionModel $user):  void
     {
-        $this->_session[self::USER_KEY] = $user->toArray();
+        $this->_session[self::USER_KEY] = $user;
     }
 
     /**
      * Summary of getUser
      * 
-     * @return array
+     * @return UserConnectionModel
      */
-    public function getUser(): array
+    public function getUser(): UserConnectionModel
     {
         return $this->_session[self::USER_KEY];
     }

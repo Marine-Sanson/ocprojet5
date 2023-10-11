@@ -41,4 +41,6 @@ class MessageService
     averti par mail quand ça sera le cas.";
     const NEW_POST_SUCCESS = "Votre article a bien été pris en compte.";
     const UPDATE_SUCCES = "Vos modifications ont bien été prises en compte";
+    const VALIDATE_SUCCESS = "Ce commentaire à bien été validé";
+    const DELATE_SUCCESS = "Ce commentaire à bien été supprimé";
 }

@@ -104,6 +104,7 @@ class ContactController extends AbstractController
     {
         if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
             $template = RouteService::ContactView->getLabel();
+
             $data = [
                 MessageService::ERROR => MessageService::GENERAL_ERROR
             ];

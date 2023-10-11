@@ -101,7 +101,7 @@ class PromotingController extends AbstractController
     public function displayPromotingPage(): void
     {
         $data = [];
-        $role = $this->_sessionService->getUser()["role"];
+        $role = $this->_sessionService->getUser()->getRole();
 
         if (!isset($role) || $role !== RoleService::Supadmin->getLabel()) {
             $template = RouteService::HomeView->getLabel();

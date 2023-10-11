@@ -155,8 +155,9 @@ class PostService
     {
         $id = $this->_commentRepository->insertComment($newComment);
 
-        if (!isset($id)) { return false; }
-
+        if (!isset($id)) {
+            return false;
+        }
         return true;
     }
 

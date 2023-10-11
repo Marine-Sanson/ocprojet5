@@ -102,7 +102,7 @@ class CommentRepository
      */
     public function getOnePostComments(int $postId): array
     {
-        $request = 'SELECT comments.id_user, content, comments.last_update_date, username FROM comments 
+        $request = 'SELECT id_user, content, comments.last_update_date, username FROM comments 
                     JOIN users ON comments.id_user = users.id 
                     WHERE id_post = :id AND is_validate = :is_validate';
         $parameters = [
@@ -112,6 +112,69 @@ class CommentRepository
         $result = $this->_db->execute($request, $parameters);
 
         return $result;
+    }
+
+    /**
+     * Summary of getPendingComments
+     * 
+     * @return array
+     */
+    public function getPendingComments(): array
+    {
+        $request = 'SELECT
+            comments.id,
+            comments.id_user,
+            id_post,
+            comments.content,
+            comments.last_update_date,
+            is_validate,
+            username,
+            title
+        FROM comments
+        JOIN users ON comments.id_user = users.id
+        JOIN posts ON comments.id_post = posts.id
+        WHERE is_validate = :is_validate ORDER BY last_update_date DESC';
+        $parameters = [
+            'is_validate' => 0
+        ];
+        $result = $this->_db->execute($request, $parameters);
+
+        return $result;
+    }
+
+    /**
+     * Summary of updateCommentValidation
+     * 
+     * @param int $commentId id of the comment
+
+     * @return void
+     */
+    public function updateCommentValidation(int $commentId): void
+    {
+        $request = 'UPDATE comments SET is_validate = :is_validate WHERE id = :id';
+        $parameters = [
+            'id' => $commentId,
+            'is_validate' => 1
+        ];
+
+        $this->_db->execute($request, $parameters);
+    }
+
+    /**
+     * Summary of deleteComment
+     * 
+     * @param int $commentId id of the comment
+     * 
+     * @return void
+     */
+    public function deleteComment(int $commentId): void
+    {
+        $request = 'DELETE FROM comments WHERE id = :id';
+        $parameters = [
+            'id' => $commentId
+        ];
+
+        $this->_db->execute($request, $parameters);
     }
     
 }

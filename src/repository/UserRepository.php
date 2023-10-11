@@ -198,6 +198,8 @@ class UserRepository
      */
     public function updateRole(int $userId, string $role, int $isAllowed): void
     {
+        var_dump($userId);
+
         $request = 'UPDATE users SET role = :role, is_allowed =:is_allowed WHERE id = :id';
         $parameters = [
             'id' => $userId,
