@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\service\MessageService;
-use App\service\RouteService;
+use App\mapper\MessageMapper;
+use App\mapper\RouteMapper;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
@@ -100,7 +100,7 @@ class UserController extends AbstractController
      */
     public function displayLoginPage(): void
     {
-        $template = RouteService::LoginView->getLabel();
+        $template = RouteMapper::LoginView->getTemplate();
 
         echo $this->_template->render($template, []);
     }
@@ -115,22 +115,23 @@ class UserController extends AbstractController
      */
     public function login(string $username, string $password)
     {
-        $template = RouteService::LoginView->getLabel();
+        $template = RouteMapper::LoginView->getTemplate();
         $data = [];
         $username = $this->sanitize($username);
         $user = $this->_userService->connection($username, $password);
 
         if ($user === null) {
-            $data[MessageService::ERROR] = MessageService::LOGIN_PROBLEM;
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::LoginProblem->getMessage();
         }
 
-        if (!isset($data[MessageService::ERROR])) {
+        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
             $this->_sessionService->setUser($user);
 
             $data["session"] = $this->_sessionService->getSession();
     
-            $template = RouteService::HomeView->getLabel();
-            $data[MessageService::MESSAGE] = $user->getFirstName() . MessageService::LOGIN_SUCCESS;
+            $template = RouteMapper::HomeView->getTemplate();
+            $data[MessageMapper::Message->getMessageLabel()] = $user->getFirstName() .
+            MessageMapper::LoginSuccess->getMessage();
         }
 
         echo $this->_template->render($template, $data);
@@ -143,12 +144,12 @@ class UserController extends AbstractController
      */
     public function logout()
     {
-        $template = RouteService::HomeView->getLabel();
+        $template = RouteMapper::HomeView->getTemplate();
         if ($this->_sessionService->isUserConnected()) {
 
             $this->_sessionService->cleanSession();
             $data = [
-                MessageService::MESSAGE => MessageService::DISCONNECT
+                MessageMapper::Message->getMessageLabel() => MessageMapper::Disconnect->getMessage()
             ];
         }
         $data["session"] = $this->_sessionService->getSession();

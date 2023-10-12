@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\CommentEntity;
+use App\mapper\MessageMapper;
 use App\repository\CommentRepository;
 use App\service\UserService;
 use DateTime;
@@ -79,13 +80,6 @@ class CommentService
     public function getpostComments(int $postId): array
     {
         return $this->_commentRepository->getOnePostComments($postId);
-        // foreach ($comments as $comment) {
-        //     $comment["content"] = $this->toDisplay($comment["content"]);
-        // }
-        
-        // var_dump("<pre>");
-        // var_dump($comments);
-        // var_dump("</pre>");
     }
 
     /**
@@ -119,11 +113,11 @@ class CommentService
         $createNewComment = $this->_commentRepository->insertComment($validateComment);
         if ($createNewComment) {
             $data = [
-                MessageService::MESSAGE => MessageService::COMMENT_CREATED
+                MessageMapper::Message->getMessageLabel() => MessageMapper::CommentCreated->getMessage()
             ];
         } else {
             $data = [
-                MessageService::ERROR => MessageService::GENERAL_ERROR
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
     

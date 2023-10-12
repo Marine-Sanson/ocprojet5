@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace App\controller;
 
+use App\mapper\MessageMapper;
 use App\model\ContactModel;
 use App\controller\AbstractController;
+use App\mapper\RouteMapper;
 use App\service\ContactService;
-use App\service\MessageService;
-use App\service\RouteService;
 use App\service\TemplateInterface;
 use DateTime;
 
@@ -92,7 +92,7 @@ class ContactController extends AbstractController
      */
     public function displayContactPage(): void
     {
-        echo $this->template->render(RouteService::ContactView->getLabel(), []);
+        echo $this->template->render(RouteMapper::ContactView->getTemplate(), []);
     }
 
     /**
@@ -103,14 +103,14 @@ class ContactController extends AbstractController
     public function manageContact(): void
     {
         if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
-            $template = RouteService::ContactView->getLabel();
+            $template = RouteMapper::ContactView->getTemplate();
 
             $data = [
-                MessageService::ERROR => MessageService::GENERAL_ERROR
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
 
-        if (!isset($data[MessageService::ERROR])) {
+        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
             $contact = new ContactModel(
                 $_POST["name"], 
@@ -131,16 +131,16 @@ class ContactController extends AbstractController
             }
 
             if (!$sendMail) {
-                $template = RouteService::ContactView->getLabel();
+                $template = RouteMapper::ContactView->getTemplate();
                 $data = [
-                    MessageService::ERROR => MessageService::GENERAL_ERROR
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                 ];
             }
 
-            if (!isset($data[MessageService::ERROR])) {
-                $template = RouteService::HomeView->getLabel();
+            if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+                $template = RouteMapper::HomeView->getTemplate();
                 $data = [
-                    MessageService::MESSAGE => MessageService::MAIL_VALID
+                    MessageMapper::Message->getMessageLabel() => MessageMapper::MailValid->getMessage()
                 ];
             }
         }

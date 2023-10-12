@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\controller\AbstractController;
+use App\mapper\MessageMapper;
 use App\service\CommentService;
-use App\service\MessageService;
-use App\service\RouteService;
+use App\mapper\RouteMapper;
 use App\service\TemplateInterface;
 
 /**
@@ -90,7 +90,7 @@ class CommentController extends AbstractController
      */
     public function displayValidationPage(): void
     {
-        $template = RouteService::ValidationComments->getLabel();
+        $template = RouteMapper::ValidationComments->getTemplate();
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
@@ -106,14 +106,14 @@ class CommentController extends AbstractController
      */
     public function validateComment(int $commentId): void
     {
-        $template = RouteService::ValidationComments->getLabel();
+        $template = RouteMapper::ValidationComments->getTemplate();
         $isvalid = $this->_commentService->validCommentId($commentId);
         if ($isvalid) {
             $this->_commentService->validateComments($commentId);
-            $data[MessageService::MESSAGE] = MessageService::VALIDATE_SUCCESS;
+            $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::CommentValidationSuccess->getMessage();
         }
         if (!$isvalid) {
-            $data[MessageService::ERROR] = MessageService::GENERAL_ERROR;
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
@@ -130,14 +130,14 @@ class CommentController extends AbstractController
      */
     public function deleteComment(int $commentId): void
     {
-        $template = RouteService::ValidationComments->getLabel();
+        $template = RouteMapper::ValidationComments->getTemplate();
         $isvalid = $this->_commentService->validCommentId($commentId);
         if ($isvalid) {
             $this->_commentService->deleteComments($commentId);
-            $data[MessageService::MESSAGE] = MessageService::DELATE_SUCCESS;
+            $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::CommentDeleteSuccess->getMessage();
         }
         if (!$isvalid) {
-            $data[MessageService::ERROR] = MessageService::GENERAL_ERROR;
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
 
         $comments = $this->_commentService->getPendingComments();

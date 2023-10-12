@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\controller\AbstractController;
+use App\mapper\MessageMapper;
+use App\mapper\RouteMapper;
 use App\service\CommentService;
-use App\service\MessageService;
 use App\service\PostService;
-use App\service\RouteService;
 use App\service\TemplateInterface;
 
 /**
@@ -94,7 +94,7 @@ class PostController extends AbstractController
         $result = $this->_postService->getPosts();
         $result = $this->postsToDisplay($result);
         
-        echo $this->template->render(RouteService::PostsView->getLabel(), ['posts' => $result]);
+        echo $this->template->render(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
     }
 
     /**
@@ -116,7 +116,7 @@ class PostController extends AbstractController
         $postDetails->setComments($comments);
 
         echo $this->template->render(
-            RouteService::OnePostView->getLabel(), [
+            RouteMapper::OnePostView->getTemplate(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
                 'message' => $message
@@ -143,11 +143,11 @@ class PostController extends AbstractController
             $message = $this->_commentService->createNewComment($comment);
         } else {
             $message = [
-                MessageService::ERROR => MessageService::GENERAL_ERROR
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
         echo $this->template->render(
-            RouteService::OnePostView->getLabel(), [
+            RouteMapper::OnePostView->getTemplate(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
                 'message' => $message
@@ -172,13 +172,13 @@ class PostController extends AbstractController
             $isPostCreated = $this->_postService->createNewPost($userId, $title, $summary, $content);
             if (!$isPostCreated) {
                 $data = [
-                    MessageService::ERROR => MessageService::GENERAL_ERROR
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                 ];
             }
 
-            if (!isset($data[MessageService::ERROR])) {
+            if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
                 $message = [
-                    MessageService::MESSAGE => MessageService::NEW_POST_SUCCESS
+                    MessageMapper::Message->getMessageLabel() => MessageMapper::NewPostSuccess->getMessage()
                 ];
             }
         }
@@ -186,7 +186,7 @@ class PostController extends AbstractController
         $posts = $this->postsToDisplay($posts);
 
         echo $this->template->render(
-            RouteService::PostsView->getLabel(), [
+            RouteMapper::PostsView->getTemplate(), [
                 'posts' => $posts,
                 'message' => $message
             ]

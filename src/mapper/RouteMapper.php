@@ -1,6 +1,6 @@
 <?php
 /**
- * RouteService File Doc Comment
+ * RouteMapper File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -12,10 +12,10 @@
  */
 declare(strict_types=1);
 
-namespace App\service;
+namespace App\mapper;
 
 /**
- * RouteService Class Doc Comment
+ * RouteMapper Class Doc Comment
  * 
  * @category Service
  * @package  App\service
@@ -23,32 +23,32 @@ namespace App\service;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-enum RouteService: string // routeMapper
+enum RouteMapper: string
 {
     case ContactView = 'contactView';
-    case HomeView = 'home.html.twig';
-    case PostsView = 'posts.html.twig';
-    case OnePostView = 'one-post.html.twig';
-    case RegisterView = "register.html.twig";
-    case LoginView = "login.html.twig";
-    case PromotingView = "promoting.html.twig";
-    case ValidationComments = "validation.html.twig";
+    case HomeView = 'homeView';
+    case PostsView = 'postsView';
+    case OnePostView = 'onePostView';
+    case UserRegisterView = "userRegisterView";
+    case LoginView = "loginView";
+    case UserUpgradeView = "userUpgradeView";
+    case ValidationComments = "validationView";
 
     /**
      * Summary of getLabel
      * 
      * @return string
      */
-    public function getLabel(): string  // getTemplate
+    public function getTemplate(): string
     {
         return match ($this) {
             static::ContactView => 'contact.html.twig',
             static::HomeView => 'home.html.twig',
             static::PostsView => 'posts.html.twig',
             static::OnePostView => 'one-post.html.twig',
-            static::RegisterView => "register.html.twig",
+            static::UserRegisterView => "user-register.html.twig",
             static::LoginView => "login.html.twig",
-            static::PromotingView => "promoting.html.twig",
+            static::UserUpgradeView => "user-upgrade.html.twig",
             static::ValidationComments => 'validation.html.twig',
         };
     }
