@@ -1,6 +1,6 @@
 <?php
 /**
- * RegisterModel File Doc Comment
+ * UserRegisterModel File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace App\model;
 
 /**
- * RegisterModel Class Doc Comment
+ * UserRegisterModel Class Doc Comment
  * 
  * @category Model
  * @package  App\model
@@ -23,10 +23,10 @@ namespace App\model;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class RegisterModel
+class UserRegisterModel
 {
     /**
-     * Summary of __construct RegisterModel
+     * Summary of __construct UserRegisterModel
      * 
      * @param string $firstName first name of the user
      * @param string $name      name of the user
@@ -59,7 +59,7 @@ class RegisterModel
      * 
      * @param string $firstName firstName
      * 
-     * @return \App\model\RegisterModel
+     * @return \App\model\UserRegisterModel
      */
     public function setFirstName(string $firstName): self
     {
@@ -82,7 +82,7 @@ class RegisterModel
      * 
      * @param string $name name
      * 
-     * @return \App\model\RegisterModel
+     * @return \App\model\UserRegisterModel
      */
     public function setName(string $name): self
     {
@@ -105,7 +105,7 @@ class RegisterModel
      * 
      * @param string $username username
      * 
-     * @return \App\model\RegisterModel
+     * @return \App\model\UserRegisterModel
      */
     public function setUsername(string $username): self
     {
@@ -128,7 +128,7 @@ class RegisterModel
      * 
      * @param string $email email
      * 
-     * @return \App\model\RegisterModel
+     * @return \App\model\UserRegisterModel
      */
     public function setEmail(string $email): self
     {
@@ -151,7 +151,7 @@ class RegisterModel
      * 
      * @param string $password password
      * 
-     * @return \App\model\RegisterModel
+     * @return \App\model\UserRegisterModel
      */
     public function setPassword(string $password): self
     {

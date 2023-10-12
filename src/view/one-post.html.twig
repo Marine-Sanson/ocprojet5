@@ -27,7 +27,7 @@
                                                 <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message.message }}</p>
                                                 <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ message.error }}</p>
                                             </div>
-                                            <h4 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h4>
+                                            <h1 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h1>
                                             <p class="mt-4 justify text-white fw-bold">{{ postDetails.summary }}</p>
                                             <p class="mt-4 justify text-white">{{ postDetails.content }}</p>
                                             <div class="row text-white">
@@ -37,8 +37,8 @@
                                                 <span class="col-lg-2 text-right">Date : {{ postDetails.lastUpdateDate_at|date("m/d/Y")}}</span>
                                                 <span class="col-lg-1"></span>
                                             </div>
-                                            {% if comments %}
-                                            <h4 class="pt-5 text-white">Commentaires :</h4>
+                                            {% if postDetails.comments %}
+                                            <h2 class="pt-5 text-primary fs-4">Commentaires :</h2>
                                             {% endif %}
                                             {% for comment in postDetails.comments %}
                                                 <div class="p-2 px-lg-5 py-lg-2">

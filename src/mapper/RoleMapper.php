@@ -1,6 +1,6 @@
 <?php
 /**
- * RoleService File Doc Comment
+ * RoleMapper File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -12,10 +12,10 @@
  */
 declare(strict_types=1);
 
-namespace App\service;
+namespace App\mapper;
 
 /**
- * RoleService Class Doc Comment
+ * RoleMapper Class Doc Comment
  * 
  * @category Service
  * @package  App\service
@@ -23,17 +23,17 @@ namespace App\service;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-enum RoleService: string
+enum RoleMapper: string
 {
     case User = 'user';
     case Supadmin = 'supadmin';
 
     /**
-     * Summary of getLabel
+     * Summary of getRole
      * 
      * @return string
      */
-    public function getLabel(): string
+    public function getRole(): string
     {
         return match ($this) {
             static::User => 'user',

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace App\repository;
 
-use App\model\RegisterModel;
+use App\model\UserRegisterModel;
 use App\service\DatabaseService;
 use DateTime;
 
@@ -68,11 +68,11 @@ class UserRepository
     /**
      * Summary of insertNewUser
      * 
-     * @param \App\model\RegisterModel $registerModel RegisterModel
+     * @param \App\model\UserRegisterModel $userRegisterModel UserRegisterModel
      * 
      * @return int
      */
-    public function insertNewUser(RegisterModel $registerModel): int
+    public function insertNewUser(UserRegisterModel $userRegisterModel): int
     {
         $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
         $request = 'INSERT INTO users (
@@ -98,11 +98,11 @@ class UserRepository
                 :is_allowed
                 )';
         $parameters = [
-            'name' => $registerModel->getName(),
-            'first_name' => $registerModel->getFirstName(),
-            'username' => $registerModel->getUsername(),
-            'email' => $registerModel->getEmail(),
-            'password' => $registerModel->getPassword(),
+            'name' => $userRegisterModel->getName(),
+            'first_name' => $userRegisterModel->getFirstName(),
+            'username' => $userRegisterModel->getUsername(),
+            'email' => $userRegisterModel->getEmail(),
+            'password' => $userRegisterModel->getPassword(),
             'role' => 'user',
             'creation_date' => $date->format('Y-m-d H:i:s'),
             'last_update_date' => $date->format('Y-m-d H:i:s'),

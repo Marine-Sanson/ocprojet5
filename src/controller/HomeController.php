@@ -14,10 +14,8 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\mapper\PostsMapper;
-use App\repository\PostRepository;
+use App\mapper\RouteMapper;
 use App\service\HomeService;
-use App\service\RouteService;
 use App\service\TemplateInterface;
 
 /**
@@ -99,7 +97,7 @@ class HomeController
         $lastPosts = $this->_homeService->getLastPosts();
 
         echo $this->_template->render(
-            RouteService::HomeView->getLabel(), [
+            RouteMapper::HomeView->getTemplate(), [
                 "lastPosts" => $lastPosts
             ]
         );

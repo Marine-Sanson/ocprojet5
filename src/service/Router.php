@@ -18,10 +18,9 @@ use App\controller\CommentController;
 use App\controller\ContactController;
 use App\controller\HomeController;
 use App\controller\PostController;
-use App\controller\RegisterController;
-use App\controller\PromotingController;
 use App\controller\UserController;
-use App\controller\ValidationController;
+use App\controller\UserRegisterController;
+use App\controller\UserUpgradeController;
 use App\service\TwigService;
 
  /**
@@ -156,13 +155,13 @@ class Router
                 echo $this->_templateEngine->render('404.html.twig', []);
                 break;
 
-            case PromotingController::URL:
-                $promotingController = PromotingController::getInstance($this->_templateEngine);
+            case UserUpgradeController::URL:
+                $userUpgradeController = UserUpgradeController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"])) {
-                    $promotingController->managePromoting(intval($_POST['userId']), $_POST['role'],  $_POST['isAllowed']);
+                    $userUpgradeController->manageUserUpgrade(intval($_POST['userId']), $_POST['role'],  $_POST['isAllowed']);
                     break;
                 }
-                $promotingController->displayPromotingPage();
+                $userUpgradeController->displayUserUpgradePage();
                 break;
 
             case CommentController::URL:
@@ -178,13 +177,13 @@ class Router
                 $commentController->displayValidationPage();
                 break;
 
-            case RegisterController::URL:
-                $registerController = RegisterController::getInstance($this->_templateEngine);
+            case UserRegisterController::URL:
+                $userRegisterController = UserRegisterController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"])) {
-                    $registerController->manageRegister();
+                    $userRegisterController->manageUserRegister();
                     break;
                 }
-                $registerController->displayRegisterPage();
+                $userRegisterController->displayUserRegisterPage();
                 break;
 
             case ContactController::URL: 

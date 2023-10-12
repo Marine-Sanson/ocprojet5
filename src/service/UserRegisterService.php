@@ -1,6 +1,6 @@
 <?php
 /**
- * RegisterService File Doc Comment
+ * UserRegisterService File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -13,14 +13,14 @@
 declare(strict_types=1);
 
 namespace App\service;
-use App\model\RegisterModel;
+use App\model\UserRegisterModel;
 use App\repository\UserRepository;
 use App\service\UserService;
 
 
 
 /**
- * RegisterService Class Doc Comment
+ * UserRegisterService Class Doc Comment
  * 
  * @category Service
  * @package  App\service
@@ -28,7 +28,7 @@ use App\service\UserService;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class RegisterService
+class UserRegisterService
 {
     /**
      * Summary of _userService
@@ -47,7 +47,7 @@ class RegisterService
     /**
      * Summary of _instance
      * 
-     * @var RegisterService
+     * @var UserRegisterService
      */
     private static $_instance;
 
@@ -55,7 +55,7 @@ class RegisterService
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
       * 
-      * @return \App\service\RegisterService
+      * @return \App\service\UserRegisterService
       */
     private function __construct()
     {
@@ -66,12 +66,12 @@ class RegisterService
     /**
      * Summary of getInstance
      * 
-     * @return \App\service\RegisterService
+     * @return \App\service\UserRegisterService
      */
-    public static function getInstance(): RegisterService
+    public static function getInstance(): UserRegisterService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new RegisterService();  
+            self::$_instance = new UserRegisterService();  
         }
     
         return self::$_instance;
@@ -107,28 +107,28 @@ class RegisterService
      * @param string $email     email
      * @param string $password  password
      * 
-     * @return \App\model\RegisterModel
+     * @return \App\model\UserRegisterModel
      */
-    public function transformToRegister(
+    public function transformToUserRegisterModel(
         string $firstName,
         string $name,
         string $username,
         string $email,
         string $password
-    ): RegisterModel {
-        return new RegisterModel($firstName, $name, $username, $email, $password);
+    ): UserRegisterModel {
+        return new UserRegisterModel($firstName, $name, $username, $email, $password);
     }
 
     /**
      * Summary of saveRegisterData
      * 
-     * @param \App\model\RegisterModel $registerModel RegisterModel
+     * @param \App\model\UserRegisterModel $userRegisterModel UserRegisterModel
      * 
      * @return bool
      */
-    public function saveRegisterData(RegisterModel $registerModel): bool
+    public function saveUserRegisterData(UserRegisterModel $userRegisterModel): bool
     {
-        $userId = $this->_userRepository->insertNewUser($registerModel);
+        $userId = $this->_userRepository->insertNewUser($userRegisterModel);
 
         if (!$userId) {
             return false;

@@ -1,6 +1,6 @@
 <?php
 /**
- * PromotingController File Doc Comment
+ * UserUpgradeController File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -14,15 +14,15 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\service\MessageService;
-use App\service\RouteService;
+use App\mapper\MessageMapper;
+use App\mapper\RoleMapper;
+use App\mapper\RouteMapper;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
-use App\service\RoleService;
 
 /**
- * PromotingController Class Doc Comment
+ * UserUpgradeController Class Doc Comment
  * 
  * @category Controller
  * @package  App\controller
@@ -30,7 +30,7 @@ use App\service\RoleService;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class PromotingController extends AbstractController
+class UserUpgradeController extends AbstractController
 {
     /**
      * Summary of template
@@ -42,7 +42,7 @@ class PromotingController extends AbstractController
     /**
      * Summary of _instance
      * 
-     * @var PromotingController
+     * @var UserUpgradeController
      */
     private static $_instance;
 
@@ -82,34 +82,34 @@ class PromotingController extends AbstractController
       * 
       * @param \App\service\TemplateInterface $template template engine
       * 
-      * @return \App\controller\PromotingController
+      * @return \App\controller\UserUpgradeController
       */
-    public static function getInstance(TemplateInterface $template): PromotingController
+    public static function getInstance(TemplateInterface $template): UserUpgradeController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new PromotingController($template);  
+            self::$_instance = new UserUpgradeController($template);  
         }
     
         return self::$_instance;
     }
 
     /**
-     * Summary of displayPromotingPage
+     * Summary of displayUserUpgradePage
      * 
      * @return void
      */
-    public function displayPromotingPage(): void
+    public function displayUserUpgradePage(): void
     {
         $data = [];
         $role = $this->_sessionService->getUser()->getRole();
 
-        if (!isset($role) || $role !== RoleService::Supadmin->getLabel()) {
-            $template = RouteService::HomeView->getLabel();
-            $data[MessageService::ERROR] = MessageService::GENERAL_ERROR;
+        if (!isset($role) || $role !== RoleMapper::Supadmin->getRole()) {
+            $template = RouteMapper::HomeView->getTemplate();
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
 
-        if (isset($role) && $role === RoleService::Supadmin->getLabel()) {
-            $template = RouteService::PromotingView->getLabel();
+        if (isset($role) && $role === RoleMapper::Supadmin->getRole()) {
+            $template = RouteMapper::UserUpgradeView->getTemplate();
             $users = $this->_userService->getAllUsers();
             $data["users"] = $users;
         }
@@ -118,7 +118,7 @@ class PromotingController extends AbstractController
     }
 
     /**
-     * Summary of managePromoting
+     * Summary of manageUserUpgrade
      * 
      * @param int    $userId    id of the user
      * @param string $role      role of the user
@@ -126,13 +126,13 @@ class PromotingController extends AbstractController
      * 
      * @return void
      */
-    public function managePromoting(int $userId, string $role, string $isAllowed): void
+    public function manageUserUpgrade(int $userId, string $role, string $isAllowed): void
     {
-        $template = RouteService::PromotingView->getLabel();
+        $template = RouteMapper::UserUpgradeView->getTemplate();
         $this->_userService->modifyRole($userId, $role, intval($isAllowed));
         $users = $this->_userService->getAllUsers();
         $data["users"] = $users;
-        $data[MessageService::MESSAGE] = MessageService::UPDATE_SUCCES;
+        $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::UpdateSuccess->getMessage();
 
         echo $this->_template->render($template, $data);
     }
