@@ -165,7 +165,16 @@ class PostRepository
      */
     public function getListOfPosts(): array
     {
-        $request = 'SELECT posts.*, username FROM posts 
+        $request = 'SELECT
+        posts.id,
+        posts.id_user,
+        posts.title,
+        posts.summary,
+        posts.content,
+        posts.creation_date,
+        posts.last_update_date,
+        username
+        FROM posts 
         JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
         $parameters = [];
         $result = $this->_db->execute($request, $parameters);

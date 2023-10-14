@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\entity;
+
 use DateTime;
 
 /**
@@ -26,7 +27,6 @@ use DateTime;
  */
 class PostEntity
 {
-
     /**
      * Summary of __construct
      * 
