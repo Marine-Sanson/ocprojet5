@@ -132,6 +132,19 @@ class Router
                         $postController->addComment($route["param"]);
                         break;
                     }
+                    if (isset($_POST["action"]) && $_POST["action"] === PostController::MODIFY) {
+                        $postController->modifyPost(
+                            $route["param"],
+                            $_POST["action"],
+                            intval($_POST["userId"]),
+                            $_POST["username"],
+                            intval($_POST["postId"]),
+                            $_POST["title"],
+                            $_POST["summary"],
+                            $_POST["content"]
+                        );
+                        break;
+                    }
                     $postController->showPostDetails($route["param"]);
                     break;
                 }

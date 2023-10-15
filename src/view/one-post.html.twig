@@ -27,9 +27,21 @@
                                                 <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message.message }}</p>
                                                 <p class="text-danger font-weight-bold fs-4 bg-white bg-opacity-75 rounded">{{ message.error }}</p>
                                             </div>
-                                            <h1 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h1>
-                                            <p class="mt-4 justify text-white fw-bold">{{ postDetails.summary }}</p>
-                                            <p class="mt-4 justify text-white">{{ postDetails.content }}</p>
+                                            {% if session.user.username == postDetails.username %}
+                                                <form action="" method="post" id="form-box" class="p-2">
+                                                    <input type="hidden" id="commentAction" name="action" value="modifyPost">
+                                                    <input type="hidden" id="userId" name="userId" value="{{ session.user.id }}">
+                                                    <input type="hidden" id="username" name="username" value="{{ session.user.username }}">
+                                                    <input type="hidden" id="postId" name="postId" value="{{ postDetails.id }}">
+
+                                                    <input type="text" name="title" class="form-control text-primary fw-bolder bg-black text-center" value={{postDetails.title|capitalize}} required>
+                                                    <textarea name="summary" id="summary" class="form-control text-white bg-black my-2" cols="80" rows="5" required>{{ postDetails.summary }}</textarea>
+                                                    <textarea name="content" id="content" class="form-control text-white bg-black" cols="80" rows="20" required>{{ postDetails.content }}</textarea>
+                                            {% else %}
+                                                <h1 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h1>
+                                                <p class="mt-4 justify text-white fw-bold">{{ postDetails.summary }}</p>
+                                                <p class="mt-4 justify text-white">{{ postDetails.content }}</p>
+                                            {% endif %}
                                             <div class="row text-white">
                                                 <span class="col-lg-1"></span>
                                                 <span class="col-lg-3">Auteur : {{ postDetails.username|capitalize }}</span>
@@ -37,6 +49,15 @@
                                                 <span class="col-lg-2 text-right">Date : {{ postDetails.lastUpdateDate_at|date("m/d/Y")}}</span>
                                                 <span class="col-lg-1"></span>
                                             </div>
+                                            {% if session.user.username == postDetails.username %}
+                                                    <div class="form-group d-flex">
+                                                        <div class="mx-auto my-4">
+                                                            <input type="submit" id="modifyPostSubmit" class="btn btn-body btn-block" value="Modifier">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            {% endif %}
+
                                             {% if postDetails.comments %}
                                             <h2 class="pt-5 text-primary fs-4">Commentaires :</h2>
                                             {% endif %}
@@ -73,7 +94,7 @@
                                                     </div>
                                                     <div class="form-group d-flex">
                                                         <div class="mx-auto my-4">
-                                                            <input type="submit" id="contactSubmit" class="btn btn-body btn-block" value="Envoyer">
+                                                            <input type="submit" id="addCommentSubmit" class="btn btn-body btn-block" value="Envoyer">
                                                         </div>
                                                     </div>
                                                 </form>

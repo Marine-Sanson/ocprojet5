@@ -55,6 +55,8 @@ class PostController extends AbstractController
     
     const URL = "posts";
     const ACTION = "addPost";
+    const MODIFY = "modifyPost";
+
 
     /**
      * Summary of __construct call an instance of TemplateInterface
@@ -108,6 +110,9 @@ class PostController extends AbstractController
     {
         $message = null;
         $postDetails = $this->_postService->getPostDetails($postId);
+        $postDetails->setSummary($this->toDisplay($postDetails->getSummary()));
+        $postDetails->setContent($this->toDisplay($postDetails->getContent()));
+
         $comments = [];
         foreach ($postDetails->getComments() as $postCom) {
             $postCom["content"] = $this->toDisplay($postCom["content"]);
@@ -177,20 +182,76 @@ class PostController extends AbstractController
             }
 
             if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
-                $message = [
+                $data = [
                     MessageMapper::Message->getMessageLabel() => MessageMapper::NewPostSuccess->getMessage()
                 ];
             }
         }
         $posts = $this->_postService->getPosts();
-        $posts = $this->postsToDisplay($posts);
+        $data["posts"] = $this->postsToDisplay($posts);
+
+        echo $this->template->render(RouteMapper::PostsView->getTemplate(), $data);
+    }
+
+    /**
+     * Summary of modifyPost
+     * 
+     * @param int    $routeParam routeParam
+     * @param string $action     action
+     * @param int    $userId     userId
+     * @param string $username   username
+     * @param int    $postId     postId
+     * @param string $title      title
+     * @param string $summary    summary
+     * @param string $content    content
+     * 
+     * @return void
+     */
+    public function modifyPost(int $routeParam, string $action, int $userId, string $username, int $postId, string $title, string $summary, string $content): void
+    {
+        $message = null;
+
+        if (!$this->isSubmitted(self::MODIFY) || !$this->isValid($_POST)) {
+            $message = [
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+            ];
+        }
+        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+            if ($routeParam !== $postId) {
+                $message = [
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+                ];
+            }
+        }
+        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+            $title = $this->sanitize($title);
+            $summary = $this->sanitize($summary);
+            $content = $this->sanitize($content);
+
+            $this->_postService->updateAPost($postId, $userId, $title, $summary, $content);
+            $message = [
+                MessageMapper::Message->getMessageLabel() => MessageMapper::UpdateSuccess->getMessage()
+            ];
+        }
+
+        $postDetails = $this->_postService->getPostDetails($routeParam);
+        $postDetails->setSummary($this->toDisplay($postDetails->getSummary()));
+        $postDetails->setContent($this->toDisplay($postDetails->getContent()));
+        $comments = [];
+        foreach ($postDetails->getComments() as $postCom) {
+            $postCom["content"] = $this->toDisplay($postCom["content"]);
+            $comments[] = $postCom;
+        }
+        $postDetails->setComments($comments);
 
         echo $this->template->render(
-            RouteMapper::PostsView->getTemplate(), [
-                'posts' => $posts,
+            RouteMapper::OnePostView->getTemplate(), [
+                'id' => $routeParam,
+                'postDetails' => $postDetails,
                 'message' => $message
             ]
         );
+
     }
 
     /**

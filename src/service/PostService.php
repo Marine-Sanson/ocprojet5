@@ -18,6 +18,7 @@ use App\mapper\PostDetailsMapper;
 use App\mapper\PostsMapper;
 use App\model\NewPostModel;
 use App\model\PostDetailsModel;
+use App\model\UpdatePostModel;
 use App\repository\CommentRepository;
 use App\repository\PostRepository;
 use App\service\CommentService;
@@ -184,5 +185,23 @@ class PostService
         }
 
         return false;
+    }
+
+    /**
+     * Summary of updateAPost
+     * 
+     * @param int    $postId  postId
+     * @param int    $userId  userId
+     * @param string $title   title
+     * @param string $summary summary
+     * @param string $content content
+     * 
+     * @return void
+     */
+    public function updateAPost(int $postId, int $userId, string $title, string $summary, string $content)
+    {
+        $lastUpdateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+        $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);
+        $this->_postRepository->updatePost($updatePost);
     }
 }

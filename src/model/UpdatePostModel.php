@@ -1,6 +1,6 @@
 <?php
 /**
- * PostDetailsModel File Doc Comment
+ * UpdatePostModel File Doc Comment
  * 
  * PHP Version 8.1.10
  * 
@@ -17,7 +17,7 @@ namespace App\model;
 use DateTime;
 
 /**
- * PostDetailsModel Class Doc Comment
+ * UpdatePostModel Class Doc Comment
  * 
  * @category Model
  * @package  App\model
@@ -25,52 +25,47 @@ use DateTime;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class PostDetailsModel
+class UpdatePostModel
 {
-
     /**
      * Summary of __construct
      * 
-     * @param int | null  $id             id
-     * @param int         $idUser         idUser
-     * @param string      $title          title
-     * @param string      $summary        summary
-     * @param string      $content        content
-     * @param \DateTime   $lastUpdateDate lastUpdateDate
-     * @param string      $username       username
-     * @param array |null $comments       comments
+     * @param int       $id             postId
+     * @param int       $userId         userId
+     * @param string    $title          title
+     * @param string    $summary        summary
+     * @param string    $content        content
+     * @param \DateTime $lastUpdateDate lastUpdateDate
      */
     public function __construct(
-        private readonly ?int $id,
-        private readonly int $idUser,
-        private readonly string $title,
-        private string $summary,
-        private string $content,
-        private readonly DateTime $lastUpdateDate,
-        private readonly string $username,
-        private ?array $comments
+        private readonly int      $id,
+        private readonly int      $userId,
+        private readonly string   $title,
+        private string            $summary,
+        private string            $content,
+        private readonly DateTime $lastUpdateDate
     ) {
 
     }
 
     /**
-     * Summary of getId
+     * Summary of getPostId
      * 
-     * @return int | null
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * Summary of getIdUser
+     * Summary of getUserId
      * 
      * @return int
      */
-    public function getIdUser(): int
+    public function getUserId(): int
     {
-        return $this->idUser;
+        return $this->userId;
     }
 
     /**
@@ -98,7 +93,7 @@ class PostDetailsModel
      * 
      * @param string $summary summary
      * 
-     * @return \App\model\PostDetailsModel
+     * @return \App\model\UpdatePostModel
      */
     public function setSummary(string $summary): self
     {
@@ -121,7 +116,7 @@ class PostDetailsModel
      * 
      * @param string $content content
      * 
-     * @return \App\model\PostDetailsModel
+     * @return \App\model\UpdatePostModel
      */
     public function setContent(string $content): self
     {
@@ -130,45 +125,12 @@ class PostDetailsModel
     }
 
     /**
-     * Summary of getLastUpdateDate
+     * Summary of getCreationDate
      * 
      * @return DateTime
      */
     public function getLastUpdateDate(): DateTime
     {
         return $this->lastUpdateDate;
-    }
-
-    /**
-     * Summary of getUsername
-     * 
-     * @return string
-     */
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    /**
-     * Summary of getComments
-     * 
-     * @return array
-     */
-    public function getComments(): ?array
-    {
-        return $this->comments;
-    }
-
-    /**
-     * Summary of setComments
-     * 
-     * @param array | null $comments comments
-     * 
-     * @return self
-     */
-    public function setComments(?array $comments): self
-    {
-        $this->comments = $comments;
-        return $this;
     }
 }
