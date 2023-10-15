@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\repository;
 
 use App\model\NewPostModel;
+use App\model\UpdatePostModel;
 use App\service\DatabaseService;
 use DateTime;
 
@@ -105,6 +106,31 @@ class PostRepository
         $id = $lastInsertId[0]["LAST_INSERT_ID()"];
 
         return $id;
+    }
+
+    /**
+     * Summary of updatePost
+     * 
+     * @param \App\model\UpdatePostModel $updatePost UpdatePostModel
+     * 
+     * @return void
+     */
+    public function updatePost(UpdatePostModel $updatePost)
+    {
+        $request = 'UPDATE posts SET 
+        title = :title,
+        summary = :summary,
+        content = :content,
+        last_update_date = :last_update_date
+        WHERE id = :id';
+        $parameters = [
+            'id' => $updatePost->getId(),
+            'title' => $updatePost->getTitle(),
+            'summary' => $updatePost->getSummary(),
+            'content' => $updatePost->getContent(),
+            'last_update_date' => $updatePost->getLastUpdateDate()->format('Y-m-d H:i:s')
+        ];
+        $this->_db->execute($request, $parameters);
     }
 
     /**
