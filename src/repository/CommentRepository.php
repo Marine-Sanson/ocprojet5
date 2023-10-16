@@ -74,23 +74,20 @@ class CommentRepository
      */
     public function insertComment(CommentEntity $newComment): int
     {
-
         $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, last_update_date, is_validate) 
                     VALUES (:id_post, :id_user, :content, :creation_date, :last_update_date, :is_validate)';
         $parameters = [
-            'id_post' => $newComment->id_post,
-            'id_user' => $newComment->id_user,
-            'content' => $newComment->content,
-            'creation_date' => $newComment->creationDate->format('Y-m-d H:i:s'),
-            'last_update_date' => $newComment->lastUpdateDate->format('Y-m-d H:i:s'),
+            'id_post' => $newComment->getPostId(),
+            'id_user' => $newComment->getUserId(),
+            'content' => $newComment->getContent(),
+            'creation_date' => $newComment->getCreationDate()->format('Y-m-d H:i:s'),
+            'last_update_date' => $newComment->getLastUpdateDate()->format('Y-m-d H:i:s'),
             'is_validate' => 0
         ];
         $this->_db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->_db->execute($newReq, null);
-        $id = $lastInsertId[0]["LAST_INSERT_ID()"];
-
-        return $id;
+        return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 
     /**
@@ -109,9 +106,7 @@ class CommentRepository
             'id' => $postId,
             'is_validate' => 1
         ];
-        $result = $this->_db->execute($request, $parameters);
-
-        return $result;
+        return $this->_db->execute($request, $parameters);
     }
 
     /**
@@ -137,9 +132,7 @@ class CommentRepository
         $parameters = [
             'is_validate' => 0
         ];
-        $result = $this->_db->execute($request, $parameters);
-
-        return $result;
+        return $this->_db->execute($request, $parameters);
     }
 
     /**
@@ -176,5 +169,4 @@ class CommentRepository
 
         $this->_db->execute($request, $parameters);
     }
-    
 }

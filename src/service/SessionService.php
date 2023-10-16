@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\service;
+
 use App\model\UserConnectionModel;
 
 /**
@@ -64,7 +65,7 @@ class SessionService implements SessionInterface
      * 
      * @return void
      */
-    public function start():  void
+    public function start(): void
     {
         session_start();
         $this->_session = &$_SESSION;
@@ -78,7 +79,7 @@ class SessionService implements SessionInterface
      * 
      * @return void
      */
-    public function setUser(UserConnectionModel $user):  void
+    public function setUser(UserConnectionModel $user): void
     {
         $this->_session[self::USER_KEY] = $user;
     }
@@ -99,7 +100,7 @@ class SessionService implements SessionInterface
      * 
      * @return bool
      */
-    public function isUserConnected():  bool 
+    public function isUserConnected(): bool 
     {
         return !empty($this->_session[self::USER_KEY]);
     }
@@ -109,7 +110,7 @@ class SessionService implements SessionInterface
      *
      * @return array $_session
      */
-    public function getSession():  array
+    public function getSession(): array
     {
         return $this->_session;
     }
@@ -119,9 +120,9 @@ class SessionService implements SessionInterface
      * 
      * @param string $key key
      * 
-     * @return mixed
+     * @return array | null
      */
-    public function get(string $key)
+    public function get(string $key): ?array
     {
         if ($this->has($key)) {
             return $this->_session[$key];

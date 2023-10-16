@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\entity;
+
 use DateTime;
 
 /**
@@ -30,22 +31,93 @@ class CommentEntity
      * Summary of __construct
      * 
      * @param mixed     $id             id of the comment
-     * @param int       $id_post        id of the post
-     * @param int       $id_user        id of the user
+     * @param int       $postId         id of the post
+     * @param int       $userId         id of the user
      * @param string    $content        content
      * @param \DateTime $creationDate   creation date
      * @param \DateTime $lastUpdateDate last update date
-     * @param bool      $is_validate    default 0
+     * @param bool      $isValidate     default 0
      */
     public function __construct(
-        public ?int $id,
-        public int $id_post,
-        public int $id_user,
-        public string $content,
-        public DateTime $creationDate,
-        public DateTime $lastUpdateDate,
-        public bool $is_validate
+        private readonly ?int $id,
+        private readonly int $postId,
+        private readonly int $userId,
+        private readonly string $content,
+        private readonly DateTime $creationDate,
+        private readonly DateTime $lastUpdateDate,
+        private readonly bool $isValidate
     ) {
 
+    }
+
+
+    /**
+     * Summary of getId
+     * 
+     * @return int | null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Summary of getPostId
+     * 
+     * @return int
+     */
+    public function getPostId(): int
+    {
+        return $this->postId;
+    }
+
+    /**
+     * Summary of getUserId
+     * 
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Summary of getContent
+     * 
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * Summary of getCreationDate
+     * 
+     * @return \DateTime
+     */
+    public function getCreationDate(): DateTime
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Summary of getLastUpdateDate
+     * 
+     * @return \DateTime
+     */
+    public function getLastUpdateDate(): DateTime
+    {
+        return $this->lastUpdateDate;
+    }
+
+    /**
+     * Summary of getIsValidate
+     * 
+     * @return bool
+     */
+    public function getIsValidate(): bool
+    {
+        return $this->isValidate;
     }
 }

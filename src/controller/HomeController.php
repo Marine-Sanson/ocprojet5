@@ -87,8 +87,7 @@ class HomeController
     }
 
     /**
-     * Summary of index
-     * The content of this function is temporary, just to test
+     * Summary of displayHome
      *
      * @return void
      */

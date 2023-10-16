@@ -35,7 +35,7 @@ enum RouteMapper: string
     case ValidationComments = "validationView";
 
     /**
-     * Summary of getLabel
+     * Summary of getTemplate
      * 
      * @return string
      */
@@ -52,5 +52,4 @@ enum RouteMapper: string
             static::ValidationComments => 'validation.html.twig',
         };
     }
-
 }

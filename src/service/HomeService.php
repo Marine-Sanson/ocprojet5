@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\service;
+
 use App\mapper\PostsMapper;
 use App\repository\PostRepository;
 
@@ -90,5 +91,4 @@ class HomeService
 
         return $this->_postsMapper->transformToListOfPostModel($results);
     }
-
 }

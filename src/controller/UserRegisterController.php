@@ -103,7 +103,7 @@ class UserRegisterController extends AbstractController
     }
 
     /**
-     * Summary of displayLoginPage
+     * Summary of displayUserRegisterPage
      * 
      * @return void
      */
@@ -114,13 +114,27 @@ class UserRegisterController extends AbstractController
         echo $this->_template->render($template, []);
     }
 
+
     /**
-     * Summary of checkAction
+     * Summary of manageUserRegister
+     * 
+     * @param string $firstName      firstName
+     * @param string $name           name
+     * @param string $username       username
+     * @param string $email          email
+     * @param string $password       password
+     * @param string $passwordVerify passwordVerify
      * 
      * @return void
      */
-    public function manageUserRegister(): void
-    {
+    public function manageUserRegister(
+        string $firstName,
+        string $name,
+        string $username,
+        string $email,
+        string $password,
+        string $passwordVerify
+    ): void {
         $template = RouteMapper::UserRegisterView->getTemplate();
         $data = [];
         if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
@@ -133,44 +147,43 @@ class UserRegisterController extends AbstractController
 
         if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
 
-            // vérifie si le username n'est pas déja pris || message erreur
-            $isUsernameAvailable = $this->_userRegisterService->verifyUsername($_POST["username"]);
+            $firstName = ucwords(strtolower($firstName));
+            $name = ucwords(strtolower($name));
+            $username = ucwords(strtolower($username));
+            $isUsernameAvailable = $this->_userRegisterService->verifyUsername($username);
             if ($isUsernameAvailable) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::UsernameUnavailable->getMessage()
                 ];
             }
-            // vérifie si l'adresse mail est valide
-            if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::MailError->getMessage()
                 ];
             }
-            // vérifie si le mdp est bien 2 fois le meme || message erreur
-            if ($_POST["password"] !== $_POST["passwordVerify"]) {
+
+            if ($password !== $passwordVerify) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::PasswordError->getMessage()
                 ];
             }
+
             if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
-                // renvoie un UserRegisterModel
                 $register = $this->_userRegisterService->transformToUserRegisterModel(
-                    ucfirst(strtolower($_POST["firstName"])),
-                    ucfirst(strtolower($_POST["name"])),
-                    $_POST["username"],
-                    $_POST["email"],
-                    $_POST["password"]
+                    $firstName,
+                    $name,
+                    $username,
+                    $email,
+                    $password
                 );
-                // clean les données entrées
+
                 $register = $this->_sanitizeRegisterData($register);
 
-                // hash le mdp
                 $register = $this->_hashPassword($register);
 
-                // insère les donnéees dans la db
                 $isSaved = $this->_userRegisterService->saveUserRegisterData($register);
 
-                // redirige vers la page de connexion
                 if ($isSaved) {
                     $data = [
                         MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
@@ -182,12 +195,11 @@ class UserRegisterController extends AbstractController
                 }
             }
         }
-
         echo $this->_template->render($template, $data);
     }
 
     /**
-     * Summary of _cleanRegisterData
+     * Summary of _sanitizeRegisterData
      * 
      * @param \App\model\UserRegisterModel $userRegister UserRegisterModel
      * 
@@ -215,5 +227,4 @@ class UserRegisterController extends AbstractController
 
         return $register;
     }
-
 }

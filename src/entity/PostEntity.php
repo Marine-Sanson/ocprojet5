@@ -39,14 +39,84 @@ class PostEntity
      * @param \DateTime  $lastUpdateDate last update date dat in the db
      */
     public function __construct(
-        public ?int $id,
-        public int $idUser,
-        public string $title,
-        public string $summary,
-        public string $content,
-        public DateTime $creationDate,
-        public DateTime $lastUpdateDate
+        private readonly ?int $id,
+        private readonly int $idUser,
+        private readonly string $title,
+        private readonly string $summary,
+        private readonly string $content,
+        private readonly DateTime $creationDate,
+        private readonly DateTime $lastUpdateDate
     ) {
 
+    }
+
+    /**
+     * Summary of getId
+     * 
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Summary of getIdUser
+     * 
+     * @return int
+     */
+    public function getIdUser(): int
+    {
+        return $this->idUser;
+    }
+
+    /**
+     * Summary of getTitle
+     * 
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * Summary of getSummary
+     * 
+     * @return string
+     */
+    public function getSummary(): string
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Summary of getContent
+     * 
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * Summary of getCreationDate
+     * 
+     * @return \DateTime
+     */
+    public function getCreationDate(): DateTime
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Summary of getLastUpdateDate
+     * 
+     * @return \DateTime
+     */
+    public function getLastUpdateDate(): DateTime
+    {
+        return $this->lastUpdateDate;
     }
 }

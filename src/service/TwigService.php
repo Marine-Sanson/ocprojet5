@@ -30,7 +30,6 @@ use Twig\Loader\FilesystemLoader;
   */
 class TwigService implements TemplateInterface
 {
-
     /**
      * Summary of _instance
      * 

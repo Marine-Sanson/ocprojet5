@@ -132,25 +132,32 @@ class PostController extends AbstractController
     /**
      * Summary of addComment
      * 
-     * @param int $postId id of the post
+     * @param int    $routeParam routeParam
+     * @param int    $postId     postId
+     * @param string $username   username
+     * @param string $content    content
      * 
      * @return void
      */
-    public function addComment(int $postId): void
+    public function addComment(int $routeParam, int $postId, string $username, string $content): void
     {
-        $postDetails = $this->_postService->getPostDetails($postId);
         if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($_POST)) {
-            $username = $_POST["username"];            
-            $postId = intval($_POST["postId"]);
-            $content = $this->sanitize($_POST["content"]);
-
-            $comment = $this->_commentService->manageComment($username, $postId, $content);
-            $message = $this->_commentService->createNewComment($comment);
+            if ($postId !== $routeParam) {
+                $message = [
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+                ];
+            }
+            if ($postId === $routeParam) {
+                $content = $this->sanitize($content);
+                $comment = $this->_commentService->manageComment($username, $postId, $content);
+                $message = $this->_commentService->createNewComment($comment);
+            }
         } else {
             $message = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
+        $postDetails = $this->_postService->getPostDetails($postId);
         echo $this->template->render(
             RouteMapper::OnePostView->getTemplate(), [
                 'id' => $postId,
@@ -163,16 +170,21 @@ class PostController extends AbstractController
     /**
      * Summary of addPost
      * 
+     * @param int    $userId  userId
+     * @param string $title   title
+     * @param string $summary summary
+     * @param string $content content
+     * 
      * @return void
      */
-    public function addPost()
+    public function addPost(int $userId, string $title, string $summary, string $content): void
     {
         if ($this->isSubmitted(self::ACTION) && $this->isValid($_POST)) {
 
-            $userId = intval($_POST["userId"]);
-            $title = $this->sanitize($_POST["title"]);
-            $summary = $this->sanitize($_POST["summary"]);
-            $content = $this->sanitize($_POST["content"]);
+            $userId = intval($userId);
+            $title = $this->sanitize(ucwords(strtolower($title)));
+            $summary = $this->sanitize($summary);
+            $content = $this->sanitize($content);
 
             $isPostCreated = $this->_postService->createNewPost($userId, $title, $summary, $content);
             if (!$isPostCreated) {
@@ -207,8 +219,16 @@ class PostController extends AbstractController
      * 
      * @return void
      */
-    public function modifyPost(int $routeParam, string $action, int $userId, string $username, int $postId, string $title, string $summary, string $content): void
-    {
+    public function modifyPost(
+        int $routeParam,
+        string $action,
+        int $userId,
+        string $username,
+        int $postId,
+        string $title,
+        string $summary,
+        string $content
+    ): void {
         $message = null;
 
         if (!$this->isSubmitted(self::MODIFY) || !$this->isValid($_POST)) {
@@ -261,7 +281,7 @@ class PostController extends AbstractController
      * 
      * @return array
      */
-    public function postsToDisplay(array $posts)
+    public function postsToDisplay(array $posts): array
     {
         $postsToDisplay = [];
         foreach ($posts as $post) {

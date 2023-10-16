@@ -72,11 +72,11 @@ class ContactService
         $contactId = null;
         $newContact = new ContactEntity(
             $contactId, 
-            $contactModel->name, 
-            $contactModel->firstName, 
-            $contactModel->email, 
-            $contactModel->content, 
-            $contactModel->creationDate
+            $contactModel->getName(),
+            $contactModel->getFirstName(), 
+            $contactModel->getEmail(), 
+            $contactModel->getContent(), 
+            $contactModel->getCreationDate()
         );
 
         $contactRepository = new ContactRepository;
@@ -98,13 +98,13 @@ class ContactService
      */
     public function notify(ContactModel $newContact): bool
     {
-        $content = $newContact->content;
+        $content = $newContact->getContent();
 
-        $contactName = $newContact->firstName . " " . $newContact->name;
-        $contactEmail = $newContact->email;
+        $contactName = $newContact->getFirstName() . " " . $newContact->getName();
+        $contactEmail = $newContact->getEmail();
         $subject = "contact depuis le blog";
-        $message = " De:  " . $contactName . " Email:  " . $newContact->email . " Le " . 
-        $newContact->creationDate->format('Y-m-d H:i:s') . " Message:  " . $content;
+        $message = " De:  " . $contactName . " Email:  " . $newContact->getEmail() . " Le " . 
+        $newContact->getCreationDate()->format('d-m-Y H:i:s') . " Message:  " . $content;
 
         $mailerService = new MailerService;
         $mail = $mailerService->sendMail($contactName, $contactEmail, $subject, $message);
@@ -115,5 +115,4 @@ class ContactService
             return false;
         }
     }
-
 }

@@ -45,11 +45,11 @@ class ContactRepository
      */
     public function insertContact(ContactEntity $newContact): int
     {
-        $firstName = $newContact->firstName;
-        $name = $newContact->name;
-        $email = $newContact->email;
-        $content = $newContact->content;
-        $creationDate = $newContact->creationDate;
+        $firstName = $newContact->getFirstName();
+        $name = $newContact->getName();
+        $email = $newContact->getEmail();
+        $content = $newContact->getContent();
+        $creationDate = $newContact->getCreationDate();
 
         $this->_db = DatabaseService::getInstance();
         $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) 
@@ -64,8 +64,6 @@ class ContactRepository
         $this->_db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->_db->execute($newReq, null);
-        $id = $lastInsertId[0]["LAST_INSERT_ID()"];
-
-        return $id;
+        return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 }

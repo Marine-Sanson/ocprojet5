@@ -29,20 +29,40 @@ class PostModel
     /**
      * Summary of __construct
      * 
-     * @param mixed     $id             id of the post
-     * @param string    $author         user firstName and name
-     * @param string    $title          title
-     * @param string    $summary        summary
-     * @param \DateTime $lastUpdateDate last update date
+     * @param int | null $id             id of the post
+     * @param string     $author         user firstName and name
+     * @param string     $title          title
+     * @param string     $summary        summary
+     * @param \DateTime  $lastUpdateDate last update date
      */
     public function __construct(
-        public ?int $id,
-        public string $author,
-        public string $title,
-        public string $summary,
-        public DateTime $lastUpdateDate
+        private readonly ?int $id,
+        private readonly string $author,
+        private string $title,
+        private string $summary,
+        private readonly DateTime $lastUpdateDate
     ) {
 
+    }
+
+    /**
+     * Summary of getId
+     * 
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Summary of getAuthor
+     * 
+     * @return string
+     */
+    public function getAuthor(): string
+    {
+        return $this->author;
     }
 
     /**
@@ -91,4 +111,13 @@ class PostModel
         return $this;
     }
 
+    /**
+     * Summary of getLastUpdateDate
+     * 
+     * @return DateTime
+     */
+    public function getLastUpdateDate(): DateTime
+    {
+        return $this->lastUpdateDate;
+    }
 }

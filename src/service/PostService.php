@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\service;
+
 use App\entity\CommentEntity;
 use App\mapper\PostDetailsMapper;
 use App\mapper\PostsMapper;
@@ -111,11 +112,9 @@ class PostService
      */
     public function getPosts(): array
     {
-        $results= $this->_postRepository->getAllPostsWithAuthors();
+        $results = $this->_postRepository->getAllPostsWithAuthors();
 
-        $posts = $this->_postsMapper->transformToListOfPostModel($results);
-
-        return $posts;
+        return $this->_postsMapper->transformToListOfPostModel($results);
     }
 
     /**
@@ -123,7 +122,7 @@ class PostService
      * 
      * @param int $postId id of the post
      * 
-     * @return array
+     * @return PostDetailsModel
      */
     public function getPostDetails(int $postId): PostDetailsModel
     {
@@ -198,7 +197,7 @@ class PostService
      * 
      * @return void
      */
-    public function updateAPost(int $postId, int $userId, string $title, string $summary, string $content)
+    public function updateAPost(int $postId, int $userId, string $title, string $summary, string $content): void
     {
         $lastUpdateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
         $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);

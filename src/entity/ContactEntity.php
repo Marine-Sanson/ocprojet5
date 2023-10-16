@@ -38,13 +38,73 @@ class ContactEntity
      * @param DateTime $creationDate creation date in the db
      */
     public function __construct(
-        public ?int $id, 
-        public string $name, 
-        public string $firstName, 
-        public string $email, 
-        public string   $content,
-        public DateTime $creationDate, 
+        private readonly ?int $id,
+        private readonly string $name,
+        private readonly string $firstName,
+        private readonly string $email,
+        private readonly string   $content,
+        private readonly DateTime $creationDate
     ) {
 
+    }
+
+    /**
+     * Summary of getId
+     * 
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Summary of getName
+     * 
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Summary of getFirstName
+     * 
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Summary of getEmail
+     * 
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Summary of getContent
+     * 
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * Summary of getCreationDate
+     * 
+     * @return \DateTime
+     */
+    public function getCreationDate(): DateTime
+    {
+        return $this->creationDate;
     }
 }

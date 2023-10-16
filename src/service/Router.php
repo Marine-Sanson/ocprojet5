@@ -112,6 +112,7 @@ class Router
     {
         $route = $this->parseRoute();
         switch ($route["route"]) {
+
             case HomeController::URL:
                 $homeController = HomeController::getInstance($this->_templateEngine);
                 $homeController->displayHome();
@@ -121,7 +122,12 @@ class Router
                 $postController = PostController::getInstance($this->_templateEngine);
                 if (!isset($route["param"])) {
                     if (isset($_POST["action"]) && $_POST["action"] === PostController::ACTION) {
-                        $postController->addPost();
+                        $postController->addPost(
+                            intval($_POST["userId"]),
+                            $_POST["title"],
+                            $_POST["summary"],
+                            $_POST["content"]
+                        );
                         break;
                     }
                     $postController->showPosts();
@@ -129,7 +135,12 @@ class Router
                 }
                 if (isset($route["param"])) {
                     if (isset($_POST["action"]) && $_POST["action"] === CommentService::ACTION) {
-                        $postController->addComment($route["param"]);
+                        $postController->addComment(
+                            $route["param"],
+                            intval($_POST["postId"]),
+                            $_POST["username"],
+                            $_POST["content"]
+                        );
                         break;
                     }
                     if (isset($_POST["action"]) && $_POST["action"] === PostController::MODIFY) {
@@ -171,7 +182,11 @@ class Router
             case UserUpgradeController::URL:
                 $userUpgradeController = UserUpgradeController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"])) {
-                    $userUpgradeController->manageUserUpgrade(intval($_POST['userId']), $_POST['role'],  $_POST['isAllowed']);
+                    $userUpgradeController->manageUserUpgrade(intval(
+                        $_POST['userId']),
+                        $_POST['role'],
+                        $_POST['isAllowed']
+                    );
                     break;
                 }
                 $userUpgradeController->displayUserUpgradePage();
@@ -193,7 +208,14 @@ class Router
             case UserRegisterController::URL:
                 $userRegisterController = UserRegisterController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"])) {
-                    $userRegisterController->manageUserRegister();
+                    $userRegisterController->manageUserRegister(
+                        $_POST["firstName"],
+                        $_POST["name"],
+                        $_POST["username"],
+                        $_POST["email"],
+                        $_POST["password"],
+                        $_POST["passwordVerify"]
+                    );
                     break;
                 }
                 $userRegisterController->displayUserRegisterPage();
@@ -202,7 +224,12 @@ class Router
             case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine);
                 if (isset($_POST["action"]) && $_POST["action"] === $contactController::ACTION) {
-                    $contactController->manageContact();
+                    $contactController->manageContact(
+                        $_POST["name"], 
+                        $_POST["firstName"], 
+                        $_POST["email"], 
+                        $_POST["content"]
+                    );
                     break;
                 }
                 $contactController->displayContactPage();
@@ -211,6 +238,6 @@ class Router
             default:
                 echo $this->_templateEngine->render('404.html.twig', []);
                 break;
-            }
+        }
     }
 }

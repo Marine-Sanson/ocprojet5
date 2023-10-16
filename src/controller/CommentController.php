@@ -16,8 +16,8 @@ namespace App\controller;
 
 use App\controller\AbstractController;
 use App\mapper\MessageMapper;
-use App\service\CommentService;
 use App\mapper\RouteMapper;
+use App\service\CommentService;
 use App\service\TemplateInterface;
 
 /**

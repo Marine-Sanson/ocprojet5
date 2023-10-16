@@ -59,16 +59,13 @@ class PostsMapper
      */
     public function transformToListOfPostModel(array $posts): array
     {
-
         $listOfPosts = [];
         foreach ($posts as $key => $post) {
-            $date = $post["last_update_date"];
-            $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+            $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
             $post = new PostModel($post["id"], $post["username"], $post["title"], $post["summary"], $date);
             $listOfPosts[] = $post;
         }
 
         return $listOfPosts;
     }
-
 }

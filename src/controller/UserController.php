@@ -113,7 +113,7 @@ class UserController extends AbstractController
      * 
      * @return void
      */
-    public function login(string $username, string $password)
+    public function login(string $username, string $password): void
     {
         $template = RouteMapper::LoginView->getTemplate();
         $data = [];
@@ -142,7 +142,7 @@ class UserController extends AbstractController
      * 
      * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         $template = RouteMapper::HomeView->getTemplate();
         if ($this->_sessionService->isUserConnected()) {
@@ -156,5 +156,4 @@ class UserController extends AbstractController
 
         echo $this->_template->render($template, $data);
     }
-
 }
