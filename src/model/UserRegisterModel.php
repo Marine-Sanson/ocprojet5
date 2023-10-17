@@ -43,6 +43,7 @@ class UserRegisterModel
     ) {
 
     }
+    
 
     /**
      * Summary of getFirstName

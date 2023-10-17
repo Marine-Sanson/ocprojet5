@@ -51,5 +51,5 @@ enum RouteMapper: string
             static::UserUpgradeView => "user-upgrade.html.twig",
             static::ValidationComments => 'validation.html.twig',
         };
-    }
+    } //end getTemplate()
 }

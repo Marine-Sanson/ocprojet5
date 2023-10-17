@@ -33,7 +33,7 @@ class PostsMapper
      * 
      * @var PostsMapper
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of getInstance
@@ -43,12 +43,13 @@ class PostsMapper
      */
     public static function getInstance(): PostsMapper
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new PostsMapper();  
+        if (self::$instance === null) {
+            self::$instance = new PostsMapper();
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
+    
 
     /**
      * Summary of transformToListOfPostModel

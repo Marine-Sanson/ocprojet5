@@ -45,6 +45,7 @@ class PostModel
     ) {
 
     }
+    
 
     /**
      * Summary of getId

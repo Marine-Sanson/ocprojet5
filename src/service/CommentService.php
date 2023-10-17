@@ -36,7 +36,7 @@ class CommentService
      * 
      * @var CommentService
      */
-    private static $_instance;
+    private static $instance;
     
     const ACTION = "addComment";
 
@@ -58,11 +58,11 @@ class CommentService
      */
     public static function getInstance(): CommentService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new CommentService(CommentRepository::getInstance());
+        if (self::$instance === null) {
+            self::$instance = new CommentService(CommentRepository::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

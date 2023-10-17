@@ -34,7 +34,7 @@ class UserRepository
      * 
      * @var UserRepository
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of __construct
@@ -53,11 +53,11 @@ class UserRepository
      */
     public static function getInstance(): UserRepository
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new UserRepository(DatabaseService::getInstance());
+        if (self::$instance === null) {
+            self::$instance = new UserRepository(DatabaseService::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

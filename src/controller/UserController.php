@@ -43,7 +43,7 @@ class UserController extends AbstractController
      * 
      * @var UserController
      */
-    private static $_instance;
+    private static $instance;
 
     const URL = "login";
     const CONNECT = "connection";
@@ -72,11 +72,11 @@ class UserController extends AbstractController
       */
     public static function getInstance(TemplateInterface $template): UserController
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

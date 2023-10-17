@@ -41,7 +41,7 @@ class HomeController
      * 
      * @var HomeController
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of URL
@@ -71,12 +71,12 @@ class HomeController
      * @return \App\controller\HomeController
      */
     public static function getInstance(TemplateInterface $template): HomeController
-    { 
-        if (self::$_instance === null) {
-            self::$_instance = new HomeController($template, HomeService::getInstance());  
+    {
+        if (self::$instance === null) {
+            self::$instance = new HomeController($template, HomeService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

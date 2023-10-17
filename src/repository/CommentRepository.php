@@ -34,8 +34,9 @@ class CommentRepository
      * 
      * @var CommentRepository
      */
-    private static $_instance;
+    private static $instance;
 
+    
     /**
      * Summary of __construct
      * 
@@ -46,6 +47,7 @@ class CommentRepository
 
     }
 
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -54,11 +56,11 @@ class CommentRepository
      */
     public static function getInstance(): CommentRepository
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new CommentRepository(DatabaseService::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new CommentRepository(DatabaseService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

@@ -42,7 +42,7 @@ class ContactService
      * 
      * @var ContactService
      */
-    private static $_instance;
+    private static $instance;
 
      /**
       * Summary of getInstance
@@ -52,11 +52,11 @@ class ContactService
       */
     public static function getInstance(): ContactService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new ContactService();  
+        if (self::$instance === null) {
+            self::$instance = new ContactService();  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 /**
  * PostController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -23,7 +23,7 @@ use App\service\TemplateInterface;
 
 /**
  * PostController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -34,10 +34,10 @@ class PostController extends AbstractController
 {
     /**
      * Summary of _instance
-     * 
+     *
      * @var PostController
      */
-    private static $_instance;
+    private static $instance;
     
     const URL = "posts";
     const ACTION = "addPost";
@@ -46,7 +46,7 @@ class PostController extends AbstractController
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
-     * 
+     *
      * @param \App\service\TemplateInterface $template        TemplateInterface
      * @param \App\service\PostService       $_postService    PostService
      * @param \App\service\CommentService    $_commentService CommentService
@@ -59,23 +59,23 @@ class PostController extends AbstractController
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @param \App\service\TemplateInterface $template template engine
-     * 
+     *
      * @return \App\controller\PostController
      */
     public static function getInstance(TemplateInterface $template): PostController
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
+        if (self::$instance === null) {
+            self::$instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
      * Summary of showPosts
-     * 
+     *
      * @return void
      */
     public function showPosts(): void
@@ -88,9 +88,9 @@ class PostController extends AbstractController
 
     /**
      * Summary of showPostDetails
-     * 
+     *
      * @param int $postId id of the post
-     * 
+     *
      * @return void
      */
     public function showPostDetails(int $postId): void
@@ -109,21 +109,21 @@ class PostController extends AbstractController
 
         $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                'id' => $postId,
+                'id'          => $postId,
                 'postDetails' => $postDetails,
-                'message' => $message
+                'message'     => $message
             ]
         );
     }
 
     /**
      * Summary of addComment
-     * 
+     *
      * @param int    $routeParam routeParam
      * @param int    $postId     postId
      * @param string $username   username
      * @param string $content    content
-     * 
+     *
      * @return void
      */
     public function addComment(int $routeParam, int $postId, string $username, string $content): void
@@ -153,21 +153,21 @@ class PostController extends AbstractController
         $postDetails = $this->_postService->getPostDetails($postId);
         $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                'id' => $postId,
+                'id'          => $postId,
                 'postDetails' => $postDetails,
-                'message' => $message
+                'message'     => $message
             ]
         );
     }
 
     /**
      * Summary of addPost
-     * 
+     *
      * @param int    $userId  userId
      * @param string $title   title
      * @param string $summary summary
      * @param string $content content
-     * 
+     *
      * @return void
      */
     public function addPost(int $userId, string $title, string $summary, string $content): void
@@ -206,7 +206,7 @@ class PostController extends AbstractController
 
     /**
      * Summary of modifyPost
-     * 
+     *
      * @param int    $routeParam routeParam
      * @param int    $userId     userId
      * @param string $username   username
@@ -214,7 +214,7 @@ class PostController extends AbstractController
      * @param string $title      title
      * @param string $summary    summary
      * @param string $content    content
-     * 
+     *
      * @return void
      */
     public function modifyPost(
@@ -271,9 +271,9 @@ class PostController extends AbstractController
 
         $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                'id' => $routeParam,
+                'id'          => $routeParam,
                 'postDetails' => $postDetails,
-                'message' => $message
+                'message'     => $message
             ]
         );
 
@@ -281,9 +281,9 @@ class PostController extends AbstractController
 
     /**
      * Summary of postsToDisplay
-     * 
+     *
      * @param array $posts list of PostModels
-     * 
+     *
      * @return array
      */
     public function postsToDisplay(array $posts): array
@@ -296,4 +296,5 @@ class PostController extends AbstractController
         }
         return $postsToDisplay;
     }
+
 }

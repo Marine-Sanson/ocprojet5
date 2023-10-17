@@ -33,7 +33,7 @@ class PostDetailsMapper
      * 
      * @var PostDetailsMapper
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of getInstance
@@ -43,11 +43,11 @@ class PostDetailsMapper
      */
     public static function getInstance(): PostDetailsMapper
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new PostDetailsMapper();  
+        if (self::$instance === null) {
+            self::$instance = new PostDetailsMapper();  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

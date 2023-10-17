@@ -33,7 +33,7 @@ class SessionService implements SessionInterface
      * 
      * @var SessionService
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of _session
@@ -52,11 +52,11 @@ class SessionService implements SessionInterface
      */
     public static function getInstance(): SessionService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new SessionService();  
+        if (self::$instance === null) {
+            self::$instance = new SessionService();  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

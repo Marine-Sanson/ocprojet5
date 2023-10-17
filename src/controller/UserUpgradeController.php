@@ -44,7 +44,7 @@ class UserUpgradeController extends AbstractController
      * 
      * @var UserUpgradeController
      */
-    private static $_instance;
+    private static $instance;
 
     const URL = "roles";
     const ACTION = "roles";
@@ -72,11 +72,11 @@ class UserUpgradeController extends AbstractController
       */
     public static function getInstance(TemplateInterface $template): UserUpgradeController
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new UserUpgradeController($template, UserService::getInstance(), SessionService::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new UserUpgradeController($template, UserService::getInstance(), SessionService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -116,7 +116,7 @@ class UserUpgradeController extends AbstractController
     {
         $template = RouteMapper::UserUpgradeView->getTemplate();
         $data = [];
-        $this->_userService->modifyRole($userId, $role, $isAllowed);
+        $this->_userService->modifyRole($userId, $role, (int) $isAllowed);
         $users = $this->_userService->getAllUsers();
         $data["users"] = $users;
         $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::UpdateSuccess->getMessage();

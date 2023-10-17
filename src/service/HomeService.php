@@ -40,8 +40,9 @@ class HomeService
      * 
      * @var HomeService
      */
-    private static $_instance;
+    private static $instance;
 
+    
     /**
      * Summary of __construct
      * 
@@ -53,6 +54,7 @@ class HomeService
 
     }
 
+
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
@@ -61,11 +63,12 @@ class HomeService
       */
     public static function getInstance(): HomeService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
@@ -78,5 +81,6 @@ class HomeService
         $results = $this->_postRepository->getListOfPosts();
 
         return $this->_postsMapper->transformToListOfPostModel($results);
+
     }
 }

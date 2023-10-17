@@ -43,7 +43,7 @@ class CommentController extends AbstractController
      * 
      * @var CommentController
      */
-    private static $_instance;
+    private static $instance;
 
     const URL = "validation";
     const VALIDATION = "validate";
@@ -70,10 +70,10 @@ class CommentController extends AbstractController
      */
     public static function getInstance(TemplateInterface $template): CommentController
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new CommentController($template, CommentService::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new CommentController($template, CommentService::getInstance());  
         }
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

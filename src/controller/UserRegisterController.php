@@ -45,7 +45,7 @@ class UserRegisterController extends AbstractController
      * 
      * @var UserRegisterController
      */
-    private static $_instance;
+    private static $instance;
 
     const URL = "enregistrement";
     const ACTION = "register";
@@ -74,11 +74,11 @@ class UserRegisterController extends AbstractController
       */
     public static function getInstance(TemplateInterface $template): UserRegisterController
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new UserRegisterController($template, UserService::getInstance(), SessionService::getInstance(), UserRegisterService::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new UserRegisterController($template, UserService::getInstance(), SessionService::getInstance(), UserRegisterService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -116,24 +116,23 @@ class UserRegisterController extends AbstractController
     ): void {
         $template = RouteMapper::UserRegisterView->getTemplate();
         $post = [
-           "firstName" => $firstName,
-           "name" => $name,
-           "username" => $username,
-           "email" => $email,
-           "password" => $password,
+           "firstName"      => $firstName,
+           "name"           => $name,
+           "username"       => $username,
+           "email"          => $email,
+           "password"       => $password,
            "passwordVerify" => $passwordVerify
            ,
         ];
         $data = [];
         if (!$this->isValid($post)) {
-
             $template = RouteMapper::UserRegisterView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
 
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
 
             $firstName = ucwords(strtolower($firstName));
             $name = ucwords(strtolower($name));
@@ -157,7 +156,7 @@ class UserRegisterController extends AbstractController
                 ];
             }
 
-            if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+            if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                 $register = $this->_userRegisterService->transformToUserRegisterModel(
                     $firstName,
                     $name,

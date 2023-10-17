@@ -1,9 +1,9 @@
 <?php
 /**
  * PostService File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -27,7 +27,7 @@ use DateTime;
 
 /**
  * PostService Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -41,7 +41,8 @@ class PostService
      * 
      * @var PostService
      */
-    private static $_instance;
+    private static $instance;
+
 
     /**
      * Summary of __construct
@@ -63,6 +64,7 @@ class PostService
 
     }
 
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -71,22 +73,22 @@ class PostService
      */
     public static function getInstance(): PostService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new PostService(
+        if (self::$instance === null) {
+            self::$instance = new PostService(
                 PostsMapper::getInstance(),
                 PostDetailsMapper::getInstance(),
                 CommentRepository::getInstance(),
                 PostRepository::getInstance(),
                 CommentService::getInstance()
-            );  
+            );
         }
-    
-        return self::$_instance;
+
+        return self::$instance;
     }
 
     /**
      * Summary of getPosts
-     * 
+     *
      * @return array
      */
     public function getPosts(): array
@@ -98,9 +100,9 @@ class PostService
 
     /**
      * Summary of getPostDetails
-     * 
+     *
      * @param int $postId id of the post
-     * 
+     *
      * @return PostDetailsModel
      */
     public function getPostDetails(int $postId): PostDetailsModel
@@ -113,9 +115,9 @@ class PostService
 
     /**
      * Summary of getPostData
-     * 
+     *
      * @param int $postId id of the post
-     * 
+     *
      * @return array
      */
     private function _getPostData(int $postId): array
@@ -125,9 +127,9 @@ class PostService
 
     /**
      * Summary of createNewComment
-     * 
+     *
      * @param \App\entity\CommentEntity $newComment new comment
-     * 
+     *
      * @return bool
      */
     public function createNewComment(CommentEntity $newComment): bool
@@ -142,12 +144,12 @@ class PostService
 
     /**
      * Summary of createNewPost
-     * 
+     *
      * @param int    $userId  userId
      * @param string $title   title
      * @param string $summary summary
      * @param string $content content
-     * 
+     *
      * @return bool
      */
     public function createNewPost(int $userId, string $title, string $summary, string $content): bool
@@ -167,13 +169,13 @@ class PostService
 
     /**
      * Summary of updateAPost
-     * 
+     *
      * @param int    $postId  postId
      * @param int    $userId  userId
      * @param string $title   title
      * @param string $summary summary
      * @param string $content content
-     * 
+     *
      * @return void
      */
     public function updateAPost(int $postId, int $userId, string $title, string $summary, string $content): void
@@ -182,4 +184,5 @@ class PostService
         $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);
         $this->_postRepository->updatePost($updatePost);
     }
+
 }

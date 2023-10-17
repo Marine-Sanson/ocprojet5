@@ -40,7 +40,7 @@ class Router
      * 
      * @var Router
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of __construct
@@ -62,11 +62,11 @@ class Router
      */
     public static function getInstance(): Router
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new Router(TwigService::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new Router(TwigService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

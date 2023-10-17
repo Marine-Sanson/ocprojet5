@@ -34,8 +34,9 @@ class PostRepository
      * 
      * @var PostRepository
      */
-    private static $_instance;
+    private static $instance;
 
+    
     /**
      * Summary of __construct
      * 
@@ -46,6 +47,7 @@ class PostRepository
 
     }
 
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -54,11 +56,11 @@ class PostRepository
      */
     public static function getInstance(): PostRepository
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new PostRepository(DatabaseService::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new PostRepository(DatabaseService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
     
     /**

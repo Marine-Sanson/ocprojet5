@@ -1,7 +1,7 @@
 <?php
 /**
  * UserEntity File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
  * 
  * @category Entity
@@ -42,15 +42,15 @@ class UserEntity
      * @param bool     $isAllowed      to know if this user is allowed
      */
     public function __construct(
-        private readonly ?int $id, 
-        private readonly string $name, 
-        private readonly string $firstName, 
-        private readonly string $username, 
-        private readonly string $email, 
+        private readonly ?int $id,
+        private readonly string $name,
+        private readonly string $firstName,
+        private readonly string $username,
+        private readonly string $email,
         private readonly string $password,
         private readonly string $role,
-        private readonly DateTime $creationDate, 
-        private readonly DateTime $lastUpdateDate, 
+        private readonly DateTime $creationDate,
+        private readonly DateTime $lastUpdateDate,
         private readonly bool $isAllowed
     ) {
 

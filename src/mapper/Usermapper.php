@@ -33,7 +33,7 @@ class UserMapper
      * 
      * @var UserMapper
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of getInstance
@@ -43,11 +43,11 @@ class UserMapper
      */
     public static function getInstance(): UserMapper
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new UserMapper();
+        if (self::$instance === null) {
+            self::$instance = new UserMapper();
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

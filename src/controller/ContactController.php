@@ -38,11 +38,12 @@ class ContactController extends AbstractController
      * 
      * @var ContactController
      */
-    private static $_instance;
+    private static $instance;
 
     const URL = "contact";
     const ACTION = "contact";
 
+    
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
@@ -55,6 +56,7 @@ class ContactController extends AbstractController
 
     }
 
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -65,11 +67,11 @@ class ContactController extends AbstractController
      */
     public static function getInstance(TemplateInterface $template, ContactService $contactService): ContactController
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new ContactController($template, $contactService);  
+        if (self::$instance === null) {
+            self::$instance = new ContactController($template, $contactService);  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

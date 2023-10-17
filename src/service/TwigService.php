@@ -35,7 +35,7 @@ class TwigService implements TemplateInterface
      * 
      * @var TwigService
      */
-    private static $_instance;
+    private static $instance;
 
     private Environment $_twig;
     
@@ -64,11 +64,11 @@ class TwigService implements TemplateInterface
      */
     public static function getInstance(): TwigService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new TwigService();  
+        if (self::$instance === null) {
+            self::$instance = new TwigService();  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

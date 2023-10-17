@@ -40,7 +40,7 @@ class DatabaseService
       * 
       * @var DatabaseService
       */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of __construct get a connection between PHP and a database server
@@ -61,11 +61,11 @@ class DatabaseService
      */
     public static function getInstance(): DatabaseService
     {
-        if (self::$_instance === null) {
-            self::$_instance = new DatabaseService();  
+        if (self::$instance === null) {
+            self::$instance = new DatabaseService();  
         }
-    
-        return self::$_instance;
+
+        return self::$instance;
     }
 
     /**

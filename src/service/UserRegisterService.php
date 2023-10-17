@@ -34,7 +34,7 @@ class UserRegisterService
      * 
      * @var UserRegisterService
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of __construct
@@ -55,11 +55,11 @@ class UserRegisterService
      */
     public static function getInstance(): UserRegisterService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new UserRegisterService(UserService::getInstance(), UserRepository::getInstance());  
+        if (self::$instance === null) {
+            self::$instance = new UserRegisterService(UserService::getInstance(), UserRepository::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

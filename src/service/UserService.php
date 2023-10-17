@@ -45,7 +45,7 @@ class UserService
      * 
      * @var UserService
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of __construct
@@ -68,15 +68,15 @@ class UserService
       */
     public static function getInstance(): UserService
     { 
-        if (self::$_instance === null) {
-            self::$_instance = new UserService(
+        if (self::$instance === null) {
+            self::$instance = new UserService(
                 UserMapper::getInstance(),
                 UserRepository::getInstance(),
                 SessionService::getInstance()
             );
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

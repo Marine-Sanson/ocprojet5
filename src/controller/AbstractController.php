@@ -36,7 +36,7 @@ class AbstractController
     {
         $test = true;
 
-        if ($post) {
+        if (isset($post)) {
             foreach ($post as $value) {
                 if (empty($value)) {
                     $test = false;

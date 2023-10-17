@@ -27,6 +27,7 @@ use DateTime;
  */
 class ContactModel
 {
+
     /**
      * Summary of __construct ContactModel
      * 
@@ -45,6 +46,7 @@ class ContactModel
     ) {
 
     }
+
 
     /**
      * Summary of getName
