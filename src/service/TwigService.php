@@ -64,7 +64,7 @@ class TwigService implements TemplateInterface
      */
     public static function getInstance(): TwigService
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new TwigService();  
         }
     

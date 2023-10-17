@@ -68,7 +68,7 @@ class UserService
       */
     public static function getInstance(): UserService
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new UserService(
                 UserMapper::getInstance(),
                 UserRepository::getInstance(),
@@ -113,7 +113,7 @@ class UserService
      * 
      * @return \App\entity\UserEntity | null
      */
-    public function getUser(string $username, string $password): ?UserEntity
+    public function getUser(string $username): ?UserEntity
     {
         $result = $this->_userRepository->getUser($username);
 
@@ -155,7 +155,7 @@ class UserService
      */
     public function connection(string $username, string $password): ?UserConnectionModel
     {
-        $userEntity = $this->getUser($username, $password);
+        $userEntity = $this->getUser($username);
 
         if (!$userEntity) {
             return null;            

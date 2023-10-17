@@ -43,7 +43,7 @@ class UserMapper
      */
     public static function getInstance(): UserMapper
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new UserMapper();
         }
     

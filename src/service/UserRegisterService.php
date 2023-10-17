@@ -55,7 +55,7 @@ class UserRegisterService
      */
     public static function getInstance(): UserRegisterService
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new UserRegisterService(UserService::getInstance(), UserRepository::getInstance());  
         }
     

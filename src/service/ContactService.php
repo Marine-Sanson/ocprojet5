@@ -52,7 +52,7 @@ class ContactService
       */
     public static function getInstance(): ContactService
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new ContactService();  
         }
     

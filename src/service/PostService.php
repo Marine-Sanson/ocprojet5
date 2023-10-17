@@ -71,7 +71,7 @@ class PostService
      */
     public static function getInstance(): PostService
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new PostService(
                 PostsMapper::getInstance(),
                 PostDetailsMapper::getInstance(),

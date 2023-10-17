@@ -62,7 +62,7 @@ class Router
      */
     public static function getInstance(): Router
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new Router(TwigService::getInstance());  
         }
     
@@ -87,7 +87,7 @@ class Router
 
         $id = null;
         if (isset($routeParam) && count($routeParam) === 2) {
-            $id = intval($routeParam["1"]);
+            $id = (int) ($routeParam["1"]);
         }
 
         $route["param"] = $id;
@@ -118,7 +118,7 @@ class Router
                 if (!isset($route["param"])) {
                     if (isset($postAction) && $postAction === PostController::ACTION) {
                         $postController->addPost(
-                            intval($_POST["userId"]),
+                            (int) $_POST["userId"],
                             $_POST["title"],
                             $_POST["summary"],
                             $_POST["content"]
@@ -132,7 +132,7 @@ class Router
                     if (isset($postAction) && $postAction === CommentService::ACTION) {
                         $postController->addComment(
                             $route["param"],
-                            intval($_POST["postId"]),
+                            (int) $_POST["postId"],
                             $_POST["username"],
                             $_POST["content"]
                         );
@@ -141,9 +141,9 @@ class Router
                     if (isset($postAction) && $postAction === PostController::MODIFY) {
                         $postController->modifyPost(
                             $route["param"],
-                            intval($_POST["userId"]),
+                            (int) $_POST["userId"],
                             $_POST["username"],
-                            intval($_POST["postId"]),
+                            (int) $_POST["postId"],
                             $_POST["title"],
                             $_POST["summary"],
                             $_POST["content"]
@@ -176,10 +176,10 @@ class Router
             case UserUpgradeController::URL:
                 $userUpgradeController = UserUpgradeController::getInstance($this->_templateEngine);
                 if (isset($postAction) && $postAction === UserUpgradeController::ACTION) {
-                    $userUpgradeController->manageUserUpgrade(intval(
-                        $_POST['userId']),
+                    $userUpgradeController->manageUserUpgrade(
+                        (int) $_POST['userId'],
                         $_POST['role'],
-                        $_POST['isAllowed']
+                        (int) $_POST['isAllowed']
                     );
                     break;
                 }
@@ -189,11 +189,11 @@ class Router
             case CommentController::URL:
                 $commentController = CommentController::getInstance($this->_templateEngine);
                 if (isset($postAction) && ($postAction === CommentController::VALIDATION)) {
-                    $commentController->validateComment(intval($_POST["commentId"]));
+                    $commentController->validateComment((int) $_POST["commentId"]);
                     break;
                 }
                 if (isset($postAction) && ($postAction === CommentController::DELETE)) {
-                    $commentController->deleteComment(intval($_POST["commentId"]));
+                    $commentController->deleteComment((int) $_POST["commentId"]);
                     break;
                 }
                 $commentController->displayValidationPage();

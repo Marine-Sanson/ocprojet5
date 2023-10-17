@@ -72,7 +72,7 @@ class UserController extends AbstractController
       */
     public static function getInstance(TemplateInterface $template): UserController
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());  
         }
     

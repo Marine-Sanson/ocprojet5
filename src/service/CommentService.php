@@ -58,7 +58,7 @@ class CommentService
      */
     public static function getInstance(): CommentService
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new CommentService(CommentRepository::getInstance());
         }
     

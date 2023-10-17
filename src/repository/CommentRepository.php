@@ -54,7 +54,7 @@ class CommentRepository
      */
     public static function getInstance(): CommentRepository
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new CommentRepository(DatabaseService::getInstance());  
         }
     

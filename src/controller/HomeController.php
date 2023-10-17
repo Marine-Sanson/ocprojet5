@@ -72,7 +72,7 @@ class HomeController
      */
     public static function getInstance(TemplateInterface $template): HomeController
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new HomeController($template, HomeService::getInstance());  
         }
     

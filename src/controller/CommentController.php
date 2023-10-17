@@ -70,7 +70,7 @@ class CommentController extends AbstractController
      */
     public static function getInstance(TemplateInterface $template): CommentController
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new CommentController($template, CommentService::getInstance());  
         }
         return self::$_instance;

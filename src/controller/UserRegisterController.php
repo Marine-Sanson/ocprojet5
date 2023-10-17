@@ -74,7 +74,7 @@ class UserRegisterController extends AbstractController
       */
     public static function getInstance(TemplateInterface $template): UserRegisterController
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new UserRegisterController($template, UserService::getInstance(), SessionService::getInstance(), UserRegisterService::getInstance());  
         }
     

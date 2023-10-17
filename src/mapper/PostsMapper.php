@@ -43,7 +43,7 @@ class PostsMapper
      */
     public static function getInstance(): PostsMapper
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new PostsMapper();  
         }
     
@@ -60,7 +60,7 @@ class PostsMapper
     public function transformToListOfPostModel(array $posts): array
     {
         $listOfPosts = [];
-        foreach ($posts as $key => $post) {
+        foreach ($posts as $post) {
             $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
             $post = new PostModel($post["id"], $post["username"], $post["title"], $post["summary"], $date);
             $listOfPosts[] = $post;

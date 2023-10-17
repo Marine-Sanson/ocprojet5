@@ -54,7 +54,7 @@ class PostRepository
      */
     public static function getInstance(): PostRepository
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new PostRepository(DatabaseService::getInstance());  
         }
     

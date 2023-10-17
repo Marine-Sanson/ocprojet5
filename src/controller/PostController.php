@@ -66,7 +66,7 @@ class PostController extends AbstractController
      */
     public static function getInstance(TemplateInterface $template): PostController
     { 
-        if (is_null(self::$_instance)) {
+        if (self::$_instance === null) {
             self::$_instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
         }
     
@@ -181,7 +181,6 @@ class PostController extends AbstractController
         $data = [];
         if ($this->isValid($post)) {
 
-            $userId = intval($userId);
             $title = $this->sanitize(ucwords(strtolower($title)));
             $summary = $this->sanitize($summary);
             $content = $this->sanitize($content);
