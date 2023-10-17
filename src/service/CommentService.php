@@ -141,7 +141,7 @@ class CommentService
      * 
      * @return void
      */
-    public function validateComments(int $commentId):void
+    public function validateComments(int $commentId): void
     {
         $this->_commentRepository->updateCommentValidation($commentId);        
     }
@@ -153,7 +153,7 @@ class CommentService
      * 
      * @return void
      */
-    public function deleteComments(int $commentId):void
+    public function deleteComments(int $commentId): void
     {
         $this->_commentRepository->deleteComment($commentId);        
     }

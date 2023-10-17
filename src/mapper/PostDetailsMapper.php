@@ -17,7 +17,6 @@ namespace App\mapper;
 use App\model\PostDetailsModel;
 use DateTime;
 
-
 /**
  * PostDetailsMapper Class Doc Comment
  * 
@@ -61,8 +60,7 @@ class PostDetailsMapper
      */
     public function getPostDetailsModel(array $post, ?array $comments): PostDetailsModel
     {
-        $date = $post["last_update_date"];
-        $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+        $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
 
         $postDetails = new PostDetailsModel(
             $post["id"],

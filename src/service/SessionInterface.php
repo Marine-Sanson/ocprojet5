@@ -33,7 +33,7 @@ interface SessionInterface
      * 
      * @return void
      */
-    public function start():  void;
+    public function start(): void;
     
     /**
      * Summary of setUser
@@ -43,7 +43,7 @@ interface SessionInterface
      * 
      * @return void
      */
-    public function setUser(UserConnectionModel $user):  void;
+    public function setUser(UserConnectionModel $user): void;
 
     /**
      * Summary of isUserConnected
@@ -51,14 +51,14 @@ interface SessionInterface
      * 
      * @return bool
      */
-    public function isUserConnected():  bool;
+    public function isUserConnected(): bool;
 
     /**
      * Summary of getSession
      *
      * @return array $_session
      */
-    public function getSession():  array;
+    public function getSession(): array;
 
     /**
      * Summary of get

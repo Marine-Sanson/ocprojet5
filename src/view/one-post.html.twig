@@ -34,19 +34,19 @@
                                                     <input type="hidden" id="username" name="username" value="{{ session.user.username }}">
                                                     <input type="hidden" id="postId" name="postId" value="{{ postDetails.id }}">
 
-                                                    <input type="text" name="title" class="form-control text-primary fw-bolder bg-black text-center" value={{postDetails.title|capitalize}} required>
-                                                    <textarea name="summary" id="summary" class="form-control text-white bg-black my-2" cols="80" rows="5" required>{{ postDetails.summary }}</textarea>
+                                                    <textarea name="title" class="form-control text-primary fw-bolder bg-black text-center" cols="80" rows="1" maxlength="50" required>{{postDetails.title}}</textarea>
+                                                    <textarea name="summary" id="summary" class="form-control text-white bg-black my-2" cols="80" rows="5" maxlength="250" required>{{ postDetails.summary }}</textarea>
                                                     <textarea name="content" id="content" class="form-control text-white bg-black" cols="80" rows="20" required>{{ postDetails.content }}</textarea>
                                             {% else %}
-                                                <h1 class="text-primary fw-bolder text-center">{{postDetails.title|capitalize}}</h1>
+                                                <h1 class="text-primary fw-bolder text-center">{{postDetails.title}}</h1>
                                                 <p class="mt-4 justify text-white fw-bold">{{ postDetails.summary }}</p>
                                                 <p class="mt-4 justify text-white">{{ postDetails.content }}</p>
                                             {% endif %}
                                             <div class="row text-white">
                                                 <span class="col-lg-1"></span>
-                                                <span class="col-lg-3">Auteur : {{ postDetails.username|capitalize }}</span>
+                                                <span class="col-lg-3">Auteur : {{ postDetails.username }}</span>
                                                 <span class="col-lg-5"></span>
-                                                <span class="col-lg-2 text-right">Date : {{ postDetails.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                <span class="col-lg-2 text-right">Date : {{ postDetails.lastUpdateDate|date("d/m/Y")}}</span>
                                                 <span class="col-lg-1"></span>
                                             </div>
                                             {% if session.user.username == postDetails.username %}
@@ -66,9 +66,9 @@
                                                     <p class="mt-4 justify text-white">{{ comment.content }}</p>
                                                     <div class="row text-white">
                                                         <span class="col-lg-1"></span>
-                                                        <span class="col-lg-3">Auteur : {{ comment.username|capitalize }}</span>
+                                                        <span class="col-lg-3">Auteur : {{ comment.username}}</span>
                                                         <span class="col-lg-5"></span>
-                                                        <span class="col-lg-2 text-right">Date : {{ comment.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                        <span class="col-lg-2 text-right">Date : {{ comment.lastUpdateDate_at|date("d/m/Y")}}</span>
                                                         <span class="col-lg-1"></span>
                                                     </div>
                                                 </div>

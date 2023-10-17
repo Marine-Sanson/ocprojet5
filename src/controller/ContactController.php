@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace App\controller;
 
-use App\mapper\MessageMapper;
-use App\model\ContactModel;
 use App\controller\AbstractController;
+use App\mapper\MessageMapper;
 use App\mapper\RouteMapper;
+use App\model\ContactModel;
 use App\service\ContactService;
 use App\service\TemplateInterface;
 use DateTime;
@@ -98,13 +98,17 @@ class ContactController extends AbstractController
     /**
      * Summary of manageContact
      * 
+     * @param string $name      name
+     * @param string $firstName firstName
+     * @param string $email     email
+     * @param string $content   content
+     * 
      * @return void
      */
-    public function manageContact(): void
+    public function manageContact(string $name, string $firstName, string $email, string $content): void
     {
         if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
             $template = RouteMapper::ContactView->getTemplate();
-
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
@@ -112,21 +116,12 @@ class ContactController extends AbstractController
 
         if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
-            $contact = new ContactModel(
-                $_POST["name"], 
-                $_POST["firstName"], 
-                $_POST["email"], 
-                $_POST["content"], 
-                $currentDate
-            );
-
+            $contact = new ContactModel($name, $firstName, $email, $content, $currentDate);
             $validateContact = $this->validContactForm($contact);
             $contactCreated = $this->_contactService->createContact($validateContact);
 
             if ($contactCreated) {
-                $validateContact->content = htmlspecialchars_decode($validateContact->content);
-
-                // $validateContact = htmlspecialchars_decode($validateContact);
+                $validateContact->setContent(htmlspecialchars_decode($validateContact->getContent()));
                 $sendMail = $this->_contactService->notify($validateContact);
             }
 
@@ -157,12 +152,11 @@ class ContactController extends AbstractController
      */
     public function validContactForm(ContactModel $contact): ContactModel
     {
-        $contact->name = $this->sanitize($contact->name);
-        $contact->firstName = $this->sanitize($contact->firstName);
-        $contact->email = $this->sanitize($contact->email);
-        $contact->content = $this->sanitize($contact->content);
+        $contact->setName($this->sanitize($contact->getName()));
+        $contact->setFirstName($this->sanitize($contact->getFirstName()));
+        $contact->setEmail($this->sanitize($contact->getEmail()));
+        $contact->setContent($this->sanitize($contact->getContent()));
 
         return $contact; 
     }
-
 }

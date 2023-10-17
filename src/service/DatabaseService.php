@@ -83,25 +83,6 @@ class DatabaseService
         );
         $query->execute($parameters);
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result;
-    }
-
-    /**
-     * Summary of fetch
-     * 
-     * @param \PDOStatement $query      PDOStatement
-     * @param array | null  $parameters parameters
-     * 
-     * @return object
-     */
-    public function fetch(\PDOStatement $query, ?array $parameters): object
-    {
-        $query->execute($parameters);
-
-        $result = $query->fetch(PDO::FETCH_OBJ);
-
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }

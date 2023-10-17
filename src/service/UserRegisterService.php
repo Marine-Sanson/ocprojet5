@@ -13,11 +13,10 @@
 declare(strict_types=1);
 
 namespace App\service;
+
 use App\model\UserRegisterModel;
 use App\repository\UserRepository;
 use App\service\UserService;
-
-
 
 /**
  * UserRegisterService Class Doc Comment
@@ -120,7 +119,7 @@ class UserRegisterService
     }
 
     /**
-     * Summary of saveRegisterData
+     * Summary of saveUserRegisterData
      * 
      * @param \App\model\UserRegisterModel $userRegisterModel UserRegisterModel
      * 
@@ -135,5 +134,4 @@ class UserRegisterService
         }
         return true;
     }
-
 }

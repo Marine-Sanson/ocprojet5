@@ -17,7 +17,6 @@ namespace App\repository;
 use App\model\NewPostModel;
 use App\model\UpdatePostModel;
 use App\service\DatabaseService;
-use DateTime;
 
 /**
  * PostRepository Class Doc Comment
@@ -56,7 +55,7 @@ class PostRepository
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
      * 
-     * @return \App\service\PostService
+     * @return \App\repository\PostRepository
      */
     public static function getInstance(): PostRepository
     { 
@@ -103,9 +102,7 @@ class PostRepository
         $this->_db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->_db->execute($newReq, null);
-        $id = $lastInsertId[0]["LAST_INSERT_ID()"];
-
-        return $id;
+        return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 
     /**
@@ -115,7 +112,7 @@ class PostRepository
      * 
      * @return void
      */
-    public function updatePost(UpdatePostModel $updatePost)
+    public function updatePost(UpdatePostModel $updatePost): void
     {
         $request = 'UPDATE posts SET 
         title = :title,
@@ -138,15 +135,13 @@ class PostRepository
      * 
      * @return array
      */
-    public function getPostsWithAuthors()
+    public function getPostsWithAuthors(): array
     {
         $request = 'SELECT posts.*, username FROM posts 
                     JOIN users ON posts.id_user = users.id 
                     ORDER BY last_update_date DESC LIMIT 12';
 
-        $result = $this->_db->execute($request, null);
-
-        return $result;
+        return $this->_db->execute($request, null);
     }
 
     /**
@@ -155,15 +150,13 @@ class PostRepository
      * 
      * @return array
      */
-    public function getAllPostsWithAuthors()
+    public function getAllPostsWithAuthors(): array
     {
         $request = 'SELECT posts.*, username FROM posts 
                     JOIN users ON posts.id_user = users.id 
                     ORDER BY last_update_date DESC';
 
-        $result = $this->_db->execute($request, null);
-
-        return $result;
+        return $this->_db->execute($request, null);
     }
 
     /**
@@ -185,7 +178,7 @@ class PostRepository
     }
 
     /**
-     * Summary of getLastPosts
+     * Summary of getListOfPosts
      * 
      * @return array
      */
@@ -203,8 +196,6 @@ class PostRepository
         FROM posts 
         JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
         $parameters = [];
-        $result = $this->_db->execute($request, $parameters);
-
-        return $result;
+        return $this->_db->execute($request, $parameters);
     }
 }

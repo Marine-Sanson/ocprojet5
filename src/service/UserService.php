@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace App\service;
 
-use App\controller\HomeController;
-use App\controller\UserController;
 use App\entity\UserEntity;
 use App\mapper\UserMapper;
 use App\model\UserConnectionModel;
@@ -100,11 +98,11 @@ class UserService
      * @param string                 $password   come from form
      * @param \App\entity\UserEntity $userEntity UserEntity
      * 
-     * @return array
+     * @return bool
      */
     public function connect(string $password, UserEntity $userEntity): bool
     {
-        return password_verify($password, $userEntity->password);
+        return password_verify($password, $userEntity->getPassword());
     }
 
     /**
@@ -134,16 +132,10 @@ class UserService
         if ($result !== []) {
 
             $creationDate = $result[0]["creation_date"];
-            $creationDate = DateTime::createFromFormat(
-                "Y-m-d H:i:s", 
-                date("Y-m-d H:i:s")
-            );
+            $creationDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
             $updateDate = $result[0]["last_update_date"];
-            $updateDate = DateTime::createFromFormat(
-                "Y-m-d H:i:s", 
-                date("Y-m-d H:i:s")
-            );
+            $updateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
             $allowed = boolval($result[0]["is_allowed"]);
 

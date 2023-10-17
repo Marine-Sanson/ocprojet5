@@ -111,9 +111,7 @@ class UserRepository
         $this->_db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->_db->execute($newReq, null);
-        $id = $lastInsertId[0]["LAST_INSERT_ID()"];
-
-        return $id;
+        return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 
     /**
@@ -140,9 +138,7 @@ class UserRepository
         $parameters = [
             'username' => $username
         ];
-        $result = $this->_db->execute($request, $parameters);
-
-        return $result;
+        return $this->_db->execute($request, $parameters);
     }
 
     /**
@@ -198,8 +194,6 @@ class UserRepository
      */
     public function updateRole(int $userId, string $role, int $isAllowed): void
     {
-        var_dump($userId);
-
         $request = 'UPDATE users SET role = :role, is_allowed =:is_allowed WHERE id = :id';
         $parameters = [
             'id' => $userId,
@@ -208,35 +202,4 @@ class UserRepository
         ];
         $this->_db->execute($request, $parameters);
     }
-
-    // // Préparez la requête SQL
-    // $sql = "SELECT * FROM ma_table WHERE condition = :valeur";
-
-    // // Utilisez la méthode prepare pour préparer la requête
-    // $stmt = $pdo->prepare($sql);
-
-    // // Remplacez :valeur par la valeur réelle que tu souhaites rechercher
-    // $valeur = "valeur_recherchee";
-
-    // // Lier la valeur à la variable dans la requête préparée
-    // $stmt->bindParam(':valeur', $valeur, PDO::PARAM_STR);
-
-    // // Configurez le mode de récupération pour utiliser la classe personnalisée
-    // $stmt->setFetchMode(PDO::FETCH_CLASS, CommentEntity::class);
-
-    // // Exécutez la requête
-    // $stmt->execute();
-
-    // // Utilisez fetch pour récupérer un seul résultat sous forme d'objet de la classe personnalisée
-    // $resultat = $stmt->fetch();
-
-    // if ($resultat) {
-    //     // Vous pouvez accéder aux propriétés de l'objet comme ceci
-    //     echo "ID : " . $resultat->id . "<br>";
-    //     echo "Nom : " . $resultat->nom . "<br>";
-    //     // ... etc.
-    // } else {
-    //     echo "Aucun résultat trouvé.";
-    // }
-
 }

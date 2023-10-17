@@ -36,12 +36,12 @@ class UserConnectionModel
      * @param bool   $isAllowed to know if this user is allowed
      */
     public function __construct(
-        private int $id,
-        private string $firstName,
-        private string $username,
-        private string $password,
-        private string $role,
-        private bool $isAllowed
+        private readonly int $id,
+        private readonly string $firstName,
+        private readonly string $username,
+        private readonly string $password,
+        private readonly string $role,
+        private readonly bool $isAllowed
     ) {
 
     }
@@ -57,19 +57,6 @@ class UserConnectionModel
     }
 
     /**
-     * Summary of setId
-     * 
-     * @param int $id id
-     * 
-     * @return \App\model\UserConnectionModel
-     */
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
      * Summary of getFirstName
      * 
      * @return string
@@ -77,19 +64,6 @@ class UserConnectionModel
     public function getFirstName(): string
     {
         return $this->firstName;
-    }
-
-    /**
-     * Summary of setFirstName
-     * 
-     * @param string $firstName firstName
-     * 
-     * @return \App\model\UserConnectionModel
-     */
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-        return $this;
     }
 
     /**
@@ -103,19 +77,6 @@ class UserConnectionModel
     }
 
     /**
-     * Summary of setUsername
-     * 
-     * @param string $username username
-     * 
-     * @return \App\model\UserConnectionModel
-     */
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    /**
      * Summary of getPassword
      * 
      * @return string
@@ -123,19 +84,6 @@ class UserConnectionModel
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    /**
-     * Summary of setPassword
-     * 
-     * @param string $password password
-     * 
-     * @return \App\model\UserConnectionModel
-     */
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-        return $this;
     }
 
     /**
@@ -149,19 +97,6 @@ class UserConnectionModel
     }
 
     /**
-     * Summary of setRole
-     * 
-     * @param string $role role
-     * 
-     * @return \App\model\UserConnectionModel
-     */
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-        return $this;
-    }
-
-    /**
      * Summary of getIsAllowed
      * 
      * @return bool
@@ -169,19 +104,6 @@ class UserConnectionModel
     public function getIsAllowed(): bool
     {
         return $this->isAllowed;
-    }
-
-    /**
-     * Summary of setIsAllowed
-     * 
-     * @param bool $isAllowed isAllowed
-     * 
-     * @return \App\model\UserConnectionModel
-     */
-    public function setIsAllowed(bool $isAllowed): self
-    {
-        $this->isAllowed = $isAllowed;
-        return $this;
     }
 
     /**

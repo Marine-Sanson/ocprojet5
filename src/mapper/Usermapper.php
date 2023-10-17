@@ -51,7 +51,7 @@ class UserMapper
     }
 
     /**
-     * Summary of changeUserToConnection
+     * Summary of transformToUserConnectionModel
      * 
      * @param \App\entity\UserEntity $user Entity UserEntity
      * 
@@ -60,12 +60,12 @@ class UserMapper
     public function transformToUserConnectionModel(UserEntity $user): UserConnectionModel
     {
         return new UserConnectionModel(
-            $user->id,
-            $user->firstName, 
-            $user->username, 
-            $user->password, 
-            $user->role, 
-            $user->isAllowed
+            $user->getId(),
+            $user->getFirstName(), 
+            $user->getUsername(), 
+            $user->getPassword(), 
+            $user->getRole(), 
+            $user->getIsAllowed()
         );
     }
 }

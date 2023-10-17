@@ -49,7 +49,7 @@ class UpdatePostModel
     }
 
     /**
-     * Summary of getPostId
+     * Summary of getId
      * 
      * @return int
      */

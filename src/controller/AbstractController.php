@@ -25,15 +25,6 @@ namespace App\controller;
  */
 class AbstractController
 {
-
-    /**
-     * Summary of __construct get a connection between PHP and a database server
-     */
-    private function __construct()
-    {
-
-    }
-
     /**
      * Summary of isSubmitted
      * 
@@ -71,7 +62,7 @@ class AbstractController
     }
 
     /**
-     * Summary of cleanInput
+     * Summary of sanitize
      * Strip whitespace from the beginning and end of a string
      * Un-quotes a quoted string
      * Convert special characters to HTML entities

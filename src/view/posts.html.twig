@@ -17,13 +17,13 @@
                                         <div class="d-flex h-100">
                                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                                 <div class="border border-primary rounded m-2 p-5">
-                                                    <h4 class="text-primary fw-bolder">{{post.title|capitalize}}</h4>
+                                                    <h4 class="text-primary fw-bolder">{{post.title}}</h4>
                                                     <p class="my-2 text-white">{{ post.summary }}</p>
                                                     <div class="row text-white">
                                                         <span class="col-lg-1"></span>
-                                                        <span class="col-lg-3">Auteur : {{ post.author|capitalize }}</span>
+                                                        <span class="col-lg-3">Auteur : {{ post.author }}</span>
                                                         <span class="col-lg-1"></span>
-                                                        <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate_at|date("m/d/Y")}}</span>
+                                                        <span class="col-lg-6 text-right">Dernière modification le : {{ post.lastUpdateDate|date("d/m/Y")}}</span>
                                                         <span class="col-lg-1"></span>
                                                     </div>
                                                 </div>
