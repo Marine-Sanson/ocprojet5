@@ -107,6 +107,7 @@ class CommentController extends AbstractController
     public function validateComment(int $commentId): void
     {
         $template = RouteMapper::ValidationComments->getTemplate();
+        $data = [];
         $isvalid = $this->_commentService->validCommentId($commentId);
         if ($isvalid) {
             $this->_commentService->validateComments($commentId);

@@ -38,20 +38,6 @@ class PostController extends AbstractController
      * @var PostController
      */
     private static $_instance;
-
-    /**
-     * Summary of _postService
-     * 
-     * @var PostService
-     */
-    private PostService $_postService;
-
-    /**
-     * Summary of _commentService
-     * 
-     * @var CommentService
-     */
-    private CommentService $_commentService;
     
     const URL = "posts";
     const ACTION = "addPost";
@@ -63,10 +49,9 @@ class PostController extends AbstractController
      * 
      * @param TemplateInterface $template template engine
      */
-    private function __construct(private readonly TemplateInterface $template)
+    private function __construct(private readonly TemplateInterface $template, private PostService $_postService, private CommentService $_commentService)
     {
-        $this->_postService = PostService::getInstance();
-        $this->_commentService = CommentService::getInstance();
+
     }
 
     /**
@@ -80,7 +65,7 @@ class PostController extends AbstractController
     public static function getInstance(TemplateInterface $template): PostController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new PostController($template);
+            self::$_instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
         }
     
         return self::$_instance;
@@ -141,7 +126,13 @@ class PostController extends AbstractController
      */
     public function addComment(int $routeParam, int $postId, string $username, string $content): void
     {
-        if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($_POST)) {
+        $post = [
+            "postId" => $postId,
+            "username" => $username,
+            "content" => $content
+        ];
+
+        if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($post)) {
             if ($postId !== $routeParam) {
                 $message = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -230,8 +221,17 @@ class PostController extends AbstractController
         string $content
     ): void {
         $message = null;
+        $post = [
+            "action" => $action,
+            "userId" => $userId,
+            "username" => $username,
+            "postId" => $postId,
+            "title" => $title,
+            "summary" => $summary,
+            "content" => $content
+        ];
 
-        if (!$this->isSubmitted(self::MODIFY) || !$this->isValid($_POST)) {
+        if (!$this->isSubmitted(self::MODIFY) || !$this->isValid($post)) {
             $message = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
