@@ -100,7 +100,7 @@ class UserUpgradeController extends AbstractController
             $data["users"] = $users;
         }
 
-        echo $this->_template->display($template, $data);
+        $this->_template->display($template, $data);
     }
 
     /**
@@ -121,6 +121,6 @@ class UserUpgradeController extends AbstractController
         $data["users"] = $users;
         $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::UpdateSuccess->getMessage();
 
-        echo $this->_template->display($template, $data);
+        $this->_template->display($template, $data);
     }
 }

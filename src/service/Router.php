@@ -141,7 +141,6 @@ class Router
                     if (isset($postAction) && $postAction === PostController::MODIFY) {
                         $postController->modifyPost(
                             $route["param"],
-                            $postAction,
                             intval($_POST["userId"]),
                             $_POST["username"],
                             intval($_POST["postId"]),
@@ -154,7 +153,7 @@ class Router
                     $postController->showPostDetails($route["param"]);
                     break;
                 }
-                echo $this->_templateEngine->display('404.html.twig', []);
+                $this->_templateEngine->display('404.html.twig', []);
                 break;
 
             case UserController::URL:
@@ -171,7 +170,7 @@ class Router
                     $userController->logout();
                     break;
                 }
-                echo $this->_templateEngine->display('404.html.twig', []);
+                $this->_templateEngine->display('404.html.twig', []);
                 break;
 
             case UserUpgradeController::URL:
@@ -231,7 +230,7 @@ class Router
                 break;
 
             default:
-                echo $this->_templateEngine->display('404.html.twig', []);
+                $this->_templateEngine->display('404.html.twig', []);
                 break;
         }
     }

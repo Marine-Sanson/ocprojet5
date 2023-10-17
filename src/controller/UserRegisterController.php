@@ -90,7 +90,7 @@ class UserRegisterController extends AbstractController
     {
         $template = RouteMapper::UserRegisterView->getTemplate();
 
-        echo $this->_template->display($template, []);
+        $this->_template->display($template, []);
     }
 
 
@@ -115,8 +115,17 @@ class UserRegisterController extends AbstractController
         string $passwordVerify
     ): void {
         $template = RouteMapper::UserRegisterView->getTemplate();
+        $post = [
+           "firstName" => $firstName,
+           "name" => $name,
+           "username" => $username,
+           "email" => $email,
+           "password" => $password,
+           "passwordVerify" => $passwordVerify
+           ,
+        ];
         $data = [];
-        if (!$this->isValid($_POST)) {
+        if (!$this->isValid($post)) {
 
             $template = RouteMapper::UserRegisterView->getTemplate();
             $data = [
@@ -174,7 +183,7 @@ class UserRegisterController extends AbstractController
                 }
             }
         }
-        echo $this->_template->display($template, $data);
+        $this->_template->display($template, $data);
     }
 
     /**

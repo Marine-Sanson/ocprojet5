@@ -94,7 +94,13 @@ class ContactController extends AbstractController
      */
     public function manageContact(string $name, string $firstName, string $email, string $content): void
     {
-        if (!$this->isValid($_POST)) {
+        $post = [
+            "name" => $name,
+            "firstName" => $firstName,
+            "email" => $email,
+            "content" => $content
+        ];
+        if (!$this->isValid($post)) {
             $template = RouteMapper::ContactView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -127,7 +133,7 @@ class ContactController extends AbstractController
             }
         }
 
-        echo $this->template->display($template, $data);
+        $this->template->display($template, $data);
     }
 
     /**

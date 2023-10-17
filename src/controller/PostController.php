@@ -83,7 +83,7 @@ class PostController extends AbstractController
         $result = $this->_postService->getPosts();
         $result = $this->postsToDisplay($result);
         
-        echo $this->template->display(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
+        $this->template->display(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
     }
 
     /**
@@ -107,7 +107,7 @@ class PostController extends AbstractController
         }
         $postDetails->setComments($comments);
 
-        echo $this->template->display(
+        $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
@@ -151,7 +151,7 @@ class PostController extends AbstractController
             ];
         }
         $postDetails = $this->_postService->getPostDetails($postId);
-        echo $this->template->display(
+        $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
@@ -202,7 +202,7 @@ class PostController extends AbstractController
         $posts = $this->_postService->getPosts();
         $data["posts"] = $this->postsToDisplay($posts);
 
-        echo $this->template->display(RouteMapper::PostsView->getTemplate(), $data);
+        $this->template->display(RouteMapper::PostsView->getTemplate(), $data);
     }
 
     /**
@@ -270,7 +270,7 @@ class PostController extends AbstractController
         }
         $postDetails->setComments($comments);
 
-        echo $this->template->display(
+        $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id' => $routeParam,
                 'postDetails' => $postDetails,

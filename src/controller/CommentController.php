@@ -87,7 +87,7 @@ class CommentController extends AbstractController
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
-        echo $this->_template->display($template, $data);
+        $this->_template->display($template, $data);
     }
 
     /**
@@ -112,7 +112,7 @@ class CommentController extends AbstractController
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
-        echo $this->_template->display($template, $data);
+        $this->_template->display($template, $data);
     }
 
     /**
@@ -137,7 +137,7 @@ class CommentController extends AbstractController
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
-        echo $this->_template->display($template, $data);
+        $this->_template->display($template, $data);
     }
 
     /**
