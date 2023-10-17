@@ -83,7 +83,7 @@ class PostController extends AbstractController
         $result = $this->_postService->getPosts();
         $result = $this->postsToDisplay($result);
         
-        echo $this->template->render(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
+        echo $this->template->display(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
     }
 
     /**
@@ -107,7 +107,7 @@ class PostController extends AbstractController
         }
         $postDetails->setComments($comments);
 
-        echo $this->template->render(
+        echo $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
@@ -134,7 +134,7 @@ class PostController extends AbstractController
             "content"  => $content
         ];
 
-        if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($post)) {
+        if ($this->isValid($post)) {
             if ($postId !== $routeParam) {
                 $message = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -151,7 +151,7 @@ class PostController extends AbstractController
             ];
         }
         $postDetails = $this->_postService->getPostDetails($postId);
-        echo $this->template->render(
+        echo $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id' => $postId,
                 'postDetails' => $postDetails,
@@ -172,7 +172,14 @@ class PostController extends AbstractController
      */
     public function addPost(int $userId, string $title, string $summary, string $content): void
     {
-        if ($this->isSubmitted(self::ACTION) && $this->isValid($_POST)) {
+        $post = [
+            "userId"  => $userId,
+            "title"   => $title,
+            "summary" => $summary,
+            "content" => $content
+        ];
+        $data = [];
+        if ($this->isValid($post)) {
 
             $userId = intval($userId);
             $title = $this->sanitize(ucwords(strtolower($title)));
@@ -195,14 +202,13 @@ class PostController extends AbstractController
         $posts = $this->_postService->getPosts();
         $data["posts"] = $this->postsToDisplay($posts);
 
-        echo $this->template->render(RouteMapper::PostsView->getTemplate(), $data);
+        echo $this->template->display(RouteMapper::PostsView->getTemplate(), $data);
     }
 
     /**
      * Summary of modifyPost
      * 
      * @param int    $routeParam routeParam
-     * @param string $action     action
      * @param int    $userId     userId
      * @param string $username   username
      * @param int    $postId     postId
@@ -214,7 +220,6 @@ class PostController extends AbstractController
      */
     public function modifyPost(
         int $routeParam,
-        string $action,
         int $userId,
         string $username,
         int $postId,
@@ -224,7 +229,6 @@ class PostController extends AbstractController
     ): void {
         $message = null;
         $post = [
-            "action"   => $action,
             "userId"   => $userId,
             "username" => $username,
             "postId"   => $postId,
@@ -233,7 +237,7 @@ class PostController extends AbstractController
             "content"  => $content
         ];
 
-        if (!$this->isSubmitted(self::MODIFY) || !$this->isValid($post)) {
+        if (!$this->isValid($post)) {
             $message = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
@@ -266,7 +270,7 @@ class PostController extends AbstractController
         }
         $postDetails->setComments($comments);
 
-        echo $this->template->render(
+        echo $this->template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id' => $routeParam,
                 'postDetails' => $postDetails,

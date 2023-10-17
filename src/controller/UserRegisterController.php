@@ -90,7 +90,7 @@ class UserRegisterController extends AbstractController
     {
         $template = RouteMapper::UserRegisterView->getTemplate();
 
-        echo $this->_template->render($template, []);
+        echo $this->_template->display($template, []);
     }
 
 
@@ -116,7 +116,7 @@ class UserRegisterController extends AbstractController
     ): void {
         $template = RouteMapper::UserRegisterView->getTemplate();
         $data = [];
-        if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
+        if (!$this->isValid($_POST)) {
 
             $template = RouteMapper::UserRegisterView->getTemplate();
             $data = [
@@ -174,7 +174,7 @@ class UserRegisterController extends AbstractController
                 }
             }
         }
-        echo $this->_template->render($template, $data);
+        echo $this->_template->display($template, $data);
     }
 
     /**

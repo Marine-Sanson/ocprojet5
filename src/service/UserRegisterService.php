@@ -73,7 +73,7 @@ class UserRegisterService
     {
         $usedUsernames = $this->_userService->getUsedUsernames();
         $arrayToVerify = [];
-        foreach ($usedUsernames as $key => $usedUsername) {
+        foreach ($usedUsernames as $usedUsername) {
             array_push($arrayToVerify, strtolower($usedUsername["username"]));
         }
         $verifyUsername = in_array(strtolower($username), $arrayToVerify);

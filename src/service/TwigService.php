@@ -72,15 +72,15 @@ class TwigService implements TemplateInterface
     }
 
     /**
-     * Summary of render
+     * Summary of display
      * 
-     * @param string $templateName Name of the template
-     * @param array  $parameters   Parameters
+     * @param string $templateName name of the template
+     * @param array $parameters    parameters
      * 
-     * @return string template to display
+     * @return void
      */
-    public function render(string $templateName, array $parameters = []): string
+    public function display(string $templateName, array $parameters = []): void
     {
-        return $this->_twig->render($templateName, $parameters);
+        $this->_twig->display($templateName, $parameters);
     }
 }

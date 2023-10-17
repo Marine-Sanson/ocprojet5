@@ -103,6 +103,9 @@ class Router
     public function route(): void
     {
         $route = $this->parseRoute();
+        if(isset($_POST["action"])) {
+            $postAction = $_POST["action"];
+        }
         switch ($route["route"]) {
 
             case HomeController::URL:
@@ -113,7 +116,7 @@ class Router
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
                 if (!isset($route["param"])) {
-                    if (isset($_POST["action"]) && $_POST["action"] === PostController::ACTION) {
+                    if (isset($postAction) && $postAction === PostController::ACTION) {
                         $postController->addPost(
                             intval($_POST["userId"]),
                             $_POST["title"],
@@ -126,7 +129,7 @@ class Router
                     break;
                 }
                 if (isset($route["param"])) {
-                    if (isset($_POST["action"]) && $_POST["action"] === CommentService::ACTION) {
+                    if (isset($postAction) && $postAction === CommentService::ACTION) {
                         $postController->addComment(
                             $route["param"],
                             intval($_POST["postId"]),
@@ -135,10 +138,10 @@ class Router
                         );
                         break;
                     }
-                    if (isset($_POST["action"]) && $_POST["action"] === PostController::MODIFY) {
+                    if (isset($postAction) && $postAction === PostController::MODIFY) {
                         $postController->modifyPost(
                             $route["param"],
-                            $_POST["action"],
+                            $postAction,
                             intval($_POST["userId"]),
                             $_POST["username"],
                             intval($_POST["postId"]),
@@ -151,29 +154,29 @@ class Router
                     $postController->showPostDetails($route["param"]);
                     break;
                 }
-                echo $this->_templateEngine->render('404.html.twig', []);
+                echo $this->_templateEngine->display('404.html.twig', []);
                 break;
 
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
-                if (!isset($_POST["action"])) {
+                if (!isset($postAction)) {
                     $userController->displayLoginPage();
                     break;
                 }
-                if ($_POST["action"] === UserController::CONNECT) {
+                if ($postAction === UserController::CONNECT) {
                     $userController->login($_POST["username"], $_POST["password"]);
                     break;
                 }
-                if ($_POST["action"] === UserController::DISCONNECT) {
+                if ($postAction === UserController::DISCONNECT) {
                     $userController->logout();
                     break;
                 }
-                echo $this->_templateEngine->render('404.html.twig', []);
+                echo $this->_templateEngine->display('404.html.twig', []);
                 break;
 
             case UserUpgradeController::URL:
                 $userUpgradeController = UserUpgradeController::getInstance($this->_templateEngine);
-                if (isset($_POST["action"])) {
+                if (isset($postAction) && $postAction === UserUpgradeController::ACTION) {
                     $userUpgradeController->manageUserUpgrade(intval(
                         $_POST['userId']),
                         $_POST['role'],
@@ -186,11 +189,11 @@ class Router
 
             case CommentController::URL:
                 $commentController = CommentController::getInstance($this->_templateEngine);
-                if (isset($_POST["action"]) && ($_POST["action"] === $commentController::VALIDATION)) {
+                if (isset($postAction) && ($postAction === CommentController::VALIDATION)) {
                     $commentController->validateComment(intval($_POST["commentId"]));
                     break;
                 }
-                if (isset($_POST["action"]) && ($_POST["action"] === $commentController::DELETE)) {
+                if (isset($postAction) && ($postAction === CommentController::DELETE)) {
                     $commentController->deleteComment(intval($_POST["commentId"]));
                     break;
                 }
@@ -199,7 +202,7 @@ class Router
 
             case UserRegisterController::URL:
                 $userRegisterController = UserRegisterController::getInstance($this->_templateEngine);
-                if (isset($_POST["action"])) {
+                if (isset($postAction) && $postAction === UserRegisterController::ACTION) {
                     $userRegisterController->manageUserRegister(
                         $_POST["firstName"],
                         $_POST["name"],
@@ -214,8 +217,8 @@ class Router
                 break;
 
             case ContactController::URL: 
-                $contactController = ContactController::getInstance($this->_templateEngine);
-                if (isset($_POST["action"]) && $_POST["action"] === $contactController::ACTION) {
+                $contactController = ContactController::getInstance($this->_templateEngine, ContactService::getInstance());
+                if (isset($postAction) && $postAction === ContactController::ACTION) {
                     $contactController->manageContact(
                         $_POST["name"], 
                         $_POST["firstName"], 
@@ -228,7 +231,7 @@ class Router
                 break;
 
             default:
-                echo $this->_templateEngine->render('404.html.twig', []);
+                echo $this->_templateEngine->display('404.html.twig', []);
                 break;
         }
     }

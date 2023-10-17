@@ -26,18 +26,6 @@ namespace App\controller;
 class AbstractController
 {
     /**
-     * Summary of isSubmitted
-     * 
-     * @param string $action name of the action
-     * 
-     * @return bool
-     */
-    public function isSubmitted(string $action): bool
-    {
-        return $_POST["action"] === $action;
-    }
-
-    /**
      * Summary of isValid
      * 
      * @param array $post = $_POST

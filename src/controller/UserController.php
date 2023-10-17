@@ -88,7 +88,7 @@ class UserController extends AbstractController
     {
         $template = RouteMapper::LoginView->getTemplate();
 
-        echo $this->_template->render($template, []);
+        echo $this->_template->display($template, []);
     }
 
     /**
@@ -120,7 +120,7 @@ class UserController extends AbstractController
             MessageMapper::LoginSuccess->getMessage();
         }
 
-        echo $this->_template->render($template, $data);
+        echo $this->_template->display($template, $data);
     }
 
     /**
@@ -140,6 +140,6 @@ class UserController extends AbstractController
         }
         $data["session"] = $this->_sessionService->getSession();
 
-        echo $this->_template->render($template, $data);
+        echo $this->_template->display($template, $data);
     }
 }

@@ -34,13 +34,6 @@ use DateTime;
 class ContactController extends AbstractController
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    public TemplateInterface $template;
-
-    /**
      * Summary of _instance
      * 
      * @var ContactController
@@ -57,9 +50,9 @@ class ContactController extends AbstractController
      * @param \App\service\TemplateInterface $template        TemplateInterface
      * @param \App\service\ContactService    $_contactService ContactService
      */
-    private function __construct(TemplateInterface $template, private ContactService $_contactService)
+    private function __construct(private TemplateInterface $template, private ContactService $_contactService)
     {
-        $this->template = $template;
+
     }
 
     /**
@@ -70,10 +63,10 @@ class ContactController extends AbstractController
      * 
      * @return \App\controller\ContactController
      */
-    public static function getInstance(TemplateInterface $template): ContactController
+    public static function getInstance(TemplateInterface $template, ContactService $contactService): ContactController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new ContactController($template, ContactService::getInstance());  
+            self::$_instance = new ContactController($template, $contactService);  
         }
     
         return self::$_instance;
@@ -86,7 +79,7 @@ class ContactController extends AbstractController
      */
     public function displayContactPage(): void
     {
-        echo $this->template->render(RouteMapper::ContactView->getTemplate(), []);
+        $this->template->display(RouteMapper::ContactView->getTemplate(), []);
     }
 
     /**
@@ -101,7 +94,7 @@ class ContactController extends AbstractController
      */
     public function manageContact(string $name, string $firstName, string $email, string $content): void
     {
-        if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
+        if (!$this->isValid($_POST)) {
             $template = RouteMapper::ContactView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -134,7 +127,7 @@ class ContactController extends AbstractController
             }
         }
 
-        echo $this->template->render($template, $data);
+        echo $this->template->display($template, $data);
     }
 
     /**

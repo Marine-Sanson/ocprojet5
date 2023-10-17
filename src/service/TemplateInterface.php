@@ -28,13 +28,12 @@ namespace App\service;
 interface TemplateInterface
 {
     /**
-     * Summary of render
-     * This function receive two arguments and return a string
+     * Summary of display
      * 
-     * @param string $templateName Name of the template
-     * @param array  $parameters   Parameters
+     * @param string $templateName name of the template
+     * @param array $parameters    parameters
      * 
-     * @return string template to display
+     * @return void
      */
-    public function render(string $templateName, array $parameters): string;
+    public function display(string $templateName, array $parameters): void;
 }

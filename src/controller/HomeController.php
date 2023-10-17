@@ -88,7 +88,7 @@ class HomeController
     {
         $lastPosts = $this->_homeService->getLastPosts();
 
-        echo $this->_template->render(
+        echo $this->_template->display(
             RouteMapper::HomeView->getTemplate(), [
                 "lastPosts" => $lastPosts
             ]
