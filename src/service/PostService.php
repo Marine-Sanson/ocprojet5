@@ -37,41 +37,6 @@ use DateTime;
 class PostService
 {
     /**
-     * Summary of _postsMapper
-     * 
-     * @var PostsMapper
-     */
-    private PostsMapper $_postsMapper;
-
-    /**
-     * Summary of _postRepository
-     * 
-     * @var PostRepository
-     */
-    private PostRepository $_postRepository;
-
-    /**
-     * Summary of _postService
-     * 
-     * @var CommentService $_commentService
-     */
-    private CommentService $_commentService;
-
-    /**
-     * Summary of _postDetailsMapper
-     * 
-     * @var PostDetailsMapper
-     */
-    private PostDetailsMapper $_postDetailsMapper;
-
-    /**
-     * Summary of _commentRepository
-     * 
-     * @var CommentRepository
-     */
-    private CommentRepository $_commentRepository;
-
-    /**
      * Summary of _instance
      * 
      * @var PostService
@@ -80,14 +45,22 @@ class PostService
 
     /**
      * Summary of __construct
+     * 
+     * @param \App\mapper\PostsMapper           $_postsMapper       PostsMapper
+     * @param \App\mapper\PostDetailsMapper     $_postDetailsMapper PostDetailsMapper
+     * @param \App\repository\CommentRepository $_commentRepository CommentRepository
+     * @param \App\repository\PostRepository    $_postRepository    PostRepository
+     * @param \App\service\CommentService       $_commentService    CommentService
      */
-    private function __construct()
+    private function __construct(
+        private PostsMapper $_postsMapper,
+        private PostDetailsMapper $_postDetailsMapper,
+        private CommentRepository $_commentRepository,
+        private PostRepository $_postRepository,
+        private CommentService $_commentService
+    )
     {
-        $this->_postsMapper = PostsMapper::getInstance();
-        $this->_postRepository = PostRepository::getInstance();
-        $this->_commentService = CommentService::getInstance();
-        $this->_postDetailsMapper = PostDetailsMapper::getInstance();
-        $this->_commentRepository = CommentRepository::getInstance();
+
     }
 
     /**
@@ -99,7 +72,13 @@ class PostService
     public static function getInstance(): PostService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new PostService();  
+            self::$_instance = new PostService(
+                PostsMapper::getInstance(),
+                PostDetailsMapper::getInstance(),
+                CommentRepository::getInstance(),
+                PostRepository::getInstance(),
+                CommentService::getInstance()
+            );  
         }
     
         return self::$_instance;

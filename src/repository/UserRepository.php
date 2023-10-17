@@ -30,13 +30,6 @@ use DateTime;
 class UserRepository
 {
     /**
-     * Summary of _db
-     * 
-     * @var DatabaseService $_db connection between PHP and a database server
-     */
-    private DatabaseService $_db;
-
-    /**
      * Summary of _instance
      * 
      * @var UserRepository
@@ -45,10 +38,12 @@ class UserRepository
 
     /**
      * Summary of __construct
+     * 
+     * @param \App\service\DatabaseService $_db DatabaseService
      */
-    private function __construct()
+    private function __construct(private DatabaseService $_db)
     {
-        $this->_db = DatabaseService::getInstance();
+
     }
 
     /**
@@ -59,7 +54,7 @@ class UserRepository
     public static function getInstance(): UserRepository
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserRepository();
+            self::$_instance = new UserRepository(DatabaseService::getInstance());
         }
     
         return self::$_instance;

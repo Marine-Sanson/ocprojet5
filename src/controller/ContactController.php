@@ -47,25 +47,19 @@ class ContactController extends AbstractController
      */
     private static $_instance;
 
-    /**
-     * Summary of _contactService
-     * 
-     * @var ContactService
-     */
-    private ContactService $_contactService;
-
     const URL = "contact";
     const ACTION = "contact";
 
     /**
-     * Summary of __construct call an instance of TemplateInterface
+     * Summary of __construct
+     * Call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $template template engine
+     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\ContactService    $_contactService ContactService
      */
-    private function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template, private ContactService $_contactService)
     {
         $this->template = $template;
-        $this->_contactService = ContactService::getInstance();
     }
 
     /**
@@ -79,7 +73,7 @@ class ContactController extends AbstractController
     public static function getInstance(TemplateInterface $template): ContactController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new ContactController($template);  
+            self::$_instance = new ContactController($template, ContactService::getInstance());  
         }
     
         return self::$_instance;

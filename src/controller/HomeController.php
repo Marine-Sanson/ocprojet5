@@ -44,14 +44,6 @@ class HomeController
     private static $_instance;
 
     /**
-     * Summary of _homeService
-     * 
-     * @var HomeService
-     */
-    private HomeService $_homeService;
-
-
-    /**
      * Summary of URL
      * 
      * @var string
@@ -59,14 +51,15 @@ class HomeController
     const URL = "home";
 
     /**
-     * Summary of __construct call an instance of TemplateInterface
+     * Summary of __construct
+     * Call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $template template engine
+     * @param \App\service\TemplateInterface $template     TemplateInterface
+     * @param \App\service\HomeService       $_homeService HomeService
      */
-    private function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template, private HomeService $_homeService)
     {
         $this->_template = $template;
-        $this->_homeService = HomeService::getInstance();
     }
 
     /**
@@ -80,7 +73,7 @@ class HomeController
     public static function getInstance(TemplateInterface $template): HomeController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new HomeController($template);  
+            self::$_instance = new HomeController($template, HomeService::getInstance());  
         }
     
         return self::$_instance;

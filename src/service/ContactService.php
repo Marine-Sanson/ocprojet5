@@ -107,7 +107,7 @@ class ContactService
         $newContact->getCreationDate()->format('d-m-Y H:i:s') . " Message:  " . $content;
 
         $mailerService = new MailerService;
-        $mail = $mailerService->sendMail($contactName, $contactEmail, $subject, $message);
+        $mail = $mailerService->sendMail($contactEmail, $subject, $message);
 
         if ($mail) {
             return true;

@@ -39,7 +39,7 @@ class MailerService
      * 
      * @return bool
      */
-    public function sendMail(string $contactName, string $contactEmail, string $subject, string $message): bool
+    public function sendMail(string $contactEmail, string $subject, string $message): bool
     {
         $mail = new PHPMailer(true);
 

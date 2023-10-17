@@ -46,20 +46,6 @@ class UserUpgradeController extends AbstractController
      */
     private static $_instance;
 
-    /**
-     * Summary of _userService
-     * 
-     * @var UserService
-     */
-    private UserService $_userService;
-
-    /**
-     * Summary of _sessionService
-     * 
-     * @var SessionService
-     */
-    private SessionService $_sessionService;
-
     const URL = "roles";
     const ACTION = "roles";
 
@@ -67,13 +53,13 @@ class UserUpgradeController extends AbstractController
      * Summary of __construct
      * call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $template template engine
+     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\UserService       $_userService    UserService
+     * @param \App\service\SessionService    $_sessionService SessionService
      */
-    private function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template, private UserService $_userService, private SessionService $_sessionService)
     {
         $this->_template = $template;
-        $this->_userService = UserService::getInstance();
-        $this->_sessionService = SessionService::getInstance();
     }
 
      /**
@@ -87,7 +73,7 @@ class UserUpgradeController extends AbstractController
     public static function getInstance(TemplateInterface $template): UserUpgradeController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserUpgradeController($template);  
+            self::$_instance = new UserUpgradeController($template, UserService::getInstance(), SessionService::getInstance());  
         }
     
         return self::$_instance;
@@ -129,6 +115,7 @@ class UserUpgradeController extends AbstractController
     public function manageUserUpgrade(int $userId, string $role, string $isAllowed): void
     {
         $template = RouteMapper::UserUpgradeView->getTemplate();
+        $data = [];
         $this->_userService->modifyRole($userId, $role, intval($isAllowed));
         $users = $this->_userService->getAllUsers();
         $data["users"] = $users;

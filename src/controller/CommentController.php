@@ -39,13 +39,6 @@ class CommentController extends AbstractController
     private TemplateInterface $_template;
 
     /**
-     * Summary of _commentRepository
-     * 
-     * @var CommentService
-     */
-    private CommentService $_commentService;
-
-    /**
      * Summary of _instance
      * 
      * @var CommentController
@@ -59,12 +52,12 @@ class CommentController extends AbstractController
     /**
      * Summary of __construct
      * 
-     * @param \App\service\TemplateInterface $template template
+     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\CommentService    $_commentService CommentService
      */
-    private function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template, private CommentService $_commentService)
     {
         $this->_template = $template;
-        $this->_commentService = CommentService::getInstance();
     }
 
     /**
@@ -78,7 +71,7 @@ class CommentController extends AbstractController
     public static function getInstance(TemplateInterface $template): CommentController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new CommentController($template);  
+            self::$_instance = new CommentController($template, CommentService::getInstance());  
         }
         return self::$_instance;
     }

@@ -43,11 +43,13 @@ class PostController extends AbstractController
     const ACTION = "addPost";
     const MODIFY = "modifyPost";
 
-
     /**
-     * Summary of __construct call an instance of TemplateInterface
+     * Summary of __construct
+     * Call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $template template engine
+     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\PostService       $_postService    PostService
+     * @param \App\service\CommentService    $_commentService CommentService
      */
     private function __construct(private readonly TemplateInterface $template, private PostService $_postService, private CommentService $_commentService)
     {
@@ -127,9 +129,9 @@ class PostController extends AbstractController
     public function addComment(int $routeParam, int $postId, string $username, string $content): void
     {
         $post = [
-            "postId" => $postId,
+            "postId"   => $postId,
             "username" => $username,
-            "content" => $content
+            "content"  => $content
         ];
 
         if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($post)) {
@@ -222,13 +224,13 @@ class PostController extends AbstractController
     ): void {
         $message = null;
         $post = [
-            "action" => $action,
-            "userId" => $userId,
+            "action"   => $action,
+            "userId"   => $userId,
             "username" => $username,
-            "postId" => $postId,
-            "title" => $title,
-            "summary" => $summary,
-            "content" => $content
+            "postId"   => $postId,
+            "title"    => $title,
+            "summary"  => $summary,
+            "content"  => $content
         ];
 
         if (!$this->isSubmitted(self::MODIFY) || !$this->isValid($post)) {

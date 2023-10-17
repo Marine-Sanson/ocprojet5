@@ -30,36 +30,22 @@ use App\service\UserService;
 class UserRegisterService
 {
     /**
-     * Summary of _userService
-     * 
-     * @var UserService
-     */
-    private UserService $_userService;
-
-    /**
-     * Summary of _userRepository
-     * 
-     * @var UserRepository
-     */
-    private UserRepository $_userRepository;
-    
-    /**
      * Summary of _instance
      * 
      * @var UserRegisterService
      */
     private static $_instance;
 
-     /**
-      * Summary of getInstance
-      * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
-      * @return \App\service\UserRegisterService
-      */
-    private function __construct()
+    /**
+     * Summary of __construct
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     * 
+     * @param \App\service\UserService       $_userService    UserService
+     * @param \App\repository\UserRepository $_userRepository UserRepository
+     */
+    private function __construct(private UserService $_userService, private UserRepository $_userRepository)
     {
-        $this->_userService = UserService::getInstance();
-        $this->_userRepository = UserRepository::getInstance();
+
     }
 
     /**
@@ -70,7 +56,7 @@ class UserRegisterService
     public static function getInstance(): UserRegisterService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserRegisterService();  
+            self::$_instance = new UserRegisterService(UserService::getInstance(), UserRepository::getInstance());  
         }
     
         return self::$_instance;

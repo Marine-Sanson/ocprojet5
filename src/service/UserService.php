@@ -48,34 +48,18 @@ class UserService
     private static $_instance;
 
     /**
-     * Summary of session
-     * 
-     * @var SessionInterface
-     */
-    private SessionInterface $_session;
-    /**
-     * Summary of _userRepository
-     * 
-     * @var UserRepository
-     */
-    private UserRepository $_userRepository;
-
-    /**
-     * Summary of _userMapper
-     * 
-     * @var UserMapper
-     */
-    private UserMapper $_userMapper;
-
-    /**
      * Summary of __construct
+     * 
+     * @param \App\mapper\UserMapper         $_userMapper     UserMapper
+     * @param \App\repository\UserRepository $_userRepository UserRepository
+     * @param \App\service\SessionService    $_session        SessionService
      */
-    private function __construct()
-    {
-        $this->_session = SessionService::getInstance();
-        $this->_userRepository = UserRepository::getInstance();
-        $this->_userMapper = UserMapper::getInstance();
-    }
+    private function __construct(
+        private UserMapper $_userMapper,
+        private UserRepository $_userRepository,
+        private SessionService $_session
+    ) { }
+
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
@@ -85,7 +69,11 @@ class UserService
     public static function getInstance(): UserService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserService();
+            self::$_instance = new UserService(
+                UserMapper::getInstance(),
+                UserRepository::getInstance(),
+                SessionService::getInstance()
+            );
         }
     
         return self::$_instance;

@@ -47,42 +47,21 @@ class UserRegisterController extends AbstractController
      */
     private static $_instance;
 
-    /**
-     * Summary of _userService
-     * 
-     * @var UserService
-     */
-    private UserService $_userService;
-
-    /**
-     * Summary of _userRegisterService
-     * 
-     * @var UserRegisterService
-     */
-    private UserRegisterService $_userRegisterService;
-
-    /**
-     * Summary of _sessionService
-     * 
-     * @var SessionService
-     */
-    private SessionService $_sessionService;
-
     const URL = "enregistrement";
     const ACTION = "register";
 
     /**
      * Summary of __construct
-     * call an instance of TemplateInterface
+     * Call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $template template engine
+     * @param \App\service\TemplateInterface   $template             TemplateInterface
+     * @param \App\service\UserService         $_userService         UserService
+     * @param \App\service\SessionService      $_sessionService      SessionService
+     * @param \App\service\UserRegisterService $_userRegisterService UserRegisterService
      */
-    private function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template, private UserService $_userService, private SessionService $_sessionService, private UserRegisterService $_userRegisterService)
     {
         $this->_template = $template;
-        $this->_userService = UserService::getInstance();
-        $this->_sessionService = SessionService::getInstance();
-        $this->_userRegisterService = UserRegisterService::getInstance();
     }
 
      /**
@@ -96,7 +75,7 @@ class UserRegisterController extends AbstractController
     public static function getInstance(TemplateInterface $template): UserRegisterController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserRegisterController($template);  
+            self::$_instance = new UserRegisterController($template, UserService::getInstance(), SessionService::getInstance(), UserRegisterService::getInstance());  
         }
     
         return self::$_instance;

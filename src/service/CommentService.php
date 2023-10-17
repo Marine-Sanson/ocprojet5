@@ -32,13 +32,6 @@ use DateTime;
 class CommentService
 {
     /**
-     * Summary of _postService
-     * 
-     * @var CommentRepository
-     */
-    private CommentRepository $_commentRepository;
-
-    /**
      * Summary of _instance
      * 
      * @var CommentService
@@ -49,10 +42,12 @@ class CommentService
 
     /**
      * Summary of __construct
+     * 
+     * @param \App\repository\CommentRepository $_commentRepository CommentRepository
      */
-    private function __construct()
+    private function __construct(private CommentRepository $_commentRepository)
     {
-        $this->_commentRepository = CommentRepository::getInstance();
+
     }
 
     /**
@@ -64,7 +59,7 @@ class CommentService
     public static function getInstance(): CommentService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new CommentService();
+            self::$_instance = new CommentService(CommentRepository::getInstance());
         }
     
         return self::$_instance;
@@ -115,7 +110,8 @@ class CommentService
             $data = [
                 MessageMapper::Message->getMessageLabel() => MessageMapper::CommentCreated->getMessage()
             ];
-        } else {
+        }
+        if (!$createNewComment)  {
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];

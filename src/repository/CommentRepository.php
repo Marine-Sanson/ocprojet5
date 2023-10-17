@@ -28,12 +28,6 @@ use App\service\DatabaseService;
  */
 class CommentRepository
 {
-    /**
-     * Summary of _db
-     * 
-     * @var DatabaseService $_db connection between PHP and a database server
-     */
-    private DatabaseService $_db;
 
     /**
      * Summary of _instance
@@ -44,10 +38,12 @@ class CommentRepository
 
     /**
      * Summary of __construct
+     * 
+     * @param \App\service\DatabaseService $_db DatabaseService
      */
-    private function __construct()
+    private function __construct(private DatabaseService $_db)
     {
-        $this->_db = DatabaseService::getInstance();
+
     }
 
     /**
@@ -59,7 +55,7 @@ class CommentRepository
     public static function getInstance(): CommentRepository
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new CommentRepository();  
+            self::$_instance = new CommentRepository(DatabaseService::getInstance());  
         }
     
         return self::$_instance;

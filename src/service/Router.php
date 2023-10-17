@@ -36,12 +36,6 @@ use App\service\TwigService;
 class Router
 {
     /**
-     * Summary of _templateEngine
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_templateEngine;
-    /**
      * Summary of _instance
      * 
      * @var Router
@@ -50,14 +44,14 @@ class Router
 
     /**
      * Summary of __construct
-     * 
      * Call an instance of TwigService
+     * 
+     * @param \App\service\TwigService $_templateEngine TwigService
      */
-    private function __construct()
+    private function __construct(private TwigService $_templateEngine)
     {
-        $this->_templateEngine = TwigService::getInstance();
-    }
 
+    }
 
     /**
      * Summary of getInstance
@@ -69,7 +63,7 @@ class Router
     public static function getInstance(): Router
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new Router();  
+            self::$_instance = new Router(TwigService::getInstance());  
         }
     
         return self::$_instance;
@@ -85,17 +79,15 @@ class Router
     public function parseRoute(): array
     {
         $route = [];
+        $route["route"] = "home";
         if (isset($_GET["route"])) {
             $routeParam = explode("/", $_GET["route"]);
             $route["route"] = $routeParam[0];
-        } else {
-            $route["route"] = "home";
         }
 
+        $id = null;
         if (isset($routeParam) && count($routeParam) === 2) {
             $id = intval($routeParam["1"]);
-        } else {
-            $id = null;
         }
 
         $route["param"] = $id;

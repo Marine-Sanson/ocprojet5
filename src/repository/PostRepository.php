@@ -30,13 +30,6 @@ use App\service\DatabaseService;
 class PostRepository
 {
     /**
-     * Summary of _db
-     * 
-     * @var DatabaseService $_db connection between PHP and a database server
-     */
-    private DatabaseService $_db;
-
-    /**
      * Summary of _instance
      * 
      * @var PostRepository
@@ -45,10 +38,12 @@ class PostRepository
 
     /**
      * Summary of __construct
+     * 
+     * @param \App\service\DatabaseService $_db DatabaseService
      */
-    private function __construct()
+    private function __construct(private DatabaseService $_db)
     {
-        $this->_db = DatabaseService::getInstance();
+
     }
 
     /**
@@ -60,7 +55,7 @@ class PostRepository
     public static function getInstance(): PostRepository
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new PostRepository();  
+            self::$_instance = new PostRepository(DatabaseService::getInstance());  
         }
     
         return self::$_instance;

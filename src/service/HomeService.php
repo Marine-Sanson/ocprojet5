@@ -43,18 +43,15 @@ class HomeService
     private static $_instance;
 
     /**
-     * Summary of _postRepository
+     * Summary of __construct
      * 
-     * @var PostRepository
+     * @param \App\repository\PostRepository $_postRepository PostRepository
+     * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
-    private PostRepository $_postRepository;
+    private function __construct(private PostRepository $_postRepository, private PostsMapper $_postsMapper)
+    {
 
-    /**
-     * Summary of _postsMapper
-     * 
-     * @var PostsMapper
-     */
-    private PostsMapper $_postsMapper;
+    }
 
      /**
       * Summary of getInstance
@@ -65,19 +62,10 @@ class HomeService
     public static function getInstance(): HomeService
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new HomeService();  
+            self::$_instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());  
         }
     
         return self::$_instance;
-    }
-
-    /**
-     * Summary of __construct
-     */
-    private function __construct()
-    {
-        $this->_postRepository = PostRepository::getInstance();
-        $this->_postsMapper = PostsMapper::getInstance();
     }
 
     /**

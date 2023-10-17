@@ -45,35 +45,21 @@ class UserController extends AbstractController
      */
     private static $_instance;
 
-    /**
-     * Summary of _userService
-     * 
-     * @var UserService
-     */
-    private UserService $_userService;
-
-    /**
-     * Summary of _sessionService
-     * 
-     * @var SessionService
-     */
-    private SessionService $_sessionService;
-
     const URL = "login";
     const CONNECT = "connection";
     const DISCONNECT = "disconnect";
 
     /**
      * Summary of __construct
-     * call an instance of TemplateInterface
+     * Call an instance of TemplateInterface
      * 
-     * @param TemplateInterface $template template engine
+     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\UserService       $_userService    UserService
+     * @param \App\service\SessionService    $_sessionService SessionService
      */
-    private function __construct(TemplateInterface $template)
+    private function __construct(TemplateInterface $template, private UserService $_userService, private SessionService $_sessionService)
     {
         $this->_template = $template;
-        $this->_userService = UserService::getInstance();
-        $this->_sessionService = SessionService::getInstance();
     }
 
      /**
@@ -87,7 +73,7 @@ class UserController extends AbstractController
     public static function getInstance(TemplateInterface $template): UserController
     { 
         if (is_null(self::$_instance)) {
-            self::$_instance = new UserController($template);  
+            self::$_instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());  
         }
     
         return self::$_instance;
