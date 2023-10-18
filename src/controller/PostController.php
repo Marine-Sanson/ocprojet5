@@ -126,13 +126,11 @@ class PostController extends AbstractController
      *
      * @return void
      */
-    public function addComment(int $routeParam, int $postId, string $username, string $content): void
+    public function addComment(int $routeParam, array $post): void
     {
-        $post = [
-            "postId"   => $postId,
-            "username" => $username,
-            "content"  => $content
-        ];
+        $postId = (int) $post["postId"];
+        $username = $post["username"];
+        $content = $post["content"];
 
         if ($this->isValid($post)) {
             if ($postId !== $routeParam) {
@@ -170,14 +168,13 @@ class PostController extends AbstractController
      *
      * @return void
      */
-    public function addPost(int $userId, string $title, string $summary, string $content): void
+    public function addPost(array $post): void
     {
-        $post = [
-            "userId"  => $userId,
-            "title"   => $title,
-            "summary" => $summary,
-            "content" => $content
-        ];
+        $userId = $post["userId"];
+        $title = $post["title"];
+        $summary = $post["summary"];
+        $content = $post["content"];
+
         $data = [];
         if ($this->isValid($post)) {
 
@@ -185,7 +182,7 @@ class PostController extends AbstractController
             $summary = $this->sanitize($summary);
             $content = $this->sanitize($content);
 
-            $isPostCreated = $this->_postService->createNewPost($userId, $title, $summary, $content);
+            $isPostCreated = $this->_postService->createNewPost((int) $userId, $title, $summary, $content);
             if (!$isPostCreated) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -217,24 +214,14 @@ class PostController extends AbstractController
      *
      * @return void
      */
-    public function modifyPost(
-        int $routeParam,
-        int $userId,
-        string $username,
-        int $postId,
-        string $title,
-        string $summary,
-        string $content
-    ): void {
+    public function modifyPost(int $routeParam,array $post): void 
+    {
         $message = null;
-        $post = [
-            "userId"   => $userId,
-            "username" => $username,
-            "postId"   => $postId,
-            "title"    => $title,
-            "summary"  => $summary,
-            "content"  => $content
-        ];
+        $userId = (int) $_POST["userId"];
+        $postId = (int) $_POST["postId"];
+        $title = $_POST["title"];
+        $summary = $_POST["summary"];
+        $content = $_POST["content"];
 
         if (!$this->isValid($post)) {
             $message = [

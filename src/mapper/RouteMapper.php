@@ -33,6 +33,7 @@ enum RouteMapper: string
     case LoginView = "loginView";
     case UserUpgradeView = "userUpgradeView";
     case ValidationComments = "validationView";
+    case Page404 = "404";
 
     /**
      * Summary of getTemplate
@@ -50,6 +51,7 @@ enum RouteMapper: string
             static::LoginView          => "login.html.twig",
             static::UserUpgradeView    => "user-upgrade.html.twig",
             static::ValidationComments => 'validation.html.twig',
+            static::Page404            => '404.html.twig',
         };
     }
 }

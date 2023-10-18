@@ -112,11 +112,15 @@ class UserUpgradeController extends AbstractController
      * 
      * @return void
      */
-    public function manageUserUpgrade(int $userId, string $role, int $isAllowed): void
+    public function manageUserUpgrade(array $post): void
     {
+        $userId = (int) $post['userId'];
+        $role = $post['role'];
+        $isAllowed = (int) $post['isAllowed'];
+
         $template = RouteMapper::UserUpgradeView->getTemplate();
         $data = [];
-        $this->_userService->modifyRole($userId, $role, (int) $isAllowed);
+        $this->_userService->modifyRole($userId, $role, $isAllowed);
         $users = $this->_userService->getAllUsers();
         $data["users"] = $users;
         $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::UpdateSuccess->getMessage();
