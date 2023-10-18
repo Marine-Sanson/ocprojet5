@@ -54,15 +54,12 @@ class PostService
      * @param \App\service\CommentService       $_commentService    CommentService
      */
     private function __construct(
-        private PostsMapper $_postsMapper,
-        private PostDetailsMapper $_postDetailsMapper,
-        private CommentRepository $_commentRepository,
-        private PostRepository $_postRepository,
-        private CommentService $_commentService
-    )
-    {
-
-    }
+        private readonly PostsMapper $_postsMapper,
+        private readonly PostDetailsMapper $_postDetailsMapper,
+        private readonly CommentRepository $_commentRepository,
+        private readonly PostRepository $_postRepository,
+        private readonly CommentService $_commentService
+    ) { }
 
 
     /**

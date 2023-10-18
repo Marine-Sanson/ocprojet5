@@ -29,12 +29,7 @@ use App\service\TemplateInterface;
  */
 class HomeController
 {
-    /**
-     * Summary of _template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
+
 
     /**
      * Summary of _instance
@@ -57,10 +52,10 @@ class HomeController
      * @param \App\service\TemplateInterface $template     TemplateInterface
      * @param \App\service\HomeService       $_homeService HomeService
      */
-    private function __construct(TemplateInterface $template, private HomeService $_homeService)
-    {
-        $this->_template = $template;
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly HomeService $_homeService
+        ) { }
 
     /**
      * Summary of getInstance

@@ -42,10 +42,7 @@ class PostRepository
      * 
      * @param \App\service\DatabaseService $_db DatabaseService
      */
-    private function __construct(private DatabaseService $_db)
-    {
-
-    }
+    private function __construct(private DatabaseService $_db) { }
 
 
     /**

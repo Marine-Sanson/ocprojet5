@@ -34,13 +34,6 @@ use App\service\UserService;
 class UserRegisterController extends AbstractController
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
-
-    /**
      * Summary of _instance
      * 
      * @var UserRegisterController
@@ -59,10 +52,12 @@ class UserRegisterController extends AbstractController
      * @param \App\service\SessionService      $_sessionService      SessionService
      * @param \App\service\UserRegisterService $_userRegisterService UserRegisterService
      */
-    private function __construct(TemplateInterface $template, private UserService $_userService, private SessionService $_sessionService, private UserRegisterService $_userRegisterService)
-    {
-        $this->_template = $template;
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly UserService $_userService,
+        private readonly SessionService $_sessionService,
+        private readonly UserRegisterService $_userRegisterService
+        ) { }
 
      /**
       * Summary of getInstance
@@ -109,12 +104,8 @@ class UserRegisterController extends AbstractController
     public function manageUserRegister(array $post): void {
         $template = RouteMapper::UserRegisterView->getTemplate();
 
-        $firstName = $_POST["firstName"];
-        $name = $_POST["name"];
-        $username = $_POST["username"];
-        $email = $_POST["email"];
-        $password  = $_POST["password"];
-        $passwordVerify = $_POST["passwordVerify"];
+        $email = $post["email"];
+        $password  = $post["password"];
 
         $data = [];
         if (!$this->isValid($post)) {
@@ -126,23 +117,24 @@ class UserRegisterController extends AbstractController
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
 
-            $firstName = ucwords(strtolower($firstName));
-            $name = ucwords(strtolower($name));
-            $username = ucwords(strtolower($username));
-            $isUsernameAvailable = $this->_userRegisterService->verifyUsername($username);
-            if ($isUsernameAvailable) {
+            $firstName = ucwords(strtolower($post["firstName"]));
+            $name = ucwords(strtolower($post["name"]));
+            $username = ucwords(strtolower($post["username"]));
+            $isUsernameUnavailable = $this->_userRegisterService->verifyUsername($username);
+
+            if ($isUsernameUnavailable === true) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::UsernameUnavailable->getMessage()
                 ];
             }
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::MailError->getMessage()
                 ];
             }
 
-            if ($password !== $passwordVerify) {
+            if ($password !== $post["passwordVerify"]) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::PasswordError->getMessage()
                 ];
@@ -157,9 +149,7 @@ class UserRegisterController extends AbstractController
                     $password
                 );
 
-                $register = $this->_sanitizeRegisterData($register);
-
-                $register = $this->_hashPassword($register);
+                $this->_sanitizeRegisterData($register);
 
                 $isSaved = $this->_userRegisterService->saveUserRegisterData($register);
 
@@ -184,26 +174,11 @@ class UserRegisterController extends AbstractController
      * 
      * @return \App\model\UserRegisterModel
      */
-    private function _sanitizeRegisterData(UserRegisterModel $userRegister): UserRegisterModel
+    private function _sanitizeRegisterData(UserRegisterModel $userRegister): void
     {
         $userRegister->setFirstName($this->sanitize($userRegister->getFirstName()));
         $userRegister->setName($this->sanitize($userRegister->getName()));
         $userRegister->setUsername($this->sanitize($userRegister->getUsername()));
-
-        return $userRegister;
     }
 
-    /**
-     * Summary of hashPassword - hash the user password before insert it to the db
-     * 
-     * @param \App\model\UserRegisterModel $register UserRegisterModel
-     * 
-     * @return \App\model\UserRegisterModel
-     */
-    private function _hashPassword(UserRegisterModel $register): UserRegisterModel
-    {
-        $register->setPassword(password_hash($register->getPassword(), PASSWORD_DEFAULT, ["cost" => "14"]));
-
-        return $register;
-    }
 }

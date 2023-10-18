@@ -32,13 +32,6 @@ use App\service\TemplateInterface;
 class CommentController extends AbstractController
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
-
-    /**
      * Summary of _instance
      * 
      * @var CommentController
@@ -52,13 +45,13 @@ class CommentController extends AbstractController
     /**
      * Summary of __construct
      * 
-     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\CommentService    $_commentService CommentService
      */
-    private function __construct(TemplateInterface $template, private CommentService $_commentService)
-    {
-        $this->_template = $template;
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly CommentService $_commentService
+        ) { }
 
     /**
      * Summary of getInstance

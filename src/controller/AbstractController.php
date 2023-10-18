@@ -34,19 +34,14 @@ class AbstractController
      */
     public function isValid(array $post): bool
     {
-        $test = true;
+        if (isset($post) === false) return false;
 
-        if (isset($post)) {
-            foreach ($post as $value) {
-                if (empty($value)) {
-                    $test = false;
-
-                    return $test;
-                }
+        foreach ($post as $value) {
+            if (empty($value)) {
+                return false;
             }
         }
-
-        return $test;        
+        return true;
     }
 
     /**

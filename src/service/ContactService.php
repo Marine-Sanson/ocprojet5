@@ -31,13 +31,6 @@ use App\service\MailerService;
 class ContactService
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    public TemplateInterface $template;
-
-    /**
      * Summary of _instance
      * 
      * @var ContactService

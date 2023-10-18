@@ -36,16 +36,15 @@ class UserRepository
      */
     private static $instance;
 
+    
     /**
      * Summary of __construct
      * 
      * @param \App\service\DatabaseService $_db DatabaseService
      */
-    private function __construct(private DatabaseService $_db)
-    {
+    private function __construct(private DatabaseService $_db) { }
 
-    }
-
+    
     /**
      * Summary of getInstance
      * 

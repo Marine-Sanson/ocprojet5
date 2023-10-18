@@ -45,10 +45,7 @@ class CommentService
      * 
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
      */
-    private function __construct(private CommentRepository $_commentRepository)
-    {
-
-    }
+    private function __construct(private readonly CommentRepository $_commentRepository) { }
 
     /**
      * Summary of getInstance

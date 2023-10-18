@@ -171,6 +171,7 @@ class Router
         $postController = PostController::getInstance($this->_templateEngine);
 
         switch ($route) {
+            
             case ($route["param"] === null):
                 if (isset($post["action"]) && $post["action"] === PostController::ACTION) {
                     $postController->addPost($post);
@@ -178,8 +179,10 @@ class Router
                 }
                 $postController->showPosts();
                 break;
+
             case (isset($route["param"])):
                 if (isset($post["action"])) {
+
                     switch ($post["action"]) {
 
                         case CommentService::ACTION:
@@ -194,9 +197,11 @@ class Router
                             $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                             break;
                     }
+
                 }
                 $postController->showPostDetails($route["param"]);
                 break;
+
             default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
@@ -215,10 +220,13 @@ class Router
         $userController = UserController::getInstance($this->_templateEngine);
 
         switch ($post) {
+
             case (null):
                 $userController->displayLoginPage();
                 break;
+
             case (isset($post["action"])):
+
                 switch ($post["action"]) {
 
                     case UserController::CONNECT:
@@ -233,6 +241,7 @@ class Router
                         $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                         break;
                     }
+
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
@@ -251,12 +260,15 @@ class Router
         $userUpgradeController = UserUpgradeController::getInstance($this->_templateEngine);
 
         switch ($post) {
+
             case (null):
                 $userUpgradeController->displayUserUpgradePage();
                 break;
+
             case (isset($post["action"]) && $post["action"] === UserUpgradeController::ACTION):
                 $userUpgradeController->manageUserUpgrade($post);
                 break;
+
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
@@ -274,10 +286,13 @@ class Router
     {
         $commentController = CommentController::getInstance($this->_templateEngine);
         switch ($post) {
+
             case (null):
                 $commentController->displayValidationPage();
                 break;
+
             case (isset($post["action"])):
+
                 switch ($post["action"]) {
 
                     case CommentController::VALIDATION:
@@ -292,6 +307,7 @@ class Router
                         $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                         break;
                 }
+
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
@@ -308,13 +324,17 @@ class Router
     private function userRegisterControllerUrl(array $post): void
     {
         $userRegisterController = UserRegisterController::getInstance($this->_templateEngine);
+
         switch ($post) {
+
             case (null):
                 $userRegisterController->displayUserRegisterPage();
                 break;
+
             case (isset($post["action"]) && $post["action"] === UserRegisterController::ACTION):
                 $userRegisterController->manageUserRegister($post);
                 break;
+
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
@@ -333,12 +353,15 @@ class Router
         $contactController = ContactController::getInstance($this->_templateEngine, ContactService::getInstance());
 
         switch ($post) {
+
             case (null):
                 $contactController->displayContactPage();
                 break;
+
             case (isset($post["action"]) && $post["action"] === ContactController::ACTION):
                 $contactController->manageContact($post);
                 break;
+
             default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;

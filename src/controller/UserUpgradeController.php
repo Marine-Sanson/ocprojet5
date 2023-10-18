@@ -33,13 +33,6 @@ use App\service\UserService;
 class UserUpgradeController extends AbstractController
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
-
-    /**
      * Summary of _instance
      * 
      * @var UserUpgradeController
@@ -57,10 +50,11 @@ class UserUpgradeController extends AbstractController
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
      */
-    private function __construct(TemplateInterface $template, private UserService $_userService, private SessionService $_sessionService)
-    {
-        $this->_template = $template;
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly UserService $_userService,
+        private readonly SessionService $_sessionService
+        ) { }
 
      /**
       * Summary of getInstance
@@ -94,7 +88,7 @@ class UserUpgradeController extends AbstractController
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
 
-        if (isset($role) && $role === RoleMapper::Supadmin->getRole()) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $template = RouteMapper::UserUpgradeView->getTemplate();
             $users = $this->_userService->getAllUsers();
             $data["users"] = $users;
@@ -114,13 +108,9 @@ class UserUpgradeController extends AbstractController
      */
     public function manageUserUpgrade(array $post): void
     {
-        $userId = (int) $post['userId'];
-        $role = $post['role'];
-        $isAllowed = (int) $post['isAllowed'];
-
         $template = RouteMapper::UserUpgradeView->getTemplate();
         $data = [];
-        $this->_userService->modifyRole($userId, $role, $isAllowed);
+        $this->_userService->modifyRole($$post['userId'], $post['role'], $post['isAllowed']);
         $users = $this->_userService->getAllUsers();
         $data["users"] = $users;
         $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::UpdateSuccess->getMessage();

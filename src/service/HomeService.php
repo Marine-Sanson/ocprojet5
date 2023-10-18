@@ -29,13 +29,6 @@ use App\repository\PostRepository;
 class HomeService
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    public TemplateInterface $template;
-
-    /**
      * Summary of _instance
      * 
      * @var HomeService
@@ -49,10 +42,10 @@ class HomeService
      * @param \App\repository\PostRepository $_postRepository PostRepository
      * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
-    private function __construct(private PostRepository $_postRepository, private PostsMapper $_postsMapper)
-    {
-
-    }
+    private function __construct(
+        private readonly PostRepository $_postRepository,
+        private readonly PostsMapper $_postsMapper
+    ) { }
 
 
      /**

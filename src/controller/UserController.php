@@ -32,13 +32,6 @@ use App\service\UserService;
 class UserController extends AbstractController
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
-
-    /**
      * Summary of _instance
      * 
      * @var UserController
@@ -57,10 +50,11 @@ class UserController extends AbstractController
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
      */
-    private function __construct(TemplateInterface $template, private UserService $_userService, private SessionService $_sessionService)
-    {
-        $this->_template = $template;
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly UserService $_userService,
+        private readonly SessionService $_sessionService
+        ) { }
 
      /**
       * Summary of getInstance

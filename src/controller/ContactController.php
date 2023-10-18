@@ -51,10 +51,10 @@ class ContactController extends AbstractController
      * @param \App\service\TemplateInterface $template        TemplateInterface
      * @param \App\service\ContactService    $_contactService ContactService
      */
-    private function __construct(private TemplateInterface $template, private ContactService $_contactService)
-    {
-
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly ContactService $_contactService
+    ) { }
 
 
     /**
@@ -81,7 +81,7 @@ class ContactController extends AbstractController
      */
     public function displayContactPage(): void
     {
-        $this->template->display(RouteMapper::ContactView->getTemplate(), []);
+        $this->_template->display(RouteMapper::ContactView->getTemplate(), []);
     }
 
     /**
@@ -96,12 +96,7 @@ class ContactController extends AbstractController
      */
     public function manageContact(array $post): void
     {
-        
-        $name = $post["name"];
-        $firstName = $post["firstName"];
-        $email = $post["email"];
-        $content = $post["content"];
-    
+
         if (!$this->isValid($post)) {
             $template = RouteMapper::ContactView->getTemplate();
             $data = [
@@ -111,13 +106,14 @@ class ContactController extends AbstractController
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
-            $contact = new ContactModel($name, $firstName, $email, $content, $currentDate);
-            $validateContact = $this->validContactForm($contact);
-            $contactCreated = $this->_contactService->createContact($validateContact);
+            $contact = new ContactModel($post["name"], $post["firstName"], $post["email"], $post["content"], $currentDate);
+            $this->validContactForm($contact);
+            $sendMail = false;
+            $isContactCreated = $this->_contactService->createContact($contact);
 
-            if ($contactCreated) {
-                $validateContact->setContent(htmlspecialchars_decode($validateContact->getContent()));
-                $sendMail = $this->_contactService->notify($validateContact);
+            if ($isContactCreated) {
+                $contact->setContent(htmlspecialchars_decode($contact->getContent()));
+                $sendMail = $this->_contactService->notify($contact);
             }
 
             if (!$sendMail) {
@@ -135,7 +131,7 @@ class ContactController extends AbstractController
             }
         }
 
-        $this->template->display($template, $data);
+        $this->_template->display($template, $data);
     }
 
     /**
@@ -145,13 +141,11 @@ class ContactController extends AbstractController
      * 
      * @return \App\model\ContactModel
      */
-    public function validContactForm(ContactModel $contact): ContactModel
+    public function validContactForm(ContactModel $contact): void
     {
         $contact->setName($this->sanitize($contact->getName()));
         $contact->setFirstName($this->sanitize($contact->getFirstName()));
         $contact->setEmail($this->sanitize($contact->getEmail()));
         $contact->setContent($this->sanitize($contact->getContent()));
-
-        return $contact; 
     }
 }

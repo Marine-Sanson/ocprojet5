@@ -43,10 +43,10 @@ class UserRegisterService
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\repository\UserRepository $_userRepository UserRepository
      */
-    private function __construct(private UserService $_userService, private UserRepository $_userRepository)
-    {
-
-    }
+    private function __construct(
+        private readonly UserService $_userService,
+        private readonly UserRepository $_userRepository
+        ) { }
 
     /**
      * Summary of getInstance
@@ -76,11 +76,8 @@ class UserRegisterService
         foreach ($usedUsernames as $usedUsername) {
             array_push($arrayToVerify, strtolower($usedUsername["username"]));
         }
-        $verifyUsername = in_array(strtolower($username), $arrayToVerify);
-        if ($verifyUsername) {
-            return true;
-        }
-        return false;
+
+        return in_array(strtolower($username), $arrayToVerify);
     }
 
     /**
@@ -101,7 +98,9 @@ class UserRegisterService
         string $email,
         string $password
     ): UserRegisterModel {
-        return new UserRegisterModel($firstName, $name, $username, $email, $password);
+        $passwordHached = $this->_hashPassword($password);
+
+        return new UserRegisterModel($firstName, $name, $username, $email, $passwordHached);
     }
 
     /**
@@ -119,5 +118,17 @@ class UserRegisterService
             return false;
         }
         return true;
+    }
+
+    /**
+     * Summary of hashPassword - hash the user password before insert it to the db
+     * 
+     * @param \App\model\UserRegisterModel $register UserRegisterModel
+     * 
+     * @return \App\model\UserRegisterModel
+     */
+    private function _hashPassword(string $password): string
+    {
+        return password_hash($password, PASSWORD_DEFAULT, ["cost" => "14"]);
     }
 }

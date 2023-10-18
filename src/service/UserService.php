@@ -55,9 +55,9 @@ class UserService
      * @param \App\service\SessionService    $_session        SessionService
      */
     private function __construct(
-        private UserMapper $_userMapper,
-        private UserRepository $_userRepository,
-        private SessionService $_session
+        private readonly UserMapper $_userMapper,
+        private readonly UserRepository $_userRepository,
+        private readonly SessionService $_session
     ) { }
 
      /**
