@@ -180,38 +180,23 @@ class Router
                 break;
             case (isset($route["param"])):
                 if (isset($post["action"])) {
-                    $this->onePostAction($route["param"], $postController, $post);
-                    break;
+                    switch ($post["action"]) {
+
+                        case CommentService::ACTION:
+                            $postController->addComment($routeParam, $post);
+                            break;
+            
+                        case PostController::MODIFY:
+                            $postController->modifyPost($routeParam, $post);
+                            break;
+            
+                        default :
+                            $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
+                            break;
+                    }
                 }
                 $postController->showPostDetails($route["param"]);
                 break;
-            default :
-                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
-                break;
-        }
-    }
-
-    /**
-     * Summary of onePostAction
-     *
-     * @param int $routeParam routeParam
-     * @param \App\controller\PostController $postController PostController
-     * @param array $post post
-     *
-     * @return void
-     */
-    private function onePostAction(int $routeParam, PostController $postController, array $post): void
-    {
-        switch ($post["action"]) {
-
-            case CommentService::ACTION:
-                $postController->addComment($routeParam, $post);
-                break;
-
-            case PostController::MODIFY:
-                $postController->modifyPost($routeParam, $post);
-                break;
-
             default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
@@ -234,35 +219,21 @@ class Router
                 $userController->displayLoginPage();
                 break;
             case (isset($post["action"])):
-                $this->connectAction($userController, $post);
-                break;
+                switch ($post["action"]) {
+
+                    case UserController::CONNECT:
+                        $userController->login($post["username"], $post["password"]);
+                        break;
+        
+                    case UserController::DISCONNECT:
+                        $userController->logout();
+                        break;
+        
+                    default :
+                        $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
+                        break;
+                    }
             default:
-                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
-                break;
-        }
-    }
-
-    /**
-     * Summary of connectAction
-     *
-     * @param \App\controller\UserController $userController UserController
-     * @param array $post post
-     *
-     * @return void
-     */
-    private function connectAction(UserController $userController, array $post): void
-    {
-        switch ($post["action"]) {
-
-            case UserController::CONNECT:
-                $userController->login($post["username"], $post["password"]);
-                break;
-
-            case UserController::DISCONNECT:
-                $userController->logout();
-                break;
-
-            default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
@@ -307,35 +278,21 @@ class Router
                 $commentController->displayValidationPage();
                 break;
             case (isset($post["action"])):
-                $this->commentAction($commentController, $post);
-                break;
+                switch ($post["action"]) {
+
+                    case CommentController::VALIDATION:
+                        $commentController->validateComment((int) $post["commentId"]);
+                        break;
+        
+                    case CommentController::DELETE:
+                        $commentController->deleteComment((int) $post["commentId"]);
+                        break;
+        
+                    default :
+                        $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
+                        break;
+                }
             default:
-                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
-                break;
-        }
-    }
-
-    /**
-     * Summary of commentAction
-     *
-     * @param \App\controller\CommentController $commentController CommentController
-     * @param array $post post
-     *
-     * @return void
-     */
-    private function commentAction(CommentController $commentController, array $post): void
-    {
-        switch ($post["action"]) {
-
-            case CommentController::VALIDATION:
-                $commentController->validateComment((int) $post["commentId"]);
-                break;
-
-            case CommentController::DELETE:
-                $commentController->deleteComment((int) $post["commentId"]);
-                break;
-
-            default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
@@ -361,7 +318,7 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-            }
+        }
     }
 
     /**
@@ -386,7 +343,6 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
-
     }
 
 }
