@@ -1,9 +1,9 @@
 <?php
 /**
  * RouteMapper File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -16,7 +16,7 @@ namespace App\mapper;
 
 /**
  * RouteMapper Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -37,11 +37,12 @@ enum RouteMapper: string
 
     /**
      * Summary of getTemplate
-     * 
+     *
      * @return string
      */
     public function getTemplate(): string
     {
+
         return match ($this) {
             static::ContactView        => 'contact.html.twig',
             static::HomeView           => 'home.html.twig',
@@ -54,4 +55,5 @@ enum RouteMapper: string
             static::Page404            => '404.html.twig',
         };
     }
+
 }

@@ -1,9 +1,9 @@
 <?php
 /**
  * RoleMapper File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -16,7 +16,7 @@ namespace App\mapper;
 
 /**
  * RoleMapper Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -30,14 +30,17 @@ enum RoleMapper: string
 
     /**
      * Summary of getRole
-     * 
+     *
      * @return string
      */
     public function getRole(): string
     {
+
         return match ($this) {
             static::User => 'user',
             static::Supadmin => 'supadmin',
         };
+
     }
+
 }

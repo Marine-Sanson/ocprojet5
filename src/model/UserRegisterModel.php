@@ -1,9 +1,9 @@
 <?php
 /**
  * UserRegisterModel File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -16,7 +16,7 @@ namespace App\model;
 
 /**
  * UserRegisterModel Class Doc Comment
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -25,6 +25,7 @@ namespace App\model;
  */
 class UserRegisterModel
 {
+
     /**
      * Summary of __construct UserRegisterModel
      * 
@@ -40,134 +41,153 @@ class UserRegisterModel
         private string $username, 
         private string $email, 
         private string $password
-    ) {
-
-    }
+    ) { }
+    // end of __construct()
     
 
     /**
      * Summary of getFirstName
-     * 
+     *
      * @return string
      */
     public function getFirstName(): string
     {
+
         return $this->firstName;
+
     }
 
     /**
      * Summary of setFirstName
-     * 
+     *
      * @param string $firstName firstName
-     * 
+     *
      * @return \App\model\UserRegisterModel
      */
     public function setFirstName(string $firstName): self
     {
+
         $this->firstName = $firstName;
         return $this;
+
     }
 
     /**
      * Summary of getName
-     * 
+     *
      * @return string
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
 
     /**
      * Summary of setName
-     * 
+     *
      * @param string $name name
-     * 
+     *
      * @return \App\model\UserRegisterModel
      */
     public function setName(string $name): self
     {
+
         $this->name = $name;
         return $this;
+
     }
 
     /**
      * Summary of getUsername
-     * 
+     *
      * @return string
      */
     public function getUsername(): string
     {
+
         return $this->username;
+
     }
 
     /**
      * Summary of setUsername
-     * 
+     *
      * @param string $username username
-     * 
+     *
      * @return \App\model\UserRegisterModel
      */
     public function setUsername(string $username): self
     {
+
         $this->username = $username;
         return $this;
+
     }
 
     /**
      * Summary of getEmail
-     * 
+     *
      * @return string
      */
     public function getEmail(): string
     {
+
         return $this->email;
+
     }
 
     /**
      * Summary of setEmail
-     * 
+     *
      * @param string $email email
-     * 
+     *
      * @return \App\model\UserRegisterModel
      */
     public function setEmail(string $email): self
     {
+
         $this->email = $email;
         return $this;
+
     }
 
     /**
      * Summary of getPassword
-     * 
+     *
      * @return string
      */
     public function getPassword(): string
     {
+
         return $this->password;
+
     }
 
     /**
      * Summary of setPassword
-     * 
+     *
      * @param string $password password
-     * 
+     *
      * @return \App\model\UserRegisterModel
      */
     public function setPassword(string $password): self
     {
+
         $this->password = $password;
         return $this;
-    }
 
+    }
 
     /**
      * Summary of toArray
-     * 
+     *
      * @return array
      */
     public function toArray() :array
     {
+        
         return [
             "firstName" => $this->firstName,
             "name" => $this->name,
@@ -175,5 +195,7 @@ class UserRegisterModel
             "email" => $this->email,
             "password" => $this->password
         ];
+
     }
+
 }

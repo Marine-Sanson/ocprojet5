@@ -1,9 +1,9 @@
 <?php
 /**
  * PostDetailsModel File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -18,7 +18,7 @@ use DateTime;
 
 /**
  * PostDetailsModel Class Doc Comment
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -27,9 +27,10 @@ use DateTime;
  */
 class PostDetailsModel
 {
+
     /**
      * Summary of __construct
-     * 
+     *
      * @param int | null  $id             id
      * @param int         $idUser         idUser
      * @param string      $title          title
@@ -48,126 +49,149 @@ class PostDetailsModel
         private readonly DateTime $lastUpdateDate,
         private readonly string $username,
         private ?array $comments
-    ) {
+    ) { }
+    // end of __construct()
 
-    }
 
     /**
      * Summary of getId
-     * 
+     *
      * @return int | null
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
 
     /**
      * Summary of getIdUser
-     * 
+     *
      * @return int
      */
     public function getIdUser(): int
     {
+
         return $this->idUser;
+
     }
 
     /**
      * Summary of getTitle
-     * 
+     *
      * @return string
      */
     public function getTitle(): string
     {
+
         return $this->title;
+
     }
 
     /**
      * Summary of getSummary
-     * 
+     *
      * @return string
      */
     public function getSummary(): string
     {
+
         return $this->summary;
+
     }
 
     /**
      * Summary of setSummary
-     * 
+     *
      * @param string $summary summary
-     * 
+     *
      * @return \App\model\PostDetailsModel
      */
     public function setSummary(string $summary): self
     {
+
         $this->summary = $summary;
         return $this;
+
     }
 
     /**
      * Summary of getContent
-     * 
+     *
      * @return string
      */
     public function getContent(): string
     {
+
         return $this->content;
+
     }
 
     /**
      * Summary of setContent
-     * 
+     *
      * @param string $content content
-     * 
+     *
      * @return \App\model\PostDetailsModel
      */
     public function setContent(string $content): self
     {
+
         $this->content = $content;
         return $this;
+
     }
 
     /**
      * Summary of getLastUpdateDate
-     * 
+     *
      * @return DateTime
      */
     public function getLastUpdateDate(): DateTime
     {
+
         return $this->lastUpdateDate;
+
     }
 
     /**
      * Summary of getUsername
-     * 
+     *
      * @return string
      */
     public function getUsername(): string
     {
+
         return $this->username;
+
     }
 
     /**
      * Summary of getComments
-     * 
+     *
      * @return array
      */
     public function getComments(): ?array
     {
+
         return $this->comments;
+
     }
 
     /**
      * Summary of setComments
-     * 
+     *
      * @param array | null $comments comments
-     * 
+     *
      * @return self
      */
     public function setComments(?array $comments): self
     {
+
         $this->comments = $comments;
         return $this;
+
     }
+
 }

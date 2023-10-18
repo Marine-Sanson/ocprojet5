@@ -1,9 +1,9 @@
 <?php
 /**
  * PostEntity File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Entity
  * @package  App\entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -18,7 +18,7 @@ use DateTime;
 
 /**
  * PostEntity Class Doc Comment
- * 
+ *
  * @category Entity
  * @package  App\entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -29,7 +29,7 @@ class PostEntity
 {
     /**
      * Summary of __construct
-     * 
+     *
      * @param int | null $id             id of the post  - autoincrement in the DB
      * @param int        $idUser         id of the post author
      * @param string     $title          title of the post
@@ -46,77 +46,92 @@ class PostEntity
         private readonly string $content,
         private readonly DateTime $creationDate,
         private readonly DateTime $lastUpdateDate
-    ) {
+    ) { }
+    //end __construct()
 
-    }
 
     /**
      * Summary of getId
-     * 
+     *
      * @return int|null
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
 
     /**
      * Summary of getIdUser
-     * 
+     *
      * @return int
      */
     public function getIdUser(): int
     {
+
         return $this->idUser;
+
     }
 
     /**
      * Summary of getTitle
-     * 
+     *
      * @return string
      */
     public function getTitle(): string
     {
+
         return $this->title;
+
     }
 
     /**
      * Summary of getSummary
-     * 
+     *
      * @return string
      */
     public function getSummary(): string
     {
+
         return $this->summary;
+
     }
 
     /**
      * Summary of getContent
-     * 
+     *
      * @return string
      */
     public function getContent(): string
     {
+
         return $this->content;
+        
     }
 
     /**
      * Summary of getCreationDate
-     * 
+     *
      * @return \DateTime
      */
     public function getCreationDate(): DateTime
     {
+
         return $this->creationDate;
+
     }
 
     /**
      * Summary of getLastUpdateDate
-     * 
+     *
      * @return \DateTime
      */
     public function getLastUpdateDate(): DateTime
     {
+
         return $this->lastUpdateDate;
+
     }
+    
 }
