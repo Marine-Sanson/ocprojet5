@@ -115,7 +115,7 @@ class Router
                 
             case PostController::URL:
                 $postController = PostController::getInstance($this->_templateEngine);
-                if (!isset($route["param"])) {
+                if (isset($route["param"]) === false) {
                     if (isset($postAction) && $postAction === PostController::ACTION) {
                         $postController->addPost(
                             (int) $_POST["userId"],
@@ -158,7 +158,7 @@ class Router
 
             case UserController::URL:
                 $userController = UserController::getInstance($this->_templateEngine);
-                if (!isset($postAction)) {
+                if (isset($postAction) === false) {
                     $userController->displayLoginPage();
                     break;
                 }

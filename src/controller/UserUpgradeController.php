@@ -89,7 +89,7 @@ class UserUpgradeController extends AbstractController
         $data = [];
         $role = $this->_sessionService->getUser()->getRole();
 
-        if (!isset($role) || $role !== RoleMapper::Supadmin->getRole()) {
+        if (isset($role) === false || $role !== RoleMapper::Supadmin->getRole()) {
             $template = RouteMapper::HomeView->getTemplate();
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }

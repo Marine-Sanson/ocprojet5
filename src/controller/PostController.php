@@ -192,7 +192,7 @@ class PostController extends AbstractController
                 ];
             }
 
-            if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+            if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                 $data = [
                     MessageMapper::Message->getMessageLabel() => MessageMapper::NewPostSuccess->getMessage()
                 ];
@@ -241,14 +241,14 @@ class PostController extends AbstractController
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             if ($routeParam !== $postId) {
                 $message = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                 ];
             }
         }
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $title = $this->sanitize($title);
             $summary = $this->sanitize($summary);
             $content = $this->sanitize($content);

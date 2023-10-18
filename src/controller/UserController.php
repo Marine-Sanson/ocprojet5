@@ -110,7 +110,7 @@ class UserController extends AbstractController
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::LoginProblem->getMessage();
         }
 
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $this->_sessionService->setUser($user);
 
             $data["session"] = $this->_sessionService->getSession();

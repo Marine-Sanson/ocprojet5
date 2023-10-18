@@ -42,14 +42,14 @@ enum RouteMapper: string
     public function getTemplate(): string
     {
         return match ($this) {
-            static::ContactView => 'contact.html.twig',
-            static::HomeView => 'home.html.twig',
-            static::PostsView => 'posts.html.twig',
-            static::OnePostView => 'one-post.html.twig',
-            static::UserRegisterView => "user-register.html.twig",
-            static::LoginView => "login.html.twig",
-            static::UserUpgradeView => "user-upgrade.html.twig",
+            static::ContactView        => 'contact.html.twig',
+            static::HomeView           => 'home.html.twig',
+            static::PostsView          => 'posts.html.twig',
+            static::OnePostView        => 'one-post.html.twig',
+            static::UserRegisterView   => "user-register.html.twig",
+            static::LoginView          => "login.html.twig",
+            static::UserUpgradeView    => "user-upgrade.html.twig",
             static::ValidationComments => 'validation.html.twig',
         };
-    } //end getTemplate()
+    }
 }

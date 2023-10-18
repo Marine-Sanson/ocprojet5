@@ -109,7 +109,7 @@ class ContactController extends AbstractController
             ];
         }
 
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
             $contact = new ContactModel($name, $firstName, $email, $content, $currentDate);
             $validateContact = $this->validContactForm($contact);
@@ -127,7 +127,7 @@ class ContactController extends AbstractController
                 ];
             }
 
-            if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+            if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                 $template = RouteMapper::HomeView->getTemplate();
                 $data = [
                     MessageMapper::Message->getMessageLabel() => MessageMapper::MailValid->getMessage()
