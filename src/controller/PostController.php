@@ -182,7 +182,7 @@ class PostController extends AbstractController
             $summary = $this->sanitize($summary);
             $content = $this->sanitize($content);
 
-            $isPostCreated = $this->_postService->createNewPost($userId, $title, $summary, $content);
+            $isPostCreated = $this->_postService->createNewPost((int) $userId, $title, $summary, $content);
             if (!$isPostCreated) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
