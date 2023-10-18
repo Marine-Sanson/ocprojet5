@@ -183,11 +183,11 @@ class Router
                     switch ($post["action"]) {
 
                         case CommentService::ACTION:
-                            $postController->addComment($routeParam, $post);
+                            $postController->addComment($route["param"], $post);
                             break;
             
                         case PostController::MODIFY:
-                            $postController->modifyPost($routeParam, $post);
+                            $postController->modifyPost($route["param"], $post);
                             break;
             
                         default :
