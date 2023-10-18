@@ -94,14 +94,14 @@ class ContactController extends AbstractController
      * 
      * @return void
      */
-    public function manageContact(string $name, string $firstName, string $email, string $content): void
+    public function manageContact(array $post): void
     {
-        $post = [
-            "name" => $name,
-            "firstName" => $firstName,
-            "email" => $email,
-            "content" => $content
-        ];
+        
+        $name = $post["name"];
+        $firstName = $post["firstName"];
+        $email = $post["email"];
+        $content = $post["content"];
+    
         if (!$this->isValid($post)) {
             $template = RouteMapper::ContactView->getTemplate();
             $data = [

@@ -103,9 +103,13 @@ class Router
     public function route(): void
     {
         $route = $this->parseRoute();
-        if(isset($_POST["action"])) {
-            $postAction = $_POST["action"];
+        if (isset($_POST)) {
+            $post = $this->postToArray($_POST);
         }
+        if(isset($post["action"])) {
+            $postAction = $post["action"];
+        }
+
         switch ($route["route"]) {
 
             case HomeController::URL:
@@ -117,43 +121,21 @@ class Router
                 $postController = PostController::getInstance($this->_templateEngine);
                 if (isset($route["param"]) === false) {
                     if (isset($postAction) && $postAction === PostController::ACTION) {
-                        $postController->addPost(
-                            (int) $_POST["userId"],
-                            $_POST["title"],
-                            $_POST["summary"],
-                            $_POST["content"]
-                        );
+                        $postController->addPost($post);
                         break;
                     }
                     $postController->showPosts();
                     break;
                 }
                 if (isset($route["param"])) {
-                    if (isset($postAction) && $postAction === CommentService::ACTION) {
-                        $postController->addComment(
-                            $route["param"],
-                            (int) $_POST["postId"],
-                            $_POST["username"],
-                            $_POST["content"]
-                        );
-                        break;
-                    }
-                    if (isset($postAction) && $postAction === PostController::MODIFY) {
-                        $postController->modifyPost(
-                            $route["param"],
-                            (int) $_POST["userId"],
-                            $_POST["username"],
-                            (int) $_POST["postId"],
-                            $_POST["title"],
-                            $_POST["summary"],
-                            $_POST["content"]
-                        );
+                    if (isset($postAction)) {
+                        $this->onePostAction($route["param"], $postController, $post);
                         break;
                     }
                     $postController->showPostDetails($route["param"]);
                     break;
                 }
-                $this->_templateEngine->display('404.html.twig', []);
+                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
 
             case UserController::URL:
@@ -162,25 +144,17 @@ class Router
                     $userController->displayLoginPage();
                     break;
                 }
-                if ($postAction === UserController::CONNECT) {
-                    $userController->login($_POST["username"], $_POST["password"]);
+                if (isset($postAction)) {
+                    $this->connectAction($userController, $post);
                     break;
                 }
-                if ($postAction === UserController::DISCONNECT) {
-                    $userController->logout();
-                    break;
-                }
-                $this->_templateEngine->display('404.html.twig', []);
+                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
 
             case UserUpgradeController::URL:
                 $userUpgradeController = UserUpgradeController::getInstance($this->_templateEngine);
                 if (isset($postAction) && $postAction === UserUpgradeController::ACTION) {
-                    $userUpgradeController->manageUserUpgrade(
-                        (int) $_POST['userId'],
-                        $_POST['role'],
-                        (int) $_POST['isAllowed']
-                    );
+                    $userUpgradeController->manageUserUpgrade($post);
                     break;
                 }
                 $userUpgradeController->displayUserUpgradePage();
@@ -188,28 +162,18 @@ class Router
 
             case CommentController::URL:
                 $commentController = CommentController::getInstance($this->_templateEngine);
-                if (isset($postAction) && ($postAction === CommentController::VALIDATION)) {
-                    $commentController->validateComment((int) $_POST["commentId"]);
+                if (isset($postAction)) {
+                    $this->commentAction($commentController, $post);
                     break;
                 }
-                if (isset($postAction) && ($postAction === CommentController::DELETE)) {
-                    $commentController->deleteComment((int) $_POST["commentId"]);
-                    break;
-                }
+
                 $commentController->displayValidationPage();
                 break;
 
             case UserRegisterController::URL:
                 $userRegisterController = UserRegisterController::getInstance($this->_templateEngine);
                 if (isset($postAction) && $postAction === UserRegisterController::ACTION) {
-                    $userRegisterController->manageUserRegister(
-                        $_POST["firstName"],
-                        $_POST["name"],
-                        $_POST["username"],
-                        $_POST["email"],
-                        $_POST["password"],
-                        $_POST["passwordVerify"]
-                    );
+                    $userRegisterController->manageUserRegister($post);
                     break;
                 }
                 $userRegisterController->displayUserRegisterPage();
@@ -218,20 +182,76 @@ class Router
             case ContactController::URL: 
                 $contactController = ContactController::getInstance($this->_templateEngine, ContactService::getInstance());
                 if (isset($postAction) && $postAction === ContactController::ACTION) {
-                    $contactController->manageContact(
-                        $_POST["name"], 
-                        $_POST["firstName"], 
-                        $_POST["email"], 
-                        $_POST["content"]
-                    );
+                    $contactController->manageContact($post);
                     break;
                 }
                 $contactController->displayContactPage();
                 break;
 
             default:
-                $this->_templateEngine->display('404.html.twig', []);
+                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
     }
+
+    private function postToArray(array $superPost): array
+    {
+        $post = [];
+        return array_replace($post, $superPost);
+    }
+
+    private function commentAction(CommentController $commentController, array $post): void
+    {
+        switch ($post["action"]) {
+
+            case CommentController::VALIDATION:
+                $commentController->validateComment((int) $post["commentId"]);
+                break;
+
+            case CommentController::DELETE:
+                $commentController->deleteComment((int) $post["commentId"]);
+                break;
+
+            default :
+                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
+                break;
+        }
+    }
+
+    private function connectAction(UserController $userController, array $post): void
+    {
+        switch ($post["action"]) {
+
+            case UserController::CONNECT:
+                $userController->login($post["username"], $post["password"]);
+                break;
+
+            case UserController::DISCONNECT:
+                $userController->logout();
+                break;
+
+            default :
+                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
+                break;
+        }
+    }
+
+    private function onePostAction(int $routeParam, PostController $postController, array $post): void
+    {
+        switch ($post["action"]) {
+
+            case CommentService::ACTION:
+                $postController->addComment($routeParam, $post);
+                break;
+
+            case PostController::MODIFY:
+                $postController->modifyPost($routeParam, $post);
+                break;
+
+            default :
+                $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
+                break;
+        }
+    }
+
 }

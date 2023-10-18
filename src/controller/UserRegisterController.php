@@ -106,24 +106,16 @@ class UserRegisterController extends AbstractController
      * 
      * @return void
      */
-    public function manageUserRegister(
-        string $firstName,
-        string $name,
-        string $username,
-        string $email,
-        string $password,
-        string $passwordVerify
-    ): void {
+    public function manageUserRegister(array $post): void {
         $template = RouteMapper::UserRegisterView->getTemplate();
-        $post = [
-           "firstName"      => $firstName,
-           "name"           => $name,
-           "username"       => $username,
-           "email"          => $email,
-           "password"       => $password,
-           "passwordVerify" => $passwordVerify
-           ,
-        ];
+
+        $firstName = $_POST["firstName"];
+        $name = $_POST["name"];
+        $username = $_POST["username"];
+        $email = $_POST["email"];
+        $password  = $_POST["password"];
+        $passwordVerify = $_POST["passwordVerify"];
+
         $data = [];
         if (!$this->isValid($post)) {
             $template = RouteMapper::UserRegisterView->getTemplate();
