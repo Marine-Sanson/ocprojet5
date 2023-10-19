@@ -1,9 +1,9 @@
 <?php
 /**
  * UserController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -22,7 +22,7 @@ use App\service\UserService;
 
 /**
  * UserController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -31,9 +31,10 @@ use App\service\UserService;
  */
 class UserController extends AbstractController
 {
+    
     /**
      * Summary of _instance
-     * 
+     *
      * @var UserController
      */
     private static $instance;
@@ -42,10 +43,11 @@ class UserController extends AbstractController
     const CONNECT = "connection";
     const DISCONNECT = "disconnect";
 
+
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
-     * 
+     *
      * @param \App\service\TemplateInterface $template        TemplateInterface
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
@@ -54,47 +56,54 @@ class UserController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
-        ) { }
+    ) { }
+    // end of __construct()
+
 
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
+      *
       * @param \App\service\TemplateInterface $template template engine
-      * 
+      *
       * @return \App\controller\UserController
       */
     public static function getInstance(TemplateInterface $template): UserController
-    { 
+    {
+
         if (self::$instance === null) {
-            self::$instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());  
+            self::$instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());
         }
     
         return self::$instance;
+
     }
 
     /**
      * Summary of displayLoginPage
-     * 
+     *
      * @return void
      */
     public function displayLoginPage(): void
     {
+
         $template = RouteMapper::LoginView->getTemplate();
 
         $this->_template->display($template, []);
+
     }
 
     /**
      * Summary of login
-     * 
+     *
      * @param string $username username
      * @param string $password password
-     * 
+     *
      * @return void
      */
     public function login(string $username, string $password): void
     {
+
         $template = RouteMapper::LoginView->getTemplate();
         $data = [];
         $username = $this->sanitize($username);
@@ -110,20 +119,21 @@ class UserController extends AbstractController
             $data["session"] = $this->_sessionService->getSession();
     
             $template = RouteMapper::HomeView->getTemplate();
-            $data[MessageMapper::Message->getMessageLabel()] = $user->getFirstName() .
-            MessageMapper::LoginSuccess->getMessage();
+            $data[MessageMapper::Message->getMessageLabel()] = $user->getFirstName().MessageMapper::LoginSuccess->getMessage();
         }
 
         $this->_template->display($template, $data);
+
     }
 
     /**
      * Summary of logout
-     * 
+     *
      * @return void
      */
     public function logout(): void
     {
+
         $template = RouteMapper::HomeView->getTemplate();
         if ($this->_sessionService->isUserConnected()) {
 
@@ -135,5 +145,7 @@ class UserController extends AbstractController
         $data["session"] = $this->_sessionService->getSession();
 
         $this->_template->display($template, $data);
+
     }
+
 }

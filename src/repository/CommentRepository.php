@@ -40,9 +40,9 @@ class CommentRepository
     /**
      * Summary of __construct
      * 
-     * @param \App\service\DatabaseService $_db DatabaseService
+     * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $_db) { }
+    private function __construct(private DatabaseService $db) { }
 
 
     /**
@@ -79,9 +79,9 @@ class CommentRepository
             'last_update_date' => $newComment->getLastUpdateDate()->format('Y-m-d H:i:s'),
             'is_validate' => 0
         ];
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
-        $lastInsertId = $this->_db->execute($newReq, null);
+        $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 
@@ -101,7 +101,7 @@ class CommentRepository
             'id' => $postId,
             'is_validate' => 1
         ];
-        return $this->_db->execute($request, $parameters);
+        return $this->db->execute($request, $parameters);
     }
 
     /**
@@ -127,7 +127,7 @@ class CommentRepository
         $parameters = [
             'is_validate' => 0
         ];
-        return $this->_db->execute($request, $parameters);
+        return $this->db->execute($request, $parameters);
     }
 
     /**
@@ -145,7 +145,7 @@ class CommentRepository
             'is_validate' => 1
         ];
 
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
     }
 
     /**
@@ -162,6 +162,6 @@ class CommentRepository
             'id' => $commentId
         ];
 
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
     }
 }

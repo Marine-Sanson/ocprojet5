@@ -32,9 +32,9 @@ class ContactRepository
     /**
      * Summary of _db
      * 
-     * @var DatabaseService $_db connection between PHP and a database server
+     * @var DatabaseService $db connection between PHP and a database server
      */
-    private DatabaseService $_db;
+    private DatabaseService $db;
 
     /**
      * Summary of insertContact
@@ -52,7 +52,7 @@ class ContactRepository
         $content = $newContact->getContent();
         $creationDate = $newContact->getCreationDate();
 
-        $this->_db = DatabaseService::getInstance();
+        $this->db = DatabaseService::getInstance();
         $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) 
                     VALUES (:first_name, :name, :email, :content, :creationDate)';
         $parameters = [
@@ -62,9 +62,9 @@ class ContactRepository
             'content'      => $content,
             'creationDate' => $creationDate->format('Y-m-d H:i:s')
         ];
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
-        $lastInsertId = $this->_db->execute($newReq, null);
+        $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 }

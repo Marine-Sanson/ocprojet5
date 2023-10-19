@@ -1,9 +1,9 @@
 <?php
 /**
  * HomeController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,7 +20,7 @@ use App\service\TemplateInterface;
 
 /**
  * HomeController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -33,14 +33,14 @@ class HomeController
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var HomeController
      */
     private static $instance;
 
     /**
      * Summary of URL
-     * 
+     *
      * @var string
      */
     const URL = "home";
@@ -48,30 +48,34 @@ class HomeController
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
-     * 
+     *
      * @param \App\service\TemplateInterface $template     TemplateInterface
      * @param \App\service\HomeService       $_homeService HomeService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly HomeService $_homeService
-        ) { }
+    ) { }
+    // end of __construct()
+
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @param \App\service\TemplateInterface $template template engine
-     * 
+     *
      * @return \App\controller\HomeController
      */
     public static function getInstance(TemplateInterface $template): HomeController
     {
+
         if (self::$instance === null) {
-            self::$instance = new HomeController($template, HomeService::getInstance());  
+            self::$instance = new HomeController($template, HomeService::getInstance());
         }
     
         return self::$instance;
+
     }
 
     /**
@@ -81,6 +85,7 @@ class HomeController
      */
     public function displayHome(): void
     {
+
         $lastPosts = $this->_homeService->getLastPosts();
 
         $this->_template->display(
@@ -88,5 +93,7 @@ class HomeController
                 "lastPosts" => $lastPosts
             ]
         );
+
     }
+
 }

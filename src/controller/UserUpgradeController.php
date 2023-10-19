@@ -1,9 +1,9 @@
 <?php
 /**
  * UserUpgradeController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -23,7 +23,7 @@ use App\service\UserService;
 
 /**
  * UserUpgradeController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -32,9 +32,10 @@ use App\service\UserService;
  */
 class UserUpgradeController extends AbstractController
 {
+
     /**
      * Summary of _instance
-     * 
+     *
      * @var UserUpgradeController
      */
     private static $instance;
@@ -42,10 +43,11 @@ class UserUpgradeController extends AbstractController
     const URL = "roles";
     const ACTION = "roles";
 
+
     /**
      * Summary of __construct
      * call an instance of TemplateInterface
-     * 
+     *
      * @param \App\service\TemplateInterface $template        TemplateInterface
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
@@ -54,32 +56,40 @@ class UserUpgradeController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
-        ) { }
+    ) { }
+    // end of __construct()
+
 
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
+      *
       * @param \App\service\TemplateInterface $template template engine
-      * 
+      *
       * @return \App\controller\UserUpgradeController
       */
     public static function getInstance(TemplateInterface $template): UserUpgradeController
-    { 
+    {
+
         if (self::$instance === null) {
-            self::$instance = new UserUpgradeController($template, UserService::getInstance(), SessionService::getInstance());  
+            self::$instance = new UserUpgradeController(
+                $template, UserService::getInstance(),
+                SessionService::getInstance()
+            );
         }
     
         return self::$instance;
+
     }
 
     /**
      * Summary of displayUserUpgradePage
-     * 
+     *
      * @return void
      */
     public function displayUserUpgradePage(): void
     {
+
         $data = [];
         $role = $this->_sessionService->getUser()->getRole();
 
@@ -95,19 +105,21 @@ class UserUpgradeController extends AbstractController
         }
 
         $this->_template->display($template, $data);
+        
     }
 
     /**
      * Summary of manageUserUpgrade
-     * 
+     *
      * @param int    $userId    id of the user
      * @param string $role      role of the user
      * @param string $isAllowed 1 if the user is allowed
-     * 
+     *
      * @return void
      */
     public function manageUserUpgrade(array $post): void
     {
+
         $template = RouteMapper::UserUpgradeView->getTemplate();
         $data = [];
         $this->_userService->modifyRole($$post['userId'], $post['role'], $post['isAllowed']);
@@ -116,5 +128,7 @@ class UserUpgradeController extends AbstractController
         $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::UpdateSuccess->getMessage();
 
         $this->_template->display($template, $data);
+
     }
+
 }

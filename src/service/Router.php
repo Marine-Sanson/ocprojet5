@@ -48,10 +48,7 @@ class Router
      *
      * @param \App\service\TwigService $_templateEngine TwigService
      */
-    private function __construct(private TwigService $_templateEngine)
-    {
-
-    }
+    private function __construct(private TwigService $_templateEngine) { }
 
     /**
      * Summary of getInstance
@@ -63,7 +60,7 @@ class Router
     public static function getInstance(): Router
     {
         if (self::$instance === null) {
-            self::$instance = new Router(TwigService::getInstance());  
+            self::$instance = new Router(TwigService::getInstance());
         }
     
         return self::$instance;
@@ -143,6 +140,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
+        //end switch case
     }
 
     /**
@@ -206,6 +204,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
+        //end switch case
     }
 
     /**
@@ -246,6 +245,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
+        //end switch case
     }
 
     /**
@@ -257,16 +257,16 @@ class Router
      */
     private function userUpgradeControllerUrl(array $post): void
     {
-        $userUpgradeController = UserUpgradeController::getInstance($this->_templateEngine);
+        $userUpgradeCtrl = UserUpgradeController::getInstance($this->_templateEngine);
 
         switch ($post) {
 
             case (null):
-                $userUpgradeController->displayUserUpgradePage();
+                $userUpgradeCtrl->displayUserUpgradePage();
                 break;
 
             case (isset($post["action"]) && $post["action"] === UserUpgradeController::ACTION):
-                $userUpgradeController->manageUserUpgrade($post);
+                $userUpgradeCtrl->manageUserUpgrade($post);
                 break;
 
             default:
@@ -312,6 +312,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
+        //end switch case
     }
 
     /**
@@ -323,16 +324,16 @@ class Router
      */
     private function userRegisterControllerUrl(array $post): void
     {
-        $userRegisterController = UserRegisterController::getInstance($this->_templateEngine);
+        $userRegisterCtrl = UserRegisterController::getInstance($this->_templateEngine);
 
         switch ($post) {
 
             case (null):
-                $userRegisterController->displayUserRegisterPage();
+                $userRegisterCtrl->displayUserRegisterPage();
                 break;
 
             case (isset($post["action"]) && $post["action"] === UserRegisterController::ACTION):
-                $userRegisterController->manageUserRegister($post);
+                $userRegisterCtrl->manageUserRegister($post);
                 break;
 
             default:

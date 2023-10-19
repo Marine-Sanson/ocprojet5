@@ -38,7 +38,7 @@ class PostService
 {
     /**
      * Summary of _instance
-     * 
+     *
      * @var PostService
      */
     private static $instance;
@@ -46,7 +46,7 @@ class PostService
 
     /**
      * Summary of __construct
-     * 
+     *
      * @param \App\mapper\PostsMapper           $_postsMapper       PostsMapper
      * @param \App\mapper\PostDetailsMapper     $_postDetailsMapper PostDetailsMapper
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
@@ -60,16 +60,18 @@ class PostService
         private readonly PostRepository $_postRepository,
         private readonly CommentService $_commentService
     ) { }
+    // end of __construct()
 
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\service\PostService
      */
     public static function getInstance(): PostService
-    { 
+    {
+
         if (self::$instance === null) {
             self::$instance = new PostService(
                 PostsMapper::getInstance(),
@@ -81,6 +83,7 @@ class PostService
         }
 
         return self::$instance;
+        
     }
 
     /**
@@ -90,9 +93,11 @@ class PostService
      */
     public function getPosts(): array
     {
+
         $results = $this->_postRepository->getAllPostsWithAuthors();
 
         return $this->_postsMapper->transformToListOfPostModel($results);
+
     }
 
     /**
@@ -104,7 +109,7 @@ class PostService
      */
     public function getPostDetails(int $postId): PostDetailsModel
     {
-        $post = $this->_getPostData($postId);
+        $post = $this->getPostData($postId);
         $comments = $this->_commentService->getpostComments($postId);
  
         return $this->_postDetailsMapper->getPostDetailsModel($post, $comments);
@@ -117,9 +122,11 @@ class PostService
      *
      * @return array
      */
-    private function _getPostData(int $postId): array
+    private function getPostData(int $postId): array
     {
+
         return $this->_postRepository->getOnePostData($postId);
+
     }
 
     /**
@@ -131,12 +138,14 @@ class PostService
      */
     public function createNewComment(CommentEntity $newComment): bool
     {
+
         $id = $this->_commentRepository->insertComment($newComment);
 
         if (isset($id) === false) {
             return false;
         }
         return true;
+
     }
 
     /**
@@ -151,6 +160,7 @@ class PostService
      */
     public function createNewPost(int $userId, string $title, string $summary, string $content): bool
     {
+
         $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
         $newPost = new NewPostModel($userId, $title, $summary, $content, $currentDate);
@@ -162,6 +172,7 @@ class PostService
         }
 
         return false;
+
     }
 
     /**
@@ -177,9 +188,11 @@ class PostService
      */
     public function updateAPost(int $postId, int $userId, string $title, string $summary, string $content): void
     {
+        
         $lastUpdateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
         $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);
         $this->_postRepository->updatePost($updatePost);
+
     }
 
 }

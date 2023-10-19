@@ -56,6 +56,8 @@ class PostController extends AbstractController
         private readonly PostService $_postService, 
         private readonly CommentService $_commentService
     ) { }
+    // end of __construct()
+
 
     /**
      * Summary of getInstance
@@ -66,7 +68,7 @@ class PostController extends AbstractController
      * @return \App\controller\PostController
      */
     public static function getInstance(TemplateInterface $template): PostController
-    { 
+    {
         if (self::$instance === null) {
             self::$instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
         }

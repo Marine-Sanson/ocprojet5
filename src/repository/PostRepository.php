@@ -40,9 +40,9 @@ class PostRepository
     /**
      * Summary of __construct
      * 
-     * @param \App\service\DatabaseService $_db DatabaseService
+     * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $_db) { }
+    private function __construct(private DatabaseService $db) { }
 
 
     /**
@@ -93,9 +93,9 @@ class PostRepository
             'creation_date' => $newPostModel->getCreationDate()->format('Y-m-d H:i:s'),
             'last_update_date' => $newPostModel->getCreationDate()->format('Y-m-d H:i:s')
         ];
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
-        $lastInsertId = $this->_db->execute($newReq, null);
+        $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 
@@ -121,7 +121,7 @@ class PostRepository
             'content' => $updatePost->getContent(),
             'last_update_date' => $updatePost->getLastUpdateDate()->format('Y-m-d H:i:s')
         ];
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
     }
 
     /**
@@ -135,7 +135,7 @@ class PostRepository
                     JOIN users ON posts.id_user = users.id 
                     ORDER BY last_update_date DESC LIMIT 12';
 
-        return $this->_db->execute($request, null);
+        return $this->db->execute($request, null);
     }
 
     /**
@@ -150,7 +150,7 @@ class PostRepository
                     JOIN users ON posts.id_user = users.id 
                     ORDER BY last_update_date DESC';
 
-        return $this->_db->execute($request, null);
+        return $this->db->execute($request, null);
     }
 
     /**
@@ -166,7 +166,7 @@ class PostRepository
         $parameters = [
             'id' => $id
         ];
-        $result = $this->_db->execute($request, $parameters);
+        $result = $this->db->execute($request, $parameters);
 
         return $result[0];
     }
@@ -190,6 +190,6 @@ class PostRepository
         FROM posts 
         JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
         $parameters = [];
-        return $this->_db->execute($request, $parameters);
+        return $this->db->execute($request, $parameters);
     }
 }

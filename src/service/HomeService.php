@@ -1,9 +1,9 @@
 <?php
 /**
  * HomeService File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use App\repository\PostRepository;
 
 /**
  * HomeService Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -28,9 +28,10 @@ use App\repository\PostRepository;
  */
 class HomeService
 {
+
     /**
      * Summary of _instance
-     * 
+     *
      * @var HomeService
      */
     private static $instance;
@@ -38,7 +39,7 @@ class HomeService
     
     /**
      * Summary of __construct
-     * 
+     *
      * @param \App\repository\PostRepository $_postRepository PostRepository
      * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
@@ -46,18 +47,20 @@ class HomeService
         private readonly PostRepository $_postRepository,
         private readonly PostsMapper $_postsMapper
     ) { }
+    // end of __construct()
 
 
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
+      *
       * @return \App\service\HomeService
       */
     public static function getInstance(): HomeService
-    { 
+    {
+
         if (self::$instance === null) {
-            self::$instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());  
+            self::$instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());
         }
     
         return self::$instance;
@@ -66,14 +69,16 @@ class HomeService
 
     /**
      * Summary of getLastPosts
-     * 
+     *
      * @return array
      */
     public function getLastPosts(): array
     {
+
         $results = $this->_postRepository->getListOfPosts();
 
         return $this->_postsMapper->transformToListOfPostModel($results);
 
     }
+
 }
