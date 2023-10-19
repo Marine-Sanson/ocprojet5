@@ -46,10 +46,9 @@ class HomeService
     private function __construct(
         private readonly PostRepository $_postRepository,
         private readonly PostsMapper $_postsMapper
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -67,7 +66,7 @@ class HomeService
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of getLastPosts

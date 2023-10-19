@@ -53,7 +53,7 @@ class Router
     private function __construct(private TwigService $_templateEngine)
     {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -72,7 +72,7 @@ class Router
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of parseRoute
@@ -151,7 +151,7 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }//end of switch
+        }//end switch
 
     }
 
@@ -196,10 +196,8 @@ class Router
 
             case (isset($route["param"])):
 
-                if (isset($post["action"])) {
-
+                if (isset($post["action"]) === true) {
                     switch ($post["action"]) {
-
                         case CommentService::ACTION:
                             $postController->addComment($route["param"], $post);
                             break;
@@ -212,7 +210,6 @@ class Router
                             $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                             break;
                     }
-
                 }
 
                 $postController->showPostDetails($route["param"]);
@@ -221,7 +218,7 @@ class Router
             default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }//end of switch
+        }//end switch
 
     }
 
@@ -262,7 +259,7 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }//end of switch
+        }//end switch
 
     }
 
@@ -313,7 +310,6 @@ class Router
             case (isset($post["action"])):
 
                 switch ($post["action"]) {
-
                     case CommentController::VALIDATION:
                         $commentController->validateComment((int) $post["commentId"]);
                         break;
@@ -330,7 +326,7 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }//end of switch
+        }//end switch
 
     }
 

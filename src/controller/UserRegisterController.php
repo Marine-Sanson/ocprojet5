@@ -49,7 +49,7 @@ class UserRegisterController extends AbstractController
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface   $template             TemplateInterface
+     * @param \App\service\TemplateInterface   $_template            TemplateInterface
      * @param \App\service\UserService         $_userService         UserService
      * @param \App\service\SessionService      $_sessionService      SessionService
      * @param \App\service\UserRegisterService $_userRegisterService UserRegisterService
@@ -59,10 +59,9 @@ class UserRegisterController extends AbstractController
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService,
         private readonly UserRegisterService $_userRegisterService
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
      /**
       * Summary of getInstance
@@ -85,7 +84,7 @@ class UserRegisterController extends AbstractController
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of displayUserRegisterPage
@@ -104,12 +103,7 @@ class UserRegisterController extends AbstractController
     /**
      * Summary of manageUserRegister
      *
-     * @param string $firstName      firstName
-     * @param string $name           name
-     * @param string $username       username
-     * @param string $email          email
-     * @param string $password       password
-     * @param string $passwordVerify passwordVerify
+     * @param array $post with firstName name, username, email, password and passwordVerify
      *
      * @return void
      */
@@ -177,9 +171,7 @@ class UserRegisterController extends AbstractController
                         MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
                     ];
                 }
-
             }//end if
-
         }//end if
 
         $this->_template->display($template, $data);

@@ -60,10 +60,9 @@ class PostService
         private readonly CommentRepository $_commentRepository,
         private readonly PostRepository $_postRepository,
         private readonly CommentService $_commentService
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -87,7 +86,7 @@ class PostService
 
         return self::$instance;
         
-    }
+    }//end getInstance()
 
     /**
      * Summary of getPosts

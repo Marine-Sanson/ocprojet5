@@ -45,10 +45,9 @@ class CommentModel
         public string $content,
         public DateTime $lastUpdateDate,
         public bool $is_validate
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
 }

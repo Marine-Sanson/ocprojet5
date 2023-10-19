@@ -53,10 +53,9 @@ class CommentController extends AbstractController
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly CommentService $_commentService
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -76,7 +75,7 @@ class CommentController extends AbstractController
 
         return self::$instance;
 
-    }
+    }//end getInstance()
 
 
     /**
@@ -142,6 +141,7 @@ class CommentController extends AbstractController
         if ($isvalid === false) {
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
+
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $this->_commentService->deleteComments($commentId);
             $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::CommentDeleteSuccess->getMessage();

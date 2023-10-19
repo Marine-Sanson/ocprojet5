@@ -60,7 +60,7 @@ class SessionService implements SessionInterface
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of start
@@ -172,7 +172,7 @@ class SessionService implements SessionInterface
     public function remove(string $key): void
     {
 
-        if ($this->has($key)) {
+        if ($this->has($key) === true) {
             unset($this->session[$key]);
         }
         

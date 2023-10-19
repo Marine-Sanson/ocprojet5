@@ -45,7 +45,7 @@ class CommentRepository
     private function __construct(private DatabaseService $db)
     {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -63,7 +63,7 @@ class CommentRepository
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of insertComment
@@ -90,7 +90,7 @@ class CommentRepository
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
 
-    }
+    }//end insertComment()
 
     /**
      * Summary of getOnePostComments

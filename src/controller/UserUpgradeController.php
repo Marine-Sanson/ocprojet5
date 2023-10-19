@@ -48,7 +48,7 @@ class UserUpgradeController extends AbstractController
      * Summary of __construct
      * call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $_template        TemplateInterface
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
      */
@@ -56,10 +56,9 @@ class UserUpgradeController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
      /**
@@ -82,7 +81,7 @@ class UserUpgradeController extends AbstractController
 
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of displayUserUpgradePage
@@ -113,7 +112,7 @@ class UserUpgradeController extends AbstractController
     /**
      * Summary of manageUserUpgrade
      *
-     * @param array $post    id and role of the user and boolean isallowed, received from the form
+     * @param array $post id and role of the user and boolean isallowed, received from the form
      *
      * @return void
      */

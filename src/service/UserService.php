@@ -60,7 +60,7 @@ class UserService
         private readonly SessionService $_session
     ) {
 
-    }//end of __construct
+    }//end __construct()
 
 
      /**
@@ -82,7 +82,7 @@ class UserService
 
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of connect
@@ -118,7 +118,6 @@ class UserService
      * Summary of getUser
      *
      * @param string $username come from the connection form
-     * @param string $password come from the connection form
      *
      * @return \App\entity\UserEntity | null
      */

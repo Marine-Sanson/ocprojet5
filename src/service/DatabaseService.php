@@ -55,7 +55,7 @@ class DatabaseService
             $_ENV['DB_PASS']
         );
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -72,7 +72,7 @@ class DatabaseService
 
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of execute

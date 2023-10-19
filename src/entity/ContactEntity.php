@@ -42,12 +42,11 @@ class ContactEntity
         private readonly string $name,
         private readonly string $firstName,
         private readonly string $email,
-        private readonly string   $content,
+        private readonly string $content,
         private readonly DateTime $creationDate
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**

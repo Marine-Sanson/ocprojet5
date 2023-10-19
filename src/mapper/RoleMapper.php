@@ -41,6 +41,6 @@ enum RoleMapper: string
             static::Supadmin => 'supadmin',
         };
 
-    }
+    }//end getRole()
 
 }

@@ -53,7 +53,7 @@ class ContactService
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of createContact

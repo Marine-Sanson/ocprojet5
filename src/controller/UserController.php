@@ -48,7 +48,7 @@ class UserController extends AbstractController
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
      */
@@ -56,10 +56,9 @@ class UserController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
      /**
       * Summary of getInstance
@@ -78,7 +77,7 @@ class UserController extends AbstractController
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of displayLoginPage

@@ -46,7 +46,7 @@ class UserRepository
     private function __construct(private DatabaseService $db)
     {
 
-    }//end of __construct()
+    }//end __construct()
 
     
     /**
@@ -63,7 +63,7 @@ class UserRepository
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of insertNewUser

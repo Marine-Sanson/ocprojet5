@@ -51,7 +51,7 @@ class UserMapper
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of transformToUserConnectionModel

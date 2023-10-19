@@ -50,7 +50,7 @@ class CommentService
     private function __construct(private readonly CommentRepository $_commentRepository)
     {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -68,7 +68,7 @@ class CommentService
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of getComments

@@ -48,16 +48,15 @@ class HomeController
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $template     TemplateInterface
+     * @param \App\service\TemplateInterface $_template    TemplateInterface
      * @param \App\service\HomeService       $_homeService HomeService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly HomeService $_homeService
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
     /**
      * Summary of getInstance
@@ -76,7 +75,7 @@ class HomeController
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of displayHome

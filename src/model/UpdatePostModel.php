@@ -45,10 +45,9 @@ class UpdatePostModel
         private string $summary,
         private string $content,
         private readonly DateTime $lastUpdateDate
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**

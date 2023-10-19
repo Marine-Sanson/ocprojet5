@@ -48,10 +48,9 @@ class UserRegisterService
     private function __construct(
         private readonly UserService $_userService,
         private readonly UserRepository $_userRepository
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -68,7 +67,7 @@ class UserRegisterService
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of verifyUsername
@@ -137,7 +136,7 @@ class UserRegisterService
     /**
      * Summary of hashPassword - hash the user password before insert it to the db
      *
-     * @param \App\model\UserRegisterModel $register UserRegisterModel
+     * @param string $password password
      *
      * @return \App\model\UserRegisterModel
      */

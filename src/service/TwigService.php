@@ -62,7 +62,7 @@ class TwigService implements TemplateInterface
         $twig->addGlobal("session", SessionService::getInstance()->getSession());
         $this->twigEnvironment = $twig;
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -80,13 +80,13 @@ class TwigService implements TemplateInterface
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of display
      *
      * @param string $templateName name of the template
-     * @param array $parameters    parameters
+     * @param array  $parameters   parameters
      *
      * @return void
      */

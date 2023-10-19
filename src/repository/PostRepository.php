@@ -46,7 +46,7 @@ class PostRepository
     private function __construct(private DatabaseService $db)
     {
 
-    }//end of __construct()
+    }//end __construct()
 
 
     /**
@@ -64,7 +64,7 @@ class PostRepository
     
         return self::$instance;
 
-    }
+    }//end getInstance()
     
     /**
      * Summary of insertNewPost

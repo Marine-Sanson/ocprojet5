@@ -48,7 +48,7 @@ class PostController extends AbstractController
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\PostService       $_postService    PostService
      * @param \App\service\CommentService    $_commentService CommentService
      */
@@ -56,10 +56,9 @@ class PostController extends AbstractController
         private readonly TemplateInterface $_template, 
         private readonly PostService $_postService, 
         private readonly CommentService $_commentService
-    )
-    {
+    ) {
 
-    }//end of __construct()
+    }//end __construct()
 
     /**
      * Summary of getInstance
@@ -78,7 +77,7 @@ class PostController extends AbstractController
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of showPosts
@@ -131,10 +130,8 @@ class PostController extends AbstractController
     /**
      * Summary of addComment
      *
-     * @param int    $routeParam routeParam
-     * @param int    $postId     postId
-     * @param string $username   username
-     * @param string $content    content
+     * @param int   $routeParam routeParam
+     * @param array $post       with postId, username and content
      *
      * @return void
      */
@@ -177,10 +174,7 @@ class PostController extends AbstractController
     /**
      * Summary of addPost
      *
-     * @param int    $userId  userId
-     * @param string $title   title
-     * @param string $summary summary
-     * @param string $content content
+     * @param array $post with userId, title, summary and content
      *
      * @return void
      */
@@ -206,7 +200,6 @@ class PostController extends AbstractController
                     MessageMapper::Message->getMessageLabel() => MessageMapper::NewPostSuccess->getMessage()
                 ];
             }
-
         }
 
         $posts = $this->_postService->getPosts();
@@ -219,13 +212,8 @@ class PostController extends AbstractController
     /**
      * Summary of modifyPost
      *
-     * @param int    $routeParam routeParam
-     * @param int    $userId     userId
-     * @param string $username   username
-     * @param int    $postId     postId
-     * @param string $title      title
-     * @param string $summary    summary
-     * @param string $content    content
+     * @param int   $routeParam routeParam
+     * @param array $post       with userId, username, postId, title, summary and content
      *
      * @return void
      */

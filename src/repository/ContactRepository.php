@@ -68,5 +68,6 @@ class ContactRepository
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
 
-    }
+    }//end insertContact()
+
 }

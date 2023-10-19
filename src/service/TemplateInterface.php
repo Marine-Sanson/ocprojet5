@@ -31,10 +31,10 @@ interface TemplateInterface
      * Summary of display
      *
      * @param string $templateName name of the template
-     * @param array $parameters    parameters
+     * @param array  $parameters   parameters
      *
      * @return void
      */
     public function display(string $templateName, array $parameters): void;
     
-}
+}//end interface

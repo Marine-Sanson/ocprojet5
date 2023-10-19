@@ -49,24 +49,24 @@ class ContactController extends AbstractController
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\ContactService    $_contactService ContactService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly ContactService $_contactService
-    )
-    {
+    ) {
 
-    }//end of __construct()
-    
+    }//end __construct()
+
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     *
+     * 
      * @param \App\service\TemplateInterface $template template engine
-     *
+     * @param \App\service\ContactService $contactService ContactService
+     * 
      * @return \App\controller\ContactController
      */
     public static function getInstance(TemplateInterface $template, ContactService $contactService): ContactController
@@ -78,7 +78,7 @@ class ContactController extends AbstractController
     
         return self::$instance;
 
-    }
+    }//end getInstance()
 
     /**
      * Summary of displayContactPage
@@ -95,10 +95,7 @@ class ContactController extends AbstractController
     /**
      * Summary of manageContact
      *
-     * @param string $name      name
-     * @param string $firstName firstName
-     * @param string $email     email
-     * @param string $content   content
+     * @param array $post with name, firstName, email and content
      *
      * @return void
      */
