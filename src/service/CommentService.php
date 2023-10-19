@@ -1,9 +1,9 @@
 <?php
 /**
  * CommentService File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -22,7 +22,7 @@ use DateTime;
 
 /**
  * CommentService Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -32,49 +32,43 @@ use DateTime;
 class CommentService
 {
     /**
-     * Summary of _postService
-     * 
-     * @var CommentRepository
-     */
-    private CommentRepository $_commentRepository;
-
-    /**
      * Summary of _instance
-     * 
+     *
      * @var CommentService
      */
-    private static $_instance;
+    private static $instance;
     
     const ACTION = "addComment";
 
     /**
      * Summary of __construct
+     *
+     * @param \App\repository\CommentRepository $_commentRepository CommentRepository
      */
-    private function __construct()
-    {
-        $this->_commentRepository = CommentRepository::getInstance();
-    }
+    private function __construct(private readonly CommentRepository $_commentRepository) { }
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\service\CommentService
      */
     public static function getInstance(): CommentService
     { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new CommentService();
+
+        if (self::$instance === null) {
+            self::$instance = new CommentService(CommentRepository::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
      * Summary of getComments
-     * 
+     *
      * @param mixed $postId id of the post
-     * 
+     *
      * @return array
      */
     public function getpostComments(int $postId): array
@@ -84,90 +78,101 @@ class CommentService
 
     /**
      * Summary of manageComment
-     * 
+     *
      * @param string $username username
      * @param int    $postId   postId
      * @param string $content  content
-     * 
+     *
      * @return \App\entity\CommentEntity
      */
     public function manageComment(string $username, int $postId, string $content): CommentEntity
     {
+
             $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
             $userService = UserService::getInstance();
             $userId = $userService->getUserId($username);
             
             return new CommentEntity(null, $postId, $userId, $content, $currentDate, $currentDate, false);
+
     }
 
     /**
      * Summary of createNewComment
-     * 
+     *
      * @param \App\entity\CommentEntity $validateComment CommentEntity after validation
-     * 
+     *
      * @return array
      */
     public function createNewComment(CommentEntity $validateComment): array
     {
+
         $createNewComment = $this->_commentRepository->insertComment($validateComment);
         if ($createNewComment) {
             $data = [
                 MessageMapper::Message->getMessageLabel() => MessageMapper::CommentCreated->getMessage()
             ];
-        } else {
+        }
+        if (!$createNewComment) {
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
-    
+
         return $data;
+
     }
 
     /**
      * Summary of getPendingComments
-     * 
+     *
      * @return array
      */
     public function getPendingComments(): array
     {
+
         return $this->_commentRepository->getPendingComments();
+
     }
 
     /**
      * Summary of validateComments
-     * 
+     *
      * @param int $commentId id of the comment
-     * 
+     *
      * @return void
      */
     public function validateComments(int $commentId): void
     {
-        $this->_commentRepository->updateCommentValidation($commentId);        
+
+        $this->_commentRepository->updateCommentValidation($commentId);
+
     }
 
     /**
      * Summary of deleteComments
-     * 
+     *
      * @param int $commentId id of the comment
-     * 
+     *
      * @return void
      */
     public function deleteComments(int $commentId): void
     {
-        $this->_commentRepository->deleteComment($commentId);        
+
+        $this->_commentRepository->deleteComment($commentId);
+
     }
 
-    
     /**
      * Summary of validCommentId
-     * 
+     *
      * @param mixed $commentId commentId
-     * 
+     *
      * @return bool
      */
     public function validCommentId($commentId): bool
     {
+
         $comments = $this->getPendingComments();
         $pendingCommentsIds = [];
         foreach ($comments as $comment) {
@@ -179,5 +184,7 @@ class CommentService
             return true;
         }
         return false;
+
     }
+
 }

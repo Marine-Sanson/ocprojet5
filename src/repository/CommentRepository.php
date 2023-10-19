@@ -28,27 +28,22 @@ use App\service\DatabaseService;
  */
 class CommentRepository
 {
-    /**
-     * Summary of _db
-     * 
-     * @var DatabaseService $_db connection between PHP and a database server
-     */
-    private DatabaseService $_db;
 
     /**
      * Summary of _instance
      * 
      * @var CommentRepository
      */
-    private static $_instance;
+    private static $instance;
 
+    
     /**
      * Summary of __construct
+     * 
+     * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct()
-    {
-        $this->_db = DatabaseService::getInstance();
-    }
+    private function __construct(private DatabaseService $db) { }
+
 
     /**
      * Summary of getInstance
@@ -58,11 +53,11 @@ class CommentRepository
      */
     public static function getInstance(): CommentRepository
     { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new CommentRepository();  
+        if (self::$instance === null) {
+            self::$instance = new CommentRepository(DatabaseService::getInstance());  
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -84,9 +79,9 @@ class CommentRepository
             'last_update_date' => $newComment->getLastUpdateDate()->format('Y-m-d H:i:s'),
             'is_validate' => 0
         ];
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
-        $lastInsertId = $this->_db->execute($newReq, null);
+        $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 
@@ -106,7 +101,7 @@ class CommentRepository
             'id' => $postId,
             'is_validate' => 1
         ];
-        return $this->_db->execute($request, $parameters);
+        return $this->db->execute($request, $parameters);
     }
 
     /**
@@ -132,7 +127,7 @@ class CommentRepository
         $parameters = [
             'is_validate' => 0
         ];
-        return $this->_db->execute($request, $parameters);
+        return $this->db->execute($request, $parameters);
     }
 
     /**
@@ -150,7 +145,7 @@ class CommentRepository
             'is_validate' => 1
         ];
 
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
     }
 
     /**
@@ -167,6 +162,6 @@ class CommentRepository
             'id' => $commentId
         ];
 
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
     }
 }

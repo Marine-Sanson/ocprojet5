@@ -1,9 +1,9 @@
 <?php
 /**
  * ContactService File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -21,7 +21,7 @@ use App\service\MailerService;
 
 /**
  * ContactService Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -31,44 +31,40 @@ use App\service\MailerService;
 class ContactService
 {
     /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    public TemplateInterface $template;
-
-    /**
      * Summary of _instance
-     * 
+     *
      * @var ContactService
      */
-    private static $_instance;
+    private static $instance;
 
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
+      *
       * @return \App\service\ContactService
       */
     public static function getInstance(): ContactService
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new ContactService();  
+    {
+
+        if (self::$instance === null) {
+            self::$instance = new ContactService();  
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
      * Summary of createContact
      * Create a ContactEntity and insert it in the DB
-     * 
+     *
      * @param \App\model\ContactModel $contactModel ContactModel
-     * 
+     *
      * @return bool
      */
     public function createContact(ContactModel $contactModel): bool
     {
+
         $contactId = null;
         $newContact = new ContactEntity(
             $contactId, 
@@ -77,6 +73,7 @@ class ContactService
             $contactModel->getEmail(), 
             $contactModel->getContent(), 
             $contactModel->getCreationDate()
+
         );
 
         $contactRepository = new ContactRepository;
@@ -84,35 +81,39 @@ class ContactService
 
         if (isset($id)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
+
     }
     
     /**
      * Summary of notify
-     * 
+     *
      * @param \App\entity\ContactEntity $newContact call the MailerService to send the contact message by email
-     * 
+     *
      * @return bool
      */
     public function notify(ContactModel $newContact): bool
     {
+
         $content = $newContact->getContent();
 
-        $contactName = $newContact->getFirstName() . " " . $newContact->getName();
+        $contactName = $newContact->getFirstName()." ".$newContact->getName();
         $contactEmail = $newContact->getEmail();
         $subject = "contact depuis le blog";
-        $message = " De:  " . $contactName . " Email:  " . $newContact->getEmail() . " Le " . 
-        $newContact->getCreationDate()->format('d-m-Y H:i:s') . " Message:  " . $content;
+        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".
+        $newContact->getCreationDate()->format('d-m-Y H:i:s')." Message:  ".$content;
 
         $mailerService = new MailerService;
-        $mail = $mailerService->sendMail($contactName, $contactEmail, $subject, $message);
+        $mail = $mailerService->sendMail($contactEmail, $subject, $message);
 
         if ($mail) {
             return true;
         } else {
             return false;
         }
+
     }
+
 }

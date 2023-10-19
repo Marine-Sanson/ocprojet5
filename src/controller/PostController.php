@@ -1,9 +1,9 @@
 <?php
 /**
  * PostController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -23,7 +23,7 @@ use App\service\TemplateInterface;
 
 /**
  * PostController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -34,61 +34,51 @@ class PostController extends AbstractController
 {
     /**
      * Summary of _instance
-     * 
+     *
      * @var PostController
      */
-    private static $_instance;
-
-    /**
-     * Summary of _postService
-     * 
-     * @var PostService
-     */
-    private PostService $_postService;
-
-    /**
-     * Summary of _commentService
-     * 
-     * @var CommentService
-     */
-    private CommentService $_commentService;
+    private static $instance;
     
     const URL = "posts";
     const ACTION = "addPost";
     const MODIFY = "modifyPost";
 
-
     /**
-     * Summary of __construct call an instance of TemplateInterface
-     * 
-     * @param TemplateInterface $template template engine
+     * Summary of __construct
+     * Call an instance of TemplateInterface
+     *
+     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\PostService       $_postService    PostService
+     * @param \App\service\CommentService    $_commentService CommentService
      */
-    private function __construct(private readonly TemplateInterface $template)
-    {
-        $this->_postService = PostService::getInstance();
-        $this->_commentService = CommentService::getInstance();
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template, 
+        private readonly PostService $_postService, 
+        private readonly CommentService $_commentService
+    ) { }
+    // end of __construct()
+
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @param \App\service\TemplateInterface $template template engine
-     * 
+     *
      * @return \App\controller\PostController
      */
     public static function getInstance(TemplateInterface $template): PostController
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new PostController($template);
+    {
+        if (self::$instance === null) {
+            self::$instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
      * Summary of showPosts
-     * 
+     *
      * @return void
      */
     public function showPosts(): void
@@ -96,14 +86,14 @@ class PostController extends AbstractController
         $result = $this->_postService->getPosts();
         $result = $this->postsToDisplay($result);
         
-        echo $this->template->render(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
+        $this->_template->display(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
     }
 
     /**
      * Summary of showPostDetails
-     * 
+     *
      * @param int $postId id of the post
-     * 
+     *
      * @return void
      */
     public function showPostDetails(int $postId): void
@@ -120,80 +110,86 @@ class PostController extends AbstractController
         }
         $postDetails->setComments($comments);
 
-        echo $this->template->render(
+        $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                'id' => $postId,
+                'id'          => $postId,
                 'postDetails' => $postDetails,
-                'message' => $message
+                'message'     => $message
             ]
         );
     }
 
     /**
      * Summary of addComment
-     * 
+     *
      * @param int    $routeParam routeParam
      * @param int    $postId     postId
      * @param string $username   username
      * @param string $content    content
-     * 
+     *
      * @return void
      */
-    public function addComment(int $routeParam, int $postId, string $username, string $content): void
+    public function addComment(int $routeParam, array $post): void
     {
-        if ($this->isSubmitted($this->_commentService::ACTION) && $this->isValid($_POST)) {
-            if ($postId !== $routeParam) {
-                $message = [
-                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                ];
-            }
-            if ($postId === $routeParam) {
-                $content = $this->sanitize($content);
-                $comment = $this->_commentService->manageComment($username, $postId, $content);
-                $message = $this->_commentService->createNewComment($comment);
-            }
-        } else {
+        $message = [];
+
+        $postId = (int) $post["postId"];
+
+        if ($this->isValid($post) === false) {
             $message = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
+
+        if ($postId !== $routeParam) {
+            $message = [
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+            ];
+        }
+
+        if (empty($message === false)) {
+            $content = $this->sanitize($post["content"]);
+            $comment = $this->_commentService->manageComment($post["username"], $postId, $content);
+            $message = $this->_commentService->createNewComment($comment);
+        }
+
         $postDetails = $this->_postService->getPostDetails($postId);
-        echo $this->template->render(
+        $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                'id' => $postId,
+                'id'          => $postId,
                 'postDetails' => $postDetails,
-                'message' => $message
+                'message'     => $message
             ]
         );
     }
 
     /**
      * Summary of addPost
-     * 
+     *
      * @param int    $userId  userId
      * @param string $title   title
      * @param string $summary summary
      * @param string $content content
-     * 
+     *
      * @return void
      */
-    public function addPost(int $userId, string $title, string $summary, string $content): void
+    public function addPost(array $post): void
     {
-        if ($this->isSubmitted(self::ACTION) && $this->isValid($_POST)) {
+        $data = [];
+        if ($this->isValid($post)) {
 
-            $userId = intval($userId);
-            $title = $this->sanitize(ucwords(strtolower($title)));
-            $summary = $this->sanitize($summary);
-            $content = $this->sanitize($content);
+            $title = $this->sanitize(ucwords(strtolower($post["title"])));
+            $summary = $this->sanitize($post["summary"]);
+            $content = $this->sanitize($post["content"]);
 
-            $isPostCreated = $this->_postService->createNewPost($userId, $title, $summary, $content);
+            $isPostCreated = $this->_postService->createNewPost((int) $post["userId"], $title, $summary, $content);
             if (!$isPostCreated) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                 ];
             }
 
-            if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+            if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                 $data = [
                     MessageMapper::Message->getMessageLabel() => MessageMapper::NewPostSuccess->getMessage()
                 ];
@@ -202,51 +198,44 @@ class PostController extends AbstractController
         $posts = $this->_postService->getPosts();
         $data["posts"] = $this->postsToDisplay($posts);
 
-        echo $this->template->render(RouteMapper::PostsView->getTemplate(), $data);
+        $this->_template->display(RouteMapper::PostsView->getTemplate(), $data);
     }
 
     /**
      * Summary of modifyPost
-     * 
+     *
      * @param int    $routeParam routeParam
-     * @param string $action     action
      * @param int    $userId     userId
      * @param string $username   username
      * @param int    $postId     postId
      * @param string $title      title
      * @param string $summary    summary
      * @param string $content    content
-     * 
+     *
      * @return void
      */
-    public function modifyPost(
-        int $routeParam,
-        string $action,
-        int $userId,
-        string $username,
-        int $postId,
-        string $title,
-        string $summary,
-        string $content
-    ): void {
+    public function modifyPost(int $routeParam,array $post): void 
+    {
         $message = null;
+        $userId = (int) $post["userId"];
+        $postId = (int) $post["postId"];
 
-        if (!$this->isSubmitted(self::MODIFY) || !$this->isValid($_POST)) {
+        if (!$this->isValid($post)) {
             $message = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             if ($routeParam !== $postId) {
                 $message = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                 ];
             }
         }
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
-            $title = $this->sanitize($title);
-            $summary = $this->sanitize($summary);
-            $content = $this->sanitize($content);
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
+            $title = $this->sanitize($post["title"]);
+            $summary = $this->sanitize($post["summary"]);
+            $content = $this->sanitize($post["content"]);
 
             $this->_postService->updateAPost($postId, $userId, $title, $summary, $content);
             $message = [
@@ -255,20 +244,23 @@ class PostController extends AbstractController
         }
 
         $postDetails = $this->_postService->getPostDetails($routeParam);
+
         $postDetails->setSummary($this->toDisplay($postDetails->getSummary()));
         $postDetails->setContent($this->toDisplay($postDetails->getContent()));
+
         $comments = [];
+
         foreach ($postDetails->getComments() as $postCom) {
             $postCom["content"] = $this->toDisplay($postCom["content"]);
             $comments[] = $postCom;
         }
         $postDetails->setComments($comments);
 
-        echo $this->template->render(
+        $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                'id' => $routeParam,
+                'id'          => $routeParam,
                 'postDetails' => $postDetails,
-                'message' => $message
+                'message'     => $message
             ]
         );
 
@@ -276,9 +268,10 @@ class PostController extends AbstractController
 
     /**
      * Summary of postsToDisplay
-     * 
+     * Receive and return an array of PostModels after decode treatment on title and summary
+     *
      * @param array $posts list of PostModels
-     * 
+     *
      * @return array
      */
     public function postsToDisplay(array $posts): array
@@ -291,4 +284,5 @@ class PostController extends AbstractController
         }
         return $postsToDisplay;
     }
+
 }

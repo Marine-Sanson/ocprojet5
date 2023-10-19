@@ -1,9 +1,9 @@
 <?php
 /**
  * UserEntity File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Entity
  * @package  App\entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -18,7 +18,7 @@ use DateTime;
 
 /**
  * UserEntity Class Doc Comment
- * 
+ *
  * @category Entity
  * @package  App\entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -27,6 +27,8 @@ use DateTime;
  */
 class UserEntity
 {
+
+
     /**
      * Summary of __construct UserEntity
      * 
@@ -42,117 +44,138 @@ class UserEntity
      * @param bool     $isAllowed      to know if this user is allowed
      */
     public function __construct(
-        private readonly ?int $id, 
-        private readonly string $name, 
-        private readonly string $firstName, 
-        private readonly string $username, 
-        private readonly string $email, 
+        private readonly ?int $id,
+        private readonly string $name,
+        private readonly string $firstName,
+        private readonly string $username,
+        private readonly string $email,
         private readonly string $password,
         private readonly string $role,
-        private readonly DateTime $creationDate, 
-        private readonly DateTime $lastUpdateDate, 
+        private readonly DateTime $creationDate,
+        private readonly DateTime $lastUpdateDate,
         private readonly bool $isAllowed
-    ) {
+    ) { }
+    //end __construct()
 
-    }
 
     /**
      * Summary of getId
-     * 
+     *
      * @return int|null
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
 
     /**
      * Summary of getName
-     * 
+     *
      * @return string
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
 
     /**
      * Summary of getFirstName
-     * 
+     *
      * @return string
      */
     public function getFirstName(): string
     {
+
         return $this->firstName;
+
     }
 
     /**
      * Summary of getUsername
-     * 
+     *
      * @return string
      */
     public function getUsername(): string
     {
+
         return $this->username;
+
     }
 
     /**
      * Summary of getEmail
-     * 
+     *
      * @return string
      */
     public function getEmail(): string
     {
+
         return $this->email;
+
     }
 
     /**
      * Summary of getPassword
-     * 
+     *
      * @return string
      */
     public function getPassword(): string
     {
+
         return $this->password;
+
     }
 
     /**
      * Summary of getRole
-     * 
+     *
      * @return string
      */
     public function getRole(): string
     {
+
         return $this->role;
+
     }
 
     /**
      * Summary of getCreationDate
-     * 
+     *
      * @return \DateTime
      */
     public function getCreationDate(): DateTime
     {
+
         return $this->creationDate;
+
     }
 
     /**
      * Summary of getLastUpdateDate
-     * 
+     *
      * @return \DateTime
      */
     public function getLastUpdateDate(): DateTime
     {
+
         return $this->lastUpdateDate;
+
     }
 
     /**
      * Summary of getIsAllowed
-     * 
+     *
      * @return bool
      */
     public function getIsAllowed(): bool
     {
+
         return $this->isAllowed;
+
     }
+
 }

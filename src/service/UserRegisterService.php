@@ -1,9 +1,9 @@
 <?php
 /**
  * UserRegisterService File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,7 +20,7 @@ use App\service\UserService;
 
 /**
  * UserRegisterService Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -29,83 +29,74 @@ use App\service\UserService;
  */
 class UserRegisterService
 {
-    /**
-     * Summary of _userService
-     * 
-     * @var UserService
-     */
-    private UserService $_userService;
 
-    /**
-     * Summary of _userRepository
-     * 
-     * @var UserRepository
-     */
-    private UserRepository $_userRepository;
-    
     /**
      * Summary of _instance
-     * 
+     *
      * @var UserRegisterService
      */
-    private static $_instance;
+    private static $instance;
 
-     /**
-      * Summary of getInstance
-      * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
-      * @return \App\service\UserRegisterService
-      */
-    private function __construct()
-    {
-        $this->_userService = UserService::getInstance();
-        $this->_userRepository = UserRepository::getInstance();
-    }
+
+    /**
+     * Summary of __construct
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     * 
+     * @param \App\service\UserService       $_userService    UserService
+     * @param \App\repository\UserRepository $_userRepository UserRepository
+     */
+    private function __construct(
+        private readonly UserService $_userService,
+        private readonly UserRepository $_userRepository
+    ) { }
+    // end of __construct()
+
 
     /**
      * Summary of getInstance
-     * 
+     *
      * @return \App\service\UserRegisterService
      */
     public static function getInstance(): UserRegisterService
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new UserRegisterService();  
+    {
+
+        if (self::$instance === null) {
+            self::$instance = new UserRegisterService(UserService::getInstance(), UserRepository::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
      * Summary of verifyUsername
-     * 
+     *
      * @param string $username username
-     * 
+     *
      * @return bool
      */
     public function verifyUsername(string $username): bool
     {
+
         $usedUsernames = $this->_userService->getUsedUsernames();
         $arrayToVerify = [];
-        foreach ($usedUsernames as $key => $usedUsername) {
+        foreach ($usedUsernames as $usedUsername) {
             array_push($arrayToVerify, strtolower($usedUsername["username"]));
         }
-        $verifyUsername = in_array(strtolower($username), $arrayToVerify);
-        if ($verifyUsername) {
-            return true;
-        }
-        return false;
+
+        return in_array(strtolower($username), $arrayToVerify);
+
     }
 
     /**
      * Summary of transformToRegister
-     * 
+     *
      * @param string $firstName firstName
      * @param string $name      name
      * @param string $username  username
      * @param string $email     email
      * @param string $password  password
-     * 
+     *
      * @return \App\model\UserRegisterModel
      */
     public function transformToUserRegisterModel(
@@ -115,23 +106,43 @@ class UserRegisterService
         string $email,
         string $password
     ): UserRegisterModel {
-        return new UserRegisterModel($firstName, $name, $username, $email, $password);
+
+        $passwordHached = $this->hashPassword($password);
+        return new UserRegisterModel($firstName, $name, $username, $email, $passwordHached);
+
     }
 
     /**
      * Summary of saveUserRegisterData
-     * 
+     *
      * @param \App\model\UserRegisterModel $userRegisterModel UserRegisterModel
-     * 
+     *
      * @return bool
      */
     public function saveUserRegisterData(UserRegisterModel $userRegisterModel): bool
     {
+
         $userId = $this->_userRepository->insertNewUser($userRegisterModel);
 
         if (!$userId) {
             return false;
         }
         return true;
+
     }
+
+    /**
+     * Summary of hashPassword - hash the user password before insert it to the db
+     *
+     * @param \App\model\UserRegisterModel $register UserRegisterModel
+     *
+     * @return \App\model\UserRegisterModel
+     */
+    private function hashPassword(string $password): string
+    {
+
+        return password_hash($password, PASSWORD_DEFAULT, ["cost" => "14"]);
+
+    }
+
 }

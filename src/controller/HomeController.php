@@ -1,9 +1,9 @@
 <?php
 /**
  * HomeController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,7 +20,7 @@ use App\service\TemplateInterface;
 
 /**
  * HomeController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -29,61 +29,53 @@ use App\service\TemplateInterface;
  */
 class HomeController
 {
-    /**
-     * Summary of _template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
+
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var HomeController
      */
-    private static $_instance;
-
-    /**
-     * Summary of _homeService
-     * 
-     * @var HomeService
-     */
-    private HomeService $_homeService;
-
+    private static $instance;
 
     /**
      * Summary of URL
-     * 
+     *
      * @var string
      */
     const URL = "home";
 
     /**
-     * Summary of __construct call an instance of TemplateInterface
-     * 
-     * @param TemplateInterface $template template engine
+     * Summary of __construct
+     * Call an instance of TemplateInterface
+     *
+     * @param \App\service\TemplateInterface $template     TemplateInterface
+     * @param \App\service\HomeService       $_homeService HomeService
      */
-    private function __construct(TemplateInterface $template)
-    {
-        $this->_template = $template;
-        $this->_homeService = HomeService::getInstance();
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly HomeService $_homeService
+    ) { }
+    // end of __construct()
+
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @param \App\service\TemplateInterface $template template engine
-     * 
+     *
      * @return \App\controller\HomeController
      */
     public static function getInstance(TemplateInterface $template): HomeController
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new HomeController($template);  
+    {
+
+        if (self::$instance === null) {
+            self::$instance = new HomeController($template, HomeService::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
@@ -93,12 +85,15 @@ class HomeController
      */
     public function displayHome(): void
     {
+
         $lastPosts = $this->_homeService->getLastPosts();
 
-        echo $this->_template->render(
+        $this->_template->display(
             RouteMapper::HomeView->getTemplate(), [
                 "lastPosts" => $lastPosts
             ]
         );
+
     }
+
 }

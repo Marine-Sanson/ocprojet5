@@ -1,9 +1,9 @@
 <?php
 /**
  * MailerService File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -18,7 +18,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * MailerService Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -27,20 +27,22 @@ use PHPMailer\PHPMailer\PHPMailer;
  */
 class MailerService
 {
+
     /**
      * Summary of sendMail
      * Create an instance of phpmailer, configure it, send the mail and verify if the sending is true
      * Use the constant of local config.php
-     * 
+     *
      * @param string $contactName  full name of the sender
      * @param string $contactEmail mail adress to send the email
      * @param string $subject      subjet of the mail
      * @param string $message      name and adress of the sender, and message
-     * 
+     *
      * @return bool
      */
-    public function sendMail(string $contactName, string $contactEmail, string $subject, string $message): bool
+    public function sendMail(string $contactEmail, string $subject, string $message): bool
     {
+        
         $mail = new PHPMailer(true);
 
         $mail->isSMTP();
@@ -65,13 +67,8 @@ class MailerService
         $mail->CharSet = 'UTF-8';
         $mail->Encoding = 'base64';
 
-        $test = $mail->send();
+        return $mail->send();
 
-        if (!$test) {
-            $mailSend = false;
-        } else {
-            $mailSend = true;
-        }
-        return $mailSend;
     }
+
 }

@@ -1,9 +1,9 @@
 <?php
 /**
  * ContactEntity File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Entity
  * @package  App\entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -18,7 +18,7 @@ use DateTime;
 
 /**
  * ContactEntity Class Doc Comment
- * 
+ *
  * @category Entity
  * @package  App\entity
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -29,7 +29,7 @@ class ContactEntity
 {
     /**
      * Summary of __construct ContactEntity
-     * 
+     *
      * @param int|null $id           id - autoincrement in the DB
      * @param string   $name         name of the contact
      * @param string   $firstName    first name of the contact
@@ -44,67 +44,78 @@ class ContactEntity
         private readonly string $email,
         private readonly string   $content,
         private readonly DateTime $creationDate
-    ) {
-
-    }
+    ) { }
+    //end __construct()
 
     /**
      * Summary of getId
-     * 
+     *
      * @return int|null
      */
     public function getId(): ?int
     {
+
         return $this->id;
+
     }
 
     /**
      * Summary of getName
-     * 
+     *
      * @return string
      */
     public function getName(): string
     {
+
         return $this->name;
+
     }
 
     /**
      * Summary of getFirstName
-     * 
+     *
      * @return string
      */
     public function getFirstName(): string
     {
+
         return $this->firstName;
+
     }
 
     /**
      * Summary of getEmail
-     * 
+     *
      * @return string
      */
     public function getEmail(): string
     {
+
         return $this->email;
+
     }
 
     /**
      * Summary of getContent
-     * 
+     *
      * @return string
      */
     public function getContent(): string
     {
+
         return $this->content;
+
     }
 
     /**
      * Summary of getCreationDate
-     * 
+     *
      * @return \DateTime
      */
     public function getCreationDate(): DateTime
     {
+
         return $this->creationDate;
+
     }
 }

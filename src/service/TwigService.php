@@ -2,9 +2,9 @@
 /**
  * TwigService File Doc Comment
  * Implements TemplateInterface
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -21,7 +21,7 @@ use Twig\Loader\FilesystemLoader;
  /**
   * TwigService Class Doc Comment
   * This interface load Twig and create a Twig environment
-  * 
+  *
   * @category Service
   * @package  App\service
   * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -32,12 +32,17 @@ class TwigService implements TemplateInterface
 {
     /**
      * Summary of _instance
-     * 
-     * @var TwigService
+     *
+     * @var TwigService Twig
      */
-    private static $_instance;
+    private static $instance;
 
-    private Environment $_twig;
+    /**
+     * Summary of twig
+     *
+     * @var Environment
+     */
+    private Environment $twig;
     
     /**
      * Summary of __construct
@@ -53,34 +58,40 @@ class TwigService implements TemplateInterface
         );
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addGlobal("session", SessionService::getInstance()->getSession());
-        $this->_twig = $twig;
+        $this->twig = $twig;
     }
+    // end of __construct()
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\service\TwigService
      */
     public static function getInstance(): TwigService
     { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new TwigService();  
+
+        if (self::$instance === null) {
+            self::$instance = new TwigService();  
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
-     * Summary of render
-     * 
-     * @param string $templateName Name of the template
-     * @param array  $parameters   Parameters
-     * 
-     * @return string template to display
+     * Summary of display
+     *
+     * @param string $templateName name of the template
+     * @param array $parameters    parameters
+     *
+     * @return void
      */
-    public function render(string $templateName, array $parameters = []): string
+    public function display(string $templateName, array $parameters = []): void
     {
-        return $this->_twig->render($templateName, $parameters);
+
+        $this->twig->display($templateName, $parameters);
+
     }
+
 }

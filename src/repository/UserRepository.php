@@ -30,27 +30,21 @@ use DateTime;
 class UserRepository
 {
     /**
-     * Summary of _db
-     * 
-     * @var DatabaseService $_db connection between PHP and a database server
-     */
-    private DatabaseService $_db;
-
-    /**
      * Summary of _instance
      * 
      * @var UserRepository
      */
-    private static $_instance;
+    private static $instance;
 
+    
     /**
      * Summary of __construct
+     * 
+     * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct()
-    {
-        $this->_db = DatabaseService::getInstance();
-    }
+    private function __construct(private DatabaseService $db) { }
 
+    
     /**
      * Summary of getInstance
      * 
@@ -58,11 +52,11 @@ class UserRepository
      */
     public static function getInstance(): UserRepository
     { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new UserRepository();
+        if (self::$instance === null) {
+            self::$instance = new UserRepository(DatabaseService::getInstance());
         }
     
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -108,9 +102,9 @@ class UserRepository
             'last_update_date' => $date->format('Y-m-d H:i:s'),
             'is_allowed' => 0
         ];
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
-        $lastInsertId = $this->_db->execute($newReq, null);
+        $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
     }
 
@@ -138,7 +132,7 @@ class UserRepository
         $parameters = [
             'username' => $username
         ];
-        return $this->_db->execute($request, $parameters);
+        return $this->db->execute($request, $parameters);
     }
 
     /**
@@ -154,7 +148,7 @@ class UserRepository
         $parameters = [
             'username' => $username
         ];
-        $id = $this->_db->execute($request, $parameters);
+        $id = $this->db->execute($request, $parameters);
 
         return $id[0]["id"];
     }
@@ -168,7 +162,7 @@ class UserRepository
     {
         $request = 'SELECT username FROM users';
 
-        return $this->_db->execute($request, []);
+        return $this->db->execute($request, []);
     }
 
     /**
@@ -180,7 +174,7 @@ class UserRepository
     {
         $request = 'SELECT id, first_name, username, password, role, is_allowed FROM users';
 
-        return $this->_db->execute($request, []);
+        return $this->db->execute($request, []);
     }
 
     /**
@@ -200,6 +194,6 @@ class UserRepository
             'role' => $role,
             'is_allowed' => $isAllowed
         ];
-        $this->_db->execute($request, $parameters);
+        $this->db->execute($request, $parameters);
     }
 }

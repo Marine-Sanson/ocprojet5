@@ -1,9 +1,9 @@
 <?php
 /**
  * UserConnectionModel File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -16,7 +16,7 @@ namespace App\model;
 
 /**
  * UserConnectionModel Class Doc Comment
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -27,7 +27,7 @@ class UserConnectionModel
 {
     /**
      * Summary of __construct ConnectionModel
-     * 
+     *
      * @param int    $id        id of the user
      * @param string $firstName first name of the user
      * @param string $username  username must be unique, used to login
@@ -42,77 +42,90 @@ class UserConnectionModel
         private readonly string $password,
         private readonly string $role,
         private readonly bool $isAllowed
-    ) {
+    ) { }
+    // end of __construct()
 
-    }
 
     /**
      * Summary of getId
-     * 
+     *
      * @return int
      */
     public function getId(): int
     {
+
         return $this->id;
+
     }
 
     /**
      * Summary of getFirstName
-     * 
+     *
      * @return string
      */
     public function getFirstName(): string
     {
+
         return $this->firstName;
+        
     }
 
     /**
      * Summary of getUsername
-     * 
+     *
      * @return string
      */
     public function getUsername(): string
     {
+
         return $this->username;
+
     }
 
     /**
      * Summary of getPassword
-     * 
+     *
      * @return string
      */
     public function getPassword(): string
     {
+
         return $this->password;
+
     }
 
     /**
      * Summary of getRole
-     * 
+     *
      * @return string
      */
     public function getRole(): string
     {
+
         return $this->role;
+
     }
 
     /**
      * Summary of getIsAllowed
-     * 
+     *
      * @return bool
      */
     public function getIsAllowed(): bool
     {
+
         return $this->isAllowed;
+
     }
 
     /**
      * Summary of toArray
-     * 
+     *
      * @return array
      */
     public function toArray() :array
     {
+
         return [
             "id" => $this->id,
             "firstName" => $this->firstName,
@@ -122,4 +135,5 @@ class UserConnectionModel
             "isAllowed" => $this->isAllowed
         ];
     }
+
 }

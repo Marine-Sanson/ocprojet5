@@ -1,9 +1,9 @@
 <?php
 /**
  * UserRegisterController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -24,7 +24,7 @@ use App\service\UserService;
 
 /**
  * UserRegisterController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -33,143 +33,126 @@ use App\service\UserService;
  */
 class UserRegisterController extends AbstractController
 {
-    /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var UserRegisterController
      */
-    private static $_instance;
-
-    /**
-     * Summary of _userService
-     * 
-     * @var UserService
-     */
-    private UserService $_userService;
-
-    /**
-     * Summary of _userRegisterService
-     * 
-     * @var UserRegisterService
-     */
-    private UserRegisterService $_userRegisterService;
-
-    /**
-     * Summary of _sessionService
-     * 
-     * @var SessionService
-     */
-    private SessionService $_sessionService;
+    private static $instance;
 
     const URL = "enregistrement";
     const ACTION = "register";
 
+
     /**
      * Summary of __construct
-     * call an instance of TemplateInterface
-     * 
-     * @param TemplateInterface $template template engine
+     * Call an instance of TemplateInterface
+     *
+     * @param \App\service\TemplateInterface   $template             TemplateInterface
+     * @param \App\service\UserService         $_userService         UserService
+     * @param \App\service\SessionService      $_sessionService      SessionService
+     * @param \App\service\UserRegisterService $_userRegisterService UserRegisterService
      */
-    private function __construct(TemplateInterface $template)
-    {
-        $this->_template = $template;
-        $this->_userService = UserService::getInstance();
-        $this->_sessionService = SessionService::getInstance();
-        $this->_userRegisterService = UserRegisterService::getInstance();
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly UserService $_userService,
+        private readonly SessionService $_sessionService,
+        private readonly UserRegisterService $_userRegisterService
+    ) { }
+    // end of __construct()
+
 
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
+      *
       * @param \App\service\TemplateInterface $template template engine
-      * 
+      *
       * @return \App\controller\UserRegisterController
       */
     public static function getInstance(TemplateInterface $template): UserRegisterController
     { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new UserRegisterController($template);  
+
+        if (self::$instance === null) {
+            self::$instance = new UserRegisterController(
+                $template, UserService::getInstance(),
+                SessionService::getInstance(),
+                UserRegisterService::getInstance()
+            );
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
      * Summary of displayUserRegisterPage
-     * 
+     *
      * @return void
      */
     public function displayUserRegisterPage(): void
     {
+
         $template = RouteMapper::UserRegisterView->getTemplate();
 
-        echo $this->_template->render($template, []);
-    }
+        $this->_template->display($template, []);
 
+    }
 
     /**
      * Summary of manageUserRegister
-     * 
+     *
      * @param string $firstName      firstName
      * @param string $name           name
      * @param string $username       username
      * @param string $email          email
      * @param string $password       password
      * @param string $passwordVerify passwordVerify
-     * 
+     *
      * @return void
      */
-    public function manageUserRegister(
-        string $firstName,
-        string $name,
-        string $username,
-        string $email,
-        string $password,
-        string $passwordVerify
-    ): void {
-        $template = RouteMapper::UserRegisterView->getTemplate();
-        $data = [];
-        if (!$this->isSubmitted(self::ACTION) || !$this->isValid($_POST)) {
+    public function manageUserRegister(array $post): void {
 
+        $template = RouteMapper::UserRegisterView->getTemplate();
+
+        $email = $post["email"];
+        $password  = $post["password"];
+
+        $data = [];
+        if (!$this->isValid($post)) {
             $template = RouteMapper::UserRegisterView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
 
-        if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
 
-            $firstName = ucwords(strtolower($firstName));
-            $name = ucwords(strtolower($name));
-            $username = ucwords(strtolower($username));
-            $isUsernameAvailable = $this->_userRegisterService->verifyUsername($username);
-            if ($isUsernameAvailable) {
+            $firstName = ucwords(strtolower($post["firstName"]));
+            $name = ucwords(strtolower($post["name"]));
+            $username = ucwords(strtolower($post["username"]));
+            $isUnavailable = $this->_userRegisterService->verifyUsername($username);
+
+            if ($isUnavailable === true) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::UsernameUnavailable->getMessage()
                 ];
             }
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::MailError->getMessage()
                 ];
             }
 
-            if ($password !== $passwordVerify) {
+            if ($password !== $post["passwordVerify"]) {
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::PasswordError->getMessage()
                 ];
             }
 
-            if (!isset($data[MessageMapper::Error->getMessageLabel()])) {
+            if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                 $register = $this->_userRegisterService->transformToUserRegisterModel(
                     $firstName,
                     $name,
@@ -178,53 +161,44 @@ class UserRegisterController extends AbstractController
                     $password
                 );
 
-                $register = $this->_sanitizeRegisterData($register);
-
-                $register = $this->_hashPassword($register);
+                $this->sanitizeRegisterData($register);
 
                 $isSaved = $this->_userRegisterService->saveUserRegisterData($register);
 
-                if ($isSaved) {
-                    $data = [
-                        MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
-                    ];
-                } else {
+                if ($isSaved === false) {
                     $data = [
                         MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                     ];
+
+                }
+
+                if (isset($data[MessageMapper::Error->getMessageLabel()]) === false)
+                {
+                    $data = [
+                        MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
+                    ];
                 }
             }
+            //end if
         }
-        echo $this->_template->render($template, $data);
+        $this->_template->display($template, $data);
+
     }
 
     /**
-     * Summary of _sanitizeRegisterData
-     * 
+     * Summary of sanitizeRegisterData
+     *
      * @param \App\model\UserRegisterModel $userRegister UserRegisterModel
-     * 
+     *
      * @return \App\model\UserRegisterModel
      */
-    private function _sanitizeRegisterData(UserRegisterModel $userRegister): UserRegisterModel
+    private function sanitizeRegisterData(UserRegisterModel $userRegister): void
     {
+
         $userRegister->setFirstName($this->sanitize($userRegister->getFirstName()));
         $userRegister->setName($this->sanitize($userRegister->getName()));
         $userRegister->setUsername($this->sanitize($userRegister->getUsername()));
 
-        return $userRegister;
     }
 
-    /**
-     * Summary of hashPassword - hash the user password before insert it to the db
-     * 
-     * @param \App\model\UserRegisterModel $register UserRegisterModel
-     * 
-     * @return \App\model\UserRegisterModel
-     */
-    private function _hashPassword(UserRegisterModel $register): UserRegisterModel
-    {
-        $register->setPassword(password_hash($register->getPassword(), PASSWORD_DEFAULT, ["cost" => "14"]));
-
-        return $register;
-    }
 }

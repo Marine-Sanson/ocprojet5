@@ -1,9 +1,9 @@
 <?php
 /**
  * CommentModel File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -18,7 +18,7 @@ use DateTime;
 
 /**
  * CommentModel Class Doc Comment
- * 
+ *
  * @category Model
  * @package  App\model
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -27,6 +27,7 @@ use DateTime;
  */
 class CommentModel
 {
+
     /**
      * Summary of __construct
      * 
@@ -44,7 +45,7 @@ class CommentModel
         public string $content,
         public DateTime $lastUpdateDate,
         public bool $is_validate
-    ) {
+    ) { }
+    //end __construct()
 
-    }
 }

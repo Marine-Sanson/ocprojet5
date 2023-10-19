@@ -1,9 +1,9 @@
 <?php
 /**
  * CommentController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -22,7 +22,7 @@ use App\service\TemplateInterface;
 
 /**
  * CommentController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -31,82 +31,78 @@ use App\service\TemplateInterface;
  */
 class CommentController extends AbstractController
 {
-    /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    private TemplateInterface $_template;
-
-    /**
-     * Summary of _commentRepository
-     * 
-     * @var CommentService
-     */
-    private CommentService $_commentService;
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var CommentController
      */
-    private static $_instance;
+    private static $instance;
 
     const URL = "validation";
     const VALIDATION = "validate";
     const DELETE = "delete";
 
+
     /**
      * Summary of __construct
-     * 
-     * @param \App\service\TemplateInterface $template template
+     *
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
+     * @param \App\service\CommentService    $_commentService CommentService
      */
-    private function __construct(TemplateInterface $template)
-    {
-        $this->_template = $template;
-        $this->_commentService = CommentService::getInstance();
-    }
+    private function __construct(
+        private readonly TemplateInterface $_template,
+        private readonly CommentService $_commentService
+    ) { }
+    // end of __construct()
+
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @param \App\service\TemplateInterface $template template
-     * 
+     *
      * @return \App\controller\CommentController
      */
     public static function getInstance(TemplateInterface $template): CommentController
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new CommentController($template);  
+    {
+
+        if (self::$instance === null) {
+            self::$instance = new CommentController($template, CommentService::getInstance());  
         }
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
      * Summary of displayValidationPage
-     * 
+     *
      * @return void
      */
     public function displayValidationPage(): void
     {
+        $data = [];
         $template = RouteMapper::ValidationComments->getTemplate();
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
-        echo $this->_template->render($template, $data);
+        $this->_template->display($template, $data);
+
     }
 
     /**
      * Summary of validateComment
-     * 
+     *
      * @param int $commentId id of the comment
-     * 
+     *
      * @return void
      */
     public function validateComment(int $commentId): void
     {
+
         $template = RouteMapper::ValidationComments->getTemplate();
+        $data = [];
         $isvalid = $this->_commentService->validCommentId($commentId);
         if ($isvalid) {
             $this->_commentService->validateComments($commentId);
@@ -118,18 +114,21 @@ class CommentController extends AbstractController
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
-        echo $this->_template->render($template, $data);
+        $this->_template->display($template, $data);
+
     }
 
     /**
      * Summary of deleteComment
-     * 
+     *
      * @param int $commentId id of the comment
-     * 
+     *
      * @return void
      */
     public function deleteComment(int $commentId): void
     {
+        $data = [];
+
         $template = RouteMapper::ValidationComments->getTemplate();
         $isvalid = $this->_commentService->validCommentId($commentId);
         if ($isvalid) {
@@ -143,18 +142,20 @@ class CommentController extends AbstractController
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
-        echo $this->_template->render($template, $data);
+        $this->_template->display($template, $data);
+
     }
 
     /**
      * Summary of commentsToDisplay
-     * 
+     *
      * @param array $comments comments
-     * 
+     *
      * @return array
      */
     public function commentsToDisplay(array $comments): array
     {
+
         $commentsToDisplay = [];
         foreach ($comments as $comment) {
             $comment["content"] = $this->toDisplay($comment["content"]);
@@ -162,5 +163,7 @@ class CommentController extends AbstractController
             $commentsToDisplay[] = $comment;
         }
         return $commentsToDisplay;
+
     }
+
 }

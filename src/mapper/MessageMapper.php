@@ -1,9 +1,9 @@
 <?php
 /**
  * MessageMapper File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Mapper
  * @package  App\mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -16,7 +16,7 @@ namespace App\mapper;
 
 /**
  * MessageMapper Class Doc Comment
- * 
+ *
  * @category Mapper
  * @package  App\mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -46,24 +46,28 @@ enum MessageMapper: string
 
     /**
      * Summary of getMessageLabel
-     * 
+     *
      * @return string
      */
     public function getMessageLabel(): string
     {
+
         return match ($this) {
             static::Message => "message",
             static::Error => "error"
         };
+
     }
+
 
     /**
      * Summary of getMessage
-     * 
+     *
      * @return string
      */
     public function getMessage(): string
     {
+
         return match ($this) {
             static::MailValid => "Votre message a bien été envoyé",
             static::MailError => "Votre adresse mail n'est pas valide",
@@ -82,5 +86,7 @@ enum MessageMapper: string
             static::CommentValidationSuccess => "Ce commentaire à bien été validé",
             static::CommentDeleteSuccess => "Ce commentaire à bien été supprimé",
         };
+
     }
+
 }

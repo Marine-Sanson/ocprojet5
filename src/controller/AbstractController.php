@@ -1,9 +1,9 @@
 <?php
 /**
  * AbstractController File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -16,7 +16,7 @@ namespace App\controller;
 
 /**
  * AbstractController Class Doc Comment
- * 
+ *
  * @category Controller
  * @package  App\controller
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -26,39 +26,26 @@ namespace App\controller;
 class AbstractController
 {
     /**
-     * Summary of isSubmitted
-     * 
-     * @param string $action name of the action
-     * 
-     * @return bool
-     */
-    public function isSubmitted(string $action): bool
-    {
-        return $_POST["action"] === $action;
-    }
-
-    /**
      * Summary of isValid
-     * 
+     *
      * @param array $post = $_POST
-     * 
+     *
      * @return bool
      */
     public function isValid(array $post): bool
     {
-        $test = true;
 
-        if ($post) {
-            foreach ($post as $value) {
-                if (empty($value)) {
-                    $test = false;
-
-                    return $test;
-                }
-            }
+        if (isset($post) === false) {
+            return false;
         }
 
-        return $test;        
+        foreach ($post as $value) {
+            if (empty($value)) {
+                return false;
+            }
+        }
+        return true;
+
     }
 
     /**
@@ -66,25 +53,30 @@ class AbstractController
      * Strip whitespace from the beginning and end of a string
      * Un-quotes a quoted string
      * Convert special characters to HTML entities
-     * 
+     *
      * @param string $data recived by the form
-     * 
+     *
      * @return string
      */
     public function sanitize(string $data): string
     {
+
         return htmlspecialchars(htmlentities(stripslashes(trim($data))));
+
     }
 
     /**
      * Summary of toDisplay
-     * 
+     *
      * @param string $data data
-     * 
+     *
      * @return string
      */
     public function toDisplay(string $data): string
     {
+
         return html_entity_decode(htmlspecialchars_decode($data));
+
     }
+
 }

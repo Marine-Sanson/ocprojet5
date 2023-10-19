@@ -1,9 +1,9 @@
 <?php
 /**
  * PostDetailsMapper File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Mapper
  * @package  App\mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use DateTime;
 
 /**
  * PostDetailsMapper Class Doc Comment
- * 
+ *
  * @category Mapper
  * @package  App\mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -28,38 +28,44 @@ use DateTime;
  */
 class PostDetailsMapper
 {
+    
     /**
      * Summary of _instance
-     * 
+     *
      * @var PostDetailsMapper
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\mapper\PostDetailsMapper
      */
     public static function getInstance(): PostDetailsMapper
     { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new PostDetailsMapper();  
+
+        if (self::$instance === null) {
+            self::$instance = new PostDetailsMapper();  
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
+    //end getInstance()
+
 
     /**
      * Summary of getPostDetailsModel
-     * 
+     *
      * @param array        $post     post
      * @param array | null $comments comments
-     * 
+     *
      * @return \App\model\PostDetailsModel
      */
     public function getPostDetailsModel(array $post, ?array $comments): PostDetailsModel
     {
+
         $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
 
         $postDetails = new PostDetailsModel(
@@ -74,5 +80,7 @@ class PostDetailsMapper
         );
 
         return $postDetails;
+
     }
+
 }

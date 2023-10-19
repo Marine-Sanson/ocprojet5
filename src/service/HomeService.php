@@ -1,9 +1,9 @@
 <?php
 /**
  * HomeService File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use App\repository\PostRepository;
 
 /**
  * HomeService Class Doc Comment
- * 
+ *
  * @category Service
  * @package  App\service
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -28,67 +28,57 @@ use App\repository\PostRepository;
  */
 class HomeService
 {
-    /**
-     * Summary of template
-     * 
-     * @var TemplateInterface
-     */
-    public TemplateInterface $template;
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var HomeService
      */
-    private static $_instance;
+    private static $instance;
 
+    
     /**
-     * Summary of _postRepository
-     * 
-     * @var PostRepository
+     * Summary of __construct
+     *
+     * @param \App\repository\PostRepository $_postRepository PostRepository
+     * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
-    private PostRepository $_postRepository;
+    private function __construct(
+        private readonly PostRepository $_postRepository,
+        private readonly PostsMapper $_postsMapper
+    ) { }
+    // end of __construct()
 
-    /**
-     * Summary of _postsMapper
-     * 
-     * @var PostsMapper
-     */
-    private PostsMapper $_postsMapper;
 
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
-      * 
+      *
       * @return \App\service\HomeService
       */
     public static function getInstance(): HomeService
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new HomeService();  
+    {
+
+        if (self::$instance === null) {
+            self::$instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());
         }
     
-        return self::$_instance;
-    }
+        return self::$instance;
 
-    /**
-     * Summary of __construct
-     */
-    private function __construct()
-    {
-        $this->_postRepository = PostRepository::getInstance();
-        $this->_postsMapper = PostsMapper::getInstance();
     }
 
     /**
      * Summary of getLastPosts
-     * 
+     *
      * @return array
      */
     public function getLastPosts(): array
     {
+
         $results = $this->_postRepository->getListOfPosts();
 
         return $this->_postsMapper->transformToListOfPostModel($results);
+
     }
+
 }

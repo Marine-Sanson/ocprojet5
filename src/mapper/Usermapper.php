@@ -1,9 +1,9 @@
 <?php
 /**
  * UserMapper File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Mapper
  * @package  App\mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use App\model\UserConnectionModel;
 
 /**
  * UserMapper Class Doc Comment
- * 
+ *
  * @category Mapper
  * @package  App\mapper
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -28,37 +28,41 @@ use App\model\UserConnectionModel;
  */
 class UserMapper
 {
+
     /**
      * Summary of _instance
-     * 
+     *
      * @var UserMapper
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\mapper\UserMapper
      */
     public static function getInstance(): UserMapper
-    { 
-        if (is_null(self::$_instance)) {
-            self::$_instance = new UserMapper();
+    {
+
+        if (self::$instance === null) {
+            self::$instance = new UserMapper();
         }
     
-        return self::$_instance;
+        return self::$instance;
+
     }
 
     /**
      * Summary of transformToUserConnectionModel
-     * 
+     *
      * @param \App\entity\UserEntity $user Entity UserEntity
-     * 
+     *
      * @return \App\model\UserConnectionModel UserConnectionModel
      */
     public function transformToUserConnectionModel(UserEntity $user): UserConnectionModel
     {
+
         return new UserConnectionModel(
             $user->getId(),
             $user->getFirstName(), 
@@ -67,5 +71,7 @@ class UserMapper
             $user->getRole(), 
             $user->getIsAllowed()
         );
+
     }
+
 }
