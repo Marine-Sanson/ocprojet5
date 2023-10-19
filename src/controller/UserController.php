@@ -75,7 +75,7 @@ class UserController extends AbstractController
         if (self::$instance === null) {
             self::$instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()

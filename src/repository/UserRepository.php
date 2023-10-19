@@ -37,7 +37,7 @@ class UserRepository
      */
     private static $instance;
 
-    
+
     /**
      * Summary of __construct
      *
@@ -205,7 +205,7 @@ class UserRepository
      * @param int    $userId    id of the user
      * @param string $role      role of the user
      * @param int    $isAllowed 1 if the user is allowed
-     * 
+     *
      * @return void
      */
     public function updateRole(int $userId, string $role, int $isAllowed): void

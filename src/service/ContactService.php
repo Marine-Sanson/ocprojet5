@@ -51,7 +51,7 @@ class ContactService
         if (self::$instance === null) {
             self::$instance = new ContactService();
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -70,7 +70,7 @@ class ContactService
 
         $contactId = null;
         $newContact = new ContactEntity(
-            $contactId, 
+            $contactId,
             $contactModel->getName(),
             $contactModel->getFirstName(),
             $contactModel->getEmail(),

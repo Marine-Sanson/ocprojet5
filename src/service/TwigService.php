@@ -77,7 +77,7 @@ class TwigService implements TemplateInterface
         if (self::$instance === null) {
             self::$instance = new TwigService();
         }
-    
+
         return self::$instance;
 
     }//end getInstance()

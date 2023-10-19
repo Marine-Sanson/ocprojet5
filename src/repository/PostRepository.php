@@ -37,7 +37,7 @@ class PostRepository
      */
     private static $instance;
 
-    
+
     /**
      * Summary of __construct
      *
@@ -59,7 +59,7 @@ class PostRepository
     {
 
         if (self::$instance === null) {
-            self::$instance = new PostRepository(DatabaseService::getInstance());  
+            self::$instance = new PostRepository(DatabaseService::getInstance());
         }
     
         return self::$instance;

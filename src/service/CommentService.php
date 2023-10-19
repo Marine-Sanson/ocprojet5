@@ -65,7 +65,7 @@ class CommentService
         if (self::$instance === null) {
             self::$instance = new CommentService(CommentRepository::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()

@@ -76,7 +76,7 @@ class PostController extends AbstractController
         if (self::$instance === null) {
             self::$instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -299,6 +299,7 @@ class PostController extends AbstractController
             $post->setSummary($this->toDisplay($post->getSummary()));
             $postsToDisplay[] = $post;
         }
+
         return $postsToDisplay;
 
     }//end postsToDisplay()

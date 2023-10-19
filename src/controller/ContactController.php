@@ -75,7 +75,7 @@ class ContactController extends AbstractController
         if (self::$instance === null) {
             self::$instance = new ContactController($template, $contactService);
         }
-    
+
         return self::$instance;
 
     }//end getInstance()

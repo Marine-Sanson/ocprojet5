@@ -60,7 +60,7 @@ class CommentRepository
         if (self::$instance === null) {
             self::$instance = new CommentRepository(DatabaseService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()

@@ -117,7 +117,7 @@ class SessionService implements SessionInterface
     {
 
         return !empty($this->session[self::USER_KEY]);
-        
+
     }//end isUserConnected()
 
 

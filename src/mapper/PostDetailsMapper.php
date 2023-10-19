@@ -44,7 +44,7 @@ class PostDetailsMapper
      * @return \App\mapper\PostDetailsMapper
      */
     public static function getInstance(): PostDetailsMapper
-    { 
+    {
 
         if (self::$instance === null) {
             self::$instance = new PostDetailsMapper();

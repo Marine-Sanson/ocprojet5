@@ -62,7 +62,7 @@ class PostEntity
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -75,7 +75,7 @@ class PostEntity
 
         return $this->idUser;
 
-    }
+    }//end getIdUser()
 
 
     /**
@@ -88,7 +88,7 @@ class PostEntity
 
         return $this->title;
 
-    }
+    }//end getTitle()
 
 
     /**
@@ -101,7 +101,7 @@ class PostEntity
 
         return $this->summary;
 
-    }
+    }//end getSummary()
 
 
     /**
@@ -114,7 +114,7 @@ class PostEntity
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -127,7 +127,7 @@ class PostEntity
 
         return $this->creationDate;
 
-    }
+    }//end getCreationDate()
 
 
     /**
@@ -140,7 +140,7 @@ class PostEntity
 
         return $this->lastUpdateDate;
 
-    }
+    }//end getLastUpdateDate()
 
 
 }

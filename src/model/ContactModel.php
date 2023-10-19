@@ -189,7 +189,7 @@ class ContactModel
 
         $this->creationDate = $creationDate;
         return $this;
-        
+
     }
 
 

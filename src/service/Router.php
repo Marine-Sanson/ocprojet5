@@ -205,11 +205,11 @@ class Router
                         case CommentService::ACTION:
                             $postController->addComment($route["param"], $post);
                             break;
-            
+
                         case PostController::MODIFY:
                             $postController->modifyPost($route["param"], $post);
                             break;
-            
+
                         default :
                             $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                             break;
