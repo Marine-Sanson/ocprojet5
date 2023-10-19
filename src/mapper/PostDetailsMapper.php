@@ -52,7 +52,7 @@ class PostDetailsMapper
         return self::$instance;
 
     }
-    //end getInstance()
+    // End getInstance()
 
 
     /**

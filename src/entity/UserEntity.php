@@ -167,11 +167,11 @@ class UserEntity
     }
 
     /**
-     * Summary of getIsAllowed
+     * Summary of isUserAllowed
      *
      * @return bool
      */
-    public function getIsAllowed(): bool
+    public function isUserAllowed(): bool
     {
 
         return $this->isAllowed;

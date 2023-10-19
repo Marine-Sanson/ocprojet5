@@ -50,7 +50,7 @@ class PostDetailsModel
         private readonly string $username,
         private ?array $comments
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**

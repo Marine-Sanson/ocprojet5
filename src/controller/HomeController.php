@@ -56,7 +56,7 @@ class HomeController
         private readonly TemplateInterface $_template,
         private readonly HomeService $_homeService
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**
@@ -90,8 +90,8 @@ class HomeController
 
         $this->_template->display(
             RouteMapper::HomeView->getTemplate(), [
-                "lastPosts" => $lastPosts
-            ]
+                                                    "lastPosts" => $lastPosts
+                                                  ]
         );
 
     }

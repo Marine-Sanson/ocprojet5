@@ -60,7 +60,7 @@ class PostService
         private readonly PostRepository $_postRepository,
         private readonly CommentService $_commentService
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**

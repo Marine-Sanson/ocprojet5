@@ -52,7 +52,7 @@ class PostsMapper
         return self::$instance;
 
     }
-    //end getInstance()
+    // End getInstance()
 
 
     /**

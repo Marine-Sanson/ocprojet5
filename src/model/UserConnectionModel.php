@@ -43,7 +43,7 @@ class UserConnectionModel
         private readonly string $role,
         private readonly bool $isAllowed
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**
@@ -107,11 +107,11 @@ class UserConnectionModel
     }
 
     /**
-     * Summary of getIsAllowed
+     * Summary of isUserAllowed
      *
      * @return bool
      */
-    public function getIsAllowed(): bool
+    public function isUserAllowed(): bool
     {
 
         return $this->isAllowed;

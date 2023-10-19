@@ -57,7 +57,7 @@ class UserUpgradeController extends AbstractController
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
      /**

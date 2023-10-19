@@ -49,7 +49,7 @@ class UserRegisterService
         private readonly UserService $_userService,
         private readonly UserRepository $_userRepository
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**

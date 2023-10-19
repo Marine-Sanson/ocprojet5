@@ -43,7 +43,7 @@ class NewPostModel
         private readonly string   $content,
         private readonly DateTime $creationDate
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**

@@ -47,7 +47,7 @@ class HomeService
         private readonly PostRepository $_postRepository,
         private readonly PostsMapper $_postsMapper
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
      /**

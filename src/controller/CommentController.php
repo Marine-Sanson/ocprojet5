@@ -54,7 +54,7 @@ class CommentController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly CommentService $_commentService
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**

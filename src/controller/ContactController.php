@@ -56,7 +56,7 @@ class ContactController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly ContactService $_contactService
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
     /**
@@ -106,8 +106,8 @@ class ContactController extends AbstractController
         if (!$this->isValid($post)) {
             $template = RouteMapper::ContactView->getTemplate();
             $data = [
-                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-            ];
+                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+                    ];
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
@@ -125,18 +125,18 @@ class ContactController extends AbstractController
             if (!$sendMail) {
                 $template = RouteMapper::ContactView->getTemplate();
                 $data = [
-                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                ];
+                         MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+                        ];
             }
 
             if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                 $template = RouteMapper::HomeView->getTemplate();
                 $data = [
-                    MessageMapper::Message->getMessageLabel() => MessageMapper::MailValid->getMessage()
-                ];
+                         MessageMapper::Message->getMessageLabel() => MessageMapper::MailValid->getMessage()
+                        ];
             }
         }
-        //end if
+        // End if
 
         $this->_template->display($template, $data);
 

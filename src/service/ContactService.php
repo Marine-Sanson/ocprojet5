@@ -73,7 +73,6 @@ class ContactService
             $contactModel->getEmail(), 
             $contactModel->getContent(), 
             $contactModel->getCreationDate()
-
         );
 
         $contactRepository = new ContactRepository;
@@ -102,17 +101,15 @@ class ContactService
         $contactName = $newContact->getFirstName()." ".$newContact->getName();
         $contactEmail = $newContact->getEmail();
         $subject = "contact depuis le blog";
-        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".
-        $newContact->getCreationDate()->format('d-m-Y H:i:s')." Message:  ".$content;
+        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$newContact->getCreationDate()->format('d-m-Y H:i:s')." Message:  ".$content;
 
         $mailerService = new MailerService;
         $mail = $mailerService->sendMail($contactEmail, $subject, $message);
 
         if ($mail) {
             return true;
-        } else {
-            return false;
         }
+        return false;
 
     }
 

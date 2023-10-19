@@ -42,7 +42,7 @@ class UserRegisterModel
         private string $email, 
         private string $password
     ) { }
-    // end of __construct()
+    // End of __construct()
     
 
     /**

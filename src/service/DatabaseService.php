@@ -55,7 +55,7 @@ class DatabaseService
         );
 
     }
-    // end of __construct()
+    // End of __construct()
 
 
     /**

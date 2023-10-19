@@ -60,7 +60,7 @@ class TwigService implements TemplateInterface
         $twig->addGlobal("session", SessionService::getInstance()->getSession());
         $this->twig = $twig;
     }
-    // end of __construct()
+    // End of __construct()
 
     /**
      * Summary of getInstance

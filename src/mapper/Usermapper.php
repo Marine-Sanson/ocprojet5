@@ -69,7 +69,7 @@ class UserMapper
             $user->getUsername(), 
             $user->getPassword(), 
             $user->getRole(), 
-            $user->getIsAllowed()
+            $user->isUserAllowed()
         );
 
     }

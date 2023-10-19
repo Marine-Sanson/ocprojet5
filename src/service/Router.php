@@ -140,7 +140,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
-        //end switch case
+        // End switch case
     }
 
     /**
@@ -204,7 +204,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
-        //end switch case
+        // End switch case
     }
 
     /**
@@ -245,7 +245,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
-        //end switch case
+        // End switch case
     }
 
     /**
@@ -312,7 +312,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
-        //end switch case
+        // End switch case
     }
 
     /**

@@ -57,7 +57,7 @@ class UserController extends AbstractController
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
      /**
@@ -139,8 +139,8 @@ class UserController extends AbstractController
 
             $this->_sessionService->cleanSession();
             $data = [
-                MessageMapper::Message->getMessageLabel() => MessageMapper::Disconnect->getMessage()
-            ];
+                     MessageMapper::Message->getMessageLabel() => MessageMapper::Disconnect->getMessage()
+                    ];
         }
         $data["session"] = $this->_sessionService->getSession();
 

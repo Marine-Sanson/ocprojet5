@@ -58,7 +58,7 @@ class UserService
         private readonly UserRepository $_userRepository,
         private readonly SessionService $_session
     ) { }
-    // end of __construct()
+    // End of __construct()
 
 
      /**
@@ -150,7 +150,7 @@ class UserService
                 $allowed
             );
         }
-        //end if
+        // End if
 
         return $user;
 
