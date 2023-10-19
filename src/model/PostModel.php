@@ -43,9 +43,10 @@ class PostModel
         private string $title,
         private string $summary,
         private readonly DateTime $lastUpdateDate
-    ) { }
-    // end of __construct()
-    
+    ) {
+
+    }//end __construct()
+
 
     /**
      * Summary of getId
@@ -59,6 +60,7 @@ class PostModel
 
     }
 
+
     /**
      * Summary of getAuthor
      *
@@ -71,6 +73,7 @@ class PostModel
 
     }
 
+
     /**
      * Summary of getTitle
      *
@@ -82,6 +85,7 @@ class PostModel
         return $this->title;
 
     }
+
 
     /**
      * Summary of setTitle
@@ -98,6 +102,7 @@ class PostModel
 
     }
 
+
     /**
      * Summary of getSummary
      *
@@ -109,6 +114,7 @@ class PostModel
         return $this->summary;
 
     }
+
 
     /**
      * Summary of setSummary
@@ -125,6 +131,7 @@ class PostModel
 
     }
 
+
     /**
      * Summary of getLastUpdateDate
      *
@@ -136,5 +143,6 @@ class PostModel
         return $this->lastUpdateDate;
 
     }
+
 
 }

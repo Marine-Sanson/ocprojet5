@@ -39,14 +39,15 @@ class UpdatePostModel
      * @param \DateTime $lastUpdateDate lastUpdateDate
      */
     public function __construct(
-        private readonly int      $id,
-        private readonly int      $userId,
-        private readonly string   $title,
-        private string            $summary,
-        private string            $content,
+        private readonly int $id,
+        private readonly int $userId,
+        private readonly string $title,
+        private string $summary,
+        private string $content,
         private readonly DateTime $lastUpdateDate
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -61,6 +62,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getUserId
      *
@@ -72,6 +74,7 @@ class UpdatePostModel
         return $this->userId;
 
     }
+
 
     /**
      * Summary of getTitle
@@ -85,6 +88,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getSummary
      *
@@ -96,6 +100,7 @@ class UpdatePostModel
         return $this->summary;
 
     }
+
 
     /**
      * Summary of setSummary
@@ -112,6 +117,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getContent
      *
@@ -123,6 +129,7 @@ class UpdatePostModel
         return $this->content;
 
     }
+
 
     /**
      * Summary of setContent
@@ -139,6 +146,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getCreationDate
      *
@@ -150,5 +158,6 @@ class UpdatePostModel
         return $this->lastUpdateDate;
 
     }
+
 
 }

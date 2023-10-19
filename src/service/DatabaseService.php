@@ -27,6 +27,7 @@ use PDO;
  */
 class DatabaseService
 {
+
     /**
      * Summary of db
      * Represents a connection between PHP and a database server.
@@ -54,8 +55,7 @@ class DatabaseService
             $_ENV['DB_PASS']
         );
 
-    }
-    // end of __construct()
+    }//end __construct()
 
 
     /**
@@ -67,12 +67,13 @@ class DatabaseService
     {
 
         if (self::$instance === null) {
-            self::$instance = new DatabaseService();  
+            self::$instance = new DatabaseService();
         }
 
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of execute
@@ -92,6 +93,7 @@ class DatabaseService
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
 
-    }
+    }//end execute()
+
 
 }

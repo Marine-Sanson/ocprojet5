@@ -33,7 +33,6 @@ class MailerService
      * Create an instance of phpmailer, configure it, send the mail and verify if the sending is true
      * Use the constant of local config.php
      *
-     * @param string $contactName  full name of the sender
      * @param string $contactEmail mail adress to send the email
      * @param string $subject      subjet of the mail
      * @param string $message      name and adress of the sender, and message
@@ -42,7 +41,7 @@ class MailerService
      */
     public function sendMail(string $contactEmail, string $subject, string $message): bool
     {
-        
+
         $mail = new PHPMailer(true);
 
         $mail->isSMTP();
@@ -69,6 +68,7 @@ class MailerService
 
         return $mail->send();
 
-    }
+    }//end sendMail()
+
 
 }

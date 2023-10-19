@@ -27,6 +27,7 @@ use DateTime;
  */
 class PostEntity
 {
+
     /**
      * Summary of __construct
      *
@@ -46,8 +47,9 @@ class PostEntity
         private readonly string $content,
         private readonly DateTime $creationDate,
         private readonly DateTime $lastUpdateDate
-    ) { }
-    //end __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -62,6 +64,7 @@ class PostEntity
 
     }
 
+
     /**
      * Summary of getIdUser
      *
@@ -73,6 +76,7 @@ class PostEntity
         return $this->idUser;
 
     }
+
 
     /**
      * Summary of getTitle
@@ -86,6 +90,7 @@ class PostEntity
 
     }
 
+
     /**
      * Summary of getSummary
      *
@@ -98,6 +103,7 @@ class PostEntity
 
     }
 
+
     /**
      * Summary of getContent
      *
@@ -107,8 +113,9 @@ class PostEntity
     {
 
         return $this->content;
-        
+
     }
+
 
     /**
      * Summary of getCreationDate
@@ -122,6 +129,7 @@ class PostEntity
 
     }
 
+
     /**
      * Summary of getLastUpdateDate
      *
@@ -133,5 +141,6 @@ class PostEntity
         return $this->lastUpdateDate;
 
     }
-    
+
+
 }

@@ -31,21 +31,27 @@ use DateTime;
  */
 class CommentService
 {
+
     /**
      * Summary of _instance
      *
      * @var CommentService
      */
     private static $instance;
-    
+
     const ACTION = "addComment";
+
 
     /**
      * Summary of __construct
      *
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
      */
-    private function __construct(private readonly CommentRepository $_commentRepository) { }
+    private function __construct(private readonly CommentRepository $_commentRepository)
+    {
+
+    }//end __construct()
+
 
     /**
      * Summary of getInstance
@@ -54,7 +60,7 @@ class CommentService
      * @return \App\service\CommentService
      */
     public static function getInstance(): CommentService
-    { 
+    {
 
         if (self::$instance === null) {
             self::$instance = new CommentService(CommentRepository::getInstance());
@@ -62,7 +68,8 @@ class CommentService
     
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of getComments
@@ -73,8 +80,11 @@ class CommentService
      */
     public function getpostComments(int $postId): array
     {
+
         return $this->_commentRepository->getOnePostComments($postId);
-    }
+
+    }//end getpostComments()
+
 
     /**
      * Summary of manageComment
@@ -95,7 +105,8 @@ class CommentService
             
             return new CommentEntity(null, $postId, $userId, $content, $currentDate, $currentDate, false);
 
-    }
+    }//end manageComment()
+
 
     /**
      * Summary of createNewComment
@@ -108,20 +119,23 @@ class CommentService
     {
 
         $createNewComment = $this->_commentRepository->insertComment($validateComment);
-        if ($createNewComment) {
-            $data = [
-                MessageMapper::Message->getMessageLabel() => MessageMapper::CommentCreated->getMessage()
-            ];
-        }
-        if (!$createNewComment) {
+
+        if ($createNewComment === false) {
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
 
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
+            $data = [
+                MessageMapper::Message->getMessageLabel() => MessageMapper::CommentCreated->getMessage()
+            ];
+        }
+
         return $data;
 
-    }
+    }//end createNewComment()
+
 
     /**
      * Summary of getPendingComments
@@ -133,7 +147,8 @@ class CommentService
 
         return $this->_commentRepository->getPendingComments();
 
-    }
+    }//end getPendingComments()
+
 
     /**
      * Summary of validateComments
@@ -147,7 +162,8 @@ class CommentService
 
         $this->_commentRepository->updateCommentValidation($commentId);
 
-    }
+    }//end validateComments()
+
 
     /**
      * Summary of deleteComments
@@ -161,7 +177,8 @@ class CommentService
 
         $this->_commentRepository->deleteComment($commentId);
 
-    }
+    }//end deleteComments()
+
 
     /**
      * Summary of validCommentId
@@ -178,13 +195,16 @@ class CommentService
         foreach ($comments as $comment) {
             $pendingCommentsIds[] = $comment["id"];
         }
+
         $isValid = in_array($commentId, $pendingCommentsIds);
 
-        if ($isValid) {
+        if ($isValid === true) {
             return true;
         }
+
         return false;
 
-    }
+    }//end validCommentId()
+
 
 }

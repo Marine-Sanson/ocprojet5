@@ -44,26 +44,28 @@ class ContactController extends AbstractController
     const URL = "contact";
     const ACTION = "contact";
 
-    
+
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\ContactService    $_contactService ContactService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly ContactService $_contactService
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
      *
-     * @param \App\service\TemplateInterface $template template engine
+     * @param \App\service\TemplateInterface $template       template engine
+     * @param \App\service\ContactService    $contactService ContactService
      *
      * @return \App\controller\ContactController
      */
@@ -76,7 +78,8 @@ class ContactController extends AbstractController
     
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of displayContactPage
@@ -88,22 +91,20 @@ class ContactController extends AbstractController
 
         $this->_template->display(RouteMapper::ContactView->getTemplate(), []);
 
-    }
+    }//end displayContactPage()
+
 
     /**
      * Summary of manageContact
      *
-     * @param string $name      name
-     * @param string $firstName firstName
-     * @param string $email     email
-     * @param string $content   content
+     * @param array $post with name, firstName, email and content
      *
      * @return void
      */
     public function manageContact(array $post): void
     {
 
-        if (!$this->isValid($post)) {
+        if ($this->isValid($post) === false) {
             $template = RouteMapper::ContactView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -117,12 +118,12 @@ class ContactController extends AbstractController
             $sendMail = false;
             $isContactCreated = $this->_contactService->createContact($contact);
 
-            if ($isContactCreated) {
+            if ($isContactCreated === true) {
                 $contact->setContent(htmlspecialchars_decode($contact->getContent()));
                 $sendMail = $this->_contactService->notify($contact);
             }
 
-            if (!$sendMail) {
+            if ($sendMail === false) {
                 $template = RouteMapper::ContactView->getTemplate();
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -135,12 +136,12 @@ class ContactController extends AbstractController
                     MessageMapper::Message->getMessageLabel() => MessageMapper::MailValid->getMessage()
                 ];
             }
-        }
-        //end if
+        }//end if
 
         $this->_template->display($template, $data);
 
-    }
+    }//end manageContact()
+
 
     /**
      * Summary of validContactForm
@@ -157,6 +158,7 @@ class ContactController extends AbstractController
         $contact->setEmail($this->sanitize($contact->getEmail()));
         $contact->setContent($this->sanitize($contact->getContent()));
 
-    }
+    }//end validContactForm()
+
 
 }

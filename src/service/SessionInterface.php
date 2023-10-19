@@ -112,4 +112,4 @@ interface SessionInterface
      */
     public function has(string $key): bool;
 
-}
+}//end interface

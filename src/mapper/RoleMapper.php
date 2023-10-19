@@ -28,6 +28,7 @@ enum RoleMapper: string
     case User = 'user';
     case Supadmin = 'supadmin';
 
+
     /**
      * Summary of getRole
      *
@@ -41,6 +42,7 @@ enum RoleMapper: string
             static::Supadmin => 'supadmin',
         };
 
-    }
+    }//end getRole()
+
 
 }

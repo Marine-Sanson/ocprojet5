@@ -32,6 +32,7 @@ use DateTime;
  */
 class UserService
 {
+
     /**
      * Summary of template
      *
@@ -46,6 +47,7 @@ class UserService
      */
     private static $instance;
 
+
     /**
      * Summary of __construct
      *
@@ -57,8 +59,9 @@ class UserService
         private readonly UserMapper $_userMapper,
         private readonly UserRepository $_userRepository,
         private readonly SessionService $_session
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
      /**
@@ -80,7 +83,8 @@ class UserService
 
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of connect
@@ -96,7 +100,8 @@ class UserService
 
         return password_verify($password, $userEntity->getPassword());
 
-    }
+    }//end connect()
+
 
     /**
      * Summary of getUserConnectionModel
@@ -110,13 +115,13 @@ class UserService
 
         return $this->_userMapper->transformToUserConnectionModel($userEntity);
 
-    }
+    }//end getUserConnectionModel()
+
 
     /**
      * Summary of getUser
      *
      * @param string $username come from the connection form
-     * @param string $password come from the connection form
      *
      * @return \App\entity\UserEntity | null
      */
@@ -128,7 +133,6 @@ class UserService
         $user = null;
 
         if ($result !== []) {
-
             $creationDate = $result[0]["creation_date"];
             $creationDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
@@ -138,23 +142,23 @@ class UserService
             $allowed = boolval($result[0]["is_allowed"]);
 
             $user = new UserEntity(
-                $result[0]["id"], 
-                $result[0]["name"], 
-                $result[0]["first_name"], 
-                $result[0]["username"], 
-                $result[0]["email"], 
-                $result[0]["password"], 
-                $result[0]["role"], 
-                $creationDate, 
+                $result[0]["id"],
+                $result[0]["name"],
+                $result[0]["first_name"],
+                $result[0]["username"],
+                $result[0]["email"],
+                $result[0]["password"],
+                $result[0]["role"],
+                $creationDate,
                 $updateDate,
                 $allowed
             );
-        }
-        //end if
+        }//end if
 
         return $user;
 
-    }
+    }//end getUser()
+
 
     /**
      * Summary of connection
@@ -169,13 +173,13 @@ class UserService
 
         $userEntity = $this->getUser($username);
 
-        if (!$userEntity) {
+        if ($userEntity === false) {
             return null;            
         }
 
         $connect = $this->connect($password, $userEntity);
 
-        if (!$connect) {
+        if ($connect === false) {
             return null;
         }
 
@@ -183,7 +187,8 @@ class UserService
 
         return $connectionModel;
 
-    }
+    }//end connection()
+
 
     /**
      * Summary of getUserId
@@ -197,7 +202,8 @@ class UserService
 
         return $this->_userRepository->getUserId($username);
 
-    }
+    }//end getUserId()
+
 
     /**
      * Summary of getUsedUsernames
@@ -209,7 +215,8 @@ class UserService
 
         return $this->_userRepository->getAllUsernames();
 
-    }
+    }//end getUsedUsernames()
+
 
     /**
      * Summary of getAllUsers
@@ -224,9 +231,11 @@ class UserService
         foreach ($users as $user) {
             $list[] = $this->transformToUserConnectionModel($user);
         }
+
         return $list;
 
-    }
+    }//end getAllUsers()
+
 
     /**
      * Summary of transformToUserConnectionModel
@@ -253,7 +262,8 @@ class UserService
             $isUserAllowed
         );
 
-    }
+    }//end transformToUserConnectionModel()
+
 
     /**
      * Summary of modifyRole
@@ -269,6 +279,7 @@ class UserService
 
         $this->_userRepository->updateRole($userId, $role, $isAllowed);
 
-    }
+    }//end modifyRole()
+
 
 }

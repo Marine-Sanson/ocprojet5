@@ -27,6 +27,7 @@ use DateTime;
  */
 class CommentEntity
 {
+
     /**
      * Summary of __construct
      *
@@ -46,8 +47,9 @@ class CommentEntity
         private readonly DateTime $creationDate,
         private readonly DateTime $lastUpdateDate,
         private readonly bool $isValidate
-    ) { }
-    //end __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -129,11 +131,11 @@ class CommentEntity
 
 
     /**
-     * Summary of getIsValidate
+     * Summary of isCommentValidate
      *
      * @return bool
      */
-    public function getIsValidate(): bool
+    public function isCommentValidate(): bool
     {
 
         return $this->isValidate;

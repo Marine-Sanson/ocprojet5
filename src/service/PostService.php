@@ -36,6 +36,7 @@ use DateTime;
  */
 class PostService
 {
+
     /**
      * Summary of _instance
      *
@@ -59,8 +60,9 @@ class PostService
         private readonly CommentRepository $_commentRepository,
         private readonly PostRepository $_postRepository,
         private readonly CommentService $_commentService
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -83,8 +85,9 @@ class PostService
         }
 
         return self::$instance;
-        
-    }
+
+    }//end getInstance()
+
 
     /**
      * Summary of getPosts
@@ -98,7 +101,8 @@ class PostService
 
         return $this->_postsMapper->transformToListOfPostModel($results);
 
-    }
+    }//end getPosts()
+
 
     /**
      * Summary of getPostDetails
@@ -109,11 +113,14 @@ class PostService
      */
     public function getPostDetails(int $postId): PostDetailsModel
     {
+
         $post = $this->getPostData($postId);
         $comments = $this->_commentService->getpostComments($postId);
  
         return $this->_postDetailsMapper->getPostDetailsModel($post, $comments);
-    }
+
+    }//end getPostDetails()
+
 
     /**
      * Summary of getPostData
@@ -127,7 +134,8 @@ class PostService
 
         return $this->_postRepository->getOnePostData($postId);
 
-    }
+    }//end getPostData()
+
 
     /**
      * Summary of createNewComment
@@ -144,9 +152,11 @@ class PostService
         if (isset($id) === false) {
             return false;
         }
+
         return true;
 
-    }
+    }//end createNewComment()
+
 
     /**
      * Summary of createNewPost
@@ -167,13 +177,14 @@ class PostService
 
         $insertPost = $this->_postRepository->insertNewPost($newPost);
 
-        if ($insertPost) {
+        if ($insertPost === true) {
             return true;
         }
 
         return false;
 
-    }
+    }//end createNewPost()
+
 
     /**
      * Summary of updateAPost
@@ -193,6 +204,7 @@ class PostService
         $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);
         $this->_postRepository->updatePost($updatePost);
 
-    }
+    }//end updateAPost()
+
 
 }

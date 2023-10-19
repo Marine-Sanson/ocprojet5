@@ -36,6 +36,7 @@ class PostsMapper
      */
     private static $instance;
 
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -43,16 +44,15 @@ class PostsMapper
      * @return \App\service\PostService
      */
     public static function getInstance(): PostsMapper
-    { 
+    {
 
         if (self::$instance === null) {
             self::$instance = new PostsMapper();
         }
-    
+
         return self::$instance;
 
-    }
-    //end getInstance()
+    }//end getInstance()
 
 
     /**
@@ -74,6 +74,7 @@ class PostsMapper
 
         return $listOfPosts;
 
-    }
+    }//end transformToListOfPostModel()
+
 
 }

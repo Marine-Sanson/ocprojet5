@@ -53,8 +53,9 @@ class CommentController extends AbstractController
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly CommentService $_commentService
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -69,11 +70,13 @@ class CommentController extends AbstractController
     {
 
         if (self::$instance === null) {
-            self::$instance = new CommentController($template, CommentService::getInstance());  
+            self::$instance = new CommentController($template, CommentService::getInstance());
         }
+
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of displayValidationPage
@@ -89,7 +92,8 @@ class CommentController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end displayValidationPage()
+
 
     /**
      * Summary of validateComment
@@ -104,19 +108,22 @@ class CommentController extends AbstractController
         $template = RouteMapper::ValidationComments->getTemplate();
         $data = [];
         $isvalid = $this->_commentService->validCommentId($commentId);
-        if ($isvalid) {
+        if ($isvalid === false) {
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+        }
+
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $this->_commentService->validateComments($commentId);
             $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::CommentValidationSuccess->getMessage();
         }
-        if (!$isvalid) {
-            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
-        }
+
         $comments = $this->_commentService->getPendingComments();
         $data["comments"] = $this->commentsToDisplay($comments);
 
         $this->_template->display($template, $data);
 
-    }
+    }//end validateComment()
+
 
     /**
      * Summary of deleteComment
@@ -131,12 +138,13 @@ class CommentController extends AbstractController
 
         $template = RouteMapper::ValidationComments->getTemplate();
         $isvalid = $this->_commentService->validCommentId($commentId);
-        if ($isvalid) {
+        if ($isvalid === false) {
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+        }
+
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $this->_commentService->deleteComments($commentId);
             $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::CommentDeleteSuccess->getMessage();
-        }
-        if (!$isvalid) {
-            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
 
         $comments = $this->_commentService->getPendingComments();
@@ -144,7 +152,8 @@ class CommentController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end deleteComment()
+
 
     /**
      * Summary of commentsToDisplay
@@ -162,8 +171,9 @@ class CommentController extends AbstractController
 
             $commentsToDisplay[] = $comment;
         }
+
         return $commentsToDisplay;
 
-    }
+    }//end commentsToDisplay()
 
 }

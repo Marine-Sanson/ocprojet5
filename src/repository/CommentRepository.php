@@ -1,9 +1,9 @@
 <?php
 /**
  * CommentRepository File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use App\service\DatabaseService;
 
 /**
  * CommentRepository Class Doc Comment
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -31,44 +31,51 @@ class CommentRepository
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var CommentRepository
      */
     private static $instance;
 
-    
+
     /**
      * Summary of __construct
-     * 
+     *
      * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $db) { }
+    private function __construct(private DatabaseService $db)
+    {
+
+    }//end __construct()
 
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\controller\CommentController
      */
     public static function getInstance(): CommentRepository
-    { 
+    {
+
         if (self::$instance === null) {
-            self::$instance = new CommentRepository(DatabaseService::getInstance());  
+            self::$instance = new CommentRepository(DatabaseService::getInstance());
         }
     
         return self::$instance;
-    }
+
+    }//end getInstance()
+
 
     /**
      * Summary of insertComment
-     * 
+     *
      * @param \App\entity\CommentEntity $newComment comment from the form
-     * 
+     *
      * @return int
      */
     public function insertComment(CommentEntity $newComment): int
     {
+
         $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, last_update_date, is_validate) 
                     VALUES (:id_post, :id_user, :content, :creation_date, :last_update_date, :is_validate)';
         $parameters = [
@@ -83,17 +90,20 @@ class CommentRepository
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
-    }
+
+    }//end insertComment()
+
 
     /**
      * Summary of getOnePostComments
-     * 
+     *
      * @param int $postId id of the post
-     * 
+     *
      * @return array
      */
     public function getOnePostComments(int $postId): array
     {
+
         $request = 'SELECT id_user, content, comments.last_update_date, username FROM comments 
                     JOIN users ON comments.id_user = users.id 
                     WHERE id_post = :id AND is_validate = :is_validate';
@@ -102,15 +112,18 @@ class CommentRepository
             'is_validate' => 1
         ];
         return $this->db->execute($request, $parameters);
-    }
+
+    }//end getOnePostComments()
+
 
     /**
      * Summary of getPendingComments
-     * 
+     *
      * @return array
      */
     public function getPendingComments(): array
     {
+
         $request = 'SELECT
             comments.id,
             comments.id_user,
@@ -128,17 +141,20 @@ class CommentRepository
             'is_validate' => 0
         ];
         return $this->db->execute($request, $parameters);
-    }
+
+    }//end getPendingComments()
+
 
     /**
      * Summary of updateCommentValidation
-     * 
+     *
      * @param int $commentId id of the comment
-
+     *
      * @return void
      */
     public function updateCommentValidation(int $commentId): void
     {
+
         $request = 'UPDATE comments SET is_validate = :is_validate WHERE id = :id';
         $parameters = [
             'id' => $commentId,
@@ -146,22 +162,28 @@ class CommentRepository
         ];
 
         $this->db->execute($request, $parameters);
-    }
+
+    }//end updateCommentValidation()
+
 
     /**
      * Summary of deleteComment
-     * 
+     *
      * @param int $commentId id of the comment
-     * 
+     *
      * @return void
      */
     public function deleteComment(int $commentId): void
     {
+
         $request = 'DELETE FROM comments WHERE id = :id';
         $parameters = [
             'id' => $commentId
         ];
 
         $this->db->execute($request, $parameters);
-    }
+
+    }//end deleteComment()
+
+
 }

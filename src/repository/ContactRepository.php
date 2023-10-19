@@ -1,9 +1,9 @@
 <?php
 /**
  * ContactRepository File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use App\service\DatabaseService;
 
 /**
  * ContactRepository Class Doc Comment
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -31,21 +31,23 @@ class ContactRepository
 
     /**
      * Summary of _db
-     * 
+     *
      * @var DatabaseService $db connection between PHP and a database server
      */
     private DatabaseService $db;
 
+
     /**
      * Summary of insertContact
      * prepare and execute the request to save the contact data in the db
-     * 
+     *
      * @param ContactEntity $newContact ContactEntity
-     * 
+     *
      * @return int
      */
     public function insertContact(ContactEntity $newContact): int
     {
+
         $firstName = $newContact->getFirstName();
         $name = $newContact->getName();
         $email = $newContact->getEmail();
@@ -56,15 +58,18 @@ class ContactRepository
         $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) 
                     VALUES (:first_name, :name, :email, :content, :creationDate)';
         $parameters = [
-            'first_name'   => $firstName,
-            'name'         => $name,
-            'email'        => $email,
-            'content'      => $content,
+            'first_name' => $firstName,
+            'name' => $name,
+            'email' => $email,
+            'content' => $content,
             'creationDate' => $creationDate->format('Y-m-d H:i:s')
         ];
         $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
-    }
+
+    }//end insertContact()
+
+
 }

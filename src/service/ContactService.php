@@ -30,12 +30,14 @@ use App\service\MailerService;
  */
 class ContactService
 {
+
     /**
      * Summary of _instance
      *
      * @var ContactService
      */
     private static $instance;
+
 
      /**
       * Summary of getInstance
@@ -47,12 +49,13 @@ class ContactService
     {
 
         if (self::$instance === null) {
-            self::$instance = new ContactService();  
+            self::$instance = new ContactService();
         }
     
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of createContact
@@ -69,24 +72,24 @@ class ContactService
         $newContact = new ContactEntity(
             $contactId, 
             $contactModel->getName(),
-            $contactModel->getFirstName(), 
-            $contactModel->getEmail(), 
-            $contactModel->getContent(), 
+            $contactModel->getFirstName(),
+            $contactModel->getEmail(),
+            $contactModel->getContent(),
             $contactModel->getCreationDate()
-
         );
 
         $contactRepository = new ContactRepository;
         $id = $contactRepository->insertContact($newContact);
 
-        if (isset($id)) {
+        if (isset($id) === true) {
             return true;
         }
 
         return false;
 
-    }
-    
+    }//end createContact()
+
+
     /**
      * Summary of notify
      *
@@ -102,18 +105,18 @@ class ContactService
         $contactName = $newContact->getFirstName()." ".$newContact->getName();
         $contactEmail = $newContact->getEmail();
         $subject = "contact depuis le blog";
-        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".
-        $newContact->getCreationDate()->format('d-m-Y H:i:s')." Message:  ".$content;
+        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$newContact->getCreationDate()->format('d-m-Y H:i:s')." Message:  ".$content;
 
         $mailerService = new MailerService;
         $mail = $mailerService->sendMail($contactEmail, $subject, $message);
 
-        if ($mail) {
+        if ($mail === true) {
             return true;
-        } else {
-            return false;
         }
 
-    }
+        return false;
+
+    }//end notify()
+
 
 }

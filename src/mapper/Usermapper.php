@@ -30,11 +30,12 @@ class UserMapper
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserMapper
      */
     private static $instance;
+
 
     /**
      * Summary of getInstance
@@ -48,10 +49,11 @@ class UserMapper
         if (self::$instance === null) {
             self::$instance = new UserMapper();
         }
-    
+
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of transformToUserConnectionModel
@@ -65,13 +67,14 @@ class UserMapper
 
         return new UserConnectionModel(
             $user->getId(),
-            $user->getFirstName(), 
-            $user->getUsername(), 
-            $user->getPassword(), 
-            $user->getRole(), 
-            $user->getIsAllowed()
+            $user->getFirstName(),
+            $user->getUsername(),
+            $user->getPassword(),
+            $user->getRole(),
+            $user->isUserAllowed()
         );
 
-    }
+    }//end transformToUserConnectionModel()
+
 
 }

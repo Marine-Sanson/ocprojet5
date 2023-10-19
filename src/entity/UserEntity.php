@@ -31,7 +31,7 @@ class UserEntity
 
     /**
      * Summary of __construct UserEntity
-     * 
+     *
      * @param int|null $id             id - autoincrement in the DB
      * @param string   $name           name of the user
      * @param string   $firstName      first name of the user
@@ -54,8 +54,9 @@ class UserEntity
         private readonly DateTime $creationDate,
         private readonly DateTime $lastUpdateDate,
         private readonly bool $isAllowed
-    ) { }
-    //end __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -70,6 +71,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getName
      *
@@ -81,6 +83,7 @@ class UserEntity
         return $this->name;
 
     }
+
 
     /**
      * Summary of getFirstName
@@ -94,6 +97,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getUsername
      *
@@ -105,6 +109,7 @@ class UserEntity
         return $this->username;
 
     }
+
 
     /**
      * Summary of getEmail
@@ -118,6 +123,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getPassword
      *
@@ -129,6 +135,7 @@ class UserEntity
         return $this->password;
 
     }
+
 
     /**
      * Summary of getRole
@@ -142,6 +149,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getCreationDate
      *
@@ -153,6 +161,7 @@ class UserEntity
         return $this->creationDate;
 
     }
+
 
     /**
      * Summary of getLastUpdateDate
@@ -166,16 +175,18 @@ class UserEntity
 
     }
 
+
     /**
-     * Summary of getIsAllowed
+     * Summary of isUserAllowed
      *
      * @return bool
      */
-    public function getIsAllowed(): bool
+    public function isUserAllowed(): bool
     {
 
         return $this->isAllowed;
 
     }
+
 
 }

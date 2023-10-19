@@ -30,6 +30,7 @@ use Twig\Loader\FilesystemLoader;
   */
 class TwigService implements TemplateInterface
 {
+
     /**
      * Summary of _instance
      *
@@ -42,12 +43,13 @@ class TwigService implements TemplateInterface
      *
      * @var Environment
      */
-    private Environment $twig;
-    
+    private Environment $twigEnvironment;
+
+
     /**
      * Summary of __construct
      */
-    private function __construct() 
+    private function __construct()
     {
         $loader = new FilesystemLoader('src/view');
         $twig = new Environment(
@@ -58,9 +60,10 @@ class TwigService implements TemplateInterface
         );
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addGlobal("session", SessionService::getInstance()->getSession());
-        $this->twig = $twig;
-    }
-    // end of __construct()
+        $this->twigEnvironment = $twig;
+
+    }//end __construct()
+
 
     /**
      * Summary of getInstance
@@ -69,29 +72,31 @@ class TwigService implements TemplateInterface
      * @return \App\service\TwigService
      */
     public static function getInstance(): TwigService
-    { 
+    {
 
         if (self::$instance === null) {
-            self::$instance = new TwigService();  
+            self::$instance = new TwigService();
         }
     
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of display
      *
      * @param string $templateName name of the template
-     * @param array $parameters    parameters
+     * @param array  $parameters   parameters
      *
      * @return void
      */
-    public function display(string $templateName, array $parameters = []): void
+    public function display(string $templateName, array $parameters=[]): void
     {
 
-        $this->twig->display($templateName, $parameters);
+        $this->twigEnvironment->display($templateName, $parameters);
 
-    }
+    }//end display()
+
 
 }

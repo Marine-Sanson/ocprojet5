@@ -42,8 +42,9 @@ class UserConnectionModel
         private readonly string $password,
         private readonly string $role,
         private readonly bool $isAllowed
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -58,6 +59,7 @@ class UserConnectionModel
 
     }
 
+
     /**
      * Summary of getFirstName
      *
@@ -67,8 +69,9 @@ class UserConnectionModel
     {
 
         return $this->firstName;
-        
+
     }
+
 
     /**
      * Summary of getUsername
@@ -82,6 +85,7 @@ class UserConnectionModel
 
     }
 
+
     /**
      * Summary of getPassword
      *
@@ -93,6 +97,7 @@ class UserConnectionModel
         return $this->password;
 
     }
+
 
     /**
      * Summary of getRole
@@ -106,17 +111,19 @@ class UserConnectionModel
 
     }
 
+
     /**
-     * Summary of getIsAllowed
+     * Summary of isUserAllowed
      *
      * @return bool
      */
-    public function getIsAllowed(): bool
+    public function isUserAllowed(): bool
     {
 
         return $this->isAllowed;
 
     }
+
 
     /**
      * Summary of toArray
@@ -134,6 +141,8 @@ class UserConnectionModel
             "role" => $this->role,
             "isAllowed" => $this->isAllowed
         ];
+
     }
+
 
 }

@@ -1,9 +1,9 @@
 <?php
 /**
  * UserRepository File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,7 +20,7 @@ use DateTime;
 
 /**
  * UserRepository Class Doc Comment
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -29,9 +29,10 @@ use DateTime;
  */
 class UserRepository
 {
+
     /**
      * Summary of _instance
-     * 
+     *
      * @var UserRepository
      */
     private static $instance;
@@ -39,35 +40,42 @@ class UserRepository
     
     /**
      * Summary of __construct
-     * 
+     *
      * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $db) { }
+    private function __construct(private DatabaseService $db)
+    {
+
+    }//end __construct()
 
     
     /**
      * Summary of getInstance
-     * 
+     *
      * @return \App\repository\UserRepository
      */
     public static function getInstance(): UserRepository
-    { 
+    {
+
         if (self::$instance === null) {
             self::$instance = new UserRepository(DatabaseService::getInstance());
         }
     
         return self::$instance;
-    }
+
+    }//end getInstance()
+
 
     /**
      * Summary of insertNewUser
-     * 
+     *
      * @param \App\model\UserRegisterModel $userRegisterModel UserRegisterModel
-     * 
+     *
      * @return int
      */
     public function insertNewUser(UserRegisterModel $userRegisterModel): int
     {
+
         $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
         $request = 'INSERT INTO users (
                 name,
@@ -106,17 +114,20 @@ class UserRepository
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
-    }
+
+    }//end insertNewUser()
+
 
     /**
      * Summary of getUser
-     * 
+     *
      * @param string $username username
-     * 
+     *
      * @return array with all the data of a User
      */
     public function getUser(string $username): array
     {
+
         $request = 'SELECT
             id,
             name,
@@ -133,17 +144,20 @@ class UserRepository
             'username' => $username
         ];
         return $this->db->execute($request, $parameters);
-    }
+
+    }//end getUser()
+
 
     /**
      * Summary of getUserId
-     * 
+     *
      * @param string $username username
-     * 
+     *
      * @return int
      */
     public function getUserId(string $username): int
     {
+
         $request = 'SELECT id FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
@@ -151,35 +165,43 @@ class UserRepository
         $id = $this->db->execute($request, $parameters);
 
         return $id[0]["id"];
-    }
+
+    }//end getUserId()
+
 
     /**
      * Summary of getAllUsernames
-     * 
+     *
      * @return array
      */
     public function getAllUsernames(): array
     {
+
         $request = 'SELECT username FROM users';
 
         return $this->db->execute($request, []);
-    }
+
+    }//end getAllUsernames()
+
 
     /**
      * Summary of getAllUsers
-     * 
+     *
      * @return array
      */
     public function getAllUsers(): array
     {
+
         $request = 'SELECT id, first_name, username, password, role, is_allowed FROM users';
 
         return $this->db->execute($request, []);
-    }
+
+    }//end getAllUsers()
+
 
     /**
      * Summary of updateRole
-     * 
+     *
      * @param int    $userId    id of the user
      * @param string $role      role of the user
      * @param int    $isAllowed 1 if the user is allowed
@@ -188,6 +210,7 @@ class UserRepository
      */
     public function updateRole(int $userId, string $role, int $isAllowed): void
     {
+
         $request = 'UPDATE users SET role = :role, is_allowed =:is_allowed WHERE id = :id';
         $parameters = [
             'id' => $userId,
@@ -195,5 +218,8 @@ class UserRepository
             'is_allowed' => $isAllowed
         ];
         $this->db->execute($request, $parameters);
-    }
+
+    }//end updateRole()
+
+
 }

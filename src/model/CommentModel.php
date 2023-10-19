@@ -30,7 +30,7 @@ class CommentModel
 
     /**
      * Summary of __construct
-     * 
+     *
      * @param int | null $id             id of the comment
      * @param int        $id_post        id of the post
      * @param string     $author         user firstName and name
@@ -45,7 +45,9 @@ class CommentModel
         public string $content,
         public DateTime $lastUpdateDate,
         public bool $is_validate
-    ) { }
-    //end __construct()
+    ) {
+
+    }//end __construct()
+
 
 }

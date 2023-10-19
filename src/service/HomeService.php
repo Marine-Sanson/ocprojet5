@@ -36,7 +36,7 @@ class HomeService
      */
     private static $instance;
 
-    
+
     /**
      * Summary of __construct
      *
@@ -46,16 +46,17 @@ class HomeService
     private function __construct(
         private readonly PostRepository $_postRepository,
         private readonly PostsMapper $_postsMapper
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
-     /**
-      * Summary of getInstance
-      * That method create the unique instance of the class, if it doesn't exist and return it
-      *
-      * @return \App\service\HomeService
-      */
+    /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     *
+     * @return \App\service\HomeService
+     */
     public static function getInstance(): HomeService
     {
 
@@ -65,7 +66,8 @@ class HomeService
     
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of getLastPosts
@@ -79,6 +81,7 @@ class HomeService
 
         return $this->_postsMapper->transformToListOfPostModel($results);
 
-    }
+    }//end getLastPosts()
+
 
 }

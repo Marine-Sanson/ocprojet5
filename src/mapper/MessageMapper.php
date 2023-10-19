@@ -44,6 +44,7 @@ enum MessageMapper: string
     case CommentValidationSuccess = 'commentValidationSuccess';
     case CommentDeleteSuccess = 'commentDeleteSuccess';
 
+
     /**
      * Summary of getMessageLabel
      *
@@ -57,7 +58,7 @@ enum MessageMapper: string
             static::Error => "error"
         };
 
-    }
+    }//end getMessageLabel()
 
 
     /**
@@ -87,6 +88,7 @@ enum MessageMapper: string
             static::CommentDeleteSuccess => "Ce commentaire à bien été supprimé",
         };
 
-    }
+    }//end getMessage()
+
 
 }

@@ -49,8 +49,9 @@ class PostDetailsModel
         private readonly DateTime $lastUpdateDate,
         private readonly string $username,
         private ?array $comments
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -65,6 +66,7 @@ class PostDetailsModel
 
     }
 
+
     /**
      * Summary of getIdUser
      *
@@ -76,6 +78,7 @@ class PostDetailsModel
         return $this->idUser;
 
     }
+
 
     /**
      * Summary of getTitle
@@ -89,6 +92,7 @@ class PostDetailsModel
 
     }
 
+
     /**
      * Summary of getSummary
      *
@@ -100,6 +104,7 @@ class PostDetailsModel
         return $this->summary;
 
     }
+
 
     /**
      * Summary of setSummary
@@ -116,6 +121,7 @@ class PostDetailsModel
 
     }
 
+
     /**
      * Summary of getContent
      *
@@ -127,6 +133,7 @@ class PostDetailsModel
         return $this->content;
 
     }
+
 
     /**
      * Summary of setContent
@@ -143,6 +150,7 @@ class PostDetailsModel
 
     }
 
+
     /**
      * Summary of getLastUpdateDate
      *
@@ -154,6 +162,7 @@ class PostDetailsModel
         return $this->lastUpdateDate;
 
     }
+
 
     /**
      * Summary of getUsername
@@ -167,6 +176,7 @@ class PostDetailsModel
 
     }
 
+
     /**
      * Summary of getComments
      *
@@ -178,6 +188,7 @@ class PostDetailsModel
         return $this->comments;
 
     }
+
 
     /**
      * Summary of setComments
@@ -193,5 +204,6 @@ class PostDetailsModel
         return $this;
 
     }
+
 
 }

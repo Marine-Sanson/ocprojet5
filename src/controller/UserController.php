@@ -31,7 +31,7 @@ use App\service\UserService;
  */
 class UserController extends AbstractController
 {
-    
+
     /**
      * Summary of _instance
      *
@@ -48,7 +48,7 @@ class UserController extends AbstractController
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $template        TemplateInterface
+     * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
      */
@@ -56,8 +56,9 @@ class UserController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
      /**
@@ -77,7 +78,8 @@ class UserController extends AbstractController
     
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of displayLoginPage
@@ -91,7 +93,8 @@ class UserController extends AbstractController
 
         $this->_template->display($template, []);
 
-    }
+    }//end displayLoginPage()
+
 
     /**
      * Summary of login
@@ -124,7 +127,8 @@ class UserController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end login()
+
 
     /**
      * Summary of logout
@@ -135,17 +139,19 @@ class UserController extends AbstractController
     {
 
         $template = RouteMapper::HomeView->getTemplate();
-        if ($this->_sessionService->isUserConnected()) {
 
+        if ($this->_sessionService->isUserConnected() === true) {
             $this->_sessionService->cleanSession();
             $data = [
                 MessageMapper::Message->getMessageLabel() => MessageMapper::Disconnect->getMessage()
             ];
         }
+
         $data["session"] = $this->_sessionService->getSession();
 
         $this->_template->display($template, $data);
 
-    }
+    }//end logout()
+
 
 }

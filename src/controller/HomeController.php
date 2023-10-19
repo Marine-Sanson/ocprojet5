@@ -30,7 +30,6 @@ use App\service\TemplateInterface;
 class HomeController
 {
 
-
     /**
      * Summary of _instance
      *
@@ -45,18 +44,20 @@ class HomeController
      */
     const URL = "home";
 
+
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface $template     TemplateInterface
+     * @param \App\service\TemplateInterface $_template    TemplateInterface
      * @param \App\service\HomeService       $_homeService HomeService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly HomeService $_homeService
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -73,10 +74,11 @@ class HomeController
         if (self::$instance === null) {
             self::$instance = new HomeController($template, HomeService::getInstance());
         }
-    
+
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of displayHome
@@ -94,6 +96,7 @@ class HomeController
             ]
         );
 
-    }
+    }//end displayHome()
+
 
 }

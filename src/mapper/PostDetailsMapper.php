@@ -36,6 +36,7 @@ class PostDetailsMapper
      */
     private static $instance;
 
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -46,13 +47,12 @@ class PostDetailsMapper
     { 
 
         if (self::$instance === null) {
-            self::$instance = new PostDetailsMapper();  
+            self::$instance = new PostDetailsMapper();
         }
     
         return self::$instance;
 
-    }
-    //end getInstance()
+    }//end getInstance()
 
 
     /**
@@ -70,17 +70,18 @@ class PostDetailsMapper
 
         $postDetails = new PostDetailsModel(
             $post["id"],
-            $post["id_user"], 
-            $post["title"], 
-            $post["summary"], 
-            $post["content"], 
-            $date, 
-            $post["username"], 
+            $post["id_user"],
+            $post["title"],
+            $post["summary"],
+            $post["content"],
+            $date,
+            $post["username"],
             $comments
         );
 
         return $postDetails;
 
-    }
+    }//end getPostDetailsModel()
+
 
 }

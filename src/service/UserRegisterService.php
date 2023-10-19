@@ -41,15 +41,16 @@ class UserRegisterService
     /**
      * Summary of __construct
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\repository\UserRepository $_userRepository UserRepository
      */
     private function __construct(
         private readonly UserService $_userService,
         private readonly UserRepository $_userRepository
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
     /**
@@ -63,10 +64,11 @@ class UserRegisterService
         if (self::$instance === null) {
             self::$instance = new UserRegisterService(UserService::getInstance(), UserRepository::getInstance());
         }
-    
+
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of verifyUsername
@@ -86,7 +88,8 @@ class UserRegisterService
 
         return in_array(strtolower($username), $arrayToVerify);
 
-    }
+    }//end verifyUsername()
+
 
     /**
      * Summary of transformToRegister
@@ -110,7 +113,8 @@ class UserRegisterService
         $passwordHached = $this->hashPassword($password);
         return new UserRegisterModel($firstName, $name, $username, $email, $passwordHached);
 
-    }
+    }//end transformToUserRegisterModel()
+
 
     /**
      * Summary of saveUserRegisterData
@@ -124,17 +128,19 @@ class UserRegisterService
 
         $userId = $this->_userRepository->insertNewUser($userRegisterModel);
 
-        if (!$userId) {
+        if ($userId === false) {
             return false;
         }
+
         return true;
 
-    }
+    }//end saveUserRegisterData()
+
 
     /**
      * Summary of hashPassword - hash the user password before insert it to the db
      *
-     * @param \App\model\UserRegisterModel $register UserRegisterModel
+     * @param string $password password
      *
      * @return \App\model\UserRegisterModel
      */
@@ -143,6 +149,7 @@ class UserRegisterService
 
         return password_hash($password, PASSWORD_DEFAULT, ["cost" => "14"]);
 
-    }
+    }//end hashPassword()
+
 
 }

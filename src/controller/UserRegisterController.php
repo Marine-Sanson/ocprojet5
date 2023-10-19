@@ -49,7 +49,7 @@ class UserRegisterController extends AbstractController
      * Summary of __construct
      * Call an instance of TemplateInterface
      *
-     * @param \App\service\TemplateInterface   $template             TemplateInterface
+     * @param \App\service\TemplateInterface   $_template            TemplateInterface
      * @param \App\service\UserService         $_userService         UserService
      * @param \App\service\SessionService      $_sessionService      SessionService
      * @param \App\service\UserRegisterService $_userRegisterService UserRegisterService
@@ -59,8 +59,9 @@ class UserRegisterController extends AbstractController
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService,
         private readonly UserRegisterService $_userRegisterService
-    ) { }
-    // end of __construct()
+    ) {
+
+    }//end __construct()
 
 
      /**
@@ -72,7 +73,7 @@ class UserRegisterController extends AbstractController
       * @return \App\controller\UserRegisterController
       */
     public static function getInstance(TemplateInterface $template): UserRegisterController
-    { 
+    {
 
         if (self::$instance === null) {
             self::$instance = new UserRegisterController(
@@ -81,10 +82,11 @@ class UserRegisterController extends AbstractController
                 UserRegisterService::getInstance()
             );
         }
-    
+
         return self::$instance;
 
-    }
+    }//end getInstance()
+
 
     /**
      * Summary of displayUserRegisterPage
@@ -98,21 +100,18 @@ class UserRegisterController extends AbstractController
 
         $this->_template->display($template, []);
 
-    }
+    }//end displayUserRegisterPage()
+
 
     /**
      * Summary of manageUserRegister
      *
-     * @param string $firstName      firstName
-     * @param string $name           name
-     * @param string $username       username
-     * @param string $email          email
-     * @param string $password       password
-     * @param string $passwordVerify passwordVerify
+     * @param array $post with firstName name, username, email, password and passwordVerify
      *
      * @return void
      */
-    public function manageUserRegister(array $post): void {
+    public function manageUserRegister(array $post): void
+    {
 
         $template = RouteMapper::UserRegisterView->getTemplate();
 
@@ -120,7 +119,7 @@ class UserRegisterController extends AbstractController
         $password  = $post["password"];
 
         $data = [];
-        if (!$this->isValid($post)) {
+        if ($this->isValid($post) === false) {
             $template = RouteMapper::UserRegisterView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -128,7 +127,6 @@ class UserRegisterController extends AbstractController
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
-
             $firstName = ucwords(strtolower($post["firstName"]));
             $name = ucwords(strtolower($post["name"]));
             $username = ucwords(strtolower($post["username"]));
@@ -169,21 +167,20 @@ class UserRegisterController extends AbstractController
                     $data = [
                         MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                     ];
-
                 }
 
-                if (isset($data[MessageMapper::Error->getMessageLabel()]) === false)
-                {
+                if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                     $data = [
                         MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
                     ];
                 }
-            }
-            //end if
-        }
+            }//end if
+        }//end if
+
         $this->_template->display($template, $data);
 
-    }
+    }//end manageUserRegister()
+
 
     /**
      * Summary of sanitizeRegisterData
@@ -199,6 +196,7 @@ class UserRegisterController extends AbstractController
         $userRegister->setName($this->sanitize($userRegister->getName()));
         $userRegister->setUsername($this->sanitize($userRegister->getUsername()));
 
-    }
+    }//end sanitizeRegisterData()
+
 
 }

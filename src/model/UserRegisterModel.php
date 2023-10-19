@@ -28,7 +28,7 @@ class UserRegisterModel
 
     /**
      * Summary of __construct UserRegisterModel
-     * 
+     *
      * @param string $firstName first name of the user
      * @param string $name      name of the user
      * @param string $username  username must be unique, used to login
@@ -38,12 +38,13 @@ class UserRegisterModel
     public function __construct(
         private string $firstName,
         private string $name,
-        private string $username, 
-        private string $email, 
+        private string $username,
+        private string $email,
         private string $password
-    ) { }
-    // end of __construct()
-    
+    ) {
+
+    }//end __construct()
+
 
     /**
      * Summary of getFirstName
@@ -56,6 +57,7 @@ class UserRegisterModel
         return $this->firstName;
 
     }
+
 
     /**
      * Summary of setFirstName
@@ -72,6 +74,7 @@ class UserRegisterModel
 
     }
 
+
     /**
      * Summary of getName
      *
@@ -83,6 +86,7 @@ class UserRegisterModel
         return $this->name;
 
     }
+
 
     /**
      * Summary of setName
@@ -99,6 +103,7 @@ class UserRegisterModel
 
     }
 
+
     /**
      * Summary of getUsername
      *
@@ -110,6 +115,7 @@ class UserRegisterModel
         return $this->username;
 
     }
+
 
     /**
      * Summary of setUsername
@@ -126,6 +132,7 @@ class UserRegisterModel
 
     }
 
+
     /**
      * Summary of getEmail
      *
@@ -137,6 +144,7 @@ class UserRegisterModel
         return $this->email;
 
     }
+
 
     /**
      * Summary of setEmail
@@ -153,6 +161,7 @@ class UserRegisterModel
 
     }
 
+
     /**
      * Summary of getPassword
      *
@@ -164,6 +173,7 @@ class UserRegisterModel
         return $this->password;
 
     }
+
 
     /**
      * Summary of setPassword
@@ -180,6 +190,7 @@ class UserRegisterModel
 
     }
 
+
     /**
      * Summary of toArray
      *
@@ -187,7 +198,7 @@ class UserRegisterModel
      */
     public function toArray() :array
     {
-        
+
         return [
             "firstName" => $this->firstName,
             "name" => $this->name,
@@ -197,5 +208,6 @@ class UserRegisterModel
         ];
 
     }
+
 
 }

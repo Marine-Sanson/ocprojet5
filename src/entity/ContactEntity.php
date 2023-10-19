@@ -27,6 +27,7 @@ use DateTime;
  */
 class ContactEntity
 {
+
     /**
      * Summary of __construct ContactEntity
      *
@@ -42,10 +43,12 @@ class ContactEntity
         private readonly string $name,
         private readonly string $firstName,
         private readonly string $email,
-        private readonly string   $content,
+        private readonly string $content,
         private readonly DateTime $creationDate
-    ) { }
-    //end __construct()
+    ) {
+
+    }//end __construct()
+
 
     /**
      * Summary of getId
@@ -59,6 +62,7 @@ class ContactEntity
 
     }
 
+
     /**
      * Summary of getName
      *
@@ -70,6 +74,7 @@ class ContactEntity
         return $this->name;
 
     }
+
 
     /**
      * Summary of getFirstName
@@ -83,6 +88,7 @@ class ContactEntity
 
     }
 
+
     /**
      * Summary of getEmail
      *
@@ -94,6 +100,7 @@ class ContactEntity
         return $this->email;
 
     }
+
 
     /**
      * Summary of getContent
@@ -107,6 +114,7 @@ class ContactEntity
 
     }
 
+
     /**
      * Summary of getCreationDate
      *
@@ -118,4 +126,6 @@ class ContactEntity
         return $this->creationDate;
 
     }
+
+
 }
