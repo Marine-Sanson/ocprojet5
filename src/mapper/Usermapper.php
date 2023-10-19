@@ -29,9 +29,8 @@ use App\model\UserConnectionModel;
 class UserMapper
 {
 
-
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserMapper
      */

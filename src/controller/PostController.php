@@ -268,6 +268,7 @@ class PostController extends AbstractController
             $postCom["content"] = $this->toDisplay($postCom["content"]);
             $comments[] = $postCom;
         }
+
         $postDetails->setComments($comments);
 
         $this->_template->display(
