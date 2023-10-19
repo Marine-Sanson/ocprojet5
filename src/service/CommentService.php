@@ -60,7 +60,7 @@ class CommentService
      * @return \App\service\CommentService
      */
     public static function getInstance(): CommentService
-    { 
+    {
 
         if (self::$instance === null) {
             self::$instance = new CommentService(CommentRepository::getInstance());
@@ -79,7 +79,9 @@ class CommentService
      */
     public function getpostComments(int $postId): array
     {
+
         return $this->_commentRepository->getOnePostComments($postId);
+
     }
 
     /**
@@ -114,14 +116,16 @@ class CommentService
     {
 
         $createNewComment = $this->_commentRepository->insertComment($validateComment);
-        if ($createNewComment) {
-            $data = [
-                MessageMapper::Message->getMessageLabel() => MessageMapper::CommentCreated->getMessage()
-            ];
-        }
-        if (!$createNewComment) {
+
+        if ($createNewComment === false) {
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+            ];
+        }
+
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
+            $data = [
+                MessageMapper::Message->getMessageLabel() => MessageMapper::CommentCreated->getMessage()
             ];
         }
 
@@ -184,11 +188,13 @@ class CommentService
         foreach ($comments as $comment) {
             $pendingCommentsIds[] = $comment["id"];
         }
+
         $isValid = in_array($commentId, $pendingCommentsIds);
 
-        if ($isValid) {
+        if ($isValid === true) {
             return true;
         }
+
         return false;
 
     }

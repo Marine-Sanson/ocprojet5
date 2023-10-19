@@ -43,10 +43,10 @@ class ContactModel
         private string $email, 
         private string $content,
         private DateTime $creationDate
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
 
     /**

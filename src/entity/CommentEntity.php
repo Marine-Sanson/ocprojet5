@@ -27,6 +27,7 @@ use DateTime;
  */
 class CommentEntity
 {
+
     /**
      * Summary of __construct
      *
@@ -46,10 +47,10 @@ class CommentEntity
         private readonly DateTime $creationDate,
         private readonly DateTime $lastUpdateDate,
         private readonly bool $isValidate
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
     
 
     /**

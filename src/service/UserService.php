@@ -130,7 +130,6 @@ class UserService
         $user = null;
 
         if ($result !== []) {
-
             $creationDate = $result[0]["creation_date"];
             $creationDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
@@ -151,7 +150,6 @@ class UserService
                 $updateDate,
                 $allowed
             );
-
         }//end if
 
         return $user;
@@ -171,13 +169,13 @@ class UserService
 
         $userEntity = $this->getUser($username);
 
-        if (!$userEntity) {
+        if ($userEntity === false) {
             return null;            
         }
 
         $connect = $this->connect($password, $userEntity);
 
-        if (!$connect) {
+        if ($connect === false) {
             return null;
         }
 
@@ -226,6 +224,7 @@ class UserService
         foreach ($users as $user) {
             $list[] = $this->transformToUserConnectionModel($user);
         }
+
         return $list;
 
     }

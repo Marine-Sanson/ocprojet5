@@ -55,10 +55,10 @@ class ContactController extends AbstractController
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly ContactService $_contactService
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
     
 
     /**
@@ -105,7 +105,7 @@ class ContactController extends AbstractController
     public function manageContact(array $post): void
     {
 
-        if (!$this->isValid($post)) {
+        if ($this->isValid($post) === false) {
             $template = RouteMapper::ContactView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -119,12 +119,12 @@ class ContactController extends AbstractController
             $sendMail = false;
             $isContactCreated = $this->_contactService->createContact($contact);
 
-            if ($isContactCreated) {
+            if ($isContactCreated === true) {
                 $contact->setContent(htmlspecialchars_decode($contact->getContent()));
                 $sendMail = $this->_contactService->notify($contact);
             }
 
-            if (!$sendMail) {
+            if ($sendMail === false) {
                 $template = RouteMapper::ContactView->getTemplate();
                 $data = [
                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -137,7 +137,7 @@ class ContactController extends AbstractController
                     MessageMapper::Message->getMessageLabel() => MessageMapper::MailValid->getMessage()
                 ];
             }
-        } //end if
+        }//end if
 
         $this->_template->display($template, $data);
 

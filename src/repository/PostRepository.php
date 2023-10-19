@@ -56,12 +56,14 @@ class PostRepository
      * @return \App\repository\PostRepository
      */
     public static function getInstance(): PostRepository
-    { 
+    {
+
         if (self::$instance === null) {
             self::$instance = new PostRepository(DatabaseService::getInstance());  
         }
     
         return self::$instance;
+
     }
     
     /**
@@ -73,6 +75,7 @@ class PostRepository
      */
     public function insertNewPost(NewPostModel $newPostModel): int
     {
+
         $request = 'INSERT INTO posts (
             id_user,
             title,
@@ -101,6 +104,7 @@ class PostRepository
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
+
     }
 
     /**
@@ -112,6 +116,7 @@ class PostRepository
      */
     public function updatePost(UpdatePostModel $updatePost): void
     {
+
         $request = 'UPDATE posts SET 
         title = :title,
         summary = :summary,
@@ -119,13 +124,14 @@ class PostRepository
         last_update_date = :last_update_date
         WHERE id = :id';
         $parameters = [
-            'id' => $updatePost->getPostId(),
+            'id' => $updatePost->getId(),
             'title' => $updatePost->getTitle(),
             'summary' => $updatePost->getSummary(),
             'content' => $updatePost->getContent(),
             'last_update_date' => $updatePost->getLastUpdateDate()->format('Y-m-d H:i:s')
         ];
         $this->db->execute($request, $parameters);
+
     }
 
     /**
@@ -135,11 +141,13 @@ class PostRepository
      */
     public function getPostsWithAuthors(): array
     {
+
         $request = 'SELECT posts.*, username FROM posts 
                     JOIN users ON posts.id_user = users.id 
                     ORDER BY last_update_date DESC LIMIT 12';
 
         return $this->db->execute($request, null);
+
     }
 
     /**
@@ -150,11 +158,13 @@ class PostRepository
      */
     public function getAllPostsWithAuthors(): array
     {
+
         $request = 'SELECT posts.*, username FROM posts 
                     JOIN users ON posts.id_user = users.id 
                     ORDER BY last_update_date DESC';
 
         return $this->db->execute($request, null);
+
     }
 
     /**
@@ -166,6 +176,7 @@ class PostRepository
      */
     public function getOnePostData(int $postId): array
     {
+
         $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id WHERE posts.id = :id ';
         $parameters = [
             'id' => $postId
@@ -173,6 +184,7 @@ class PostRepository
         $result = $this->db->execute($request, $parameters);
 
         return $result[0];
+
     }
 
     /**
@@ -182,6 +194,7 @@ class PostRepository
      */
     public function getListOfPosts(): array
     {
+
         $request = 'SELECT
         posts.id,
         posts.id_user,

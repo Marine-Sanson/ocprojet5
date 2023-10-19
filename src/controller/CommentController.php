@@ -73,6 +73,7 @@ class CommentController extends AbstractController
         if (self::$instance === null) {
             self::$instance = new CommentController($template, CommentService::getInstance());  
         }
+
         return self::$instance;
 
     }
@@ -110,7 +111,6 @@ class CommentController extends AbstractController
         $isvalid = $this->_commentService->validCommentId($commentId);
         if ($isvalid === false) {
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
-
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
@@ -139,12 +139,12 @@ class CommentController extends AbstractController
 
         $template = RouteMapper::ValidationComments->getTemplate();
         $isvalid = $this->_commentService->validCommentId($commentId);
-        if ($isvalid) {
+        if ($isvalid === false) {
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+        }
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $this->_commentService->deleteComments($commentId);
             $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::CommentDeleteSuccess->getMessage();
-        }
-        if (!$isvalid) {
-            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
 
         $comments = $this->_commentService->getPendingComments();

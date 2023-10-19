@@ -44,10 +44,10 @@ class ContactEntity
         private readonly string $email,
         private readonly string   $content,
         private readonly DateTime $creationDate
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
 
     /**

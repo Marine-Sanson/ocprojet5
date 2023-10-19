@@ -42,10 +42,11 @@ class AbstractController
         }
 
         foreach ($post as $value) {
-            if (empty($value)) {
+            if (empty($value) === true) {
                 return false;
             }
         }
+
         return true;
 
     }

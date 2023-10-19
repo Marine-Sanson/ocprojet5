@@ -54,6 +54,7 @@ enum RouteMapper: string
             static::ValidationComments => 'validation.html.twig',
             static::Page404 => '404.html.twig',
         };
+
     }
 
 }

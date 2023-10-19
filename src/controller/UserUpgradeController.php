@@ -122,7 +122,7 @@ class UserUpgradeController extends AbstractController
 
         $template = RouteMapper::UserUpgradeView->getTemplate();
         $data = [];
-        $this->_userService->modifyRole($$post['userId'], $post['role'], $post['isAllowed']);
+        $this->_userService->modifyRole((int) $post['userId'], $post['role'], (int) $post['isAllowed']);
         $users = $this->_userService->getAllUsers();
         $data["users"] = $users;
         $data[MessageMapper::Message->getMessageLabel()] = MessageMapper::UpdateSuccess->getMessage();

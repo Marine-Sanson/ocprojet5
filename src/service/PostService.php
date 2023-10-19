@@ -112,10 +112,12 @@ class PostService
      */
     public function getPostDetails(int $postId): PostDetailsModel
     {
+
         $post = $this->getPostData($postId);
         $comments = $this->_commentService->getpostComments($postId);
  
         return $this->_postDetailsMapper->getPostDetailsModel($post, $comments);
+
     }
 
     /**
@@ -147,6 +149,7 @@ class PostService
         if (isset($id) === false) {
             return false;
         }
+
         return true;
 
     }
@@ -170,7 +173,7 @@ class PostService
 
         $insertPost = $this->_postRepository->insertNewPost($newPost);
 
-        if ($insertPost) {
+        if ($insertPost === true) {
             return true;
         }
 

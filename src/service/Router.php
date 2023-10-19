@@ -65,11 +65,13 @@ class Router
      */
     public static function getInstance(): Router
     {
+
         if (self::$instance === null) {
             self::$instance = new Router(TwigService::getInstance());
         }
     
         return self::$instance;
+
     }
 
     /**
@@ -81,20 +83,24 @@ class Router
      */
     public function parseRoute(): array
     {
+
         $route = [];
         $route["route"] = "home";
-        if (isset($_GET["route"])) {
+
+        if (isset($_GET["route"]) === true) {
             $routeParam = explode("/", $_GET["route"]);
             $route["route"] = $routeParam[0];
         }
 
         $id = null;
-        if (isset($routeParam) && count($routeParam) === 2) {
+
+        if (isset($routeParam) === true && count($routeParam) === 2) {
             $id = (int) ($routeParam["1"]);
         }
 
         $route["param"] = $id;
         return $route;
+
     }
 
     /**
@@ -105,14 +111,14 @@ class Router
      */
     public function route(): void
     {
+
         $route = $this->parseRoute();
         $post = null;
-        if (isset($_POST)) {
+        if (isset($_POST) === true) {
             $post = $this->postToArray($_POST);
         }
 
         switch ($route["route"]) {
-
             case HomeController::URL:
                 $homeController = HomeController::getInstance($this->_templateEngine);
                 $homeController->displayHome();
@@ -145,8 +151,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
+        }//end of switch
 
-        }//end of switch case
     }
 
     /**
@@ -158,8 +164,10 @@ class Router
      */
     private function postToArray(array $superPost): array
     {
+
         $post = [];
         return array_replace($post, $superPost);
+
     }
 
     /**
@@ -172,19 +180,22 @@ class Router
      */
     private function postControllerUrl(array $route, array $post)
     {
+
         $postController = PostController::getInstance($this->_templateEngine);
 
         switch ($route) {
-            
             case ($route["param"] === null):
-                if (isset($post["action"]) && $post["action"] === PostController::ACTION) {
+
+                if (isset($post["action"]) === true && $post["action"] === PostController::ACTION) {
                     $postController->addPost($post);
                     break;
                 }
+
                 $postController->showPosts();
                 break;
 
             case (isset($route["param"])):
+
                 if (isset($post["action"])) {
 
                     switch ($post["action"]) {
@@ -203,14 +214,15 @@ class Router
                     }
 
                 }
+
                 $postController->showPostDetails($route["param"]);
                 break;
 
             default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
+        }//end of switch
 
-        }//end of switch case
     }
 
     /**
@@ -222,10 +234,10 @@ class Router
      */
     private function userControllerUrl(array $post): void
     {
+
         $userController = UserController::getInstance($this->_templateEngine);
 
         switch ($post) {
-
             case (null):
                 $userController->displayLoginPage();
                 break;
@@ -245,13 +257,13 @@ class Router
                     default :
                         $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                         break;
-                    }
+                }
 
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
+        }//end of switch
 
-        }//end of switch case
     }
 
     /**
@@ -263,15 +275,15 @@ class Router
      */
     private function userUpgradeControllerUrl(array $post): void
     {
+
         $userUpgradeCtrl = UserUpgradeController::getInstance($this->_templateEngine);
 
         switch ($post) {
-
             case (null):
                 $userUpgradeCtrl->displayUserUpgradePage();
                 break;
 
-            case (isset($post["action"]) && $post["action"] === UserUpgradeController::ACTION):
+            case (isset($post["action"]) === true && $post["action"] === UserUpgradeController::ACTION):
                 $userUpgradeCtrl->manageUserUpgrade($post);
                 break;
 
@@ -279,6 +291,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
+
     }
 
     /**
@@ -290,9 +303,9 @@ class Router
      */
     private function commentControllerUrl(array $post): void
     {
+
         $commentController = CommentController::getInstance($this->_templateEngine);
         switch ($post) {
-
             case (null):
                 $commentController->displayValidationPage();
                 break;
@@ -317,8 +330,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
+        }//end of switch
 
-        }//end of switch case
     }
 
     /**
@@ -330,10 +343,10 @@ class Router
      */
     private function userRegisterControllerUrl(array $post): void
     {
+
         $userRegisterCtrl = UserRegisterController::getInstance($this->_templateEngine);
 
         switch ($post) {
-
             case (null):
                 $userRegisterCtrl->displayUserRegisterPage();
                 break;
@@ -346,6 +359,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
+
     }
 
     /**
@@ -357,10 +371,10 @@ class Router
      */
     private function contactControllerUrl(array $post): void
     {
+
         $contactController = ContactController::getInstance($this->_templateEngine, ContactService::getInstance());
 
         switch ($post) {
-
             case (null):
                 $contactController->displayContactPage();
                 break;
@@ -373,6 +387,7 @@ class Router
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
         }
+
     }
 
 }

@@ -39,16 +39,16 @@ class UpdatePostModel
      * @param \DateTime $lastUpdateDate lastUpdateDate
      */
     public function __construct(
-        private readonly int      $id,
-        private readonly int      $userId,
-        private readonly string   $title,
-        private string            $summary,
-        private string            $content,
+        private readonly int $id,
+        private readonly int $userId,
+        private readonly string $title,
+        private string $summary,
+        private string $content,
         private readonly DateTime $lastUpdateDate
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
 
     /**

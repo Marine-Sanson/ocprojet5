@@ -48,10 +48,10 @@ class UserRegisterService
     private function __construct(
         private readonly UserService $_userService,
         private readonly UserRepository $_userRepository
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
 
     /**
@@ -126,9 +126,10 @@ class UserRegisterService
 
         $userId = $this->_userRepository->insertNewUser($userRegisterModel);
 
-        if (!$userId) {
+        if ($userId === false) {
             return false;
         }
+
         return true;
 
     }

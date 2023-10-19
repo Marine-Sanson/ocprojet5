@@ -59,10 +59,10 @@ class UserRegisterController extends AbstractController
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService,
         private readonly UserRegisterService $_userRegisterService
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
      /**
       * Summary of getInstance
@@ -122,7 +122,7 @@ class UserRegisterController extends AbstractController
         $password  = $post["password"];
 
         $data = [];
-        if (!$this->isValid($post)) {
+        if ($this->isValid($post) === false) {
             $template = RouteMapper::UserRegisterView->getTemplate();
             $data = [
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
@@ -130,7 +130,6 @@ class UserRegisterController extends AbstractController
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
-
             $firstName = ucwords(strtolower($post["firstName"]));
             $name = ucwords(strtolower($post["name"]));
             $username = ucwords(strtolower($post["username"]));
@@ -171,7 +170,6 @@ class UserRegisterController extends AbstractController
                     $data = [
                         MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
                     ];
-
                 }
 
                 if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
@@ -179,8 +177,11 @@ class UserRegisterController extends AbstractController
                         MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
                     ];
                 }
-            } //end if
-        }
+
+            }//end if
+
+        }//end if
+
         $this->_template->display($template, $data);
 
     }

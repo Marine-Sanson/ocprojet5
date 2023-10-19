@@ -30,22 +30,22 @@ class NewPostModel
     /**
      * Summary of __construct
      *
-     * @param int       $idUser       idUser
+     * @param int       $userId       userId
      * @param string    $title        title
      * @param string    $summary      summary
      * @param string    $content      content
      * @param \DateTime $creationDate lastUpdateDate
      */
     public function __construct(
-        private readonly int      $idUser,
-        private readonly string   $title,
-        private readonly string   $summary,
-        private readonly string   $content,
+        private readonly int $userId,
+        private readonly string $title,
+        private readonly string $summary,
+        private readonly string $content,
         private readonly DateTime $creationDate
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
 
     /**
@@ -53,10 +53,10 @@ class NewPostModel
      *
      * @return int
      */
-    public function getIdUser(): int
+    public function getUserId(): int
     {
 
-        return $this->idUser;
+        return $this->userId;
 
     }
 

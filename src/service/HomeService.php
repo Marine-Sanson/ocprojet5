@@ -46,10 +46,10 @@ class HomeService
     private function __construct(
         private readonly PostRepository $_postRepository,
         private readonly PostsMapper $_postsMapper
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
 
     /**

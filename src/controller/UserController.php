@@ -56,10 +56,10 @@ class UserController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
      /**
       * Summary of getInstance
@@ -136,13 +136,14 @@ class UserController extends AbstractController
     {
 
         $template = RouteMapper::HomeView->getTemplate();
-        if ($this->_sessionService->isUserConnected()) {
 
+        if ($this->_sessionService->isUserConnected() === true) {
             $this->_sessionService->cleanSession();
             $data = [
                 MessageMapper::Message->getMessageLabel() => MessageMapper::Disconnect->getMessage()
             ];
         }
+
         $data["session"] = $this->_sessionService->getSession();
 
         $this->_template->display($template, $data);

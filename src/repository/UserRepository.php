@@ -55,12 +55,14 @@ class UserRepository
      * @return \App\repository\UserRepository
      */
     public static function getInstance(): UserRepository
-    { 
+    {
+
         if (self::$instance === null) {
             self::$instance = new UserRepository(DatabaseService::getInstance());
         }
     
         return self::$instance;
+
     }
 
     /**
@@ -72,6 +74,7 @@ class UserRepository
      */
     public function insertNewUser(UserRegisterModel $userRegisterModel): int
     {
+
         $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
         $request = 'INSERT INTO users (
                 name,
@@ -110,6 +113,7 @@ class UserRepository
         $newReq = 'SELECT LAST_INSERT_ID()';
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
+
     }
 
     /**
@@ -121,6 +125,7 @@ class UserRepository
      */
     public function getUser(string $username): array
     {
+
         $request = 'SELECT
             id,
             name,
@@ -137,6 +142,7 @@ class UserRepository
             'username' => $username
         ];
         return $this->db->execute($request, $parameters);
+
     }
 
     /**
@@ -148,6 +154,7 @@ class UserRepository
      */
     public function getUserId(string $username): int
     {
+
         $request = 'SELECT id FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
@@ -155,6 +162,7 @@ class UserRepository
         $id = $this->db->execute($request, $parameters);
 
         return $id[0]["id"];
+
     }
 
     /**
@@ -164,9 +172,11 @@ class UserRepository
      */
     public function getAllUsernames(): array
     {
+
         $request = 'SELECT username FROM users';
 
         return $this->db->execute($request, []);
+
     }
 
     /**
@@ -176,9 +186,11 @@ class UserRepository
      */
     public function getAllUsers(): array
     {
+
         $request = 'SELECT id, first_name, username, password, role, is_allowed FROM users';
 
         return $this->db->execute($request, []);
+
     }
 
     /**
@@ -192,6 +204,7 @@ class UserRepository
      */
     public function updateRole(int $userId, string $role, int $isAllowed): void
     {
+
         $request = 'UPDATE users SET role = :role, is_allowed =:is_allowed WHERE id = :id';
         $parameters = [
             'id' => $userId,
@@ -199,5 +212,7 @@ class UserRepository
             'is_allowed' => $isAllowed
         ];
         $this->db->execute($request, $parameters);
+
     }
+
 }

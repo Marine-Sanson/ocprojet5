@@ -79,7 +79,7 @@ class ContactService
         $contactRepository = new ContactRepository;
         $id = $contactRepository->insertContact($newContact);
 
-        if (isset($id)) {
+        if (isset($id) === true) {
             return true;
         }
 
@@ -107,9 +107,10 @@ class ContactService
         $mailerService = new MailerService;
         $mail = $mailerService->sendMail($contactEmail, $subject, $message);
 
-        if ($mail) {
+        if ($mail === true) {
             return true;
         }
+
         return false;
 
     }

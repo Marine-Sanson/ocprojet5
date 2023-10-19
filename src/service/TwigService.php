@@ -43,7 +43,7 @@ class TwigService implements TemplateInterface
      *
      * @var Environment
      */
-    private Environment $_twig;
+    private Environment $twigEnvironment;
     
 
     /**
@@ -60,7 +60,7 @@ class TwigService implements TemplateInterface
         );
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addGlobal("session", SessionService::getInstance()->getSession());
-        $this->_twig = $twig;
+        $this->twigEnvironment = $twig;
 
     }//end of __construct()
 
@@ -90,10 +90,10 @@ class TwigService implements TemplateInterface
      *
      * @return void
      */
-    public function display(string $templateName, array $parameters = []): void
+    public function display(string $templateName, array $parameters=[]): void
     {
 
-        $this->_twig->display($templateName, $parameters);
+        $this->twigEnvironment->display($templateName, $parameters);
 
     }
 

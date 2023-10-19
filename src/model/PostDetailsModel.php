@@ -49,10 +49,10 @@ class PostDetailsModel
         private readonly DateTime $lastUpdateDate,
         private readonly string $username,
         private ?array $comments
-        )
-        {
+    )
+    {
 
-        }//end of __construct()
+    }//end of __construct()
 
 
     /**
