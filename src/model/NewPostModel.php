@@ -42,8 +42,10 @@ class NewPostModel
         private readonly string   $summary,
         private readonly string   $content,
         private readonly DateTime $creationDate
-    ) { }
-    // End of __construct()
+        )
+        {
+
+        }//end of __construct()
 
 
     /**

@@ -56,9 +56,10 @@ class UserController extends AbstractController
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService
-    ) { }
-    // End of __construct()
+        )
+        {
 
+        }//end of __construct()
 
      /**
       * Summary of getInstance

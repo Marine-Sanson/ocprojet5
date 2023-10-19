@@ -46,8 +46,10 @@ class PostEntity
         private readonly string $content,
         private readonly DateTime $creationDate,
         private readonly DateTime $lastUpdateDate
-    ) { }
-    //end __construct()
+        )
+        {
+
+        }//end of __construct()
 
 
     /**

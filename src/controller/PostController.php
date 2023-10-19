@@ -56,9 +56,10 @@ class PostController extends AbstractController
         private readonly TemplateInterface $_template, 
         private readonly PostService $_postService, 
         private readonly CommentService $_commentService
-    ) { }
-    // End of __construct()
+        )
+        {
 
+        }//end of __construct()
 
     /**
      * Summary of getInstance
@@ -215,7 +216,7 @@ class PostController extends AbstractController
      *
      * @return void
      */
-    public function modifyPost(int $routeParam,array $post): void 
+    public function modifyPost(int $routeParam, array $post): void 
     {
         $message = null;
 

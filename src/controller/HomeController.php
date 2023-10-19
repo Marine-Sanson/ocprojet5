@@ -54,9 +54,10 @@ class HomeController
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly HomeService $_homeService
-    ) { }
-    // End of __construct()
+        )
+        {
 
+        }//end of __construct()
 
     /**
      * Summary of getInstance

@@ -55,8 +55,7 @@ class DatabaseService
             $_ENV['DB_PASS']
         );
 
-    }
-    // End of __construct()
+    }//end of __construct()
 
 
     /**

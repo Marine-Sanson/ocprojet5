@@ -41,13 +41,17 @@ class CommentService
     
     const ACTION = "addComment";
 
+
     /**
      * Summary of __construct
      *
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
      */
     private function __construct(private readonly CommentRepository $_commentRepository)
-    { }
+    {
+
+    }//end of __construct()
+
 
     /**
      * Summary of getInstance

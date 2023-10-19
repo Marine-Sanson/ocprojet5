@@ -44,7 +44,9 @@ class PostRepository
      * @param \App\service\DatabaseService $db DatabaseService
      */
     private function __construct(private DatabaseService $db)
-    { }
+    {
+
+    }//end of __construct()
 
 
     /**
@@ -88,7 +90,7 @@ class PostRepository
             :last_update_date
                 )';
         $parameters = [
-            'id_user' => $newPostModel->getIdUser(),
+            'id_user' => $newPostModel->getUserId(),
             'title' => $newPostModel->getTitle(),
             'summary' => $newPostModel->getSummary(),
             'content' => $newPostModel->getContent(),
@@ -117,7 +119,7 @@ class PostRepository
         last_update_date = :last_update_date
         WHERE id = :id';
         $parameters = [
-            'id' => $updatePost->getId(),
+            'id' => $updatePost->getPostId(),
             'title' => $updatePost->getTitle(),
             'summary' => $updatePost->getSummary(),
             'content' => $updatePost->getContent(),
@@ -158,15 +160,15 @@ class PostRepository
     /**
      * Summary of getOnePostData
      * 
-     * @param int $id id of the post
+     * @param int $postId id of the post
      * 
      * @return array
      */
-    public function getOnePostData(int $id): array
+    public function getOnePostData(int $postId): array
     {
         $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id WHERE posts.id = :id ';
         $parameters = [
-            'id' => $id
+            'id' => $postId
         ];
         $result = $this->db->execute($request, $parameters);
 
@@ -193,5 +195,7 @@ class PostRepository
         JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
         $parameters = [];
         return $this->db->execute($request, $parameters);
+
     }
+
 }

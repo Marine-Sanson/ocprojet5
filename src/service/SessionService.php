@@ -41,7 +41,7 @@ class SessionService implements SessionInterface
      *
      * @var array contain the data of $session
      */
-    private ?array $session = null;
+    private ?array $_session = null;
 
     const USER_KEY = "user";
 
@@ -72,7 +72,7 @@ class SessionService implements SessionInterface
     {
 
         session_start();
-        $this->session = &$session;
+        $this->_session = &$_SESSION;
 
     }
 
@@ -87,7 +87,7 @@ class SessionService implements SessionInterface
     public function setUser(UserConnectionModel $user): void
     {
 
-        $this->session[self::USER_KEY] = $user;
+        $this->_session[self::USER_KEY] = $user;
 
     }
 
@@ -99,7 +99,7 @@ class SessionService implements SessionInterface
     public function getUser(): UserConnectionModel
     {
 
-        return $this->session[self::USER_KEY];
+        return $this->_session[self::USER_KEY];
 
     }
 
@@ -112,7 +112,7 @@ class SessionService implements SessionInterface
     public function isUserConnected(): bool 
     {
 
-        return !empty($this->session[self::USER_KEY]);
+        return !empty($this->_session[self::USER_KEY]);
         
     }
 
@@ -124,7 +124,7 @@ class SessionService implements SessionInterface
     public function getSession(): array
     {
 
-        return $this->session;
+        return $this->_session;
 
     }
     
@@ -139,7 +139,7 @@ class SessionService implements SessionInterface
     {
 
         if ($this->has($key)) {
-            return $this->session[$key];
+            return $this->_session[$key];
         }
 
         return null;
@@ -157,7 +157,7 @@ class SessionService implements SessionInterface
     public function set(string $key, $value): SessionInterface
     {
 
-        $this->session[$key] = $value;
+        $this->_session[$key] = $value;
         return $this;
 
     }
@@ -173,7 +173,7 @@ class SessionService implements SessionInterface
     {
 
         if ($this->has($key)) {
-            unset($this->session[$key]);
+            unset($this->_session[$key]);
         }
         
     }
@@ -212,7 +212,7 @@ class SessionService implements SessionInterface
     public function has(string $key): bool
     {
 
-        return array_key_exists($key, $this->session);
+        return array_key_exists($key, $this->_session);
 
     }
 

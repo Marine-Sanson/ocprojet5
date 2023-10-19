@@ -58,8 +58,9 @@ class UserService
         private readonly UserMapper $_userMapper,
         private readonly UserRepository $_userRepository,
         private readonly SessionService $_session
-    ) { }
-    // End of __construct()
+    ) {
+
+    }//end of __construct
 
 
      /**
@@ -150,8 +151,8 @@ class UserService
                 $updateDate,
                 $allowed
             );
-        // End if
-        }
+
+        }//end if
 
         return $user;
 

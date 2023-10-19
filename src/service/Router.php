@@ -43,6 +43,7 @@ class Router
      */
     private static $instance;
 
+
     /**
      * Summary of __construct
      * Call an instance of TwigService
@@ -50,7 +51,10 @@ class Router
      * @param \App\service\TwigService $_templateEngine TwigService
      */
     private function __construct(private TwigService $_templateEngine)
-    { }
+    {
+
+    }//end of __construct()
+
 
     /**
      * Summary of getInstance
@@ -141,8 +145,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        // End switch case
-        }
+
+        }//end of switch case
     }
 
     /**
@@ -205,8 +209,8 @@ class Router
             default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        // End switch case
-        }
+
+        }//end of switch case
     }
 
     /**
@@ -246,8 +250,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        // End switch case
-        }
+
+        }//end of switch case
     }
 
     /**
@@ -313,8 +317,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        // End switch case
-        }
+
+        }//end of switch case
     }
 
     /**

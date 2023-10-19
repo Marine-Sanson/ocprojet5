@@ -42,8 +42,10 @@ class UserConnectionModel
         private readonly string $password,
         private readonly string $role,
         private readonly bool $isAllowed
-    ) { }
-    // End of __construct()
+        )
+        {
+
+        }//end of __construct()
 
 
     /**

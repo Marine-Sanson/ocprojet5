@@ -55,9 +55,11 @@ class ContactController extends AbstractController
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly ContactService $_contactService
-    ) { }
-    // End of __construct()
+        )
+        {
 
+        }//end of __construct()
+    
 
     /**
      * Summary of getInstance
@@ -135,8 +137,7 @@ class ContactController extends AbstractController
                     MessageMapper::Message->getMessageLabel() => MessageMapper::MailValid->getMessage()
                 ];
             }
-        // End if
-        }
+        } //end if
 
         $this->_template->display($template, $data);
 

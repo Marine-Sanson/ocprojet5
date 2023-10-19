@@ -46,16 +46,18 @@ class HomeService
     private function __construct(
         private readonly PostRepository $_postRepository,
         private readonly PostsMapper $_postsMapper
-    ) { }
-    // End of __construct()
+        )
+        {
+
+        }//end of __construct()
 
 
-     /**
-      * Summary of getInstance
-      * That method create the unique instance of the class, if it doesn't exist and return it
-      *
-      * @return \App\service\HomeService
-      */
+    /**
+     * Summary of getInstance
+     * That method create the unique instance of the class, if it doesn't exist and return it
+     *
+     * @return \App\service\HomeService
+     */
     public static function getInstance(): HomeService
     {
 

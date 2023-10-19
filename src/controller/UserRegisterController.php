@@ -59,9 +59,10 @@ class UserRegisterController extends AbstractController
         private readonly UserService $_userService,
         private readonly SessionService $_sessionService,
         private readonly UserRegisterService $_userRegisterService
-    ) { }
-    // End of __construct()
+        )
+        {
 
+        }//end of __construct()
 
      /**
       * Summary of getInstance
@@ -178,8 +179,7 @@ class UserRegisterController extends AbstractController
                         MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
                     ];
                 }
-            // End if
-            }
+            } //end if
         }
         $this->_template->display($template, $data);
 

@@ -41,9 +41,11 @@ class UserRegisterModel
         private string $username, 
         private string $email, 
         private string $password
-    ) { }
-    // End of __construct()
-    
+        )
+        {
+
+        }//end of __construct()
+
 
     /**
      * Summary of getFirstName

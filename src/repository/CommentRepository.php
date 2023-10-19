@@ -43,7 +43,9 @@ class CommentRepository
      * @param \App\service\DatabaseService $db DatabaseService
      */
     private function __construct(private DatabaseService $db)
-    { }
+    {
+
+    }//end of __construct()
 
 
     /**

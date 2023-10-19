@@ -25,6 +25,8 @@ namespace App\controller;
  */
 class AbstractController
 {
+
+
     /**
      * Summary of isValid
      *

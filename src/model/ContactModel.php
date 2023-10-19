@@ -43,8 +43,11 @@ class ContactModel
         private string $email, 
         private string $content,
         private DateTime $creationDate
-    ) { }
-    // End of __construct()
+        )
+        {
+
+        }//end of __construct()
+
 
     /**
      * Summary of getName

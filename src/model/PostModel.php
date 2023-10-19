@@ -43,9 +43,11 @@ class PostModel
         private string $title,
         private string $summary,
         private readonly DateTime $lastUpdateDate
-    ) { }
-    // End of __construct()
-    
+        )
+        {
+
+        }//end of __construct()
+
 
     /**
      * Summary of getId
