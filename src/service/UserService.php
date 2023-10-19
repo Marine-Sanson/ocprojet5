@@ -32,6 +32,7 @@ use DateTime;
  */
 class UserService
 {
+
     /**
      * Summary of template
      *
@@ -149,8 +150,8 @@ class UserService
                 $updateDate,
                 $allowed
             );
-        }
         // End if
+        }
 
         return $user;
 

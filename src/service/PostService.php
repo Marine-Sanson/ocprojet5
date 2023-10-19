@@ -36,6 +36,7 @@ use DateTime;
  */
 class PostService
 {
+
     /**
      * Summary of _instance
      *

@@ -32,6 +32,7 @@ use App\service\TemplateInterface;
  */
 class PostController extends AbstractController
 {
+
     /**
      * Summary of _instance
      *
@@ -112,10 +113,10 @@ class PostController extends AbstractController
 
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                                                      'id'          => $postId,
-                                                      'postDetails' => $postDetails,
-                                                      'message'     => $message
-                                                     ]
+                'id'          => $postId,
+                'postDetails' => $postDetails,
+                'message'     => $message,
+            ]
         );
     }
 
@@ -137,14 +138,14 @@ class PostController extends AbstractController
 
         if ($this->isValid($post) === false) {
             $message = [
-                        MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                       ];
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+            ];
         }
 
         if ($postId !== $routeParam) {
             $message = [
-                        MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                       ];
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+            ];
         }
 
         if (empty($message === false)) {
@@ -156,10 +157,10 @@ class PostController extends AbstractController
         $postDetails = $this->_postService->getPostDetails($postId);
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                                                      'id'          => $postId,
-                                                      'postDetails' => $postDetails,
-                                                      'message'     => $message
-                                                     ]
+                'id'          => $postId,
+                'postDetails' => $postDetails,
+                'message'     => $message,
+            ]
         );
     }
 
@@ -185,14 +186,14 @@ class PostController extends AbstractController
             $isPostCreated = $this->_postService->createNewPost((int) $post["userId"], $title, $summary, $content);
             if (!$isPostCreated) {
                 $data = [
-                         MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                        ];
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+                ];
             }
 
             if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                 $data = [
-                         MessageMapper::Message->getMessageLabel() => MessageMapper::NewPostSuccess->getMessage()
-                        ];
+                    MessageMapper::Message->getMessageLabel() => MessageMapper::NewPostSuccess->getMessage()
+                ];
             }
         }
         $posts = $this->_postService->getPosts();
@@ -223,14 +224,14 @@ class PostController extends AbstractController
 
         if (!$this->isValid($post)) {
             $message = [
-                        MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                       ];
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+            ];
         }
         if ($message === null) {
             if ($routeParam !== $postId) {
                 $message = [
-                            MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                           ];
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+                ];
             }
         }
         if ($message === null) {
@@ -240,8 +241,8 @@ class PostController extends AbstractController
 
             $this->_postService->updateAPost($postId, $userId, $title, $summary, $content);
             $message = [
-                        MessageMapper::Message->getMessageLabel() => MessageMapper::UpdateSuccess->getMessage()
-                       ];
+                MessageMapper::Message->getMessageLabel() => MessageMapper::UpdateSuccess->getMessage()
+            ];
         }
 
         $postDetails = $this->_postService->getPostDetails($routeParam);
@@ -259,10 +260,10 @@ class PostController extends AbstractController
 
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
-                                                      'id'          => $routeParam,
-                                                      'postDetails' => $postDetails,
-                                                      'message'     => $message
-                                                     ]
+                'id'          => $routeParam,
+                'postDetails' => $postDetails,
+                'message'     => $message
+            ]
         );
 
     }

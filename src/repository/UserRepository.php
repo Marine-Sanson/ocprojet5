@@ -29,6 +29,7 @@ use DateTime;
  */
 class UserRepository
 {
+
     /**
      * Summary of _instance
      * 
@@ -42,7 +43,8 @@ class UserRepository
      * 
      * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $db) { }
+    private function __construct(private DatabaseService $db)
+    { }
 
     
     /**

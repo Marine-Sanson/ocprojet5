@@ -30,6 +30,7 @@ use App\service\MailerService;
  */
 class ContactService
 {
+
     /**
      * Summary of _instance
      *

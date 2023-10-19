@@ -139,8 +139,8 @@ class UserController extends AbstractController
 
             $this->_sessionService->cleanSession();
             $data = [
-                     MessageMapper::Message->getMessageLabel() => MessageMapper::Disconnect->getMessage()
-                    ];
+                MessageMapper::Message->getMessageLabel() => MessageMapper::Disconnect->getMessage()
+            ];
         }
         $data["session"] = $this->_sessionService->getSession();
 

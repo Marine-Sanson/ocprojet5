@@ -30,7 +30,6 @@ use App\service\TemplateInterface;
 class HomeController
 {
 
-
     /**
      * Summary of _instance
      *
@@ -90,8 +89,8 @@ class HomeController
 
         $this->_template->display(
             RouteMapper::HomeView->getTemplate(), [
-                                                    "lastPosts" => $lastPosts
-                                                  ]
+                "lastPosts" => $lastPosts
+            ]
         );
 
     }

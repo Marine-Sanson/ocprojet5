@@ -54,7 +54,7 @@ enum MessageMapper: string
 
         return match ($this) {
             static::Message => "message",
-            static::Error   => "error"
+            static::Error => "error"
         };
 
     }
@@ -69,22 +69,22 @@ enum MessageMapper: string
     {
 
         return match ($this) {
-            static::MailValid                => "Votre message a bien été envoyé",
-            static::MailError                => "Votre adresse mail n'est pas valide",
-            static::GeneralError             => "Il y a eu un problème, merci de bien vouloir recommencer",
-            static::LoginProblem             => "Problème d'identification. Veuillez rentrer vos informations de connexion ou vous
+            static::MailValid => "Votre message a bien été envoyé",
+            static::MailError => "Votre adresse mail n'est pas valide",
+            static::GeneralError => "Il y a eu un problème, merci de bien vouloir recommencer",
+            static::LoginProblem => "Problème d'identification. Veuillez rentrer vos informations de connexion ou vous
             enregistrer.",
-            static::LoginSuccess             => " bonjour, vous êtes connecté.",
-            static::Disconnect               => "Vous êtes déconnecté",
-            static::CommentCreated           => "Votre commentaire à bien été enregistré, il apparaitra dès qu'il sera validé",
-            static::UsernameUnavailable      => "Ce nom d'utilisateur est déjà pris, merci d'en choisir un autre",
-            static::PasswordError            => "Attention à bien entrer 2 fois le même mot de passe",
-            static::UserRegisterSuccess      => "Bienvenue! Vous pourrez commenter des posts dès que vous y serez autorisé.
+            static::LoginSuccess => " bonjour, vous êtes connecté.",
+            static::Disconnect => "Vous êtes déconnecté",
+            static::CommentCreated => "Votre commentaire à bien été enregistré, il apparaitra dès qu'il sera validé",
+            static::UsernameUnavailable => "Ce nom d'utilisateur est déjà pris, merci d'en choisir un autre",
+            static::PasswordError => "Attention à bien entrer 2 fois le même mot de passe",
+            static::UserRegisterSuccess => "Bienvenue! Vous pourrez commenter des posts dès que vous y serez autorisé.
             Vous serez averti par mail quand ça sera le cas.",
-            static::NewPostSuccess           => "Votre article a bien été pris en compte.",
-            static::UpdateSuccess            => "Vos modifications ont bien été prises en compte",
+            static::NewPostSuccess => "Votre article a bien été pris en compte.",
+            static::UpdateSuccess => "Vos modifications ont bien été prises en compte",
             static::CommentValidationSuccess => "Ce commentaire à bien été validé",
-            static::CommentDeleteSuccess     => "Ce commentaire à bien été supprimé",
+            static::CommentDeleteSuccess => "Ce commentaire à bien été supprimé",
         };
 
     }

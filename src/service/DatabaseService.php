@@ -27,6 +27,7 @@ use PDO;
  */
 class DatabaseService
 {
+
     /**
      * Summary of db
      * Represents a connection between PHP and a database server.

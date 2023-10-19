@@ -35,6 +35,7 @@ use App\service\TwigService;
   */
 class Router
 {
+
     /**
      * Summary of _instance
      *
@@ -48,7 +49,8 @@ class Router
      *
      * @param \App\service\TwigService $_templateEngine TwigService
      */
-    private function __construct(private TwigService $_templateEngine) { }
+    private function __construct(private TwigService $_templateEngine)
+    { }
 
     /**
      * Summary of getInstance
@@ -139,8 +141,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }
         // End switch case
+        }
     }
 
     /**
@@ -164,7 +166,7 @@ class Router
      *
      * @return void
      */
-    private function postControllerUrl (array $route, array $post)
+    private function postControllerUrl(array $route, array $post)
     {
         $postController = PostController::getInstance($this->_templateEngine);
 
@@ -203,8 +205,8 @@ class Router
             default :
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }
         // End switch case
+        }
     }
 
     /**
@@ -244,8 +246,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }
         // End switch case
+        }
     }
 
     /**
@@ -311,8 +313,8 @@ class Router
             default:
                 $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                 break;
-        }
         // End switch case
+        }
     }
 
     /**

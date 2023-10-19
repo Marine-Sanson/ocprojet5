@@ -112,7 +112,8 @@ class UserRegisterController extends AbstractController
      *
      * @return void
      */
-    public function manageUserRegister(array $post): void {
+    public function manageUserRegister(array $post): void
+    {
 
         $template = RouteMapper::UserRegisterView->getTemplate();
 
@@ -123,8 +124,8 @@ class UserRegisterController extends AbstractController
         if (!$this->isValid($post)) {
             $template = RouteMapper::UserRegisterView->getTemplate();
             $data = [
-                     MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                    ];
+                MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+            ];
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
@@ -136,20 +137,20 @@ class UserRegisterController extends AbstractController
 
             if ($isUnavailable === true) {
                 $data = [
-                         MessageMapper::Error->getMessageLabel() => MessageMapper::UsernameUnavailable->getMessage()
-                        ];
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::UsernameUnavailable->getMessage()
+                ];
             }
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 $data = [
-                         MessageMapper::Error->getMessageLabel() => MessageMapper::MailError->getMessage()
-                        ];
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::MailError->getMessage()
+                ];
             }
 
             if ($password !== $post["passwordVerify"]) {
                 $data = [
-                         MessageMapper::Error->getMessageLabel() => MessageMapper::PasswordError->getMessage()
-                        ];
+                    MessageMapper::Error->getMessageLabel() => MessageMapper::PasswordError->getMessage()
+                ];
             }
 
             if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
@@ -167,18 +168,18 @@ class UserRegisterController extends AbstractController
 
                 if ($isSaved === false) {
                     $data = [
-                             MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
-                            ];
+                        MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
+                    ];
 
                 }
 
                 if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
                     $data = [
-                             MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
-                            ];
+                        MessageMapper::Message->getMessageLabel() => MessageMapper::UserRegisterSuccess->getMessage()
+                    ];
                 }
-            }
             // End if
+            }
         }
         $this->_template->display($template, $data);
 

@@ -29,6 +29,7 @@ use App\service\DatabaseService;
  */
 class PostRepository
 {
+
     /**
      * Summary of _instance
      * 
@@ -42,7 +43,8 @@ class PostRepository
      * 
      * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $db) { }
+    private function __construct(private DatabaseService $db)
+    { }
 
 
     /**
