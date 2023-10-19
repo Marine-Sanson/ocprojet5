@@ -38,7 +38,7 @@ class CommentService
      * @var CommentService
      */
     private static $instance;
-    
+
     const ACTION = "addComment";
 
 
@@ -70,6 +70,7 @@ class CommentService
 
     }//end getInstance()
 
+
     /**
      * Summary of getComments
      *
@@ -82,7 +83,8 @@ class CommentService
 
         return $this->_commentRepository->getOnePostComments($postId);
 
-    }
+    }//end getpostComments()
+
 
     /**
      * Summary of manageComment
@@ -103,7 +105,8 @@ class CommentService
             
             return new CommentEntity(null, $postId, $userId, $content, $currentDate, $currentDate, false);
 
-    }
+    }//end manageComment()
+
 
     /**
      * Summary of createNewComment
@@ -131,7 +134,8 @@ class CommentService
 
         return $data;
 
-    }
+    }//end createNewComment()
+
 
     /**
      * Summary of getPendingComments
@@ -143,7 +147,8 @@ class CommentService
 
         return $this->_commentRepository->getPendingComments();
 
-    }
+    }//end getPendingComments()
+
 
     /**
      * Summary of validateComments
@@ -157,7 +162,8 @@ class CommentService
 
         $this->_commentRepository->updateCommentValidation($commentId);
 
-    }
+    }//end validateComments()
+
 
     /**
      * Summary of deleteComments
@@ -171,7 +177,8 @@ class CommentService
 
         $this->_commentRepository->deleteComment($commentId);
 
-    }
+    }//end deleteComments()
+
 
     /**
      * Summary of validCommentId
@@ -197,6 +204,7 @@ class CommentService
 
         return false;
 
-    }
+    }//end validCommentId()
+
 
 }

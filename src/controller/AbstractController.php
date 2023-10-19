@@ -49,7 +49,8 @@ class AbstractController
 
         return true;
 
-    }
+    }//end isValid()
+
 
     /**
      * Summary of sanitize
@@ -66,7 +67,8 @@ class AbstractController
 
         return htmlspecialchars(htmlentities(stripslashes(trim($data))));
 
-    }
+    }//end sanitize()
+
 
     /**
      * Summary of toDisplay
@@ -80,6 +82,7 @@ class AbstractController
 
         return html_entity_decode(htmlspecialchars_decode($data));
 
-    }
+    }//end toDisplay()
+
 
 }

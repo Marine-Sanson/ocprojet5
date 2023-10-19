@@ -63,6 +63,7 @@ class UserRegisterController extends AbstractController
 
     }//end __construct()
 
+
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
@@ -72,7 +73,7 @@ class UserRegisterController extends AbstractController
       * @return \App\controller\UserRegisterController
       */
     public static function getInstance(TemplateInterface $template): UserRegisterController
-    { 
+    {
 
         if (self::$instance === null) {
             self::$instance = new UserRegisterController(
@@ -81,10 +82,11 @@ class UserRegisterController extends AbstractController
                 UserRegisterService::getInstance()
             );
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
+
 
     /**
      * Summary of displayUserRegisterPage
@@ -98,7 +100,8 @@ class UserRegisterController extends AbstractController
 
         $this->_template->display($template, []);
 
-    }
+    }//end displayUserRegisterPage()
+
 
     /**
      * Summary of manageUserRegister
@@ -176,7 +179,8 @@ class UserRegisterController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end manageUserRegister()
+
 
     /**
      * Summary of sanitizeRegisterData
@@ -192,6 +196,7 @@ class UserRegisterController extends AbstractController
         $userRegister->setName($this->sanitize($userRegister->getName()));
         $userRegister->setUsername($this->sanitize($userRegister->getUsername()));
 
-    }
+    }//end sanitizeRegisterData()
+
 
 }

@@ -1,9 +1,9 @@
 <?php
 /**
  * UserRepository File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,7 +20,7 @@ use DateTime;
 
 /**
  * UserRepository Class Doc Comment
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -32,7 +32,7 @@ class UserRepository
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var UserRepository
      */
     private static $instance;
@@ -40,7 +40,7 @@ class UserRepository
     
     /**
      * Summary of __construct
-     * 
+     *
      * @param \App\service\DatabaseService $db DatabaseService
      */
     private function __construct(private DatabaseService $db)
@@ -51,7 +51,7 @@ class UserRepository
     
     /**
      * Summary of getInstance
-     * 
+     *
      * @return \App\repository\UserRepository
      */
     public static function getInstance(): UserRepository
@@ -65,11 +65,12 @@ class UserRepository
 
     }//end getInstance()
 
+
     /**
      * Summary of insertNewUser
-     * 
+     *
      * @param \App\model\UserRegisterModel $userRegisterModel UserRegisterModel
-     * 
+     *
      * @return int
      */
     public function insertNewUser(UserRegisterModel $userRegisterModel): int
@@ -114,13 +115,14 @@ class UserRepository
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
 
-    }
+    }//end insertNewUser()
+
 
     /**
      * Summary of getUser
-     * 
+     *
      * @param string $username username
-     * 
+     *
      * @return array with all the data of a User
      */
     public function getUser(string $username): array
@@ -143,13 +145,14 @@ class UserRepository
         ];
         return $this->db->execute($request, $parameters);
 
-    }
+    }//end getUser()
+
 
     /**
      * Summary of getUserId
-     * 
+     *
      * @param string $username username
-     * 
+     *
      * @return int
      */
     public function getUserId(string $username): int
@@ -163,11 +166,12 @@ class UserRepository
 
         return $id[0]["id"];
 
-    }
+    }//end getUserId()
+
 
     /**
      * Summary of getAllUsernames
-     * 
+     *
      * @return array
      */
     public function getAllUsernames(): array
@@ -177,11 +181,12 @@ class UserRepository
 
         return $this->db->execute($request, []);
 
-    }
+    }//end getAllUsernames()
+
 
     /**
      * Summary of getAllUsers
-     * 
+     *
      * @return array
      */
     public function getAllUsers(): array
@@ -191,11 +196,12 @@ class UserRepository
 
         return $this->db->execute($request, []);
 
-    }
+    }//end getAllUsers()
+
 
     /**
      * Summary of updateRole
-     * 
+     *
      * @param int    $userId    id of the user
      * @param string $role      role of the user
      * @param int    $isAllowed 1 if the user is allowed
@@ -213,6 +219,7 @@ class UserRepository
         ];
         $this->db->execute($request, $parameters);
 
-    }
+    }//end updateRole()
+
 
 }

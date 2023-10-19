@@ -36,7 +36,7 @@ class HomeService
      */
     private static $instance;
 
-    
+
     /**
      * Summary of __construct
      *
@@ -68,6 +68,7 @@ class HomeService
 
     }//end getInstance()
 
+
     /**
      * Summary of getLastPosts
      *
@@ -80,6 +81,7 @@ class HomeService
 
         return $this->_postsMapper->transformToListOfPostModel($results);
 
-    }
+    }//end getLastPosts()
+
 
 }

@@ -41,7 +41,7 @@ class MailerService
      */
     public function sendMail(string $contactEmail, string $subject, string $message): bool
     {
-        
+
         $mail = new PHPMailer(true);
 
         $mail->isSMTP();
@@ -69,5 +69,6 @@ class MailerService
         return $mail->send();
 
     }//end sendMail()
+
 
 }

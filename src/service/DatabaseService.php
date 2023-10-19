@@ -67,12 +67,13 @@ class DatabaseService
     {
 
         if (self::$instance === null) {
-            self::$instance = new DatabaseService();  
+            self::$instance = new DatabaseService();
         }
 
         return self::$instance;
 
     }//end getInstance()
+
 
     /**
      * Summary of execute
@@ -92,6 +93,7 @@ class DatabaseService
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
 
-    }
+    }//end execute()
+
 
 }

@@ -38,6 +38,7 @@ class ContactService
      */
     private static $instance;
 
+
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
@@ -48,12 +49,13 @@ class ContactService
     {
 
         if (self::$instance === null) {
-            self::$instance = new ContactService();  
+            self::$instance = new ContactService();
         }
     
         return self::$instance;
 
     }//end getInstance()
+
 
     /**
      * Summary of createContact
@@ -70,9 +72,9 @@ class ContactService
         $newContact = new ContactEntity(
             $contactId, 
             $contactModel->getName(),
-            $contactModel->getFirstName(), 
-            $contactModel->getEmail(), 
-            $contactModel->getContent(), 
+            $contactModel->getFirstName(),
+            $contactModel->getEmail(),
+            $contactModel->getContent(),
             $contactModel->getCreationDate()
         );
 
@@ -85,8 +87,9 @@ class ContactService
 
         return false;
 
-    }
-    
+    }//end createContact()
+
+
     /**
      * Summary of notify
      *
@@ -113,6 +116,7 @@ class ContactService
 
         return false;
 
-    }
+    }//end notify()
+
 
 }

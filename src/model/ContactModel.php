@@ -39,8 +39,8 @@ class ContactModel
      */
     public function __construct(
         private string $name,
-        private string $firstName, 
-        private string $email, 
+        private string $firstName,
+        private string $email,
         private string $content,
         private DateTime $creationDate
     ) {
@@ -60,6 +60,7 @@ class ContactModel
 
     }
 
+
     /**
      * Summary of setName
      *
@@ -75,6 +76,7 @@ class ContactModel
 
     }
 
+
     /**
      * Summary of getFirstName
      *
@@ -86,7 +88,8 @@ class ContactModel
         return $this->firstName;
 
     }
-    
+
+
     /**
      * Summary of setFirstName
      *
@@ -102,6 +105,7 @@ class ContactModel
 
     }
 
+
     /**
      * Summary of getEmail
      *
@@ -113,6 +117,7 @@ class ContactModel
         return $this->email;
 
     }
+
 
     /**
      * Summary of setEmail
@@ -129,6 +134,7 @@ class ContactModel
 
     }
 
+
     /**
      * Summary of getContent
      *
@@ -140,6 +146,7 @@ class ContactModel
         return $this->content;
 
     }
+
 
     /**
      * Summary of setContent
@@ -156,6 +163,7 @@ class ContactModel
 
     }
 
+
     /**
      * Summary of getCreationDate
      *
@@ -167,6 +175,7 @@ class ContactModel
         return $this->creationDate;
 
     }
+
 
     /**
      * Summary of setCreationDate
@@ -182,5 +191,6 @@ class ContactModel
         return $this;
         
     }
+
 
 }

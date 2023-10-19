@@ -69,10 +69,11 @@ class Router
         if (self::$instance === null) {
             self::$instance = new Router(TwigService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
+
 
     /**
      * Summary of parseRoute
@@ -101,7 +102,8 @@ class Router
         $route["param"] = $id;
         return $route;
 
-    }
+    }//end parseRoute()
+
 
     /**
      * Summary of route
@@ -144,7 +146,7 @@ class Router
                 $this->userRegisterControllerUrl($post);
                 break;
 
-            case ContactController::URL: 
+            case ContactController::URL:
                 $this->contactControllerUrl($post);
                 break;
 
@@ -153,7 +155,8 @@ class Router
                 break;
         }//end switch
 
-    }
+    }//end route()
+
 
     /**
      * Summary of postToArray
@@ -168,7 +171,8 @@ class Router
         $post = [];
         return array_replace($post, $superPost);
 
-    }
+    }//end postToArray()
+
 
     /**
      * Summary of postControllerUrl
@@ -220,7 +224,8 @@ class Router
                 break;
         }//end switch
 
-    }
+    }//end postControllerUrl()
+
 
     /**
      * Summary of userControllerUrl
@@ -242,7 +247,6 @@ class Router
             case (isset($post["action"])):
 
                 switch ($post["action"]) {
-
                     case UserController::CONNECT:
                         $userController->login($post["username"], $post["password"]);
                         break;
@@ -261,7 +265,8 @@ class Router
                 break;
         }//end switch
 
-    }
+    }//end userControllerUrl()
+
 
     /**
      * Summary of userUpgradeControllerUrl
@@ -289,7 +294,8 @@ class Router
                 break;
         }
 
-    }
+    }//end userUpgradeControllerUrl()
+
 
     /**
      * Summary of commentControllerUrl
@@ -328,7 +334,8 @@ class Router
                 break;
         }//end switch
 
-    }
+    }//end commentControllerUrl()
+
 
     /**
      * Summary of userRegisterControllerUrl
@@ -356,7 +363,8 @@ class Router
                 break;
         }
 
-    }
+    }//end userRegisterControllerUrl()
+
 
     /**
      * Summary of contactControllerUrl
@@ -384,6 +392,7 @@ class Router
                 break;
         }
 
-    }
+    }//end contactControllerUrl()
+
 
 }

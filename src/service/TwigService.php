@@ -44,12 +44,12 @@ class TwigService implements TemplateInterface
      * @var Environment
      */
     private Environment $twigEnvironment;
-    
+
 
     /**
      * Summary of __construct
      */
-    private function __construct() 
+    private function __construct()
     {
         $loader = new FilesystemLoader('src/view');
         $twig = new Environment(
@@ -72,15 +72,16 @@ class TwigService implements TemplateInterface
      * @return \App\service\TwigService
      */
     public static function getInstance(): TwigService
-    { 
+    {
 
         if (self::$instance === null) {
-            self::$instance = new TwigService();  
+            self::$instance = new TwigService();
         }
     
         return self::$instance;
 
     }//end getInstance()
+
 
     /**
      * Summary of display
@@ -95,6 +96,7 @@ class TwigService implements TemplateInterface
 
         $this->twigEnvironment->display($templateName, $parameters);
 
-    }
+    }//end display()
+
 
 }

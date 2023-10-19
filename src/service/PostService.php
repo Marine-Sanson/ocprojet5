@@ -85,8 +85,9 @@ class PostService
         }
 
         return self::$instance;
-        
+
     }//end getInstance()
+
 
     /**
      * Summary of getPosts
@@ -100,7 +101,8 @@ class PostService
 
         return $this->_postsMapper->transformToListOfPostModel($results);
 
-    }
+    }//end getPosts()
+
 
     /**
      * Summary of getPostDetails
@@ -117,7 +119,8 @@ class PostService
  
         return $this->_postDetailsMapper->getPostDetailsModel($post, $comments);
 
-    }
+    }//end getPostDetails()
+
 
     /**
      * Summary of getPostData
@@ -131,7 +134,8 @@ class PostService
 
         return $this->_postRepository->getOnePostData($postId);
 
-    }
+    }//end getPostData()
+
 
     /**
      * Summary of createNewComment
@@ -151,7 +155,8 @@ class PostService
 
         return true;
 
-    }
+    }//end createNewComment()
+
 
     /**
      * Summary of createNewPost
@@ -178,7 +183,8 @@ class PostService
 
         return false;
 
-    }
+    }//end createNewPost()
+
 
     /**
      * Summary of updateAPost
@@ -198,6 +204,7 @@ class PostService
         $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);
         $this->_postRepository->updatePost($updatePost);
 
-    }
+    }//end updateAPost()
+
 
 }

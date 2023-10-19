@@ -59,6 +59,7 @@ class UserConnectionModel
 
     }
 
+
     /**
      * Summary of getFirstName
      *
@@ -68,8 +69,9 @@ class UserConnectionModel
     {
 
         return $this->firstName;
-        
+
     }
+
 
     /**
      * Summary of getUsername
@@ -83,6 +85,7 @@ class UserConnectionModel
 
     }
 
+
     /**
      * Summary of getPassword
      *
@@ -94,6 +97,7 @@ class UserConnectionModel
         return $this->password;
 
     }
+
 
     /**
      * Summary of getRole
@@ -107,6 +111,7 @@ class UserConnectionModel
 
     }
 
+
     /**
      * Summary of isUserAllowed
      *
@@ -118,6 +123,7 @@ class UserConnectionModel
         return $this->isAllowed;
 
     }
+
 
     /**
      * Summary of toArray
@@ -137,5 +143,6 @@ class UserConnectionModel
         ];
 
     }
+
 
 }

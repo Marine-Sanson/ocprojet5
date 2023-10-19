@@ -31,7 +31,7 @@ class UserEntity
 
     /**
      * Summary of __construct UserEntity
-     * 
+     *
      * @param int|null $id             id - autoincrement in the DB
      * @param string   $name           name of the user
      * @param string   $firstName      first name of the user
@@ -58,6 +58,7 @@ class UserEntity
 
     }//end __construct()
 
+
     /**
      * Summary of getId
      *
@@ -69,6 +70,7 @@ class UserEntity
         return $this->id;
 
     }
+
 
     /**
      * Summary of getName
@@ -82,6 +84,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getFirstName
      *
@@ -93,6 +96,7 @@ class UserEntity
         return $this->firstName;
 
     }
+
 
     /**
      * Summary of getUsername
@@ -106,6 +110,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getEmail
      *
@@ -117,6 +122,7 @@ class UserEntity
         return $this->email;
 
     }
+
 
     /**
      * Summary of getPassword
@@ -130,6 +136,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getRole
      *
@@ -141,6 +148,7 @@ class UserEntity
         return $this->role;
 
     }
+
 
     /**
      * Summary of getCreationDate
@@ -154,6 +162,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of getLastUpdateDate
      *
@@ -166,6 +175,7 @@ class UserEntity
 
     }
 
+
     /**
      * Summary of isUserAllowed
      *
@@ -177,5 +187,6 @@ class UserEntity
         return $this->isAllowed;
 
     }
+
 
 }

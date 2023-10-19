@@ -1,9 +1,9 @@
 <?php
 /**
  * ContactRepository File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use App\service\DatabaseService;
 
 /**
  * ContactRepository Class Doc Comment
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -31,17 +31,18 @@ class ContactRepository
 
     /**
      * Summary of _db
-     * 
+     *
      * @var DatabaseService $db connection between PHP and a database server
      */
     private DatabaseService $db;
 
+
     /**
      * Summary of insertContact
      * prepare and execute the request to save the contact data in the db
-     * 
+     *
      * @param ContactEntity $newContact ContactEntity
-     * 
+     *
      * @return int
      */
     public function insertContact(ContactEntity $newContact): int
@@ -69,5 +70,6 @@ class ContactRepository
         return $lastInsertId[0]["LAST_INSERT_ID()"];
 
     }//end insertContact()
+
 
 }

@@ -39,10 +39,11 @@ class PostController extends AbstractController
      * @var PostController
      */
     private static $instance;
-    
+
     const URL = "posts";
     const ACTION = "addPost";
     const MODIFY = "modifyPost";
+
 
     /**
      * Summary of __construct
@@ -53,12 +54,13 @@ class PostController extends AbstractController
      * @param \App\service\CommentService    $_commentService CommentService
      */
     private function __construct(
-        private readonly TemplateInterface $_template, 
-        private readonly PostService $_postService, 
+        private readonly TemplateInterface $_template,
+        private readonly PostService $_postService,
         private readonly CommentService $_commentService
     ) {
 
     }//end __construct()
+
 
     /**
      * Summary of getInstance
@@ -79,6 +81,7 @@ class PostController extends AbstractController
 
     }//end getInstance()
 
+
     /**
      * Summary of showPosts
      *
@@ -92,7 +95,8 @@ class PostController extends AbstractController
         
         $this->_template->display(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
 
-    }
+    }//end showPosts()
+
 
     /**
      * Summary of showPostDetails
@@ -125,7 +129,8 @@ class PostController extends AbstractController
             ]
         );
 
-    }
+    }//end showPostDetails()
+
 
     /**
      * Summary of addComment
@@ -169,7 +174,8 @@ class PostController extends AbstractController
             ]
         );
 
-    }
+    }//end addComment()
+
 
     /**
      * Summary of addPost
@@ -207,7 +213,8 @@ class PostController extends AbstractController
 
         $this->_template->display(RouteMapper::PostsView->getTemplate(), $data);
 
-    }
+    }//end addPost()
+
 
     /**
      * Summary of modifyPost
@@ -217,7 +224,7 @@ class PostController extends AbstractController
      *
      * @return void
      */
-    public function modifyPost(int $routeParam, array $post): void 
+    public function modifyPost(int $routeParam, array $post): void
     {
 
         $message = null;
@@ -230,6 +237,7 @@ class PostController extends AbstractController
                 MessageMapper::Error->getMessageLabel() => MessageMapper::GeneralError->getMessage()
             ];
         }
+
         if ($message === null) {
             if ($routeParam !== $postId) {
                 $message = [
@@ -237,6 +245,7 @@ class PostController extends AbstractController
                 ];
             }
         }
+
         if ($message === null) {
             $title = $this->sanitize($post["title"]);
             $summary = $this->sanitize($post["summary"]);
@@ -269,7 +278,8 @@ class PostController extends AbstractController
             ]
         );
 
-    }
+    }//end modifyPost()
+
 
     /**
      * Summary of postsToDisplay
@@ -290,6 +300,7 @@ class PostController extends AbstractController
         }
         return $postsToDisplay;
 
-    }
+    }//end postsToDisplay()
+
 
 }

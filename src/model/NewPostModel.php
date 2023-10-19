@@ -59,6 +59,7 @@ class NewPostModel
 
     }
 
+
     /**
      * Summary of getTitle
      *
@@ -70,6 +71,7 @@ class NewPostModel
         return $this->title;
 
     }
+
 
     /**
      * Summary of getSummary
@@ -83,6 +85,7 @@ class NewPostModel
 
     }
 
+
     /**
      * Summary of getContent
      *
@@ -95,6 +98,7 @@ class NewPostModel
 
     }
 
+
     /**
      * Summary of getCreationDate
      *
@@ -106,5 +110,6 @@ class NewPostModel
         return $this->creationDate;
 
     }
+
 
 }

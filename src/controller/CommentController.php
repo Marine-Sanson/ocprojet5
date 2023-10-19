@@ -70,7 +70,7 @@ class CommentController extends AbstractController
     {
 
         if (self::$instance === null) {
-            self::$instance = new CommentController($template, CommentService::getInstance());  
+            self::$instance = new CommentController($template, CommentService::getInstance());
         }
 
         return self::$instance;
@@ -92,7 +92,7 @@ class CommentController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end displayValidationPage()
 
 
     /**
@@ -122,7 +122,7 @@ class CommentController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end validateComment()
 
 
     /**
@@ -152,7 +152,7 @@ class CommentController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end deleteComment()
 
 
     /**
@@ -171,8 +171,9 @@ class CommentController extends AbstractController
 
             $commentsToDisplay[] = $comment;
         }
+
         return $commentsToDisplay;
 
-    }
+    }//end commentsToDisplay()
 
 }

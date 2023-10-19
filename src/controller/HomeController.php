@@ -44,6 +44,7 @@ class HomeController
      */
     const URL = "home";
 
+
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
@@ -57,6 +58,7 @@ class HomeController
     ) {
 
     }//end __construct()
+
 
     /**
      * Summary of getInstance
@@ -72,10 +74,11 @@ class HomeController
         if (self::$instance === null) {
             self::$instance = new HomeController($template, HomeService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
+
 
     /**
      * Summary of displayHome
@@ -93,6 +96,7 @@ class HomeController
             ]
         );
 
-    }
+    }//end displayHome()
+
 
 }

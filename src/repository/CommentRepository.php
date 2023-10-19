@@ -1,9 +1,9 @@
 <?php
 /**
  * CommentRepository File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -19,7 +19,7 @@ use App\service\DatabaseService;
 
 /**
  * CommentRepository Class Doc Comment
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -31,15 +31,15 @@ class CommentRepository
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var CommentRepository
      */
     private static $instance;
 
-    
+
     /**
      * Summary of __construct
-     * 
+     *
      * @param \App\service\DatabaseService $db DatabaseService
      */
     private function __construct(private DatabaseService $db)
@@ -51,25 +51,26 @@ class CommentRepository
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\controller\CommentController
      */
     public static function getInstance(): CommentRepository
     {
 
         if (self::$instance === null) {
-            self::$instance = new CommentRepository(DatabaseService::getInstance());  
+            self::$instance = new CommentRepository(DatabaseService::getInstance());
         }
     
         return self::$instance;
 
     }//end getInstance()
 
+
     /**
      * Summary of insertComment
-     * 
+     *
      * @param \App\entity\CommentEntity $newComment comment from the form
-     * 
+     *
      * @return int
      */
     public function insertComment(CommentEntity $newComment): int
@@ -92,11 +93,12 @@ class CommentRepository
 
     }//end insertComment()
 
+
     /**
      * Summary of getOnePostComments
-     * 
+     *
      * @param int $postId id of the post
-     * 
+     *
      * @return array
      */
     public function getOnePostComments(int $postId): array
@@ -111,11 +113,12 @@ class CommentRepository
         ];
         return $this->db->execute($request, $parameters);
 
-    }
+    }//end getOnePostComments()
+
 
     /**
      * Summary of getPendingComments
-     * 
+     *
      * @return array
      */
     public function getPendingComments(): array
@@ -139,13 +142,14 @@ class CommentRepository
         ];
         return $this->db->execute($request, $parameters);
 
-    }
+    }//end getPendingComments()
+
 
     /**
      * Summary of updateCommentValidation
-     * 
+     *
      * @param int $commentId id of the comment
-
+     *
      * @return void
      */
     public function updateCommentValidation(int $commentId): void
@@ -159,13 +163,14 @@ class CommentRepository
 
         $this->db->execute($request, $parameters);
 
-    }
+    }//end updateCommentValidation()
+
 
     /**
      * Summary of deleteComment
-     * 
+     *
      * @param int $commentId id of the comment
-     * 
+     *
      * @return void
      */
     public function deleteComment(int $commentId): void
@@ -178,6 +183,7 @@ class CommentRepository
 
         $this->db->execute($request, $parameters);
 
-    }
+    }//end deleteComment()
+
 
 }

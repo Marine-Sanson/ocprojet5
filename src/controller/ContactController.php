@@ -44,7 +44,7 @@ class ContactController extends AbstractController
     const URL = "contact";
     const ACTION = "contact";
 
-    
+
     /**
      * Summary of __construct
      * Call an instance of TemplateInterface
@@ -63,10 +63,10 @@ class ContactController extends AbstractController
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
-     * @param \App\service\TemplateInterface $template template engine
-     * @param \App\service\ContactService $contactService ContactService
-     * 
+     *
+     * @param \App\service\TemplateInterface $template       template engine
+     * @param \App\service\ContactService    $contactService ContactService
+     *
      * @return \App\controller\ContactController
      */
     public static function getInstance(TemplateInterface $template, ContactService $contactService): ContactController
@@ -80,6 +80,7 @@ class ContactController extends AbstractController
 
     }//end getInstance()
 
+
     /**
      * Summary of displayContactPage
      *
@@ -90,7 +91,8 @@ class ContactController extends AbstractController
 
         $this->_template->display(RouteMapper::ContactView->getTemplate(), []);
 
-    }
+    }//end displayContactPage()
+
 
     /**
      * Summary of manageContact
@@ -138,7 +140,8 @@ class ContactController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end manageContact()
+
 
     /**
      * Summary of validContactForm
@@ -155,6 +158,7 @@ class ContactController extends AbstractController
         $contact->setEmail($this->sanitize($contact->getEmail()));
         $contact->setContent($this->sanitize($contact->getContent()));
 
-    }
+    }//end validContactForm()
+
 
 }

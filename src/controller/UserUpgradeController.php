@@ -83,6 +83,7 @@ class UserUpgradeController extends AbstractController
 
     }//end getInstance()
 
+
     /**
      * Summary of displayUserUpgradePage
      *
@@ -106,8 +107,9 @@ class UserUpgradeController extends AbstractController
         }
 
         $this->_template->display($template, $data);
-        
-    }
+
+    }//end displayUserUpgradePage()
+
 
     /**
      * Summary of manageUserUpgrade
@@ -128,6 +130,7 @@ class UserUpgradeController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end manageUserUpgrade()
+
 
 }

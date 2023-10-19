@@ -47,6 +47,7 @@ class UserService
      */
     private static $instance;
 
+
     /**
      * Summary of __construct
      *
@@ -84,6 +85,7 @@ class UserService
 
     }//end getInstance()
 
+
     /**
      * Summary of connect
      * verify password connect the user and put the data needed in the session
@@ -98,7 +100,8 @@ class UserService
 
         return password_verify($password, $userEntity->getPassword());
 
-    }
+    }//end connect()
+
 
     /**
      * Summary of getUserConnectionModel
@@ -112,7 +115,8 @@ class UserService
 
         return $this->_userMapper->transformToUserConnectionModel($userEntity);
 
-    }
+    }//end getUserConnectionModel()
+
 
     /**
      * Summary of getUser
@@ -138,14 +142,14 @@ class UserService
             $allowed = boolval($result[0]["is_allowed"]);
 
             $user = new UserEntity(
-                $result[0]["id"], 
-                $result[0]["name"], 
-                $result[0]["first_name"], 
-                $result[0]["username"], 
-                $result[0]["email"], 
-                $result[0]["password"], 
-                $result[0]["role"], 
-                $creationDate, 
+                $result[0]["id"],
+                $result[0]["name"],
+                $result[0]["first_name"],
+                $result[0]["username"],
+                $result[0]["email"],
+                $result[0]["password"],
+                $result[0]["role"],
+                $creationDate,
                 $updateDate,
                 $allowed
             );
@@ -153,7 +157,8 @@ class UserService
 
         return $user;
 
-    }
+    }//end getUser()
+
 
     /**
      * Summary of connection
@@ -182,7 +187,8 @@ class UserService
 
         return $connectionModel;
 
-    }
+    }//end connection()
+
 
     /**
      * Summary of getUserId
@@ -196,7 +202,8 @@ class UserService
 
         return $this->_userRepository->getUserId($username);
 
-    }
+    }//end getUserId()
+
 
     /**
      * Summary of getUsedUsernames
@@ -208,7 +215,8 @@ class UserService
 
         return $this->_userRepository->getAllUsernames();
 
-    }
+    }//end getUsedUsernames()
+
 
     /**
      * Summary of getAllUsers
@@ -226,7 +234,8 @@ class UserService
 
         return $list;
 
-    }
+    }//end getAllUsers()
+
 
     /**
      * Summary of transformToUserConnectionModel
@@ -253,7 +262,8 @@ class UserService
             $isUserAllowed
         );
 
-    }
+    }//end transformToUserConnectionModel()
+
 
     /**
      * Summary of modifyRole
@@ -269,6 +279,7 @@ class UserService
 
         $this->_userRepository->updateRole($userId, $role, $isAllowed);
 
-    }
+    }//end modifyRole()
+
 
 }

@@ -1,9 +1,9 @@
 <?php
 /**
  * PostRepository File Doc Comment
- * 
+ *
  * PHP Version 8.1.10
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -20,7 +20,7 @@ use App\service\DatabaseService;
 
 /**
  * PostRepository Class Doc Comment
- * 
+ *
  * @category Repository
  * @package  App\repository
  * @author   Marine Sanson <marine_sanson@yahoo.fr>
@@ -32,7 +32,7 @@ class PostRepository
 
     /**
      * Summary of _instance
-     * 
+     *
      * @var PostRepository
      */
     private static $instance;
@@ -40,7 +40,7 @@ class PostRepository
     
     /**
      * Summary of __construct
-     * 
+     *
      * @param \App\service\DatabaseService $db DatabaseService
      */
     private function __construct(private DatabaseService $db)
@@ -52,7 +52,7 @@ class PostRepository
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
-     * 
+     *
      * @return \App\repository\PostRepository
      */
     public static function getInstance(): PostRepository
@@ -65,12 +65,13 @@ class PostRepository
         return self::$instance;
 
     }//end getInstance()
-    
+
+
     /**
      * Summary of insertNewPost
-     * 
+     *
      * @param \App\model\NewPostModel $newPostModel newPostModel
-     * 
+     *
      * @return int
      */
     public function insertNewPost(NewPostModel $newPostModel): int
@@ -105,13 +106,14 @@ class PostRepository
         $lastInsertId = $this->db->execute($newReq, null);
         return $lastInsertId[0]["LAST_INSERT_ID()"];
 
-    }
+    }//end insertNewPost()
+
 
     /**
      * Summary of updatePost
-     * 
+     *
      * @param \App\model\UpdatePostModel $updatePost UpdatePostModel
-     * 
+     *
      * @return void
      */
     public function updatePost(UpdatePostModel $updatePost): void
@@ -132,28 +134,29 @@ class PostRepository
         ];
         $this->db->execute($request, $parameters);
 
-    }
+    }//end updatePost()
+
 
     /**
      * Summary of getAllPostsWithAuthors
-     * 
+     *
      * @return array
      */
     public function getPostsWithAuthors(): array
     {
 
-        $request = 'SELECT posts.*, username FROM posts 
-                    JOIN users ON posts.id_user = users.id 
+        $request = 'SELECT posts.*, username FROM posts
+                    JOIN users ON posts.id_user = users.id
                     ORDER BY last_update_date DESC LIMIT 12';
 
         return $this->db->execute($request, null);
 
-    }
+    }//end getPostsWithAuthors()
+
 
     /**
      * Summary of getAllPostsWithAuthors
-     *             // VOIR AVEC ANTOINE COMMENT GERER CA
-     * 
+     *
      * @return array
      */
     public function getAllPostsWithAuthors(): array
@@ -165,13 +168,14 @@ class PostRepository
 
         return $this->db->execute($request, null);
 
-    }
+    }//end getAllPostsWithAuthors()
+
 
     /**
      * Summary of getOnePostData
-     * 
+     *
      * @param int $postId id of the post
-     * 
+     *
      * @return array
      */
     public function getOnePostData(int $postId): array
@@ -185,11 +189,12 @@ class PostRepository
 
         return $result[0];
 
-    }
+    }//end getOnePostData()
+
 
     /**
      * Summary of getListOfPosts
-     * 
+     *
      * @return array
      */
     public function getListOfPosts(): array
@@ -209,6 +214,7 @@ class PostRepository
         $parameters = [];
         return $this->db->execute($request, $parameters);
 
-    }
+    }//end getListOfPosts()
+
 
 }

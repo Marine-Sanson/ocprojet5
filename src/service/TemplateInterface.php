@@ -16,7 +16,7 @@ namespace App\service;
 
  /**
   * TemplateInterface Class Doc Comment
-  * This interface ask for a function render with a string for the template 
+  * This interface ask for a function render with a string for the template
   * name and an array for parameters
   *
   * @category Service
@@ -36,5 +36,5 @@ interface TemplateInterface
      * @return void
      */
     public function display(string $templateName, array $parameters): void;
-    
+
 }//end interface

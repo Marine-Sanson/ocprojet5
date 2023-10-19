@@ -50,7 +50,7 @@ class CommentEntity
     ) {
 
     }//end __construct()
-    
+
 
     /**
      * Summary of getId

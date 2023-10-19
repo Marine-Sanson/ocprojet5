@@ -57,10 +57,11 @@ class SessionService implements SessionInterface
         if (self::$instance === null) {
             self::$instance = new SessionService();
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
+
 
     /**
      * Summary of start
@@ -74,7 +75,8 @@ class SessionService implements SessionInterface
         session_start();
         $this->session = &$_SESSION;
 
-    }
+    }//end start()
+
 
     /**
      * Summary of setUser
@@ -89,7 +91,8 @@ class SessionService implements SessionInterface
 
         $this->session[self::USER_KEY] = $user;
 
-    }
+    }//end setUser()
+
 
     /**
      * Summary of getUser
@@ -101,7 +104,8 @@ class SessionService implements SessionInterface
 
         return $this->session[self::USER_KEY];
 
-    }
+    }//end getUser()
+
 
     /**
      * Summary of isUserConnected
@@ -109,12 +113,13 @@ class SessionService implements SessionInterface
      *
      * @return bool
      */
-    public function isUserConnected(): bool 
+    public function isUserConnected(): bool
     {
 
         return !empty($this->session[self::USER_KEY]);
         
-    }
+    }//end isUserConnected()
+
 
     /**
      * Summary of getSession
@@ -126,8 +131,9 @@ class SessionService implements SessionInterface
 
         return $this->session;
 
-    }
-    
+    }//end getSession()
+
+
     /**
      * Summary of get
      *
@@ -144,7 +150,8 @@ class SessionService implements SessionInterface
 
         return null;
 
-    }
+    }//end get()
+
 
     /**
      * Summary of set
@@ -160,7 +167,8 @@ class SessionService implements SessionInterface
         $this->session[$key] = $value;
         return $this;
 
-    }
+    }//end set()
+
 
     /**
      * Summary of remove
@@ -176,7 +184,8 @@ class SessionService implements SessionInterface
             unset($this->session[$key]);
         }
         
-    }
+    }//end remove()
+
 
     /**
      * Summary of clear
@@ -188,7 +197,8 @@ class SessionService implements SessionInterface
 
         session_unset();
 
-    }
+    }//end clear()
+
 
     /**
      * Summary of destroy
@@ -200,7 +210,8 @@ class SessionService implements SessionInterface
 
         session_destroy();
 
-    }
+    }//end destroy()
+
 
     /**
      * Summary of has
@@ -214,7 +225,8 @@ class SessionService implements SessionInterface
 
         return array_key_exists($key, $this->session);
 
-    }
+    }//end has()
+
 
     /**
      * Summary of cleanSession
@@ -227,6 +239,7 @@ class SessionService implements SessionInterface
         $this->clear();
         $this->destroy();
 
-    }
+    }//end cleanSession()
+
 
 }

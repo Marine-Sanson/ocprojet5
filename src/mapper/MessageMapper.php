@@ -44,6 +44,7 @@ enum MessageMapper: string
     case CommentValidationSuccess = 'commentValidationSuccess';
     case CommentDeleteSuccess = 'commentDeleteSuccess';
 
+
     /**
      * Summary of getMessageLabel
      *
@@ -88,5 +89,6 @@ enum MessageMapper: string
         };
 
     }//end getMessage()
+
 
 }

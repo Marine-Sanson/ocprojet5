@@ -62,6 +62,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getUserId
      *
@@ -73,6 +74,7 @@ class UpdatePostModel
         return $this->userId;
 
     }
+
 
     /**
      * Summary of getTitle
@@ -86,6 +88,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getSummary
      *
@@ -97,6 +100,7 @@ class UpdatePostModel
         return $this->summary;
 
     }
+
 
     /**
      * Summary of setSummary
@@ -113,6 +117,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getContent
      *
@@ -124,6 +129,7 @@ class UpdatePostModel
         return $this->content;
 
     }
+
 
     /**
      * Summary of setContent
@@ -140,6 +146,7 @@ class UpdatePostModel
 
     }
 
+
     /**
      * Summary of getCreationDate
      *
@@ -151,5 +158,6 @@ class UpdatePostModel
         return $this->lastUpdateDate;
 
     }
+
 
 }

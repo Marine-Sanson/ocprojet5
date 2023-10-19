@@ -31,7 +31,7 @@ use App\service\UserService;
  */
 class UserController extends AbstractController
 {
-    
+
     /**
      * Summary of _instance
      *
@@ -60,6 +60,7 @@ class UserController extends AbstractController
 
     }//end __construct()
 
+
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
@@ -79,6 +80,7 @@ class UserController extends AbstractController
 
     }//end getInstance()
 
+
     /**
      * Summary of displayLoginPage
      *
@@ -91,7 +93,8 @@ class UserController extends AbstractController
 
         $this->_template->display($template, []);
 
-    }
+    }//end displayLoginPage()
+
 
     /**
      * Summary of login
@@ -124,7 +127,8 @@ class UserController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end login()
+
 
     /**
      * Summary of logout
@@ -147,6 +151,7 @@ class UserController extends AbstractController
 
         $this->_template->display($template, $data);
 
-    }
+    }//end logout()
+
 
 }

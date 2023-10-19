@@ -35,6 +35,7 @@ enum RouteMapper: string
     case ValidationComments = "validationView";
     case Page404 = "404";
 
+
     /**
      * Summary of getTemplate
      *
@@ -56,5 +57,6 @@ enum RouteMapper: string
         };
 
     }//end getTemplate()
+
 
 }
