@@ -22,7 +22,7 @@ Of course this project use HTML5 and CSS3, but I also used Bootsrap (a free them
 ### Database :
 <img src="https://img.shields.io/badge/MySQL-8.0.30-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/HeidiSQL-12.1.0-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/Laragon-6.0-%230E83CD?logo=laragon" alt="MySQL banner">
 
-For the database I use MySQL with HeidiSQL because they are in my development server solution : Laragon
+For the database I use MySQL with HeidiSQL because they are in my development server solution : <a href="https://laragon.org/index.html">Laragon</a>
 
 ### Tools :
 
