@@ -191,7 +191,7 @@ class ContactModel
         $this->creationDate = $creationDate;
         return $this;
 
-    }//end getName()
+    }//end setCreationDate()
 
 
-}//end setCreationDate()
+}//end class

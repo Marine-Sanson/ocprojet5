@@ -50,7 +50,7 @@ class NewPostModel
 
 
     /**
-     * Summary of getFirstName
+     * Summary of getUserId
      *
      * @return int
      */
@@ -59,7 +59,7 @@ class NewPostModel
 
         return $this->userId;
 
-    }//end getFirstName()
+    }//end getUserId()
 
 
     /**
