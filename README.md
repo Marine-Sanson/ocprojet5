@@ -14,7 +14,8 @@ Project for OpenClasssrooms : create a blog with PHP
 
 <img src="https://img.shields.io/badge/php-8.10.1-%23777BB4?logo=php" alt="php banner">
 
-I have decide to use php without any framework, because it is my first big project of this training
+I have decide to use php without any framework, because it is my first big project of this training.
+I have made all the project in MVC advanced pattern, I also used singleton, an abstract class and enum classes.
 
 
 ### Front-end :
