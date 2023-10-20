@@ -1,4 +1,11 @@
-<img style="text-align: center, width: 5rem" src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" alt="logo OpenClassrooms">
+<img class="logoOc" src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" alt="logo OpenClassrooms">
+    <style>
+      .logoOc {
+        text-align: center;
+        margin: auto;
+        max-width: 3rem;
+      }
+    </style>
 
 # Ocprojet5
 Project for OpenClasssrooms : create a blog with PHP
