@@ -254,7 +254,7 @@ class Router
                     case UserController::DISCONNECT:
                         $userController->logout();
                         break;
-        
+
                     default :
                         $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                         break;
@@ -319,11 +319,11 @@ class Router
                     case CommentController::VALIDATION:
                         $commentController->validateComment((int) $post["commentId"]);
                         break;
-        
+
                     case CommentController::DELETE:
                         $commentController->deleteComment((int) $post["commentId"]);
                         break;
-        
+
                     default :
                         $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                         break;

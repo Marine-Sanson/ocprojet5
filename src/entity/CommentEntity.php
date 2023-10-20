@@ -76,7 +76,7 @@ class CommentEntity
 
         return $this->postId;
 
-    }//end getId()
+    }//end getPostId()
 
 
     /**

@@ -65,7 +65,7 @@ class PostDetailsModel
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -78,7 +78,7 @@ class PostDetailsModel
 
         return $this->idUser;
 
-    }
+    }//end getIdUser()
 
 
     /**
@@ -91,7 +91,7 @@ class PostDetailsModel
 
         return $this->title;
 
-    }
+    }//end getTitle()
 
 
     /**
@@ -104,7 +104,7 @@ class PostDetailsModel
 
         return $this->summary;
 
-    }
+    }//end getSummary()
 
 
     /**
@@ -120,7 +120,7 @@ class PostDetailsModel
         $this->summary = $summary;
         return $this;
 
-    }
+    }//end setSummary()
 
 
     /**
@@ -133,7 +133,7 @@ class PostDetailsModel
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -149,7 +149,7 @@ class PostDetailsModel
         $this->content = $content;
         return $this;
 
-    }
+    }//end setContent()
 
 
     /**
@@ -162,7 +162,7 @@ class PostDetailsModel
 
         return $this->lastUpdateDate;
 
-    }
+    }//end getLastUpdateDate()
 
 
     /**
@@ -175,7 +175,7 @@ class PostDetailsModel
 
         return $this->username;
 
-    }
+    }//end getUsername()
 
 
     /**
@@ -188,7 +188,7 @@ class PostDetailsModel
 
         return $this->comments;
 
-    }
+    }//end getComments()
 
 
     /**
@@ -204,7 +204,7 @@ class PostDetailsModel
         $this->comments = $comments;
         return $this;
 
-    }
+    }//end setComments()
 
 
 }//end class

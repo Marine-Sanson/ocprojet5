@@ -59,7 +59,7 @@ class PostModel
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -72,7 +72,7 @@ class PostModel
 
         return $this->author;
 
-    }
+    }//end getAuthor()
 
 
     /**
@@ -85,7 +85,7 @@ class PostModel
 
         return $this->title;
 
-    }
+    }//end getTitle()
 
 
     /**
@@ -101,7 +101,7 @@ class PostModel
         $this->title = $title;
         return $this;
 
-    }
+    }//end setTitle()
 
 
     /**
@@ -114,7 +114,7 @@ class PostModel
 
         return $this->summary;
 
-    }
+    }//end getSummary()
 
 
     /**
@@ -130,7 +130,7 @@ class PostModel
         $this->summary = $summary;
         return $this;
 
-    }
+    }//end setSummary()
 
 
     /**
@@ -143,7 +143,7 @@ class PostModel
 
         return $this->lastUpdateDate;
 
-    }
+    }//end getLastUpdateDate()
 
 
 }//end class

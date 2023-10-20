@@ -44,6 +44,7 @@ class DatabaseService
       */
     private static $instance;
 
+
     /**
      * Summary of __construct get a connection between PHP and a database server
      */

@@ -60,7 +60,7 @@ class UserRepository
         if (self::$instance === null) {
             self::$instance = new UserRepository(DatabaseService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()

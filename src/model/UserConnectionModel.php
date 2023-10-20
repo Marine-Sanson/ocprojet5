@@ -59,7 +59,7 @@ class UserConnectionModel
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -72,7 +72,7 @@ class UserConnectionModel
 
         return $this->firstName;
 
-    }
+    }//end getFirstName()
 
 
     /**
@@ -85,7 +85,7 @@ class UserConnectionModel
 
         return $this->username;
 
-    }
+    }//end getUsername()
 
 
     /**
@@ -98,7 +98,7 @@ class UserConnectionModel
 
         return $this->password;
 
-    }
+    }//end getPassword()
 
 
     /**
@@ -111,7 +111,7 @@ class UserConnectionModel
 
         return $this->role;
 
-    }
+    }//end getRole()
 
 
     /**
@@ -124,7 +124,7 @@ class UserConnectionModel
 
         return $this->isAllowed;
 
-    }
+    }//end isUserAllowed()
 
 
     /**
@@ -144,7 +144,7 @@ class UserConnectionModel
             "isAllowed" => $this->isAllowed
         ];
 
-    }
+    }//end toArray()
 
 
 }//end class

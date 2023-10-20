@@ -59,7 +59,7 @@ class NewPostModel
 
         return $this->userId;
 
-    }
+    }//end getFirstName()
 
 
     /**
@@ -72,7 +72,7 @@ class NewPostModel
 
         return $this->title;
 
-    }
+    }//end getTitle()
 
 
     /**
@@ -85,7 +85,7 @@ class NewPostModel
 
         return $this->summary;
 
-    }
+    }//end getSummary()
 
 
     /**
@@ -98,7 +98,7 @@ class NewPostModel
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -111,7 +111,7 @@ class NewPostModel
 
         return $this->creationDate;
 
-    }
+    }//end getCreationDate()
 
 
 }//end class

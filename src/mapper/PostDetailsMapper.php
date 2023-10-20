@@ -49,7 +49,7 @@ class PostDetailsMapper
         if (self::$instance === null) {
             self::$instance = new PostDetailsMapper();
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
