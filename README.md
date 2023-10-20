@@ -15,38 +15,25 @@ I have decide to use php without any framework, because it is my first big proje
 
 ### Front-end :
 
-<div align="center">
-    <img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner">   <img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner">   <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner"> <img src="https://img.shields.io/badge/Twig-3.0-%23bacf29" alt="Twig banner">
-    <br>
-</div>
-
+<img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner"> <img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner"> <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner"> <img src="https://img.shields.io/badge/Twig-3.0-%23bacf29" alt="Twig banner">
 
 Of course this project use HTML5 and CSS3, but I also used Bootsrap (a free theme from staartBootstrap : Grayscale v7.0.6) and Twig
 
 ### Database :
 
-<div align="center">
-    <img src="https://img.shields.io/badge/MySQL-8.0.30-%234479A1?logo=mysql" alt="MySQL banner">   <img src="https://img.shields.io/badge/HeidiSQL-12.1.0-%234479A1?logo=mysql" alt="MySQL banner">   <img src="https://img.shields.io/badge/Laragon-6.0-%230E83CD?logo=laragon" alt="MySQL banner">
-    <br>
-</div>
-
+<img src="https://img.shields.io/badge/MySQL-8.0.30-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/HeidiSQL-12.1.0-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/Laragon-6.0-%230E83CD?logo=laragon" alt="MySQL banner">
 
 For the database I use MySQL with HeidiSQL because they are in my development server solution <a href="https://laragon.org/index.html">Laragon</a>
 
 ### Tools :
 
-<div align="center">
-    <img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner">   <img src="https://img.shields.io/badge/phpdotenv-5.5-%23ECD53F?logo=dotenv" alt="phpdotenv banner">   <img src="https://img.shields.io/badge/PHPMailer-6.8-%23f0c563" alt="PHPMailer banner">   <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner">
-    <br>
-</div>
-
+<img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner"> <img src="https://img.shields.io/badge/phpdotenv-5.5-%23ECD53F?logo=dotenv" alt="phpdotenv banner"> <img src="https://img.shields.io/badge/PHPMailer-6.8-%23f0c563" alt="PHPMailer banner"> <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner">
 
 I used <a href="https://getcomposer.org/">Composer</a>, that is an easy way to install Twig, PHPMailer and .env
 
 I chose to use <a href="https://github.com/vlucas/phpdotenv">.env</a> to secure my environnement variables, and <a href="https://github.com/PHPMailer/PHPMailer">PHPMailer</a> to manage the mail sending 
 
 This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a A notation in <a href="https://www.codacy.com/">Codacy</a> !
-
 
 <div align="center">
     <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
@@ -69,6 +56,3 @@ You will find the database script and uml diagrams in the documents file. Before
 
 ## GitHub stats :
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Marine-Sanson&layout=compact)](https://github.com/Marine-Sanson)
-
-
-
