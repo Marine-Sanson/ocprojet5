@@ -1,6 +1,4 @@
-<img src="https://badgen.net/#badge/php/8.1.10?icon=php" alt="my banner">
-
-<img src="https://user-content.gitlab-static.net/94973800a55d9ec83fe4703b5a4df6bbd9e2ae89/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f56657273696f6e2d312e302d627269676874677265656e2e737667" alt="my banner">
+<img src="https://img.shields.io/badge/php-8.1.10-blue" alt="my banner">
 
 # ocprojet5
 Project for OpenClasssrooms : create a blog with PHP
