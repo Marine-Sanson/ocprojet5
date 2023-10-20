@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" width="200" height="200" alt="logo OpenClassrooms">
+    <img src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" width="120" height="120" alt="logo OpenClassrooms">
 </div>
 
 # Ocprojet5
@@ -40,18 +40,19 @@ This project is avaliable on GitHub, and received a A notation in codacy !
 
 ## How to run this project :
 
-To run this project, you need to use composer, and install :
-twig": "^3.0",
-phpmailer": "^6.8",
-"vlucas/phpdotenv": "^5.5"
+To run this project, you need to use composer, and run :
+```
+composer require "twig/twig:^3.0"
+composer require phpmailer/phpmailer
+composer require vlucas/phpdotenv
+```
 
-For your connections (database and SMTP), copy the .env file in a .env.local file and replace the data by yours
+For your connections (database and SMTP), copy the ```.env``` file in a ```.env.local``` file and replace the data by yours
 
-You will find the database script and uml diagrams in the documents file
+You will find the database script and uml diagrams in the documents file. Before using the database instalation file, be sure that you have replaced the name of my database by yours 
 
 ## GitHub stats :
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Marine-Sanson&layout=compact)](https://github.com/Marine-Sanson)
 
-[![Anurag’s github stats](https://github-readme-stats.vercel.app/api?username=Marine-Sanson)](https://github.com/Marine-Sanson)
 
