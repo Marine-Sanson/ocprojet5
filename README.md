@@ -39,7 +39,7 @@ I used <a href="https://getcomposer.org/">Composer</a>, that is an easy way to i
 
 I chose to use <a href="https://github.com/vlucas/phpdotenv">.env</a> to secure my environnement variables, and <a href="https://github.com/PHPMailer/PHPMailer">PHPMailer</a> to manage the mail sending 
 
-This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! Vous pouvez voir la dernière annalyse ici : <a href="https://app.codacy.com/gh/Marine-Sanson/ocprojet5/dashboard?branch=codacy-amN6znLRueK4Yky/pr/162">https://app.codacy.com/gh/Marine-Sanson/ocprojet5/dashboard?branch=codacy-amN6znLRueK4Yky/pr/162</a>
+This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a **A** notation in <a href="https://www.codacy.com/">Codacy</a> ! Vous pouvez voir la dernière annalyse ici : <a href="https://app.codacy.com/gh/Marine-Sanson/ocprojet5/dashboard">https://app.codacy.com/gh/Marine-Sanson/ocprojet5/dashboard</a>
 
 <div align="center">
     <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
