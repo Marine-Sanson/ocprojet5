@@ -4,6 +4,8 @@
 <img src="https://img.shields.io/badge/phpdotenv-5.5-%23ECD53F?logo=dotenv" alt="phpdotenv banner">
 <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner">
 <img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner">
+<img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
+<img src="https://img.shields.io/github/checks-status/Marine-Sanson/https%3A%2F%2Fgithub.com%2FMarine-Sanson%2Focprojet5/1.0?logo=github" alt="code quality from Codacy">
 
 
 # ocprojet5
