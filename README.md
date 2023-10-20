@@ -1,8 +1,4 @@
-
-
-
-
-
+<img style="text-align: center" src="https://upload.wikimedia.org/wikipedia/fr/0/0d/Logo_OpenClassrooms.png" alt="logo OpenClassrooms">
 
 # Ocprojet5
 Project for OpenClasssrooms : create a blog with PHP
@@ -19,7 +15,12 @@ I have decide to use php without any framework, because it is my first big proje
 
 <img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner"> <img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner"> <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner"> <img src="https://img.shields.io/badge/Twig-3.0-%23bacf29" alt="Twig banner">
 
-Of course this project use HTML5 and CSS3, but I also used Bootsrap and Twig
+Of course this project use HTML5 and CSS3, but I also used Bootsrap (a free theme from staartBootstrap : Grayscale v7.0.6) and Twig
+
+### Database :
+<img src="https://img.shields.io/badge/MySQL-8.0.30-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/HeidiSQL-12.1.0-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/Laragon-6.0-%230E83CD?logo=laragon" alt="MySQL banner">
+
+For the database I use MySQL with HeidiSQL because they are in my development server solution : Laragon
 
 ### Tools :
 
