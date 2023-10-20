@@ -28,6 +28,7 @@ use DateTime;
 class ContactModel
 {
 
+
     /**
      * Summary of __construct ContactModel
      *
@@ -193,4 +194,4 @@ class ContactModel
     }
 
 
-}
+}//end class

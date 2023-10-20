@@ -28,6 +28,7 @@ use DateTime;
 class ContactEntity
 {
 
+
     /**
      * Summary of __construct ContactEntity
      *
@@ -128,4 +129,4 @@ class ContactEntity
     }//end getCreationDate()
 
 
-}
+}//end class

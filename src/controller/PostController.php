@@ -92,7 +92,7 @@ class PostController extends AbstractController
 
         $result = $this->_postService->getPosts();
         $result = $this->postsToDisplay($result);
-        
+
         $this->_template->display(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
 
     }//end showPosts()
@@ -305,4 +305,4 @@ class PostController extends AbstractController
     }//end postsToDisplay()
 
 
-}
+}//end class

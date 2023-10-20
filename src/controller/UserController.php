@@ -120,7 +120,7 @@ class UserController extends AbstractController
             $this->_sessionService->setUser($user);
 
             $data["session"] = $this->_sessionService->getSession();
-    
+
             $template = RouteMapper::HomeView->getTemplate();
             $data[MessageMapper::Message->getMessageLabel()] = $user->getFirstName().MessageMapper::LoginSuccess->getMessage();
         }
@@ -154,4 +154,4 @@ class UserController extends AbstractController
     }//end logout()
 
 
-}
+}//end class

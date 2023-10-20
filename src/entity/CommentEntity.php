@@ -28,6 +28,7 @@ use DateTime;
 class CommentEntity
 {
 
+
     /**
      * Summary of __construct
      *
@@ -143,4 +144,4 @@ class CommentEntity
     }//end isCommentValidate()
 
 
-}
+}//end class

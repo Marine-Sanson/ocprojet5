@@ -48,7 +48,7 @@ class UserRepository
 
     }//end __construct()
 
-    
+
     /**
      * Summary of getInstance
      *
@@ -100,15 +100,15 @@ class UserRepository
                 :is_allowed
                 )';
         $parameters = [
-            'name' => $userRegisterModel->getName(),
-            'first_name' => $userRegisterModel->getFirstName(),
-            'username' => $userRegisterModel->getUsername(),
-            'email' => $userRegisterModel->getEmail(),
-            'password' => $userRegisterModel->getPassword(),
-            'role' => 'user',
-            'creation_date' => $date->format('Y-m-d H:i:s'),
+            'name'             => $userRegisterModel->getName(),
+            'first_name'       => $userRegisterModel->getFirstName(),
+            'username'         => $userRegisterModel->getUsername(),
+            'email'            => $userRegisterModel->getEmail(),
+            'password'         => $userRegisterModel->getPassword(),
+            'role'             => 'user',
+            'creation_date'    => $date->format('Y-m-d H:i:s'),
             'last_update_date' => $date->format('Y-m-d H:i:s'),
-            'is_allowed' => 0
+            'is_allowed'       => 0
         ];
         $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
@@ -213,8 +213,8 @@ class UserRepository
 
         $request = 'UPDATE users SET role = :role, is_allowed =:is_allowed WHERE id = :id';
         $parameters = [
-            'id' => $userId,
-            'role' => $role,
+            'id'         => $userId,
+            'role'       => $role,
             'is_allowed' => $isAllowed
         ];
         $this->db->execute($request, $parameters);
@@ -222,4 +222,4 @@ class UserRepository
     }//end updateRole()
 
 
-}
+}//end class

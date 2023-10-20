@@ -27,6 +27,8 @@ namespace App\service;
   */
 interface TemplateInterface
 {
+
+
     /**
      * Summary of display
      *
@@ -36,5 +38,6 @@ interface TemplateInterface
      * @return void
      */
     public function display(string $templateName, array $parameters): void;
+
 
 }//end interface

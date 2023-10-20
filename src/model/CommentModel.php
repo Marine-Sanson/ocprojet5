@@ -28,6 +28,7 @@ use DateTime;
 class CommentModel
 {
 
+
     /**
      * Summary of __construct
      *
@@ -50,4 +51,4 @@ class CommentModel
     }//end __construct()
 
 
-}
+}//end class

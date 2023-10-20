@@ -177,4 +177,4 @@ class CommentController extends AbstractController
     }//end commentsToDisplay()
 
 
-}//end CommentController
+}//end class

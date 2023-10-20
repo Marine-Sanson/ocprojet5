@@ -119,4 +119,4 @@ class ContactService
     }//end notify()
 
 
-}
+}//end class

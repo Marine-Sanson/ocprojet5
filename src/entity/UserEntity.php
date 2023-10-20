@@ -189,4 +189,4 @@ class UserEntity
     }//end isUserAllowed()
 
 
-}
+}//end class

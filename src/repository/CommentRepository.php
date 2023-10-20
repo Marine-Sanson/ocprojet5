@@ -79,12 +79,12 @@ class CommentRepository
         $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, last_update_date, is_validate) 
                     VALUES (:id_post, :id_user, :content, :creation_date, :last_update_date, :is_validate)';
         $parameters = [
-            'id_post' => $newComment->getPostId(),
-            'id_user' => $newComment->getUserId(),
-            'content' => $newComment->getContent(),
-            'creation_date' => $newComment->getCreationDate()->format('Y-m-d H:i:s'),
+            'id_post'          => $newComment->getPostId(),
+            'id_user'          => $newComment->getUserId(),
+            'content'          => $newComment->getContent(),
+            'creation_date'    => $newComment->getCreationDate()->format('Y-m-d H:i:s'),
             'last_update_date' => $newComment->getLastUpdateDate()->format('Y-m-d H:i:s'),
-            'is_validate' => 0
+            'is_validate'      => 0
         ];
         $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';
@@ -108,7 +108,7 @@ class CommentRepository
                     JOIN users ON comments.id_user = users.id 
                     WHERE id_post = :id AND is_validate = :is_validate';
         $parameters = [
-            'id' => $postId,
+            'id'          => $postId,
             'is_validate' => 1
         ];
         return $this->db->execute($request, $parameters);
@@ -186,4 +186,4 @@ class CommentRepository
     }//end deleteComment()
 
 
-}
+}//end class

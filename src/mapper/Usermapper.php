@@ -77,4 +77,4 @@ class UserMapper
     }//end transformToUserConnectionModel()
 
 
-}
+}//end class

@@ -199,4 +199,4 @@ class UserRegisterController extends AbstractController
     }//end sanitizeRegisterData()
 
 
-}
+}//end class

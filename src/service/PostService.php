@@ -199,7 +199,7 @@ class PostService
      */
     public function updateAPost(int $postId, int $userId, string $title, string $summary, string $content): void
     {
-        
+
         $lastUpdateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
         $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);
         $this->_postRepository->updatePost($updatePost);
@@ -207,4 +207,4 @@ class PostService
     }//end updateAPost()
 
 
-}
+}//end class

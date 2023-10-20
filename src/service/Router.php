@@ -250,7 +250,7 @@ class Router
                     case UserController::CONNECT:
                         $userController->login($post["username"], $post["password"]);
                         break;
-        
+
                     case UserController::DISCONNECT:
                         $userController->logout();
                         break;
@@ -395,4 +395,4 @@ class Router
     }//end contactControllerUrl()
 
 
-}
+}//end class

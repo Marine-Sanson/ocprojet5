@@ -26,6 +26,7 @@ namespace App\model;
 class UserRegisterModel
 {
 
+
     /**
      * Summary of __construct UserRegisterModel
      *
@@ -201,13 +202,13 @@ class UserRegisterModel
 
         return [
             "firstName" => $this->firstName,
-            "name" => $this->name,
-            "username" => $this->username,
-            "email" => $this->email,
-            "password" => $this->password
+            "name"      => $this->name,
+            "username"  => $this->username,
+            "email"     => $this->email,
+            "password"  => $this->password
         ];
 
     }
 
 
-}
+}//end class

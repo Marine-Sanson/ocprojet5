@@ -28,7 +28,7 @@ use DateTime;
  */
 class PostDetailsMapper
 {
-    
+
     /**
      * Summary of _instance
      *
@@ -84,4 +84,4 @@ class PostDetailsMapper
     }//end getPostDetailsModel()
 
 
-}
+}//end class

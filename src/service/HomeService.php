@@ -84,4 +84,4 @@ class HomeService
     }//end getLastPosts()
 
 
-}
+}//end class

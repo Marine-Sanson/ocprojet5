@@ -25,6 +25,8 @@ namespace App\model;
  */
 class UserConnectionModel
 {
+
+
     /**
      * Summary of __construct ConnectionModel
      *
@@ -134,15 +136,15 @@ class UserConnectionModel
     {
 
         return [
-            "id" => $this->id,
+            "id"        => $this->id,
             "firstName" => $this->firstName,
-            "username" => $this->username,
-            "password" => $this->password,
-            "role" => $this->role,
+            "username"  => $this->username,
+            "password"  => $this->password,
+            "role"      => $this->role,
             "isAllowed" => $this->isAllowed
         ];
 
     }
 
 
-}
+}//end class

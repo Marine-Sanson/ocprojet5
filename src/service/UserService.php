@@ -282,4 +282,4 @@ class UserService
     }//end modifyRole()
 
 
-}
+}//end class

@@ -28,6 +28,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 class MailerService
 {
 
+
     /**
      * Summary of sendMail
      * Create an instance of phpmailer, configure it, send the mail and verify if the sending is true
@@ -71,4 +72,4 @@ class MailerService
     }//end sendMail()
 
 
-}
+}//end class

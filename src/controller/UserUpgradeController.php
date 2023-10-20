@@ -133,4 +133,4 @@ class UserUpgradeController extends AbstractController
     }//end manageUserUpgrade()
 
 
-}
+}//end class

@@ -152,4 +152,4 @@ class UserRegisterService
     }//end hashPassword()
 
 
-}
+}//end class

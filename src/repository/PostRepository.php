@@ -61,7 +61,7 @@ class PostRepository
         if (self::$instance === null) {
             self::$instance = new PostRepository(DatabaseService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -94,11 +94,11 @@ class PostRepository
             :last_update_date
                 )';
         $parameters = [
-            'id_user' => $newPostModel->getUserId(),
-            'title' => $newPostModel->getTitle(),
-            'summary' => $newPostModel->getSummary(),
-            'content' => $newPostModel->getContent(),
-            'creation_date' => $newPostModel->getCreationDate()->format('Y-m-d H:i:s'),
+            'id_user'          => $newPostModel->getUserId(),
+            'title'            => $newPostModel->getTitle(),
+            'summary'          => $newPostModel->getSummary(),
+            'content'          => $newPostModel->getContent(),
+            'creation_date'    => $newPostModel->getCreationDate()->format('Y-m-d H:i:s'),
             'last_update_date' => $newPostModel->getCreationDate()->format('Y-m-d H:i:s')
         ];
         $this->db->execute($request, $parameters);
@@ -126,10 +126,10 @@ class PostRepository
         last_update_date = :last_update_date
         WHERE id = :id';
         $parameters = [
-            'id' => $updatePost->getId(),
-            'title' => $updatePost->getTitle(),
-            'summary' => $updatePost->getSummary(),
-            'content' => $updatePost->getContent(),
+            'id'               => $updatePost->getId(),
+            'title'            => $updatePost->getTitle(),
+            'summary'          => $updatePost->getSummary(),
+            'content'          => $updatePost->getContent(),
             'last_update_date' => $updatePost->getLastUpdateDate()->format('Y-m-d H:i:s')
         ];
         $this->db->execute($request, $parameters);
@@ -217,4 +217,4 @@ class PostRepository
     }//end getListOfPosts()
 
 
-}
+}//end class

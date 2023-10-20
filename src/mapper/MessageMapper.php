@@ -55,7 +55,7 @@ enum MessageMapper: string
 
         return match ($this) {
             static::Message => "message",
-            static::Error => "error"
+            static::Error   => "error"
         };
 
     }//end getMessageLabel()
@@ -91,4 +91,4 @@ enum MessageMapper: string
     }//end getMessage()
 
 
-}
+}//end enum

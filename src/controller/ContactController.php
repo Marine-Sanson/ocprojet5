@@ -161,4 +161,4 @@ class ContactController extends AbstractController
     }//end validContactForm()
 
 
-}
+}//end class

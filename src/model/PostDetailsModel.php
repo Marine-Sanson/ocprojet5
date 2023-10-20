@@ -28,6 +28,7 @@ use DateTime;
 class PostDetailsModel
 {
 
+
     /**
      * Summary of __construct
      *
@@ -206,4 +207,4 @@ class PostDetailsModel
     }
 
 
-}
+}//end class

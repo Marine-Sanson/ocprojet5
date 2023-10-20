@@ -28,6 +28,7 @@ use DateTime;
 class PostEntity
 {
 
+
     /**
      * Summary of __construct
      *
@@ -143,4 +144,4 @@ class PostEntity
     }//end getLastUpdateDate()
 
 
-}
+}//end class
