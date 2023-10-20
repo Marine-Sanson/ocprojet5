@@ -5,8 +5,13 @@
 <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner">
 <img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner">
 <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
-<img src="https://img.shields.io/github/checks-status/Marine-Sanson/https%3A%2F%2Fgithub.com%2FMarine-Sanson%2Focprojet5/1.0?logo=github" alt="code quality from Codacy">
+<img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner">
+<img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner">
+<img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner">
 
+[![Anurag’s github stats](https://github-readme-stats.vercel.app/api?username=Marine-Sanson)](https://github.com/Marine-Sanson)
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Marine-Sanson&layout=compact)](https://github.com/Marine-Sanson)
 
 # ocprojet5
 Project for OpenClasssrooms : create a blog with PHP
