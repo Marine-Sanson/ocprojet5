@@ -9,14 +9,14 @@ Project for OpenClasssrooms : create a blog with PHP
 
 ### Main language :
 
-<img src="https://img.shields.io/badge/php-8.10.1-%23777BB4?logo=php" alt="php banner">
+<img src="https://img.shields.io/badge/php-8.10.1-%23777BB4?logo=php" alt="php banner" margin="5">
 
 I have decide to use php without any framework, because it is my first big project of this training
 
 ### Front-end :
 
 <div align="center">
-    <img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner"> <img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner"> <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner"> <img src="https://img.shields.io/badge/Twig-3.0-%23bacf29" alt="Twig banner">
+    <img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner" margin="5"> <img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner" margin="5"> <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner"> <img src="https://img.shields.io/badge/Twig-3.0-%23bacf29" alt="Twig banner" margin="5">
 </div>
 
 Of course this project use HTML5 and CSS3, but I also used Bootsrap (a free theme from staartBootstrap : Grayscale v7.0.6) and Twig
@@ -24,14 +24,14 @@ Of course this project use HTML5 and CSS3, but I also used Bootsrap (a free them
 ### Database :
 
 <div align="center">
-    <img src="https://img.shields.io/badge/MySQL-8.0.30-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/HeidiSQL-12.1.0-%234479A1?logo=mysql" alt="MySQL banner"> <img src="https://img.shields.io/badge/Laragon-6.0-%230E83CD?logo=laragon" alt="MySQL banner">
+    <img src="https://img.shields.io/badge/MySQL-8.0.30-%234479A1?logo=mysql" alt="MySQL banner" margin="5"> <img src="https://img.shields.io/badge/HeidiSQL-12.1.0-%234479A1?logo=mysql" alt="MySQL banner" margin="5"> <img src="https://img.shields.io/badge/Laragon-6.0-%230E83CD?logo=laragon" alt="MySQL banner" margin="5">
 </div>
 
 For the database I use MySQL with HeidiSQL because they are in my development server solution <a href="https://laragon.org/index.html">Laragon</a>
 
 ### Tools :
 <div align="center">
-    <img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner"> <img src="https://img.shields.io/badge/phpdotenv-5.5-%23ECD53F?logo=dotenv" alt="phpdotenv banner"> <img src="https://img.shields.io/badge/PHPMailer-6.8-%23f0c563" alt="PHPMailer banner"> <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner"> 
+    <img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner" margin="5"> <img src="https://img.shields.io/badge/phpdotenv-5.5-%23ECD53F?logo=dotenv" alt="phpdotenv banner" margin="5"> <img src="https://img.shields.io/badge/PHPMailer-6.8-%23f0c563" alt="PHPMailer banner" margin="5"> <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner" margin="5"> 
 </div>
 
 I used <a href="https://getcomposer.org/">Composer</a>, that is an easy way to install Twig, PHPMailer and .env
@@ -41,7 +41,7 @@ I chose to use <a href="https://github.com/vlucas/phpdotenv">.env</a> to secure 
 This project is avaliable on <a href="https://github.com/">GitHub</a>, and received a A notation in <a href="https://www.codacy.com/">Codacy</a> !
 
 <div align="center">
-    <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
+    <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy" margin="5">
 </div>
 
 ## How to run this project :
