@@ -63,7 +63,7 @@ class HomeService
         if (self::$instance === null) {
             self::$instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -84,4 +84,4 @@ class HomeService
     }//end getLastPosts()
 
 
-}
+}//end class

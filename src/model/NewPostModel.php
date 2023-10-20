@@ -27,6 +27,8 @@ use DateTime;
  */
 class NewPostModel
 {
+
+
     /**
      * Summary of __construct
      *
@@ -48,7 +50,7 @@ class NewPostModel
 
 
     /**
-     * Summary of getFirstName
+     * Summary of getUserId
      *
      * @return int
      */
@@ -57,7 +59,7 @@ class NewPostModel
 
         return $this->userId;
 
-    }
+    }//end getUserId()
 
 
     /**
@@ -70,7 +72,7 @@ class NewPostModel
 
         return $this->title;
 
-    }
+    }//end getTitle()
 
 
     /**
@@ -83,7 +85,7 @@ class NewPostModel
 
         return $this->summary;
 
-    }
+    }//end getSummary()
 
 
     /**
@@ -96,7 +98,7 @@ class NewPostModel
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -109,7 +111,7 @@ class NewPostModel
 
         return $this->creationDate;
 
-    }
+    }//end getCreationDate()
 
 
-}
+}//end class

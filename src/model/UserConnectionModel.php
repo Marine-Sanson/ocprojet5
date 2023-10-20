@@ -25,6 +25,8 @@ namespace App\model;
  */
 class UserConnectionModel
 {
+
+
     /**
      * Summary of __construct ConnectionModel
      *
@@ -57,7 +59,7 @@ class UserConnectionModel
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -70,7 +72,7 @@ class UserConnectionModel
 
         return $this->firstName;
 
-    }
+    }//end getFirstName()
 
 
     /**
@@ -83,7 +85,7 @@ class UserConnectionModel
 
         return $this->username;
 
-    }
+    }//end getUsername()
 
 
     /**
@@ -96,7 +98,7 @@ class UserConnectionModel
 
         return $this->password;
 
-    }
+    }//end getPassword()
 
 
     /**
@@ -109,7 +111,7 @@ class UserConnectionModel
 
         return $this->role;
 
-    }
+    }//end getRole()
 
 
     /**
@@ -122,7 +124,7 @@ class UserConnectionModel
 
         return $this->isAllowed;
 
-    }
+    }//end isUserAllowed()
 
 
     /**
@@ -134,15 +136,15 @@ class UserConnectionModel
     {
 
         return [
-            "id" => $this->id,
+            "id"        => $this->id,
             "firstName" => $this->firstName,
-            "username" => $this->username,
-            "password" => $this->password,
-            "role" => $this->role,
+            "username"  => $this->username,
+            "password"  => $this->password,
+            "role"      => $this->role,
             "isAllowed" => $this->isAllowed
         ];
 
-    }
+    }//end toArray()
 
 
-}
+}//end class

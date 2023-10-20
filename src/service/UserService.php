@@ -174,7 +174,7 @@ class UserService
         $userEntity = $this->getUser($username);
 
         if ($userEntity === false) {
-            return null;            
+            return null;
         }
 
         $connect = $this->connect($password, $userEntity);
@@ -252,7 +252,7 @@ class UserService
         if ($user["is_allowed"] === 1) {
             $isUserAllowed = true;
         }
-        
+
         return new UserConnectionModel(
             $user["id"],
             $user["first_name"],
@@ -282,4 +282,4 @@ class UserService
     }//end modifyRole()
 
 
-}
+}//end class

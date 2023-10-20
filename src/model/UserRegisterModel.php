@@ -26,6 +26,7 @@ namespace App\model;
 class UserRegisterModel
 {
 
+
     /**
      * Summary of __construct UserRegisterModel
      *
@@ -56,7 +57,7 @@ class UserRegisterModel
 
         return $this->firstName;
 
-    }
+    }//end getFirstName()
 
 
     /**
@@ -72,7 +73,7 @@ class UserRegisterModel
         $this->firstName = $firstName;
         return $this;
 
-    }
+    }//end setFirstName()
 
 
     /**
@@ -85,7 +86,7 @@ class UserRegisterModel
 
         return $this->name;
 
-    }
+    }//end getName()
 
 
     /**
@@ -101,7 +102,7 @@ class UserRegisterModel
         $this->name = $name;
         return $this;
 
-    }
+    }//end setName()
 
 
     /**
@@ -114,7 +115,7 @@ class UserRegisterModel
 
         return $this->username;
 
-    }
+    }//end getUsername()
 
 
     /**
@@ -130,7 +131,7 @@ class UserRegisterModel
         $this->username = $username;
         return $this;
 
-    }
+    }//end setUsername()
 
 
     /**
@@ -143,7 +144,7 @@ class UserRegisterModel
 
         return $this->email;
 
-    }
+    }//end getEmail()
 
 
     /**
@@ -159,7 +160,7 @@ class UserRegisterModel
         $this->email = $email;
         return $this;
 
-    }
+    }//end setEmail()
 
 
     /**
@@ -172,7 +173,7 @@ class UserRegisterModel
 
         return $this->password;
 
-    }
+    }//end getPassword()
 
 
     /**
@@ -188,7 +189,7 @@ class UserRegisterModel
         $this->password = $password;
         return $this;
 
-    }
+    }//end setPassword()
 
 
     /**
@@ -201,13 +202,13 @@ class UserRegisterModel
 
         return [
             "firstName" => $this->firstName,
-            "name" => $this->name,
-            "username" => $this->username,
-            "email" => $this->email,
-            "password" => $this->password
+            "name"      => $this->name,
+            "username"  => $this->username,
+            "email"     => $this->email,
+            "password"  => $this->password
         ];
 
-    }
+    }//end toArray()
 
 
-}
+}//end class

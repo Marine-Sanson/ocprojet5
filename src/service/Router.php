@@ -205,11 +205,11 @@ class Router
                         case CommentService::ACTION:
                             $postController->addComment($route["param"], $post);
                             break;
-            
+
                         case PostController::MODIFY:
                             $postController->modifyPost($route["param"], $post);
                             break;
-            
+
                         default :
                             $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                             break;
@@ -250,11 +250,11 @@ class Router
                     case UserController::CONNECT:
                         $userController->login($post["username"], $post["password"]);
                         break;
-        
+
                     case UserController::DISCONNECT:
                         $userController->logout();
                         break;
-        
+
                     default :
                         $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                         break;
@@ -319,11 +319,11 @@ class Router
                     case CommentController::VALIDATION:
                         $commentController->validateComment((int) $post["commentId"]);
                         break;
-        
+
                     case CommentController::DELETE:
                         $commentController->deleteComment((int) $post["commentId"]);
                         break;
-        
+
                     default :
                         $this->_templateEngine->display(RouteMapper::Page404->getTemplate(), []);
                         break;
@@ -395,4 +395,4 @@ class Router
     }//end contactControllerUrl()
 
 
-}
+}//end class

@@ -28,6 +28,7 @@ use DateTime;
 class UpdatePostModel
 {
 
+
     /**
      * Summary of __construct
      *
@@ -60,7 +61,7 @@ class UpdatePostModel
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -73,7 +74,7 @@ class UpdatePostModel
 
         return $this->userId;
 
-    }
+    }//end getUserId()
 
 
     /**
@@ -86,7 +87,7 @@ class UpdatePostModel
 
         return $this->title;
 
-    }
+    }//end getTitle()
 
 
     /**
@@ -99,7 +100,7 @@ class UpdatePostModel
 
         return $this->summary;
 
-    }
+    }//end getSummary()
 
 
     /**
@@ -115,7 +116,7 @@ class UpdatePostModel
         $this->summary = $summary;
         return $this;
 
-    }
+    }//end setSummary()
 
 
     /**
@@ -128,7 +129,7 @@ class UpdatePostModel
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -144,11 +145,11 @@ class UpdatePostModel
         $this->content = $content;
         return $this;
 
-    }
+    }//end setContent()
 
 
     /**
-     * Summary of getCreationDate
+     * Summary of getLastUpdateDate
      *
      * @return DateTime
      */
@@ -157,7 +158,7 @@ class UpdatePostModel
 
         return $this->lastUpdateDate;
 
-    }
+    }//end getLastUpdateDate()
 
 
-}
+}//end class

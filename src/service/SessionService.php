@@ -45,6 +45,7 @@ class SessionService implements SessionInterface
 
     const USER_KEY = "user";
 
+
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
@@ -117,7 +118,7 @@ class SessionService implements SessionInterface
     {
 
         return !empty($this->session[self::USER_KEY]);
-        
+
     }//end isUserConnected()
 
 
@@ -183,7 +184,7 @@ class SessionService implements SessionInterface
         if ($this->has($key) === true) {
             unset($this->session[$key]);
         }
-        
+
     }//end remove()
 
 
@@ -242,4 +243,4 @@ class SessionService implements SessionInterface
     }//end cleanSession()
 
 
-}
+}//end class

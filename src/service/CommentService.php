@@ -65,7 +65,7 @@ class CommentService
         if (self::$instance === null) {
             self::$instance = new CommentService(CommentRepository::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -102,7 +102,7 @@ class CommentService
 
             $userService = UserService::getInstance();
             $userId = $userService->getUserId($username);
-            
+
             return new CommentEntity(null, $postId, $userId, $content, $currentDate, $currentDate, false);
 
     }//end manageComment()
@@ -207,4 +207,4 @@ class CommentService
     }//end validCommentId()
 
 
-}
+}//end class

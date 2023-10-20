@@ -27,6 +27,8 @@ use App\model\UserConnectionModel;
  */
 interface SessionInterface
 {
+
+
     /**
      * Summary of start
      * start the session and assign $_session by reference at $_SESSION
@@ -34,6 +36,7 @@ interface SessionInterface
      * @return void
      */
     public function start(): void;
+
 
     /**
      * Summary of setUser
@@ -45,6 +48,7 @@ interface SessionInterface
      */
     public function setUser(UserConnectionModel $user): void;
 
+
     /**
      * Summary of isUserConnected
      * check if there is a user connected or not
@@ -53,12 +57,14 @@ interface SessionInterface
      */
     public function isUserConnected(): bool;
 
+
     /**
      * Summary of getSession
      *
      * @return array $_session
      */
     public function getSession(): array;
+
 
     /**
      * Summary of get
@@ -69,6 +75,7 @@ interface SessionInterface
      */
     public function get(string $key);
 
+
     /**
      * Summary of set
      *
@@ -78,6 +85,7 @@ interface SessionInterface
      * @return SessionInterface
      */
     public function set(string $key, $value): self;
+
 
     /**
      * Summary of remove
@@ -96,12 +104,14 @@ interface SessionInterface
      */
     public function clear(): void;
 
+
     /**
      * Summary of destroy
      *
      * @return void
      */
     public function destroy(): void;
+
 
     /**
      * Summary of has
@@ -111,5 +121,6 @@ interface SessionInterface
      * @return void
      */
     public function has(string $key): bool;
+
 
 }//end interface

@@ -38,11 +38,11 @@ enum RoleMapper: string
     {
 
         return match ($this) {
-            static::User => 'user',
+            static::User     => 'user',
             static::Supadmin => 'supadmin',
         };
 
     }//end getRole()
 
 
-}
+}//end enum

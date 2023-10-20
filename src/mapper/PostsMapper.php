@@ -77,4 +77,4 @@ class PostsMapper
     }//end transformToListOfPostModel()
 
 
-}
+}//end class

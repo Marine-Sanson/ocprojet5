@@ -28,6 +28,7 @@ use PDO;
 class DatabaseService
 {
 
+
     /**
      * Summary of db
      * Represents a connection between PHP and a database server.
@@ -42,6 +43,7 @@ class DatabaseService
       * @var DatabaseService
       */
     private static $instance;
+
 
     /**
      * Summary of __construct get a connection between PHP and a database server
@@ -96,4 +98,4 @@ class DatabaseService
     }//end execute()
 
 
-}
+}//end class

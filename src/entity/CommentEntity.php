@@ -28,6 +28,7 @@ use DateTime;
 class CommentEntity
 {
 
+
     /**
      * Summary of __construct
      *
@@ -62,7 +63,7 @@ class CommentEntity
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -75,7 +76,7 @@ class CommentEntity
 
         return $this->postId;
 
-    }
+    }//end getPostId()
 
 
     /**
@@ -88,7 +89,7 @@ class CommentEntity
 
         return $this->userId;
 
-    }
+    }//end getUserId()
 
 
     /**
@@ -101,7 +102,7 @@ class CommentEntity
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -114,7 +115,7 @@ class CommentEntity
 
         return $this->creationDate;
 
-    }
+    }//end getCreationDate()
 
 
     /**
@@ -127,7 +128,7 @@ class CommentEntity
 
         return $this->lastUpdateDate;
 
-    }
+    }//end getLastUpdateDate()
 
 
     /**
@@ -140,7 +141,7 @@ class CommentEntity
 
         return $this->isValidate;
 
-    }
+    }//end isCommentValidate()
 
 
-}
+}//end class

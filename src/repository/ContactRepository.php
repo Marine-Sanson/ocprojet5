@@ -58,10 +58,10 @@ class ContactRepository
         $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) 
                     VALUES (:first_name, :name, :email, :content, :creationDate)';
         $parameters = [
-            'first_name' => $firstName,
-            'name' => $name,
-            'email' => $email,
-            'content' => $content,
+            'first_name'   => $firstName,
+            'name'         => $name,
+            'email'        => $email,
+            'content'      => $content,
             'creationDate' => $creationDate->format('Y-m-d H:i:s')
         ];
         $this->db->execute($request, $parameters);
@@ -72,4 +72,4 @@ class ContactRepository
     }//end insertContact()
 
 
-}
+}//end class

@@ -28,6 +28,7 @@ use DateTime;
 class ContactModel
 {
 
+
     /**
      * Summary of __construct ContactModel
      *
@@ -58,7 +59,7 @@ class ContactModel
 
         return $this->name;
 
-    }
+    }//end getName()
 
 
     /**
@@ -74,7 +75,7 @@ class ContactModel
         $this->name = $name;
         return $this;
 
-    }
+    }//end setName()
 
 
     /**
@@ -87,7 +88,7 @@ class ContactModel
 
         return $this->firstName;
 
-    }
+    }//end getFirstName()
 
 
     /**
@@ -103,7 +104,7 @@ class ContactModel
         $this->firstName = $firstName;
         return $this;
 
-    }
+    }//end setFirstName()
 
 
     /**
@@ -116,7 +117,7 @@ class ContactModel
 
         return $this->email;
 
-    }
+    }//end getEmail()
 
 
     /**
@@ -132,7 +133,7 @@ class ContactModel
         $this->email = $email;
         return $this;
 
-    }
+    }//end setEmail()
 
 
     /**
@@ -145,7 +146,7 @@ class ContactModel
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -161,7 +162,7 @@ class ContactModel
         $this->content = $content;
         return $this;
 
-    }
+    }//end setContent()
 
 
     /**
@@ -174,7 +175,7 @@ class ContactModel
 
         return $this->creationDate;
 
-    }
+    }//end getCreationDate()
 
 
     /**
@@ -189,8 +190,8 @@ class ContactModel
 
         $this->creationDate = $creationDate;
         return $this;
-        
-    }
+
+    }//end setCreationDate()
 
 
-}
+}//end class

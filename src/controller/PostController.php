@@ -76,7 +76,7 @@ class PostController extends AbstractController
         if (self::$instance === null) {
             self::$instance = new PostController($template, PostService::getInstance(), CommentService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -92,7 +92,7 @@ class PostController extends AbstractController
 
         $result = $this->_postService->getPosts();
         $result = $this->postsToDisplay($result);
-        
+
         $this->_template->display(RouteMapper::PostsView->getTemplate(), ['posts' => $result]);
 
     }//end showPosts()
@@ -299,9 +299,10 @@ class PostController extends AbstractController
             $post->setSummary($this->toDisplay($post->getSummary()));
             $postsToDisplay[] = $post;
         }
+
         return $postsToDisplay;
 
     }//end postsToDisplay()
 
 
-}
+}//end class

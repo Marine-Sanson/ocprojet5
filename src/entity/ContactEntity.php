@@ -28,6 +28,7 @@ use DateTime;
 class ContactEntity
 {
 
+
     /**
      * Summary of __construct ContactEntity
      *
@@ -60,7 +61,7 @@ class ContactEntity
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -73,7 +74,7 @@ class ContactEntity
 
         return $this->name;
 
-    }
+    }//end getName()
 
 
     /**
@@ -86,7 +87,7 @@ class ContactEntity
 
         return $this->firstName;
 
-    }
+    }//end getFirstName()
 
 
     /**
@@ -99,7 +100,7 @@ class ContactEntity
 
         return $this->email;
 
-    }
+    }//end getEmail()
 
 
     /**
@@ -112,7 +113,7 @@ class ContactEntity
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -125,7 +126,7 @@ class ContactEntity
 
         return $this->creationDate;
 
-    }
+    }//end getCreationDate()
 
 
-}
+}//end class

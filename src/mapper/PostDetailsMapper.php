@@ -28,7 +28,7 @@ use DateTime;
  */
 class PostDetailsMapper
 {
-    
+
     /**
      * Summary of _instance
      *
@@ -44,12 +44,12 @@ class PostDetailsMapper
      * @return \App\mapper\PostDetailsMapper
      */
     public static function getInstance(): PostDetailsMapper
-    { 
+    {
 
         if (self::$instance === null) {
             self::$instance = new PostDetailsMapper();
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -84,4 +84,4 @@ class PostDetailsMapper
     }//end getPostDetailsModel()
 
 
-}
+}//end class

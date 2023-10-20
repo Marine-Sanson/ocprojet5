@@ -75,7 +75,7 @@ class UserController extends AbstractController
         if (self::$instance === null) {
             self::$instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());
         }
-    
+
         return self::$instance;
 
     }//end getInstance()
@@ -120,7 +120,7 @@ class UserController extends AbstractController
             $this->_sessionService->setUser($user);
 
             $data["session"] = $this->_sessionService->getSession();
-    
+
             $template = RouteMapper::HomeView->getTemplate();
             $data[MessageMapper::Message->getMessageLabel()] = $user->getFirstName().MessageMapper::LoginSuccess->getMessage();
         }
@@ -154,4 +154,4 @@ class UserController extends AbstractController
     }//end logout()
 
 
-}
+}//end class

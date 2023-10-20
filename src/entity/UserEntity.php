@@ -69,7 +69,7 @@ class UserEntity
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -82,7 +82,7 @@ class UserEntity
 
         return $this->name;
 
-    }
+    }//end getName()
 
 
     /**
@@ -95,7 +95,7 @@ class UserEntity
 
         return $this->firstName;
 
-    }
+    }//end getFirstName()
 
 
     /**
@@ -108,7 +108,7 @@ class UserEntity
 
         return $this->username;
 
-    }
+    }//end getUsername()
 
 
     /**
@@ -121,7 +121,7 @@ class UserEntity
 
         return $this->email;
 
-    }
+    }//end getEmail()
 
 
     /**
@@ -134,7 +134,7 @@ class UserEntity
 
         return $this->password;
 
-    }
+    }//end getPassword()
 
 
     /**
@@ -147,7 +147,7 @@ class UserEntity
 
         return $this->role;
 
-    }
+    }//end getRole()
 
 
     /**
@@ -160,7 +160,7 @@ class UserEntity
 
         return $this->creationDate;
 
-    }
+    }//end getCreationDate()
 
 
     /**
@@ -173,7 +173,7 @@ class UserEntity
 
         return $this->lastUpdateDate;
 
-    }
+    }//end getLastUpdateDate()
 
 
     /**
@@ -186,7 +186,7 @@ class UserEntity
 
         return $this->isAllowed;
 
-    }
+    }//end isUserAllowed()
 
 
-}
+}//end class
