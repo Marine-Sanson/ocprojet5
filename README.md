@@ -17,6 +17,7 @@ I have decide to use php without any framework, because it is my first big proje
 
 <div align="center">
     <img src="https://img.shields.io/badge/HTML-5-%23E34F26?logo=html5" alt="HTML5 banner">   <img src="https://img.shields.io/badge/CSS-3-%231572B6?logo=css3" alt="CSS3 banner">   <img src="https://img.shields.io/badge/Bootstrap-5.3.1-%237952B3?logo=bootstrap" alt="bootstrap banner"> <img src="https://img.shields.io/badge/Twig-3.0-%23bacf29" alt="Twig banner">
+    <br>
 </div>
 
 
@@ -26,6 +27,7 @@ Of course this project use HTML5 and CSS3, but I also used Bootsrap (a free them
 
 <div align="center">
     <img src="https://img.shields.io/badge/MySQL-8.0.30-%234479A1?logo=mysql" alt="MySQL banner">   <img src="https://img.shields.io/badge/HeidiSQL-12.1.0-%234479A1?logo=mysql" alt="MySQL banner">   <img src="https://img.shields.io/badge/Laragon-6.0-%230E83CD?logo=laragon" alt="MySQL banner">
+    <br>
 </div>
 
 
@@ -34,7 +36,8 @@ For the database I use MySQL with HeidiSQL because they are in my development se
 ### Tools :
 
 <div align="center">
-    <img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner">   <img src="https://img.shields.io/badge/phpdotenv-5.5-%23ECD53F?logo=dotenv" alt="phpdotenv banner">   <img src="https://img.shields.io/badge/PHPMailer-6.8-%23f0c563" alt="PHPMailer banner">   <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner"> 
+    <img src="https://img.shields.io/badge/Composer-2.4.1-%23885630?logo=composer" alt="composer banner">   <img src="https://img.shields.io/badge/phpdotenv-5.5-%23ECD53F?logo=dotenv" alt="phpdotenv banner">   <img src="https://img.shields.io/badge/PHPMailer-6.8-%23f0c563" alt="PHPMailer banner">   <img src="https://img.shields.io/badge/Tools-GitHub-%23181717?logo=github" alt="GitHub banner">
+    <br>
 </div>
 
 
@@ -47,6 +50,7 @@ This project is avaliable on <a href="https://github.com/">GitHub</a>, and recei
 
 <div align="center">
     <img src="https://img.shields.io/codacy/grade/591cf51d80244641be9c2514f607a6ce" alt="code quality from Codacy">
+    <br>
 </div>
 
 
@@ -64,8 +68,7 @@ For your connections (database and SMTP), copy the ```.env``` file in a ```.env.
 You will find the database script and uml diagrams in the documents file. Before using the database instalation file, be sure that you have replaced the name of my database by yours 
 
 ## GitHub stats :
-<div align="center">
-    [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Marine-Sanson&layout=compact)](https://github.com/Marine-Sanson)
-</div>
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Marine-Sanson&layout=compact)](https://github.com/Marine-Sanson)
+
 
 
