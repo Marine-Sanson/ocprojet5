@@ -54,6 +54,7 @@ class PostService
      * @param \App\mapper\PostDetailsMapper     $_postDetailsMapper PostDetailsMapper
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
      * @param \App\repository\PostRepository    $_postRepository    PostRepository
+     * @param \App\repository\UserRepository    $_userRepository    UserRepository
      * @param \App\service\CommentService       $_commentService    CommentService
      */
     private function __construct(
@@ -112,7 +113,6 @@ class PostService
 
             $postModels[] = $postModel;
         }
-
 
         return $postModels;
 

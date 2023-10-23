@@ -32,7 +32,7 @@ class PostEntity
     /**
      * Summary of id
      *
-     * @var int | null
+     * @var int|null
      */
     public readonly ?int $id;
 
@@ -82,7 +82,8 @@ class PostEntity
     /**
      * Summary of __construct
      */
-    public function __construct() {
+    public function __construct()
+    {
 
     }//end __construct()
 

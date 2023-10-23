@@ -172,6 +172,11 @@ class PostRepository
     }//end getAllPostsWithAuthors()
 
 
+    /**
+     * Summary of getAllPosts
+     *
+     * @return array
+     */
     public function getAllPosts(): array
     {
 
