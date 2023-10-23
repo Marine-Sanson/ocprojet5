@@ -16,7 +16,6 @@ namespace App\mapper;
 
 use App\entity\PostEntity;
 use App\model\PostModel;
-use DateTime;
 
 /**
  * PostsMapper Class Doc Comment
@@ -39,6 +38,17 @@ class PostsMapper
 
 
     /**
+     * Summary of __construct
+     *
+     * @param \App\mapper\DateTimeMapper $_dateTimeMapper DateTimeMapper
+     */
+    private function __construct(private readonly DateTimeMapper $_dateTimeMapper)
+    {
+
+    }//end __construct()
+
+
+    /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
      *
@@ -48,7 +58,7 @@ class PostsMapper
     {
 
         if (self::$instance === null) {
-            self::$instance = new PostsMapper();
+            self::$instance = new PostsMapper(DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -68,7 +78,7 @@ class PostsMapper
 
         $listOfPosts = [];
         foreach ($posts as $post) {
-            $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
+            $date = $this->_dateTimeMapper->toDateTime($post->getLastUpdateDate());
             $post = new PostModel($post["id"], $post["username"], $post["title"], $post["summary"], $date);
             $listOfPosts[] = $post;
         }
@@ -93,7 +103,7 @@ class PostsMapper
             $postEntity->getId(),
             $username, $postEntity->getTitle(),
             $postEntity->getSummary(),
-            $postEntity->getLastUpdateDate()
+            $this->_dateTimeMapper->toDateTime($postEntity->getLastUpdateDate())
         );
 
     }//end transformToPostModel()

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\ContactEntity;
+use App\mapper\DateTimeMapper;
 use App\model\ContactModel;
 use App\repository\ContactRepository;
 use App\service\MailerService;
@@ -39,6 +40,17 @@ class ContactService
     private static $instance;
 
 
+    /**
+     * Summary of __construct
+     *
+     * @param \App\mapper\DateTimeMapper $_dateTimeMapper DateTimeMapper
+     */
+    private function __construct(private readonly DateTimeMapper $_dateTimeMapper)
+    {
+
+    }//end __construct()
+
+
      /**
       * Summary of getInstance
       * That method create the unique instance of the class, if it doesn't exist and return it
@@ -49,7 +61,7 @@ class ContactService
     {
 
         if (self::$instance === null) {
-            self::$instance = new ContactService();
+            self::$instance = new ContactService(DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -75,7 +87,7 @@ class ContactService
             $contactModel->getFirstName(),
             $contactModel->getEmail(),
             $contactModel->getContent(),
-            $contactModel->getCreationDate()
+            $this->_dateTimeMapper->fromDateTime($contactModel->getCreationDate())
         );
 
         $contactRepository = new ContactRepository;
@@ -105,7 +117,7 @@ class ContactService
         $contactName = $newContact->getFirstName()." ".$newContact->getName();
         $contactEmail = $newContact->getEmail();
         $subject = "contact depuis le blog";
-        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$newContact->getCreationDate()->format('d-m-Y H:i:s')." Message:  ".$content;
+        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$newContact->getCreationDate()." Message:  ".$content;
 
         $mailerService = new MailerService;
         $mail = $mailerService->sendMail($contactEmail, $subject, $message);

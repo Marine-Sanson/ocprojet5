@@ -21,6 +21,7 @@ use App\controller\PostController;
 use App\controller\UserController;
 use App\controller\UserRegisterController;
 use App\controller\UserUpgradeController;
+use App\mapper\RouteMapper;
 use App\service\TwigService;
 
  /**
@@ -376,7 +377,7 @@ class Router
     private function contactControllerUrl(array $post): void
     {
 
-        $contactController = ContactController::getInstance($this->_templateEngine, ContactService::getInstance());
+        $contactController = ContactController::getInstance($this->_templateEngine);
 
         switch ($post) {
             case (null):

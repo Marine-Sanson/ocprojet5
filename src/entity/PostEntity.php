@@ -14,9 +14,6 @@ declare(strict_types=1);
 
 namespace App\entity;
 
-use DateTime;
-use DateTimeInterface;
-
 /**
  * PostEntity Class Doc Comment
  *
@@ -156,12 +153,12 @@ class PostEntity
     /**
      * Summary of getCreationDate
      *
-     * @return DateTime
+     * @return string
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): string
     {
 
-        return DateTime::createFromFormat("Y-m-d H:i:s", date($this->creationDate));
+        return $this->creationDate;
 
     }//end getCreationDate()
 
@@ -169,12 +166,12 @@ class PostEntity
     /**
      * Summary of getLastUpdateDate
      *
-     * @return DateTime
+     * @return string
      */
-    public function getLastUpdateDate(): DateTime
+    public function getLastUpdateDate(): string
     {
 
-        return DateTime::createFromFormat("Y-m-d H:i:s", date($this->lastUpdateDate));
+        return $this->lastUpdateDate;
 
     }//end getLastUpdateDate()
 

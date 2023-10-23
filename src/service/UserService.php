@@ -15,11 +15,11 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\UserEntity;
+use App\mapper\DateTimeMapper;
 use App\mapper\UserMapper;
 use App\model\UserConnectionModel;
 use App\repository\UserRepository;
 use App\service\SessionService;
-use DateTime;
 
 /**
  * UserService Class Doc Comment
@@ -51,11 +51,13 @@ class UserService
     /**
      * Summary of __construct
      *
+     * @param \App\mapper\DateTimeMapper     $_dateTimeMapper DateTimeMapper
      * @param \App\mapper\UserMapper         $_userMapper     UserMapper
      * @param \App\repository\UserRepository $_userRepository UserRepository
      * @param \App\service\SessionService    $_session        SessionService
      */
     private function __construct(
+        private readonly DateTimeMapper $_dateTimeMapper,
         private readonly UserMapper $_userMapper,
         private readonly UserRepository $_userRepository,
         private readonly SessionService $_session
@@ -75,6 +77,7 @@ class UserService
 
         if (self::$instance === null) {
             self::$instance = new UserService(
+                DateTimeMapper::getInstance(),
                 UserMapper::getInstance(),
                 UserRepository::getInstance(),
                 SessionService::getInstance()
@@ -134,10 +137,8 @@ class UserService
 
         if ($result !== []) {
             $creationDate = $result[0]["creation_date"];
-            $creationDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
             $updateDate = $result[0]["last_update_date"];
-            $updateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
 
             $allowed = boolval($result[0]["is_allowed"]);
 

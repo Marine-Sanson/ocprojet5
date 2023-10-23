@@ -115,7 +115,7 @@ class PostController extends AbstractController
 
         $comments = [];
         foreach ($postDetails->getComments() as $postCom) {
-            $postCom["content"] = $this->toDisplay($postCom["content"]);
+            $postCom->setContent($this->toDisplay($postCom->getContent()));
             $comments[] = $postCom;
         }
 
@@ -144,7 +144,6 @@ class PostController extends AbstractController
     {
 
         $message = [];
-
         $postId = (int) $post["postId"];
 
         if ($this->isValid($post) === false) {
@@ -159,12 +158,12 @@ class PostController extends AbstractController
             ];
         }
 
-        if (empty($message) === false) {
+        if (isset($message[MessageMapper::Error->getMessageLabel()]) === false) {
+
             $content = $this->sanitize($post["content"]);
             $comment = $this->_commentService->manageComment($post["username"], $postId, $content);
             $message = $this->_commentService->createNewComment($comment);
         }
-
         $postDetails = $this->_postService->getPostDetails($postId);
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [

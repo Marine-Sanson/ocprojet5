@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace App\entity;
 
-use DateTime;
-
 /**
  * UserEntity Class Doc Comment
  *
@@ -39,8 +37,8 @@ class UserEntity
      * @param string   $email          email of the user
      * @param string   $password       password - saved encrypt in the DB
      * @param string   $role           may be user or supAdmin
-     * @param DateTime $creationDate   creation dat in the db
-     * @param DateTime $lastUpdateDate lat update in the db
+     * @param string   $creationDate   creation dat in the db
+     * @param string   $lastUpdateDate lat update in the db
      * @param bool     $isAllowed      to know if this user is allowed
      */
     public function __construct(
@@ -51,8 +49,8 @@ class UserEntity
         private readonly string $email,
         private readonly string $password,
         private readonly string $role,
-        private readonly DateTime $creationDate,
-        private readonly DateTime $lastUpdateDate,
+        private readonly string $creationDate,
+        private readonly string $lastUpdateDate,
         private readonly bool $isAllowed
     ) {
 
@@ -153,9 +151,9 @@ class UserEntity
     /**
      * Summary of getCreationDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): string
     {
 
         return $this->creationDate;
@@ -166,9 +164,9 @@ class UserEntity
     /**
      * Summary of getLastUpdateDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdateDate(): DateTime
+    public function getLastUpdateDate(): string
     {
 
         return $this->lastUpdateDate;

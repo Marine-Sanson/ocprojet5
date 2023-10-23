@@ -15,10 +15,12 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\CommentEntity;
+use App\mapper\CommentMapper;
+use App\mapper\DateTimeMapper;
 use App\mapper\MessageMapper;
 use App\repository\CommentRepository;
+use App\repository\UserRepository;
 use App\service\UserService;
-use DateTime;
 
 /**
  * CommentService Class Doc Comment
@@ -45,9 +47,17 @@ class CommentService
     /**
      * Summary of __construct
      *
+     * @param \App\mapper\CommentMapper $_commentMapper CommentMapper
+     * @param \App\mapper\DateTimeMapper $_dateTimeMapper DateTimeMapper
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
+     * @param \App\repository\UserRepository $_userRepository UserRepository
      */
-    private function __construct(private readonly CommentRepository $_commentRepository)
+    private function __construct(
+        private readonly CommentMapper $_commentMapper,
+        private readonly DateTimeMapper $_dateTimeMapper,
+        private readonly CommentRepository $_commentRepository,
+        private readonly UserRepository $_userRepository
+    )
     {
 
     }//end __construct()
@@ -63,7 +73,12 @@ class CommentService
     {
 
         if (self::$instance === null) {
-            self::$instance = new CommentService(CommentRepository::getInstance());
+            self::$instance = new CommentService(
+                CommentMapper::getInstance(),
+                DateTimeMapper::getInstance(),
+                CommentRepository::getInstance(),
+                UserRepository::getInstance()
+            );
         }
 
         return self::$instance;
@@ -81,7 +96,17 @@ class CommentService
     public function getpostComments(int $postId): array
     {
 
-        return $this->_commentRepository->getOnePostComments($postId);
+        $comments = $this->_commentRepository->getOnePostComments($postId);
+
+        $listOfComments = [];
+        foreach ($comments as $comment) {
+            $username = $this->_userRepository->getUsername($comment->getUserId());
+            $commentModel = $this->_commentMapper->getCommentModel($comment, $username);
+
+            $listOfComments[] = $commentModel;
+        }        
+
+        return $listOfComments;
 
     }//end getpostComments()
 
@@ -98,12 +123,20 @@ class CommentService
     public function manageComment(string $username, int $postId, string $content): CommentEntity
     {
 
-            $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+            $currentDate = $this->_dateTimeMapper->getCurrentDate();
+            $currentDate = $this->_dateTimeMapper->fromDateTime($currentDate);
 
             $userService = UserService::getInstance();
             $userId = $userService->getUserId($username);
 
-            return new CommentEntity(null, $postId, $userId, $content, $currentDate, $currentDate, false);
+            $comment = new CommentEntity();
+            $comment->setUserId($userId)
+            ->setPostId($postId)
+            ->setContent($content)
+            ->setCreationDate($currentDate)
+            ->setLastUpdateDate($currentDate);
+
+            return $comment;
 
     }//end manageComment()
 

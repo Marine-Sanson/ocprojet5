@@ -16,6 +16,7 @@ namespace App\service;
 
 use App\entity\CommentEntity;
 use App\entity\PostEntity;
+use App\mapper\DateTimeMapper;
 use App\mapper\PostDetailsMapper;
 use App\mapper\PostsMapper;
 use App\model\NewPostModel;
@@ -25,7 +26,6 @@ use App\repository\CommentRepository;
 use App\repository\PostRepository;
 use App\repository\UserRepository;
 use App\service\CommentService;
-use DateTime;
 
 /**
  * PostService Class Doc Comment
@@ -50,6 +50,7 @@ class PostService
     /**
      * Summary of __construct
      *
+     * @param \App\mapper\DateTimeMapper        $_dateTimeMapper    DateTimeMapper
      * @param \App\mapper\PostsMapper           $_postsMapper       PostsMapper
      * @param \App\mapper\PostDetailsMapper     $_postDetailsMapper PostDetailsMapper
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
@@ -58,6 +59,7 @@ class PostService
      * @param \App\service\CommentService       $_commentService    CommentService
      */
     private function __construct(
+        private readonly DateTimeMapper $_dateTimeMapper,
         private readonly PostsMapper $_postsMapper,
         private readonly PostDetailsMapper $_postDetailsMapper,
         private readonly CommentRepository $_commentRepository,
@@ -80,6 +82,7 @@ class PostService
 
         if (self::$instance === null) {
             self::$instance = new PostService(
+                DateTimeMapper::getInstance(),
                 PostsMapper::getInstance(),
                 PostDetailsMapper::getInstance(),
                 CommentRepository::getInstance(),
@@ -166,7 +169,7 @@ class PostService
     public function createNewPost(int $userId, string $title, string $summary, string $content): bool
     {
 
-        $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+        $currentDate = $this->_dateTimeMapper->getCurrentDate();
 
         $newPost = new NewPostModel($userId, $title, $summary, $content, $currentDate);
 
@@ -195,7 +198,8 @@ class PostService
     public function updateAPost(int $postId, int $userId, string $title, string $summary, string $content): void
     {
 
-        $lastUpdateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+        $lastUpdateDate = $this->_dateTimeMapper->getCurrentDate();
+
         $updatePost = new UpdatePostModel($postId, $userId, $title, $summary, $content, $lastUpdateDate);
         $this->_postRepository->updatePost($updatePost);
 

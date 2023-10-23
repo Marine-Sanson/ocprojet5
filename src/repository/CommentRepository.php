@@ -82,8 +82,8 @@ class CommentRepository
             'id_post'          => $newComment->getPostId(),
             'id_user'          => $newComment->getUserId(),
             'content'          => $newComment->getContent(),
-            'creation_date'    => $newComment->getCreationDate()->format('Y-m-d H:i:s'),
-            'last_update_date' => $newComment->getLastUpdateDate()->format('Y-m-d H:i:s'),
+            'creation_date'    => $newComment->getCreationDate(),
+            'last_update_date' => $newComment->getLastUpdateDate(),
             'is_validate'      => 0
         ];
         $this->db->execute($request, $parameters);
@@ -104,14 +104,23 @@ class CommentRepository
     public function getOnePostComments(int $postId): array
     {
 
-        $request = 'SELECT id_user, content, comments.last_update_date, username FROM comments 
-                    JOIN users ON comments.id_user = users.id 
-                    WHERE id_post = :id AND is_validate = :is_validate';
+        $request = 'SELECT
+            id,
+            id_post AS postId,
+            id_user AS userId,
+            content,
+            creation_date AS creationDate,
+            last_update_date AS lastUpdateDate,
+            is_validate AS isValidate
+            FROM comments
+            WHERE id_post = :id AND is_validate = :is_validate';
+
         $parameters = [
             'id'          => $postId,
             'is_validate' => 1
         ];
-        return $this->db->execute($request, $parameters);
+
+        return $this->db->fetchAllComments($request, $parameters);
 
     }//end getOnePostComments()
 

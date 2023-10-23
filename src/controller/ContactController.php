@@ -15,12 +15,12 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\controller\AbstractController;
+use App\mapper\DateTimeMapper;
 use App\mapper\MessageMapper;
 use App\mapper\RouteMapper;
 use App\model\ContactModel;
 use App\service\ContactService;
 use App\service\TemplateInterface;
-use DateTime;
 
 /**
  * ContactController Class Doc Comment
@@ -50,30 +50,32 @@ class ContactController extends AbstractController
      * Call an instance of TemplateInterface
      *
      * @param \App\service\TemplateInterface $_template       TemplateInterface
+     * @param \App\mapper\DateTimeMapper     $_dateTimeMapper DateTimeMapper
      * @param \App\service\ContactService    $_contactService ContactService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
-        private readonly ContactService $_contactService
+        private readonly DateTimeMapper    $_dateTimeMapper,
+        private readonly ContactService    $_contactService
     ) {
 
     }//end __construct()
+
 
 
     /**
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
      *
-     * @param \App\service\TemplateInterface $template       template engine
-     * @param \App\service\ContactService    $contactService ContactService
+     * @param \App\service\TemplateInterface $template template engine
      *
      * @return \App\controller\ContactController
      */
-    public static function getInstance(TemplateInterface $template, ContactService $contactService): ContactController
+    public static function getInstance(TemplateInterface $template): ContactController
     {
 
         if (self::$instance === null) {
-            self::$instance = new ContactController($template, $contactService);
+            self::$instance = new ContactController($template, DateTimeMapper::getInstance(), ContactService::getInstance());
         }
 
         return self::$instance;
@@ -112,7 +114,7 @@ class ContactController extends AbstractController
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
-            $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+            $currentDate = $this->_dateTimeMapper->getCurrentDate();
             $contact = new ContactModel($post["name"], $post["firstName"], $post["email"], $post["content"], $currentDate);
             $this->validContactForm($contact);
             $sendMail = false;

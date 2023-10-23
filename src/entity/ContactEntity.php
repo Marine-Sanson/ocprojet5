@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace App\entity;
 
-use DateTime;
-
 /**
  * ContactEntity Class Doc Comment
  *
@@ -37,7 +35,7 @@ class ContactEntity
      * @param string   $firstName    first name of the contact
      * @param string   $email        email of the contact
      * @param string   $content      message send by the contact
-     * @param DateTime $creationDate creation date in the db
+     * @param string   $creationDate creation date in the db
      */
     public function __construct(
         private readonly ?int $id,
@@ -45,7 +43,7 @@ class ContactEntity
         private readonly string $firstName,
         private readonly string $email,
         private readonly string $content,
-        private readonly DateTime $creationDate
+        private readonly string $creationDate
     ) {
 
     }//end __construct()
@@ -119,9 +117,9 @@ class ContactEntity
     /**
      * Summary of getCreationDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): string
     {
 
         return $this->creationDate;

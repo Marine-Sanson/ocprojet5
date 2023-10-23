@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\mapper\DateTimeMapper;
 use App\model\UserRegisterModel;
 use App\service\DatabaseService;
 use DateTime;
@@ -41,9 +42,10 @@ class UserRepository
     /**
      * Summary of __construct
      *
-     * @param \App\service\DatabaseService $db DatabaseService
+     * @param \App\service\DatabaseService $db              DatabaseService
+     * @param \App\mapper\DateTimeMapper   $_dateTimeMapper DateTimeMapper
      */
-    private function __construct(private DatabaseService $db)
+    private function __construct(private DatabaseService $db, private readonly DateTimeMapper $_dateTimeMapper)
     {
 
     }//end __construct()
@@ -58,7 +60,7 @@ class UserRepository
     {
 
         if (self::$instance === null) {
-            self::$instance = new UserRepository(DatabaseService::getInstance());
+            self::$instance = new UserRepository(DatabaseService::getInstance(), DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -75,8 +77,7 @@ class UserRepository
      */
     public function insertNewUser(UserRegisterModel $userRegisterModel): int
     {
-
-        $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+        $date = $this->_dateTimeMapper->getCurrentDate();
         $request = 'INSERT INTO users (
                 name,
                 first_name,

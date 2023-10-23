@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\entity\CommentEntity;
 use App\entity\PostEntity;
 use PDO;
 
@@ -134,11 +135,22 @@ class DatabaseService
 
         $query->execute();
 
-        $listOfPosts = $query->fetchAll();
-
-        return $listOfPosts;
+        return $query->fetchAll();
 
     }//end fetchAllPosts()
+
+
+    public function fetchAllComments(string $request, array $parameters): array
+    {
+
+        $query = $this->db->prepare($request);
+        $query->setFetchMode(PDO::FETCH_CLASS, CommentEntity::class);
+
+        $query->execute($parameters);
+
+        return $query->fetchAll();
+
+    }
 
 
 }//end class

@@ -16,6 +16,7 @@ namespace App\service;
 
 use App\mapper\PostsMapper;
 use App\repository\PostRepository;
+use App\repository\UserRepository;
 
 /**
  * HomeService Class Doc Comment
@@ -41,10 +42,12 @@ class HomeService
      * Summary of __construct
      *
      * @param \App\repository\PostRepository $_postRepository PostRepository
+     * @param \App\mapper\DateTimeMapper     $_dateTimeMapper DateTimeMapper
      * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
     private function __construct(
         private readonly PostRepository $_postRepository,
+        private readonly UserRepository $_userRepository,
         private readonly PostsMapper $_postsMapper
     ) {
 
@@ -61,7 +64,7 @@ class HomeService
     {
 
         if (self::$instance === null) {
-            self::$instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());
+            self::$instance = new HomeService(PostRepository::getInstance(), UserRepository::getInstance(), PostsMapper::getInstance());
         }
 
         return self::$instance;
@@ -79,7 +82,16 @@ class HomeService
 
         $results = $this->_postRepository->getListOfPosts();
 
-        return $this->_postsMapper->transformToListOfPostModel($results);
+        $postModels = [];
+
+        foreach ($results as $entity) {
+            $username = $this->_userRepository->getUsername($entity->getIdUser());
+            $postModel = $this->_postsMapper->transformToPostModel($entity, $username);
+
+            $postModels[] = $postModel;
+        }
+
+        return $postModels;
 
     }//end getLastPosts()
 

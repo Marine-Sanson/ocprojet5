@@ -233,18 +233,17 @@ class PostRepository
     {
 
         $request = 'SELECT
-        posts.id,
-        posts.id_user,
-        posts.title,
-        posts.summary,
-        posts.content,
-        posts.creation_date,
-        posts.last_update_date,
-        username
+        id,
+        id_user AS idUser,
+        title,
+        summary,
+        content,
+        creation_date AS creationDate,
+        last_update_date AS lastUpdateDate
         FROM posts 
-        JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
-        $parameters = [];
-        return $this->db->execute($request, $parameters);
+        ORDER BY last_update_date DESC LIMIT 3';
+
+        return $this->db->fetchAllPosts($request);
 
     }//end getListOfPosts()
 

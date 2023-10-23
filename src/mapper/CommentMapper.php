@@ -1,6 +1,6 @@
 <?php
 /**
- * PostDetailsMapper File Doc Comment
+ * CommentMapper File Doc Comment
  *
  * PHP Version 8.1.10
  *
@@ -14,13 +14,15 @@ declare(strict_types=1);
 
 namespace App\mapper;
 
+use App\entity\CommentEntity;
 use App\entity\PostEntity;
 use App\mapper\DateTimeMapper;
+use App\model\CommentModel;
 use App\model\PostDetailsModel;
 
 
 /**
- * PostDetailsMapper Class Doc Comment
+ * CommentMapper Class Doc Comment
  *
  * @category Mapper
  * @package  App\mapper
@@ -28,13 +30,13 @@ use App\model\PostDetailsModel;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class PostDetailsMapper
+class CommentMapper
 {
 
     /**
      * Summary of _instance
      *
-     * @var PostDetailsMapper
+     * @var CommentMapper
      */
     private static $instance;
 
@@ -54,13 +56,13 @@ class PostDetailsMapper
      * Summary of getInstance
      * That method create the unique instance of the class, if it doesn't exist and return it
      *
-     * @return \App\mapper\PostDetailsMapper
+     * @return \App\mapper\CommentMapper
      */
-    public static function getInstance(): PostDetailsMapper
+    public static function getInstance(): CommentMapper
     {
 
         if (self::$instance === null) {
-            self::$instance = new PostDetailsMapper(DateTimeMapper::getInstance());
+            self::$instance = new CommentMapper(DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -69,7 +71,7 @@ class PostDetailsMapper
 
 
     /**
-     * Summary of getPostDetailsModel
+     * Summary of getCommentModel
      *
      * @param PostEntity $post     post
      * @param string     $username username
@@ -77,22 +79,20 @@ class PostDetailsMapper
      *
      * @return \App\model\PostDetailsModel
      */
-    public function getPostDetailsModel(PostEntity $post, string $username, ?array $comments): PostDetailsModel
+    public function getCommentModel(CommentEntity $comment, string $username): CommentModel
     {
 
-        $lastUpdateDate = $this->_dateTimeMapper->toDateTime($post->getLastUpdateDate());
-        $postDetails = new PostDetailsModel(
-            $post->getId(),
-            $post->getIdUser(),
-            $post->getTitle(),
-            $post->getSummary(),
-            $post->getContent(),
-            $lastUpdateDate,
+        $lastUpdateDate = $this->_dateTimeMapper->toDateTime($comment->getLastUpdateDate());
+        $commentDetails = new CommentModel(
+            $comment->getId(),
+            $comment->getPostId(),
             $username,
-            $comments
+            $comment->getContent(),
+            $lastUpdateDate,
+            $comment->isCommentValidate()
         );
 
-        return $postDetails;
+        return $commentDetails;
 
     }//end getPostDetailsModel()
 

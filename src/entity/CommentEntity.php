@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace App\entity;
 
-use DateTime;
-
 /**
  * CommentEntity Class Doc Comment
  *
@@ -28,27 +26,61 @@ use DateTime;
 class CommentEntity
 {
 
+    /**
+     * Summary of id
+     *
+     * @var 
+     */
+    private readonly ?int $id;
+
+    /**
+     * Summary of postId
+     *
+     * @var int
+     */
+    private readonly int $postId;
+
+    /**
+     * Summary of userId
+     *
+     * @var int
+     */
+    private readonly int $userId;
+
+    /**
+     * Summary of content
+     *
+     * @var string
+     */
+    private readonly string $content;
+
+
+    /**
+     * Summary of creationDate
+     *
+     * @var string
+     */
+    private readonly string $creationDate;
+
+    /**
+     * Summary of lastUpdateDate
+     *
+     * @var string
+     */
+    private readonly string $lastUpdateDate;
+
+    /**
+     * Summary of isValidate
+     *
+     * @var bool
+     */
+    private readonly bool $isValidate;
+
 
     /**
      * Summary of __construct
-     *
-     * @param mixed     $id             id of the comment
-     * @param int       $postId         id of the post
-     * @param int       $userId         id of the user
-     * @param string    $content        content
-     * @param \DateTime $creationDate   creation date
-     * @param \DateTime $lastUpdateDate last update date
-     * @param bool      $isValidate     default 0
      */
-    public function __construct(
-        private readonly ?int $id,
-        private readonly int $postId,
-        private readonly int $userId,
-        private readonly string $content,
-        private readonly DateTime $creationDate,
-        private readonly DateTime $lastUpdateDate,
-        private readonly bool $isValidate
-    ) {
+    public function __construct() {
 
     }//end __construct()
 
@@ -67,6 +99,22 @@ class CommentEntity
 
 
     /**
+     * Summary of setId
+     *
+     * @param $id Summary of id
+     *
+     * @return self
+     */
+    public function setId(?int $id): self
+    {
+
+        $this->id = $id;
+        return $this;
+
+    }//end setId()
+
+
+    /**
      * Summary of getPostId
      *
      * @return int
@@ -77,6 +125,22 @@ class CommentEntity
         return $this->postId;
 
     }//end getPostId()
+
+
+    /**
+     * Summary of setPostId
+     *
+     * @param int $postId Summary of postId
+     *
+     * @return self
+     */
+    public function setPostId(int $postId): self
+    {
+
+        $this->postId = $postId;
+        return $this;
+
+    }//end setPostId()
 
 
     /**
@@ -93,6 +157,22 @@ class CommentEntity
 
 
     /**
+     * Summary of setUserId
+     *
+     * @param int $userId Summary of userId
+     * 
+     * @return self
+     */
+    public function setUserId(int $userId): self
+    {
+
+        $this->userId = $userId;
+        return $this;
+
+    }//end setUserId()
+
+
+    /**
      * Summary of getContent
      *
      * @return string
@@ -106,11 +186,27 @@ class CommentEntity
 
 
     /**
+     * Summary of setContent
+     *
+     * @param string $content Summary of content
+     *
+     * @return self
+     */
+    public function setContent(string $content): self
+    {
+
+        $this->content = $content;
+        return $this;
+
+    }//end setContent()
+
+
+    /**
      * Summary of getCreationDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): string
     {
 
         return $this->creationDate;
@@ -119,16 +215,48 @@ class CommentEntity
 
 
     /**
+     * Summary of setCreationDate
+     *
+     * @param string $creationDate Summary of creationDate
+     *
+     * @return self
+     */
+    public function setCreationDate(string $creationDate): self
+    {
+
+        $this->creationDate = $creationDate;
+        return $this;
+
+    }//end setCreationDate()
+
+
+    /**
      * Summary of getLastUpdateDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdateDate(): DateTime
+    public function getLastUpdateDate(): string
     {
 
         return $this->lastUpdateDate;
 
     }//end getLastUpdateDate()
+
+
+    /**
+     * Summary of setLastUpdateDate
+     *
+     * @param string $lastUpdateDate Summary of lastUpdateDate
+     *
+     * @return self
+     */
+    public function setLastUpdateDate(string $lastUpdateDate): self
+    {
+
+        $this->lastUpdateDate = $lastUpdateDate;
+        return $this;
+
+    }//end setLastUpdateDate()
 
 
     /**
@@ -142,6 +270,22 @@ class CommentEntity
         return $this->isValidate;
 
     }//end isCommentValidate()
+
+
+    /**
+     * Summary of setIsValidate
+     *
+     * @param bool $isValidate Summary of isValidate
+     *
+     * @return self
+     */
+    public function setIsValidate(bool $isValidate): self
+    {
+
+        $this->isValidate = $isValidate;
+        return $this;
+
+    }//end setIsValidate()
 
 
 }//end class
