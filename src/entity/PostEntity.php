@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\entity;
 
 use DateTime;
+use DateTimeInterface;
 
 /**
  * PostEntity Class Doc Comment
@@ -28,6 +29,13 @@ use DateTime;
 class PostEntity
 {
 
+    public readonly ?int $id;
+    private readonly int $idUser;
+    private readonly string $title;
+    private readonly string $summary;
+    private readonly string $content;
+    private readonly string $creationDate;
+    private readonly string $lastUpdateDate;
 
     /**
      * Summary of __construct
@@ -41,14 +49,10 @@ class PostEntity
      * @param \DateTime  $lastUpdateDate last update date dat in the db
      */
     public function __construct(
-        private readonly ?int $id,
-        private readonly int $idUser,
-        private readonly string $title,
-        private readonly string $summary,
-        private readonly string $content,
-        private readonly DateTime $creationDate,
-        private readonly DateTime $lastUpdateDate
+
     ) {
+
+        // $this->creationDate = new DateTime($this->creationDate->format("Y-m-d H:i:s"));
 
     }//end __construct()
 
@@ -123,10 +127,11 @@ class PostEntity
      *
      * @return \DateTime
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): DateTimeInterface
     {
 
-        return $this->creationDate;
+        return DateTime::createFromFormat("Y-m-d H:i:s", date($this->creationDate));
+
 
     }//end getCreationDate()
 
@@ -139,7 +144,7 @@ class PostEntity
     public function getLastUpdateDate(): DateTime
     {
 
-        return $this->lastUpdateDate;
+        return DateTime::createFromFormat("Y-m-d H:i:s", date($this->lastUpdateDate));
 
     }//end getLastUpdateDate()
 

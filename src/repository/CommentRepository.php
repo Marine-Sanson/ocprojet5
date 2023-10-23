@@ -144,7 +144,7 @@ class CommentRepository
 
     }//end getPendingComments()
 
-
+    
     /**
      * Summary of updateCommentValidation
      *

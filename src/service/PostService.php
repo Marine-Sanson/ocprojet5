@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\CommentEntity;
+use App\entity\PostEntity;
 use App\mapper\PostDetailsMapper;
 use App\mapper\PostsMapper;
 use App\model\NewPostModel;
@@ -22,6 +23,7 @@ use App\model\PostDetailsModel;
 use App\model\UpdatePostModel;
 use App\repository\CommentRepository;
 use App\repository\PostRepository;
+use App\repository\UserRepository;
 use App\service\CommentService;
 use DateTime;
 
@@ -59,6 +61,7 @@ class PostService
         private readonly PostDetailsMapper $_postDetailsMapper,
         private readonly CommentRepository $_commentRepository,
         private readonly PostRepository $_postRepository,
+        private readonly UserRepository $_userRepository,
         private readonly CommentService $_commentService
     ) {
 
@@ -80,6 +83,7 @@ class PostService
                 PostDetailsMapper::getInstance(),
                 CommentRepository::getInstance(),
                 PostRepository::getInstance(),
+                UserRepository::getInstance(),
                 CommentService::getInstance()
             );
         }
@@ -97,9 +101,20 @@ class PostService
     public function getPosts(): array
     {
 
-        $results = $this->_postRepository->getAllPostsWithAuthors();
+        // $results = $this->_postRepository->getAllPostsWithAuthors();
+        $postsEntities = $this->_postRepository->getAllPosts();
 
-        return $this->_postsMapper->transformToListOfPostModel($results);
+        $postModels = [];
+
+        foreach($postsEntities as $entity) {
+            $username = $this->_userRepository->getUsername($entity->getIdUser());
+            $postModel = $this->_postsMapper->transformToPostModel($entity, $username);
+
+            $postModels[] = $postModel;
+        }
+
+
+        return $postModels;
 
     }//end getPosts()
 
@@ -115,9 +130,10 @@ class PostService
     {
 
         $post = $this->getPostData($postId);
+        $username = $this->_userRepository->getUsername($post->getIdUser());
         $comments = $this->_commentService->getpostComments($postId);
 
-        return $this->_postDetailsMapper->getPostDetailsModel($post, $comments);
+        return $this->_postDetailsMapper->getPostDetailsModel($post, $username, $comments);
 
     }//end getPostDetails()
 
@@ -129,7 +145,7 @@ class PostService
      *
      * @return array
      */
-    private function getPostData(int $postId): array
+    private function getPostData(int $postId): PostEntity
     {
 
         return $this->_postRepository->getOnePostData($postId);
@@ -177,7 +193,7 @@ class PostService
 
         $insertPost = $this->_postRepository->insertNewPost($newPost);
 
-        if ($insertPost === true) {
+        if (isset($insertPost) === true) {
             return true;
         }
 

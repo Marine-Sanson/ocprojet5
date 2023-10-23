@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\entity\PostEntity;
 use App\model\NewPostModel;
 use App\model\UpdatePostModel;
 use App\service\DatabaseService;
@@ -171,6 +172,25 @@ class PostRepository
     }//end getAllPostsWithAuthors()
 
 
+    public function getAllPosts(): array
+    {
+
+        $request = 'SELECT
+        id,
+        id_user AS idUser,
+        title,
+        summary,
+        content,
+        creation_date AS creationDate,
+        last_update_date AS lastUpdateDate
+        FROM posts 
+        ORDER BY last_update_date DESC';
+
+        return $this->db->fetchAllPosts($request);
+
+    }//end getAllPostsWithAuthors()
+
+
     /**
      * Summary of getOnePostData
      *
@@ -178,16 +198,23 @@ class PostRepository
      *
      * @return array
      */
-    public function getOnePostData(int $postId): array
+    public function getOnePostData(int $postId): PostEntity
     {
 
-        $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id WHERE posts.id = :id ';
+        $request = 'SELECT 
+            id,
+            id_user AS idUser,
+            title,
+            summary,
+            content,
+            creation_date AS creationDate,
+            last_update_date AS lastUpdateDate
+            FROM posts WHERE posts.id = :id ';
         $parameters = [
             'id' => $postId
         ];
-        $result = $this->db->execute($request, $parameters);
 
-        return $result[0];
+        return $this->db->fetchPost($request, $parameters);
 
     }//end getOnePostData()
 

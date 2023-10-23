@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace App\mapper;
 
+use App\entity\PostEntity;
 use App\model\PostDetailsModel;
+use App\model\PostModel;
 use DateTime;
 
 /**
@@ -63,19 +65,17 @@ class PostDetailsMapper
      *
      * @return \App\model\PostDetailsModel
      */
-    public function getPostDetailsModel(array $post, ?array $comments): PostDetailsModel
+    public function getPostDetailsModel(PostEntity $post, string $username, ?array $comments): PostDetailsModel
     {
 
-        $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
-
         $postDetails = new PostDetailsModel(
-            $post["id"],
-            $post["id_user"],
-            $post["title"],
-            $post["summary"],
-            $post["content"],
-            $date,
-            $post["username"],
+            $post->getId(),
+            $post->getIdUser(),
+            $post->getTitle(),
+            $post->getSummary(),
+            $post->getContent(),
+            $post->getLastUpdateDate(),
+            $username,
             $comments
         );
 

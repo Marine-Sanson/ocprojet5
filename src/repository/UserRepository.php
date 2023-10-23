@@ -148,6 +148,20 @@ class UserRepository
     }//end getUser()
 
 
+    public function getUsername(int $userId): string
+    {
+
+        $request = 'SELECT username FROM users WHERE id = :id';
+        $parameters = [
+            'id' => $userId
+        ];
+
+        $username = $this->db->execute($request, $parameters);
+
+        return $username[0]["username"];
+    }
+
+
     /**
      * Summary of getUserId
      *

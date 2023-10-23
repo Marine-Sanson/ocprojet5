@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\entity\PostEntity;
 use PDO;
 
 /**
@@ -88,14 +89,46 @@ class DatabaseService
     public function execute(string $request, ?array $parameters): array
     {
 
-        $query = $this->db->prepare(
-            $request
-        );
+        $query = $this->db->prepare($request);
         $query->execute($parameters);
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
 
     }//end execute()
+
+
+    public function fetchPost(string $request, array  $parameters): PostEntity 
+    {
+        $query = $this->db->prepare($request);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class);
+
+        // Exécution de la requête SQL
+        $query->execute($parameters);
+
+        // Récupération du résulat 
+        $post = $query->fetch();
+
+        return $post;
+
+    }//end fetchPost()
+
+    Public function fetchAllPosts(string $request): array 
+    {
+
+
+        $query = $this->db->prepare($request);
+        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class);
+    
+        // Exécution de la requête SQL
+        $query->execute();
+    
+        // Récupération des résultats sous forme d'objets Utilisateur
+        $listOfPosts = $query->fetchAll();
+
+        return $listOfPosts;
+
+    }
 
 
 }//end class

@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\mapper;
 
+use App\entity\PostEntity;
 use App\model\PostModel;
 use DateTime;
 
@@ -75,6 +76,27 @@ class PostsMapper
         return $listOfPosts;
 
     }//end transformToListOfPostModel()
+
+
+    /**
+     * Summary of transformToPostModel
+     * 
+     * @param \App\entity\PostEntity $postEntity PostEntity
+     * @param string $username username
+     * 
+     * @return PostModel
+     */
+    public function transformToPostModel(PostEntity $postEntity, string $username)
+    {
+
+        return new PostModel(
+            $postEntity->getId(),
+            $username, $postEntity->getTitle(),
+            $postEntity->getSummary(),
+            $postEntity->getLastUpdateDate()
+        );
+
+    }
 
 
 }//end class
