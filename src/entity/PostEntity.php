@@ -32,14 +32,14 @@ class PostEntity
     /**
      * Summary of id
      *
-     * @var int|null
+     * @var integer|null
      */
     public readonly ?int $id;
 
     /**
      * Summary of idUser
      *
-     * @var int
+     * @var integer
      */
     private readonly int $idUser;
 

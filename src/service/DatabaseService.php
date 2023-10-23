@@ -80,7 +80,7 @@ class DatabaseService
     /**
      * Summary of execute
      *
-     * @param string       $request    the sql request
+     * @param string     $request    the sql request
      * @param array|null $parameters if needed
      *
      * @return array

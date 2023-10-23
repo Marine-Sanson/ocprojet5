@@ -60,8 +60,8 @@ class PostDetailsMapper
     /**
      * Summary of getPostDetailsModel
      *
-     * @param array        $post     post
-     * @param string       $username username
+     * @param array      $post     post
+     * @param string     $username username
      * @param array|null $comments comments
      *
      * @return \App\model\PostDetailsModel
