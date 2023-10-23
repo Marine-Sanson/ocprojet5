@@ -29,7 +29,6 @@ use PDO;
 class DatabaseService
 {
 
-
     /**
      * Summary of db
      * Represents a connection between PHP and a database server.
@@ -97,38 +96,49 @@ class DatabaseService
     }//end execute()
 
 
-    public function fetchPost(string $request, array  $parameters): PostEntity 
+    /**
+     * Summary of fetchPost
+     *
+     * @param string $request    SQL request
+     * @param array  $parameters parameters
+     *
+     * @return \App\entity\PostEntity
+     */
+    public function fetchPost(string $request, array $parameters): PostEntity
     {
         $query = $this->db->prepare($request);
 
         $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class);
 
-        // Exécution de la requête SQL
         $query->execute($parameters);
 
-        // Récupération du résulat 
         $post = $query->fetch();
 
         return $post;
 
     }//end fetchPost()
 
-    Public function fetchAllPosts(string $request): array 
-    {
 
+    /**
+     * Summary of fetchAllPosts
+     *
+     * @param string $request SQL request
+     *
+     * @return array
+     */
+    public function fetchAllPosts(string $request): array
+    {
 
         $query = $this->db->prepare($request);
         $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class);
-    
-        // Exécution de la requête SQL
+
         $query->execute();
-    
-        // Récupération des résultats sous forme d'objets Utilisateur
+
         $listOfPosts = $query->fetchAll();
 
         return $listOfPosts;
 
-    }
+    }//end fetchAllPosts()
 
 
 }//end class

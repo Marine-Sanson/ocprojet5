@@ -148,6 +148,13 @@ class UserRepository
     }//end getUser()
 
 
+    /**
+     * Summary of getUsername
+     *
+     * @param int $userId userId
+     *
+     * @return string
+     */
     public function getUsername(int $userId): string
     {
 
@@ -159,7 +166,8 @@ class UserRepository
         $username = $this->db->execute($request, $parameters);
 
         return $username[0]["username"];
-    }
+
+    }//end getUsername()
 
 
     /**

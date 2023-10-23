@@ -106,7 +106,7 @@ class PostService
 
         $postModels = [];
 
-        foreach($postsEntities as $entity) {
+        foreach ($postsEntities as $entity) {
             $username = $this->_userRepository->getUsername($entity->getIdUser());
             $postModel = $this->_postsMapper->transformToPostModel($entity, $username);
 
@@ -151,27 +151,6 @@ class PostService
         return $this->_postRepository->getOnePostData($postId);
 
     }//end getPostData()
-
-
-    /**
-     * Summary of createNewComment
-     *
-     * @param \App\entity\CommentEntity $newComment new comment
-     *
-     * @return bool
-     */
-    public function createNewComment(CommentEntity $newComment): bool
-    {
-
-        $id = $this->_commentRepository->insertComment($newComment);
-
-        if (isset($id) === false) {
-            return false;
-        }
-
-        return true;
-
-    }//end createNewComment()
 
 
     /**

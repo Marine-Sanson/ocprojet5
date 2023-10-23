@@ -80,10 +80,10 @@ class PostsMapper
 
     /**
      * Summary of transformToPostModel
-     * 
+     *
      * @param \App\entity\PostEntity $postEntity PostEntity
-     * @param string $username username
-     * 
+     * @param string                 $username   username
+     *
      * @return PostModel
      */
     public function transformToPostModel(PostEntity $postEntity, string $username)
@@ -96,7 +96,7 @@ class PostsMapper
             $postEntity->getLastUpdateDate()
         );
 
-    }
+    }//end transformToPostModel()
 
 
 }//end class

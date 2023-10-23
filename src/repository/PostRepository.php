@@ -188,7 +188,7 @@ class PostRepository
 
         return $this->db->fetchAllPosts($request);
 
-    }//end getAllPostsWithAuthors()
+    }//end getAllPosts()
 
 
     /**

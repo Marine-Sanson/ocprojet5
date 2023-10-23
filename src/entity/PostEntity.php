@@ -29,30 +29,60 @@ use DateTimeInterface;
 class PostEntity
 {
 
+    /**
+     * Summary of id
+     *
+     * @var int | null
+     */
     public readonly ?int $id;
+
+    /**
+     * Summary of idUser
+     *
+     * @var int
+     */
     private readonly int $idUser;
+
+    /**
+     * Summary of title
+     *
+     * @var string
+     */
     private readonly string $title;
+
+    /**
+     * Summary of summary
+     *
+     * @var string
+     */
     private readonly string $summary;
+
+    /**
+     * Summary of content
+     *
+     * @var string
+     */
     private readonly string $content;
+
+    /**
+     * Summary of creationDate
+     *
+     * @var string
+     */
     private readonly string $creationDate;
+
+    /**
+     * Summary of lastUpdateDate
+     *
+     * @var string
+     */
     private readonly string $lastUpdateDate;
+
 
     /**
      * Summary of __construct
-     *
-     * @param int | null $id             id of the post  - autoincrement in the DB
-     * @param int        $idUser         id of the post author
-     * @param string     $title          title of the post
-     * @param string     $summary        summary of the post
-     * @param string     $content        content of the post
-     * @param \DateTime  $creationDate   creation date in the db
-     * @param \DateTime  $lastUpdateDate last update date dat in the db
      */
-    public function __construct(
-
-    ) {
-
-        // $this->creationDate = new DateTime($this->creationDate->format("Y-m-d H:i:s"));
+    public function __construct() {
 
     }//end __construct()
 
@@ -125,13 +155,12 @@ class PostEntity
     /**
      * Summary of getCreationDate
      *
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getCreationDate(): DateTimeInterface
+    public function getCreationDate(): DateTime
     {
 
         return DateTime::createFromFormat("Y-m-d H:i:s", date($this->creationDate));
-
 
     }//end getCreationDate()
 
@@ -139,7 +168,7 @@ class PostEntity
     /**
      * Summary of getLastUpdateDate
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getLastUpdateDate(): DateTime
     {
