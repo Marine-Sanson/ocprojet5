@@ -105,7 +105,7 @@ class ContactService
     /**
      * Summary of notify
      *
-     * @param \App\entity\ContactEntity $newContact call the MailerService to send the contact message by email
+     * @param \App\model\ContactModel $newContact call the MailerService to send the contact message by email
      *
      * @return bool
      */
@@ -115,12 +115,11 @@ class ContactService
         $content = $newContact->getContent();
 
         $contactName = $newContact->getFirstName()." ".$newContact->getName();
-        $contactEmail = $newContact->getEmail();
         $subject = "contact depuis le blog";
-        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$newContact->getCreationDate()." Message:  ".$content;
+        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$this->_dateTimeMapper->fromDateTime($newContact->getCreationDate())." Message:  ".$content;
 
         $mailerService = new MailerService;
-        $mail = $mailerService->sendMail($contactEmail, $subject, $message);
+        $mail = $mailerService->sendMail($_ENV['SMTP_USERNAME'], $subject, $message);
 
         if ($mail === true) {
             return true;

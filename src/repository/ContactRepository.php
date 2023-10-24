@@ -62,7 +62,7 @@ class ContactRepository
             'name'         => $name,
             'email'        => $email,
             'content'      => $content,
-            'creationDate' => $creationDate->format('Y-m-d H:i:s')
+            'creationDate' => $creationDate
         ];
         $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';

@@ -115,12 +115,14 @@ class ContactController extends AbstractController
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
             $currentDate = $this->_dateTimeMapper->getCurrentDate();
             $contact = new ContactModel($post["name"], $post["firstName"], $post["email"], $post["content"], $currentDate);
+
             $this->validContactForm($contact);
             $sendMail = false;
             $isContactCreated = $this->_contactService->createContact($contact);
 
             if ($isContactCreated === true) {
                 $contact->setContent(htmlspecialchars_decode($contact->getContent()));
+
                 $sendMail = $this->_contactService->notify($contact);
             }
 
