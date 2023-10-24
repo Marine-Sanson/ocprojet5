@@ -45,6 +45,7 @@ class HomeService
      *
      * @param \App\repository\PostRepository $_postRepository PostRepository
      * @param \App\repository\UserRepository $_userRepository PostRepository
+     * @param \App\service\PostService       $_postService    PostService
      * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
     private function __construct(
@@ -71,7 +72,8 @@ class HomeService
                 PostRepository::getInstance(),
                 UserRepository::getInstance(),
                 PostService::getInstance(),
-                PostsMapper::getInstance());
+                PostsMapper::getInstance()
+            );
         }
 
         return self::$instance;

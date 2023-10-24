@@ -42,7 +42,7 @@ class PostEntity
 
     /**
      * Summary of username
-     * 
+     *
      * @var string|null
      */
     private ?string $username;
@@ -183,29 +183,33 @@ class PostEntity
     }//end getLastUpdateDate()
 
 
-
-	/**
-	 * Summary of username
-	 * 
-	 * @return string|null
-	 */
-	public function getUsername(): ?string
-    {
-		return $this->username;
-	}
-	
-	/**
-	 * Summary of username
-	 * 
-	 * @param string $username Summary of username
+    /**
+     * Summary of getUsername
      * 
-	 * @return self
-	 */
-	public function setUsername(string $username): self
+     * @return string|null
+     */
+    public function getUsername(): ?string
     {
-		$this->username = $username;
-		return $this;
-	}
+
+        return $this->username;
+
+    }//end getUsername()
+
+
+    /**
+     * Summary of setUsername
+     *
+     * @param string $username
+     *
+     * @return self
+     */
+    public function setUsername(string $username): self
+    {
+
+        $this->username = $username;
+        return $this;
+
+    }//end setUsername()
 
 
 }//end class

@@ -203,7 +203,7 @@ class PostService
     /**
      * Summary of transformToPostModels
      *
-     * @param array<PostEntity> $posts 
+     * @param array<PostEntity> $postEntities 
      *
      * @return array<PostModel>
      */
@@ -211,14 +211,14 @@ class PostService
     {
 
         return array_map(
-            function (PostEntity $postEntity)
-            {
+            function (PostEntity $postEntity) {
                 $username = $this->_userRepository->getUsername($postEntity->getIdUser());
                 return $postEntity->setUsername($username);
             },
-            $postEntities);
+            $postEntities
+        );
 
-    }
+    }//end getPostAuthor()
 
 
 }//end class

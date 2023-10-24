@@ -112,18 +112,16 @@ class PostsMapper
     /**
      * Summary of transformToPostModels
      *
-     * @param array<PostEntity> $posts 
+     * @param array<PostEntity> $postEntities array de PostEntities
      *
      * @return array<PostModel>
      */
     public function transformToPostModels(array $postEntities): array
     {
         return array_map(
-            function (PostEntity $postEntity)
-            {
+            function (PostEntity $postEntity) {
                 return $this->transformToPostModel($postEntity);
-            },
-            $postEntities);
+            }, $postEntities);
 
     }//end transformToPostModels()
 
