@@ -203,7 +203,7 @@ class PostService
     /**
      * Summary of transformToPostModels
      *
-     * @param array<PostEntity> $postEntities 
+     * @param array<PostEntity> $postEntities postEntities
      *
      * @return array<PostModel>
      */

@@ -121,7 +121,9 @@ class PostsMapper
         return array_map(
             function (PostEntity $postEntity) {
                 return $this->transformToPostModel($postEntity);
-            }, $postEntities);
+            },
+            $postEntities
+        );
 
     }//end transformToPostModels()
 

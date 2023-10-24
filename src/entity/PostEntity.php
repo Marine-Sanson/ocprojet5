@@ -185,7 +185,7 @@ class PostEntity
 
     /**
      * Summary of getUsername
-     * 
+     *
      * @return string|null
      */
     public function getUsername(): ?string
@@ -199,7 +199,7 @@ class PostEntity
     /**
      * Summary of setUsername
      *
-     * @param string $username
+     * @param string $username username
      *
      * @return self
      */

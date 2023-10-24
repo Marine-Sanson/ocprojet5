@@ -112,12 +112,14 @@ class ContactService
     public function notify(ContactModel $newContact): bool
     {
 
-        $contactName = $newContact->getFirstName()." ".$newContact->getName();
-        $email = $newContact->getEmail();
-        $date = $this->_dateTimeMapper->toString($newContact->getCreationDate());
-        $content = $newContact->getContent();
-
-        $message = sprintf(" De: %s Email: %s Le %s Message:  %s", $contactName, $email, $date, $content);
+        $message = sprintf(
+            " De: %s %s Email: %s Le %s Message:  %s",
+            $newContact->getFirstName(),
+            $newContact->getName(),
+            $newContact->getEmail(),
+            $this->_dateTimeMapper->toString($newContact->getCreationDate()),
+            $newContact->getContent()
+        );
 
         $subject = "contact depuis le blog";
 
