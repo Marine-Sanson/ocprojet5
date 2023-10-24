@@ -123,13 +123,13 @@ class CommentService
     {
 
             $currentDate = $this->_dateTimeMapper->getCurrentDate();
-            $currentDate = $this->_dateTimeMapper->fromDateTime($currentDate);
+            $currentDate = $this->_dateTimeMapper->toString($currentDate);
 
             $userService = UserService::getInstance();
             $userId = $userService->getUserId($username);
 
-            $comment = new CommentEntity();
-            $comment->setUserId($userId)
+            $comment = (new CommentEntity())
+                ->setUserId($userId)
                 ->setPostId($postId)
                 ->setContent($content)
                 ->setCreationDate($currentDate)

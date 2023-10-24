@@ -45,7 +45,7 @@ class UserRepository
      * @param \App\service\DatabaseService $db              DatabaseService
      * @param \App\mapper\DateTimeMapper   $_dateTimeMapper DateTimeMapper
      */
-    private function __construct(private DatabaseService $db, private readonly DateTimeMapper $_dateTimeMapper)
+    private function __construct(private readonly DatabaseService $db, private readonly DateTimeMapper $_dateTimeMapper)
     {
 
     }//end __construct()

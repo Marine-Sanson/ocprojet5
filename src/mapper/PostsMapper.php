@@ -92,21 +92,40 @@ class PostsMapper
      * Summary of transformToPostModel
      *
      * @param \App\entity\PostEntity $postEntity PostEntity
-     * @param string                 $username   username
      *
      * @return PostModel
      */
-    public function transformToPostModel(PostEntity $postEntity, string $username)
+    public function transformToPostModel(PostEntity $postEntity): PostModel
     {
 
         return new PostModel(
             $postEntity->getId(),
-            $username, $postEntity->getTitle(),
+            $postEntity->getUsername(),
+            $postEntity->getTitle(),
             $postEntity->getSummary(),
             $this->_dateTimeMapper->toDateTime($postEntity->getLastUpdateDate())
         );
 
     }//end transformToPostModel()
+
+
+    /**
+     * Summary of transformToPostModels
+     *
+     * @param array<PostEntity> $posts 
+     *
+     * @return array<PostModel>
+     */
+    public function transformToPostModels(array $postEntities): array
+    {
+        return array_map(
+            function (PostEntity $postEntity)
+            {
+                return $this->transformToPostModel($postEntity);
+            },
+            $postEntities);
+
+    }//end transformToPostModels()
 
 
 }//end class

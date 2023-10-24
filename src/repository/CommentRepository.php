@@ -42,7 +42,7 @@ class CommentRepository
      *
      * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $db)
+    private function __construct(private readonly DatabaseService $db)
     {
 
     }//end __construct()

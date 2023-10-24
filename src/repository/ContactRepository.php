@@ -34,7 +34,7 @@ class ContactRepository
      *
      * @var DatabaseService $db connection between PHP and a database server
      */
-    private DatabaseService $db;
+    private readonly DatabaseService $db;
 
 
     /**

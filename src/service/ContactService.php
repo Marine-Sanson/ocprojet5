@@ -87,7 +87,7 @@ class ContactService
             $contactModel->getFirstName(),
             $contactModel->getEmail(),
             $contactModel->getContent(),
-            $this->_dateTimeMapper->fromDateTime($contactModel->getCreationDate())
+            $this->_dateTimeMapper->toString($contactModel->getCreationDate())
         );
 
         $contactRepository = new ContactRepository;
@@ -116,16 +116,11 @@ class ContactService
 
         $contactName = $newContact->getFirstName()." ".$newContact->getName();
         $subject = "contact depuis le blog";
-        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$this->_dateTimeMapper->fromDateTime($newContact->getCreationDate())." Message:  ".$content;
+        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$this->_dateTimeMapper->toString($newContact->getCreationDate())." Message:  ".$content;
 
         $mailerService = new MailerService;
-        $mail = $mailerService->sendMail($_ENV['SMTP_USERNAME'], $subject, $message);
 
-        if ($mail === true) {
-            return true;
-        }
-
-        return false;
+        return $mailerService->sendMail($_ENV['SMTP_USERNAME'], $subject, $message);
 
     }//end notify()
 

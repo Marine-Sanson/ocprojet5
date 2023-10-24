@@ -109,7 +109,7 @@ class DatabaseService
     {
         $query = $this->db->prepare($request);
 
-        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class);
+        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class, null);
 
         $query->execute($parameters);
 
@@ -131,7 +131,7 @@ class DatabaseService
     {
 
         $query = $this->db->prepare($request);
-        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class);
+        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class, null);
 
         $query->execute();
 
@@ -152,7 +152,7 @@ class DatabaseService
     {
 
         $query = $this->db->prepare($request);
-        $query->setFetchMode(PDO::FETCH_CLASS, CommentEntity::class);
+        $query->setFetchMode(PDO::FETCH_CLASS, CommentEntity::class, null);
 
         $query->execute($parameters);
 

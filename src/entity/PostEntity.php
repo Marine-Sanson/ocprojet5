@@ -31,7 +31,7 @@ class PostEntity
      *
      * @var integer|null
      */
-    public readonly ?int $id;
+    private readonly ?int $id;
 
     /**
      * Summary of idUser
@@ -39,6 +39,13 @@ class PostEntity
      * @var integer
      */
     private readonly int $idUser;
+
+    /**
+     * Summary of username
+     * 
+     * @var string|null
+     */
+    private ?string $username;
 
     /**
      * Summary of title
@@ -174,6 +181,31 @@ class PostEntity
         return $this->lastUpdateDate;
 
     }//end getLastUpdateDate()
+
+
+
+	/**
+	 * Summary of username
+	 * 
+	 * @return string|null
+	 */
+	public function getUsername(): ?string
+    {
+		return $this->username;
+	}
+	
+	/**
+	 * Summary of username
+	 * 
+	 * @param string $username Summary of username
+     * 
+	 * @return self
+	 */
+	public function setUsername(string $username): self
+    {
+		$this->username = $username;
+		return $this;
+	}
 
 
 }//end class

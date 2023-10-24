@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\entity\PostEntity;
 use App\mapper\PostsMapper;
+use App\model\PostModel;
 use App\repository\PostRepository;
 use App\repository\UserRepository;
 
@@ -48,6 +50,7 @@ class HomeService
     private function __construct(
         private readonly PostRepository $_postRepository,
         private readonly UserRepository $_userRepository,
+        private readonly PostService $_postService,
         private readonly PostsMapper $_postsMapper
     ) {
 
@@ -64,7 +67,11 @@ class HomeService
     {
 
         if (self::$instance === null) {
-            self::$instance = new HomeService(PostRepository::getInstance(), UserRepository::getInstance(), PostsMapper::getInstance());
+            self::$instance = new HomeService(
+                PostRepository::getInstance(),
+                UserRepository::getInstance(),
+                PostService::getInstance(),
+                PostsMapper::getInstance());
         }
 
         return self::$instance;
@@ -75,21 +82,14 @@ class HomeService
     /**
      * Summary of getLastPosts
      *
-     * @return array
+     * @return array<PostModel>
      */
     public function getLastPosts(): array
     {
 
-        $results = $this->_postRepository->getListOfPosts();
-
-        $postModels = [];
-
-        foreach ($results as $entity) {
-            $username = $this->_userRepository->getUsername($entity->getIdUser());
-            $postModel = $this->_postsMapper->transformToPostModel($entity, $username);
-
-            $postModels[] = $postModel;
-        }
+        $postEntities = $this->_postRepository->getListOfPosts();
+        $postEntities = $this->_postService->getPostAuthor($postEntities);
+        $postModels = $this->_postsMapper->transformToPostModels($postEntities);
 
         return $postModels;
 

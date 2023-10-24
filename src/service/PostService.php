@@ -21,6 +21,7 @@ use App\mapper\PostDetailsMapper;
 use App\mapper\PostsMapper;
 use App\model\NewPostModel;
 use App\model\PostDetailsModel;
+use App\model\PostModel;
 use App\model\UpdatePostModel;
 use App\repository\CommentRepository;
 use App\repository\PostRepository;
@@ -100,22 +101,15 @@ class PostService
     /**
      * Summary of getPosts
      *
-     * @return array
+     * @return array<PostModel>
      */
     public function getPosts(): array
     {
 
         // $results = $this->_postRepository->getAllPostsWithAuthors();
-        $postsEntities = $this->_postRepository->getAllPosts();
-
-        $postModels = [];
-
-        foreach ($postsEntities as $entity) {
-            $username = $this->_userRepository->getUsername($entity->getIdUser());
-            $postModel = $this->_postsMapper->transformToPostModel($entity, $username);
-
-            $postModels[] = $postModel;
-        }
+        $postEntities = $this->_postRepository->getAllPosts();
+        $postEntities = $this->getPostAuthor($postEntities);
+        $postModels = $this->_postsMapper->transformToPostModels($postEntities);
 
         return $postModels;
 
@@ -204,6 +198,27 @@ class PostService
         $this->_postRepository->updatePost($updatePost);
 
     }//end updateAPost()
+
+
+    /**
+     * Summary of transformToPostModels
+     *
+     * @param array<PostEntity> $posts 
+     *
+     * @return array<PostModel>
+     */
+    public function getPostAuthor(array $postEntities): array
+    {
+
+        return array_map(
+            function (PostEntity $postEntity)
+            {
+                $username = $this->_userRepository->getUsername($postEntity->getIdUser());
+                return $postEntity->setUsername($username);
+            },
+            $postEntities);
+
+    }
 
 
 }//end class

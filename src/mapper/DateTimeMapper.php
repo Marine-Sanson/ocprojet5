@@ -70,18 +70,18 @@ class DateTimeMapper
 
 
     /**
-     * Summary of fromDateTime
+     * Summary of toString
      *
      * @param \DateTime $dateTime date
      *
      * @return string
      */
-    public function fromDateTime(DateTime $dateTime): string
+    public function toString(DateTime $dateTime): string
     {
 
         return $dateTime->format($dateTime->format("Y-m-d H:i:s"));
 
-    }//end fromDateTime()
+    }//end toString()
 
 
     /**
