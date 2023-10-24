@@ -18,7 +18,9 @@ use App\entity\CommentEntity;
 use App\mapper\CommentMapper;
 use App\mapper\DateTimeMapper;
 use App\mapper\MessageMapper;
+use App\model\CommentModel;
 use App\repository\CommentRepository;
+use App\repository\PostRepository;
 use App\repository\UserRepository;
 use App\service\UserService;
 
@@ -56,6 +58,7 @@ class CommentService
         private readonly CommentMapper $_commentMapper,
         private readonly DateTimeMapper $_dateTimeMapper,
         private readonly CommentRepository $_commentRepository,
+        private readonly PostRepository $_postRepository,
         private readonly UserRepository $_userRepository
     ) {
 
@@ -76,6 +79,7 @@ class CommentService
                 CommentMapper::getInstance(),
                 DateTimeMapper::getInstance(),
                 CommentRepository::getInstance(),
+                PostRepository::getInstance(),
                 UserRepository::getInstance()
             );
         }
@@ -177,7 +181,20 @@ class CommentService
     public function getPendingComments(): array
     {
 
-        return $this->_commentRepository->getPendingComments();
+        $commentEntities = $this->_commentRepository->getPendingComments();
+        $commentModels = $this->_commentMapper->getCommentModels($commentEntities);
+
+        return array_map(
+            function (CommentModel $commentModel) {
+                $username = $this->_userRepository->getUsername($commentModel->getIdUser());
+                $title = $this->_postRepository->getPostTitle($commentModel->getIdPost());
+                $commentModel->setAuthor($username);
+                $commentModel->setPostTitle($title);
+                return $commentModel;
+            },
+            $commentModels
+        );
+
 
     }//end getPendingComments()
 
@@ -225,7 +242,7 @@ class CommentService
         $comments = $this->getPendingComments();
         $pendingCommentsIds = [];
         foreach ($comments as $comment) {
-            $pendingCommentsIds[] = $comment["id"];
+            $pendingCommentsIds[] = $comment->getId();
         }
 
         $isValid = in_array($commentId, $pendingCommentsIds);

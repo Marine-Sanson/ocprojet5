@@ -45,7 +45,7 @@ class PostEntity
      *
      * @var string|null
      */
-    private ?string $username;
+    private readonly ?string $username;
 
     /**
      * Summary of title

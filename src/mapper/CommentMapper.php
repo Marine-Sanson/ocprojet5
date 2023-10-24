@@ -74,18 +74,21 @@ class CommentMapper
      * Summary of getCommentModel
      *
      * @param CommentEntity $comment  comment
-     * @param string        $username username
+     * @param string|null   $username username
      *
      * @return \App\model\PostDetailsModel
      */
-    public function getCommentModel(CommentEntity $comment, string $username): CommentModel
+    public function getCommentModel(CommentEntity $comment, ?string $username): CommentModel
     {
 
         $lastUpdateDate = $this->_dateTimeMapper->toDateTime($comment->getLastUpdateDate());
+        
         $commentDetails = new CommentModel(
             $comment->getId(),
             $comment->getPostId(),
+            $comment->getUserId(),
             $username,
+            null,
             $comment->getContent(),
             $lastUpdateDate,
             $comment->isCommentValidate()
@@ -94,6 +97,26 @@ class CommentMapper
         return $commentDetails;
 
     }//end getCommentModel()
+
+
+    /**
+     * Summary of getCommentModels
+     *
+     * @param array<CommentEntity> $commentEntities array of CommentEntities
+     *
+     * @return array
+     */
+    public function getCommentModels(array $commentEntities): array
+    {
+
+        return array_map(
+            function (CommentEntity $CommentEntity) {
+                return $this->getCommentModel($CommentEntity, null);
+            },
+            $commentEntities
+        );
+
+    }//end getCommentModels()
 
 
 }//end class

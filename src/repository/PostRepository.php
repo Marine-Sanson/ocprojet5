@@ -248,4 +248,18 @@ class PostRepository
     }//end getListOfPosts()
 
 
+    public function getPostTitle(int $postId): string
+    {
+
+        $request = 'SELECT title FROM posts WHERE id = :id';
+        $parameters = [
+            'id' => $postId
+        ];
+
+        $title = $this->db->execute($request, $parameters);
+
+        return $title[0]["title"];
+    }
+
+
 }//end class

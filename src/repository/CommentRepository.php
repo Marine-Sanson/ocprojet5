@@ -134,22 +134,21 @@ class CommentRepository
     {
 
         $request = 'SELECT
-            comments.id,
-            comments.id_user,
-            id_post,
-            comments.content,
-            comments.last_update_date,
-            is_validate,
-            username,
-            title
+            id,
+            id_post AS postId,
+            id_user AS userId,
+            content,
+            creation_date AS creationDate,
+            last_update_date AS lastUpdateDate,
+            is_validate AS isValidate
         FROM comments
-        JOIN users ON comments.id_user = users.id
-        JOIN posts ON comments.id_post = posts.id
-        WHERE is_validate = :is_validate ORDER BY last_update_date DESC';
+        WHERE is_validate = :is_validate
+        ORDER BY last_update_date DESC';
+
         $parameters = [
             'is_validate' => 0
         ];
-        return $this->db->execute($request, $parameters);
+        return $this->db->fetchAllComments($request, $parameters);
 
     }//end getPendingComments()
 

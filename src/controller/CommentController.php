@@ -17,6 +17,7 @@ namespace App\controller;
 use App\controller\AbstractController;
 use App\mapper\MessageMapper;
 use App\mapper\RouteMapper;
+use App\model\CommentModel;
 use App\service\CommentService;
 use App\service\TemplateInterface;
 
@@ -138,6 +139,7 @@ class CommentController extends AbstractController
 
         $template = RouteMapper::ValidationComments->getTemplate();
         $isvalid = $this->_commentService->validCommentId($commentId);
+
         if ($isvalid === false) {
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
         }
@@ -158,7 +160,7 @@ class CommentController extends AbstractController
     /**
      * Summary of commentsToDisplay
      *
-     * @param array $comments comments
+     * @param array<CommentModel> $comments comments
      *
      * @return array
      */
@@ -167,7 +169,7 @@ class CommentController extends AbstractController
 
         $commentsToDisplay = [];
         foreach ($comments as $comment) {
-            $comment["content"] = $this->toDisplay($comment["content"]);
+            $comment->setContent($this->toDisplay($comment->getContent()));
 
             $commentsToDisplay[] = $comment;
         }
