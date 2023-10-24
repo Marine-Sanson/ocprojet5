@@ -82,7 +82,7 @@ class CommentMapper
     {
 
         $lastUpdateDate = $this->_dateTimeMapper->toDateTime($comment->getLastUpdateDate());
-        
+
         $commentDetails = new CommentModel(
             $comment->getId(),
             $comment->getPostId(),

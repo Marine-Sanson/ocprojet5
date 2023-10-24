@@ -67,7 +67,7 @@ class CommentModel
 
     }//end getId()
 
-    
+
     /**
      * Summary of setId
      *
@@ -285,7 +285,6 @@ class CommentModel
         return $this;
 
     }//end setIsValidate()
-
 
 
 }//end class

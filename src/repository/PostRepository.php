@@ -248,6 +248,13 @@ class PostRepository
     }//end getListOfPosts()
 
 
+    /**
+     * Summary of getPostTitle
+     *
+     * @param integer $postId postId
+     *
+     * @return string
+     */
     public function getPostTitle(int $postId): string
     {
 
@@ -259,7 +266,8 @@ class PostRepository
         $title = $this->db->execute($request, $parameters);
 
         return $title[0]["title"];
-    }
+
+    }//end getPostTitle()
 
 
 }//end class

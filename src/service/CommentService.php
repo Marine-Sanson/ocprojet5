@@ -52,6 +52,7 @@ class CommentService
      * @param \App\mapper\CommentMapper         $_commentMapper     CommentMapper
      * @param \App\mapper\DateTimeMapper        $_dateTimeMapper    DateTimeMapper
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
+     * @param \App\repository\PostRepository    $_postRepository    PostRepository
      * @param \App\repository\UserRepository    $_userRepository    UserRepository
      */
     private function __construct(
@@ -194,7 +195,6 @@ class CommentService
             },
             $commentModels
         );
-
 
     }//end getPendingComments()
 
