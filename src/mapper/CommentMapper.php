@@ -73,9 +73,8 @@ class CommentMapper
     /**
      * Summary of getCommentModel
      *
-     * @param PostEntity $post     post
-     * @param string     $username username
-     * @param array|null $comments comments
+     * @param CommentEntity $comment  comment
+     * @param string        $username username
      *
      * @return \App\model\PostDetailsModel
      */
@@ -94,7 +93,7 @@ class CommentMapper
 
         return $commentDetails;
 
-    }//end getPostDetailsModel()
+    }//end getCommentModel()
 
 
 }//end class

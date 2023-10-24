@@ -29,21 +29,21 @@ class CommentEntity
     /**
      * Summary of id
      *
-     * @var 
+     * @var integer|null
      */
     private readonly ?int $id;
 
     /**
      * Summary of postId
      *
-     * @var int
+     * @var integer
      */
     private readonly int $postId;
 
     /**
      * Summary of userId
      *
-     * @var int
+     * @var integer
      */
     private readonly int $userId;
 
@@ -53,7 +53,6 @@ class CommentEntity
      * @var string
      */
     private readonly string $content;
-
 
     /**
      * Summary of creationDate
@@ -72,7 +71,7 @@ class CommentEntity
     /**
      * Summary of isValidate
      *
-     * @var bool
+     * @var boolean
      */
     private readonly bool $isValidate;
 
@@ -80,7 +79,8 @@ class CommentEntity
     /**
      * Summary of __construct
      */
-    public function __construct() {
+    public function __construct()
+    {
 
     }//end __construct()
 
@@ -160,7 +160,7 @@ class CommentEntity
      * Summary of setUserId
      *
      * @param int $userId Summary of userId
-     * 
+     *
      * @return self
      */
     public function setUserId(int $userId): self

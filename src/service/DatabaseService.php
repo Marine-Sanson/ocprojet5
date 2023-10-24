@@ -140,6 +140,14 @@ class DatabaseService
     }//end fetchAllPosts()
 
 
+    /**
+     * Summary of fetchAllComments
+     *
+     * @param string $request    request
+     * @param array  $parameters parameters
+     *
+     * @return array
+     */
     public function fetchAllComments(string $request, array $parameters): array
     {
 
@@ -150,7 +158,7 @@ class DatabaseService
 
         return $query->fetchAll();
 
-    }
+    }//end fetchAllComments()
 
 
 }//end class

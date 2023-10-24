@@ -42,7 +42,7 @@ class HomeService
      * Summary of __construct
      *
      * @param \App\repository\PostRepository $_postRepository PostRepository
-     * @param \App\mapper\DateTimeMapper     $_dateTimeMapper DateTimeMapper
+     * @param \App\repository\UserRepository $_userRepository PostRepository
      * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
     private function __construct(

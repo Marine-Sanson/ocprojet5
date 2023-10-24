@@ -32,12 +32,12 @@ class CommentModel
     /**
      * Summary of __construct
      *
-     * @param int | null $id             id of the comment
-     * @param int        $idPost        id of the post
-     * @param string     $author         user firstName and name
-     * @param string     $content        content
-     * @param \DateTime  $lastUpdateDate last update date
-     * @param bool       $isValidate    default 0
+     * @param int|null  $id             id of the comment
+     * @param int       $idPost         id of the post
+     * @param string    $author         user firstName and name
+     * @param string    $content        content
+     * @param \DateTime $lastUpdateDate last update date
+     * @param bool      $isValidate     default 0
      */
     public function __construct(
         private ?int $id,
@@ -54,14 +54,14 @@ class CommentModel
     /**
      * Summary of getId
      *
-     * @return 
+     * @return integer|null
      */
     public function getId(): ?int
     {
 
         return $this->id;
 
-    }
+    }//end getId()
 
 
     /**
@@ -74,7 +74,7 @@ class CommentModel
 
         return $this->idPost;
 
-    }
+    }//end getIdPost()
 
 
     /**
@@ -87,7 +87,7 @@ class CommentModel
 
         return $this->author;
 
-    }
+    }//end getAuthor()
 
 
     /**
@@ -100,7 +100,7 @@ class CommentModel
 
         return $this->content;
 
-    }
+    }//end getContent()
 
 
     /**
@@ -110,10 +110,13 @@ class CommentModel
      *
      * @return self
      */
-    public function setContent(string $content): self {
+    public function setContent(string $content): self
+    {
+
         $this->content = $content;
         return $this;
-    }
+
+    }//end setContent()
 
 
     /**
@@ -126,20 +129,20 @@ class CommentModel
 
         return $this->lastUpdateDate;
 
-    }
+    }//end getLastUpdateDate()
 
 
     /**
-     * Summary of IsCommentValidate
+     * Summary of isCommentValidate
      *
      * @return bool
      */
-    public function IsCommentValidate(): bool
+    public function isCommentValidate(): bool
     {
 
         return $this->isValidate;
 
-    }
+    }//end isCommentValidate()
 
 
 }//end class

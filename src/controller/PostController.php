@@ -159,11 +159,11 @@ class PostController extends AbstractController
         }
 
         if (isset($message[MessageMapper::Error->getMessageLabel()]) === false) {
-
             $content = $this->sanitize($post["content"]);
             $comment = $this->_commentService->manageComment($post["username"], $postId, $content);
             $message = $this->_commentService->createNewComment($comment);
         }
+
         $postDetails = $this->_postService->getPostDetails($postId);
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [

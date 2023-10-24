@@ -55,12 +55,11 @@ class ContactController extends AbstractController
      */
     private function __construct(
         private readonly TemplateInterface $_template,
-        private readonly DateTimeMapper    $_dateTimeMapper,
-        private readonly ContactService    $_contactService
+        private readonly DateTimeMapper $_dateTimeMapper,
+        private readonly ContactService $_contactService
     ) {
 
     }//end __construct()
-
 
 
     /**

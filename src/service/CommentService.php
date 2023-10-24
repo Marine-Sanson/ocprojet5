@@ -47,18 +47,17 @@ class CommentService
     /**
      * Summary of __construct
      *
-     * @param \App\mapper\CommentMapper $_commentMapper CommentMapper
-     * @param \App\mapper\DateTimeMapper $_dateTimeMapper DateTimeMapper
+     * @param \App\mapper\CommentMapper         $_commentMapper     CommentMapper
+     * @param \App\mapper\DateTimeMapper        $_dateTimeMapper    DateTimeMapper
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
-     * @param \App\repository\UserRepository $_userRepository UserRepository
+     * @param \App\repository\UserRepository    $_userRepository    UserRepository
      */
     private function __construct(
         private readonly CommentMapper $_commentMapper,
         private readonly DateTimeMapper $_dateTimeMapper,
         private readonly CommentRepository $_commentRepository,
         private readonly UserRepository $_userRepository
-    )
-    {
+    ) {
 
     }//end __construct()
 
@@ -104,7 +103,7 @@ class CommentService
             $commentModel = $this->_commentMapper->getCommentModel($comment, $username);
 
             $listOfComments[] = $commentModel;
-        }        
+        }
 
         return $listOfComments;
 
@@ -131,10 +130,10 @@ class CommentService
 
             $comment = new CommentEntity();
             $comment->setUserId($userId)
-            ->setPostId($postId)
-            ->setContent($content)
-            ->setCreationDate($currentDate)
-            ->setLastUpdateDate($currentDate);
+                ->setPostId($postId)
+                ->setContent($content)
+                ->setCreationDate($currentDate)
+                ->setLastUpdateDate($currentDate);
 
             return $comment;
 
