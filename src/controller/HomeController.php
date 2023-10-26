@@ -110,6 +110,7 @@ class HomeController extends AbstractController
      */
     public function sanitizeLastPosts(array $lastPosts): array
     {
+
         return array_map(
             function (PostModel $postModel) {
                 $postModel->setTitle($this->toDisplay($postModel->getTitle()));
@@ -118,6 +119,7 @@ class HomeController extends AbstractController
             },
             $lastPosts
         );
+
     }//end sanitizeLastPosts()
 
 

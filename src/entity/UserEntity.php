@@ -92,7 +92,7 @@ class UserEntity
     /**
      * Summary of isAllowed
      *
-     * @var bool
+     * @var boolean
      */
     private readonly bool $isAllowed;
 
@@ -100,7 +100,8 @@ class UserEntity
     /**
      * Summary of __construct UserEntity
      */
-    public function __construct() {
+    public function __construct()
+    {
 
     }//end __construct()
 

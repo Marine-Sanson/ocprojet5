@@ -200,7 +200,7 @@ class DatabaseService
 
         return $query->fetchAll();
 
-    }//end fetchUser()
+    }//end fetchAllUsers()
 
 
 }//end class
