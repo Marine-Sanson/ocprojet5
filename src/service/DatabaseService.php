@@ -16,6 +16,7 @@ namespace App\service;
 
 use App\entity\CommentEntity;
 use App\entity\PostEntity;
+use App\entity\UserEntity;
 use PDO;
 
 /**
@@ -39,7 +40,7 @@ class DatabaseService
     private PDO $db;
 
      /**
-      * Summary of _instance
+      * Summary of instance
       *
       * @var DatabaseService
       */
@@ -113,9 +114,7 @@ class DatabaseService
 
         $query->execute($parameters);
 
-        $post = $query->fetch();
-
-        return $post;
+        return $query->fetch();
 
     }//end fetchPost()
 
@@ -152,6 +151,7 @@ class DatabaseService
     {
 
         $query = $this->db->prepare($request);
+
         $query->setFetchMode(PDO::FETCH_CLASS, CommentEntity::class, null);
 
         $query->execute($parameters);
@@ -159,6 +159,48 @@ class DatabaseService
         return $query->fetchAll();
 
     }//end fetchAllComments()
+
+
+    /**
+     * Summary of fetchUser
+     *
+     * @param string $request    request
+     * @param array  $parameters parameters
+     *
+     * @return \App\entity\UserEntity
+     */
+    public function fetchUser(string $request, array $parameters): UserEntity
+    {
+        $query = $this->db->prepare($request);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, UserEntity::class, null);
+
+        $query->execute($parameters);
+
+        return $query->fetch();
+
+    }//end fetchUser()
+
+
+    /**
+     * Summary of fetchAllUser
+     *
+     * @param string $request request
+     *
+     * @return array<UserEntity>
+     */
+    public function fetchAllUsers(string $request): array
+    {
+
+        $query = $this->db->prepare($request);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, UserEntity::class, null);
+
+        $query->execute();
+
+        return $query->fetchAll();
+
+    }//end fetchUser()
 
 
 }//end class

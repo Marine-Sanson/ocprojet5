@@ -32,7 +32,7 @@ class PostDetailsMapper
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostDetailsMapper
      */

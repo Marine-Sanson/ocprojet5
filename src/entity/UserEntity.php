@@ -26,33 +26,81 @@ namespace App\entity;
 class UserEntity
 {
 
+    /**
+     * Summary of id
+     *
+     * @var integer|null
+     */
+    private readonly ?int $id;
+
+    /**
+     * Summary of name
+     *
+     * @var string
+     */
+    private readonly string $name;
+
+    /**
+     * Summary of firstName
+     *
+     * @var string
+     */
+    private readonly string $firstName;
+
+    /**
+     * Summary of username
+     *
+     * @var string
+     */
+    private readonly string $username;
+
+    /**
+     * Summary of email
+     *
+     * @var string
+     */
+    private readonly string $email;
+
+    /**
+     * Summary of password
+     *
+     * @var string
+     */
+    private readonly string $password;
+
+    /**
+     * Summary of role
+     *
+     * @var string
+     */
+    private readonly string $role;
+
+    /**
+     * Summary of creationDate
+     *
+     * @var string
+     */
+    private readonly string $creationDate;
+
+    /**
+     * Summary of lastUpdateDate
+     *
+     * @var string
+     */
+    private readonly string $lastUpdateDate;
+
+    /**
+     * Summary of isAllowed
+     *
+     * @var bool
+     */
+    private readonly bool $isAllowed;
+
 
     /**
      * Summary of __construct UserEntity
-     *
-     * @param int|null $id             id - autoincrement in the DB
-     * @param string   $name           name of the user
-     * @param string   $firstName      first name of the user
-     * @param string   $username       username must be unique, used to login
-     * @param string   $email          email of the user
-     * @param string   $password       password - saved encrypt in the DB
-     * @param string   $role           may be user or supAdmin
-     * @param string   $creationDate   creation dat in the db
-     * @param string   $lastUpdateDate lat update in the db
-     * @param bool     $isAllowed      to know if this user is allowed
      */
-    public function __construct(
-        private readonly ?int $id,
-        private readonly string $name,
-        private readonly string $firstName,
-        private readonly string $username,
-        private readonly string $email,
-        private readonly string $password,
-        private readonly string $role,
-        private readonly string $creationDate,
-        private readonly string $lastUpdateDate,
-        private readonly bool $isAllowed
-    ) {
+    public function __construct() {
 
     }//end __construct()
 

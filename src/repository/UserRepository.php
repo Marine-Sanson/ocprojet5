@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\entity\UserEntity;
 use App\mapper\DateTimeMapper;
 use App\model\UserRegisterModel;
 use App\service\DatabaseService;
-use DateTime;
 
 /**
  * UserRepository Class Doc Comment
@@ -32,7 +32,7 @@ class UserRepository
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserRepository
      */
@@ -126,25 +126,25 @@ class UserRepository
      *
      * @return array with all the data of a User
      */
-    public function getUser(string $username): array
+    public function getUser(string $username): UserEntity
     {
 
         $request = 'SELECT
             id,
             name,
-            first_name,
+            first_name AS firstName,
             username,
             email,
             password,
             role,
-            creation_date,
-            last_update_date,
-            is_allowed
+            creation_date AS creationDate,
+            last_update_date AS lastUpdateDate,
+            is_allowed AS isAllowed
         FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
         ];
-        return $this->db->execute($request, $parameters);
+        return $this->db->fetchUser($request, $parameters);
 
     }//end getUser()
 
@@ -215,9 +215,19 @@ class UserRepository
     public function getAllUsers(): array
     {
 
-        $request = 'SELECT id, first_name, username, password, role, is_allowed FROM users';
+        $request = 'SELECT id,
+        name,
+        first_name AS firstName,
+        username,
+        email,
+        password,
+        role,
+        creation_date AS creationDate,
+        last_update_date AS lastUpdateDate,
+        is_allowed AS isAllowed
+        FROM users';
 
-        return $this->db->execute($request, []);
+        return $this->db->fetchAllUsers($request);
 
     }//end getAllUsers()
 

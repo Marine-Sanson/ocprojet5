@@ -15,11 +15,8 @@ declare(strict_types=1);
 namespace App\mapper;
 
 use App\entity\CommentEntity;
-use App\entity\PostEntity;
 use App\mapper\DateTimeMapper;
 use App\model\CommentModel;
-use App\model\PostDetailsModel;
-
 
 /**
  * CommentMapper Class Doc Comment
@@ -34,7 +31,7 @@ class CommentMapper
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var CommentMapper
      */

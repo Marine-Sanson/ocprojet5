@@ -32,7 +32,7 @@ class TwigService implements TemplateInterface
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var TwigService Twig
      */

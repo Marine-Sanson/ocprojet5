@@ -38,7 +38,7 @@ class Router
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var Router
      */

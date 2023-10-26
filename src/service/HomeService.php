@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace App\service;
 
-use App\entity\PostEntity;
 use App\mapper\PostsMapper;
 use App\model\PostModel;
 use App\repository\PostRepository;
@@ -33,7 +32,7 @@ class HomeService
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var HomeService
      */

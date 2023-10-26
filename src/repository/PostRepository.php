@@ -32,7 +32,7 @@ class PostRepository
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostRepository
      */
@@ -136,40 +136,6 @@ class PostRepository
         $this->db->execute($request, $parameters);
 
     }//end updatePost()
-
-
-    /**
-     * Summary of getAllPostsWithAuthors
-     *
-     * @return array
-     */
-    public function getPostsWithAuthors(): array
-    {
-
-        $request = 'SELECT posts.*, username FROM posts
-                    JOIN users ON posts.id_user = users.id
-                    ORDER BY last_update_date DESC LIMIT 12';
-
-        return $this->db->execute($request, null);
-
-    }//end getPostsWithAuthors()
-
-
-    /**
-     * Summary of getAllPostsWithAuthors
-     *
-     * @return array
-     */
-    public function getAllPostsWithAuthors(): array
-    {
-
-        $request = 'SELECT posts.*, username FROM posts 
-                    JOIN users ON posts.id_user = users.id 
-                    ORDER BY last_update_date DESC';
-
-        return $this->db->execute($request, null);
-
-    }//end getAllPostsWithAuthors()
 
 
     /**

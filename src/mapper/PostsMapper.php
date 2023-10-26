@@ -30,7 +30,7 @@ class PostsMapper
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostsMapper
      */
@@ -64,28 +64,6 @@ class PostsMapper
         return self::$instance;
 
     }//end getInstance()
-
-
-    /**
-     * Summary of transformToListOfPostModel
-     *
-     * @param array $posts posts datas
-     *
-     * @return array
-     */
-    public function transformToListOfPostModel(array $posts): array
-    {
-
-        $listOfPosts = [];
-        foreach ($posts as $post) {
-            $date = $this->_dateTimeMapper->toDateTime($post->getLastUpdateDate());
-            $post = new PostModel($post["id"], $post["username"], $post["title"], $post["summary"], $date);
-            $listOfPosts[] = $post;
-        }
-
-        return $listOfPosts;
-
-    }//end transformToListOfPostModel()
 
 
     /**

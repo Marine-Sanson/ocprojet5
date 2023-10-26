@@ -35,7 +35,7 @@ class ContactController extends AbstractController
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var ContactController
      */

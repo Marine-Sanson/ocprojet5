@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace App\service;
 
-use App\entity\CommentEntity;
 use App\entity\PostEntity;
 use App\mapper\DateTimeMapper;
 use App\mapper\PostDetailsMapper;
@@ -41,7 +40,7 @@ class PostService
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostService
      */

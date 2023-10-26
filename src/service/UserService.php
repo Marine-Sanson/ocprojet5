@@ -41,7 +41,7 @@ class UserService
     public TemplateInterface $template;
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserService
      */
@@ -131,32 +131,7 @@ class UserService
     public function getUser(string $username): ?UserEntity
     {
 
-        $result = $this->_userRepository->getUser($username);
-
-        $user = null;
-
-        if ($result !== []) {
-            $creationDate = $result[0]["creation_date"];
-
-            $updateDate = $result[0]["last_update_date"];
-
-            $allowed = boolval($result[0]["is_allowed"]);
-
-            $user = new UserEntity(
-                $result[0]["id"],
-                $result[0]["name"],
-                $result[0]["first_name"],
-                $result[0]["username"],
-                $result[0]["email"],
-                $result[0]["password"],
-                $result[0]["role"],
-                $creationDate,
-                $updateDate,
-                $allowed
-            );
-        }//end if
-
-        return $user;
+        return $this->_userRepository->getUser($username);
 
     }//end getUser()
 
@@ -229,41 +204,14 @@ class UserService
 
         $users = $this->_userRepository->getAllUsers();
         $list = [];
+
         foreach ($users as $user) {
-            $list[] = $this->transformToUserConnectionModel($user);
+            $list[] = $this->_userMapper->transformToUserConnectionModel($user);
         }
 
         return $list;
 
     }//end getAllUsers()
-
-
-    /**
-     * Summary of transformToUserConnectionModel
-     *
-     * @param array $user user
-     *
-     * @return \App\model\UserConnectionModel
-     */
-    public function transformToUserConnectionModel(array $user): UserConnectionModel
-    {
-
-        $isUserAllowed = false;
-
-        if ($user["is_allowed"] === 1) {
-            $isUserAllowed = true;
-        }
-
-        return new UserConnectionModel(
-            $user["id"],
-            $user["first_name"],
-            $user["username"],
-            $user["password"],
-            $user["role"],
-            $isUserAllowed
-        );
-
-    }//end transformToUserConnectionModel()
 
 
     /**
