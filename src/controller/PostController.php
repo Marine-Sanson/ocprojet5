@@ -156,7 +156,7 @@ class PostController extends AbstractController
         }
 
         $postDetails = $this->getPostDetails($postId);
-        
+
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id'          => $postId,
