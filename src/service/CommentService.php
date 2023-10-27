@@ -137,8 +137,7 @@ class CommentService
                 ->setUserId($userId)
                 ->setPostId($postId)
                 ->setContent($content)
-                ->setCreationDate($currentDate)
-                ->setLastUpdateDate($currentDate);
+                ->setCreationDate($currentDate);
 
             return $comment;
 

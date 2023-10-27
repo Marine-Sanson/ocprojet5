@@ -78,7 +78,7 @@ class CommentMapper
     public function getCommentModel(CommentEntity $comment, ?string $username): CommentModel
     {
 
-        $lastUpdateDate = $this->_dateTimeMapper->toDateTime($comment->getLastUpdateDate());
+        $creationDate = $this->_dateTimeMapper->toDateTime($comment->getCreationDate());
 
         $commentDetails = new CommentModel(
             $comment->getId(),
@@ -87,7 +87,7 @@ class CommentMapper
             $username,
             null,
             $comment->getContent(),
-            $lastUpdateDate,
+            $creationDate,
             $comment->isCommentValidate()
         );
 

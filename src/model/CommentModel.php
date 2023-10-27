@@ -38,7 +38,7 @@ class CommentModel
      * @param string|null $author         username
      * @param string|null $postTitle      post title
      * @param string      $content        content
-     * @param \DateTime   $lastUpdateDate last update date
+     * @param \DateTime   $creationDate   creation date
      * @param bool        $isValidate     default 0
      */
     public function __construct(
@@ -48,7 +48,7 @@ class CommentModel
         private ?string $author,
         private ?string $postTitle,
         private string $content,
-        private DateTime $lastUpdateDate,
+        private DateTime $creationDate,
         private bool $isValidate
     ) {
 
@@ -230,16 +230,16 @@ class CommentModel
 
 
     /**
-     * Summary of getLastUpdateDate
+     * Summary of getCreationDate
      *
      * @return DateTime
      */
-    public function getLastUpdateDate(): DateTime
+    public function getCreationDate(): DateTime
     {
 
-        return $this->lastUpdateDate;
+        return $this->creationDate;
 
-    }//end getLastUpdateDate()
+    }//end getCreationDate()
 
 
     /**

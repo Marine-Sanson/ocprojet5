@@ -76,14 +76,13 @@ class CommentRepository
     public function insertComment(CommentEntity $newComment): int
     {
 
-        $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, last_update_date, is_validate) 
-                    VALUES (:id_post, :id_user, :content, :creation_date, :last_update_date, :is_validate)';
+        $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, is_validate) 
+                    VALUES (:id_post, :id_user, :content, :creation_date, :is_validate)';
         $parameters = [
             'id_post'          => $newComment->getPostId(),
             'id_user'          => $newComment->getUserId(),
             'content'          => $newComment->getContent(),
             'creation_date'    => $newComment->getCreationDate(),
-            'last_update_date' => $newComment->getLastUpdateDate(),
             'is_validate'      => 0
         ];
         $this->db->execute($request, $parameters);
@@ -110,7 +109,6 @@ class CommentRepository
             id_user AS userId,
             content,
             creation_date AS creationDate,
-            last_update_date AS lastUpdateDate,
             is_validate AS isValidate
             FROM comments
             WHERE id_post = :id AND is_validate = :is_validate';
@@ -139,11 +137,10 @@ class CommentRepository
             id_user AS userId,
             content,
             creation_date AS creationDate,
-            last_update_date AS lastUpdateDate,
             is_validate AS isValidate
         FROM comments
         WHERE is_validate = :is_validate
-        ORDER BY last_update_date DESC';
+        ORDER BY creation_date DESC';
 
         $parameters = [
             'is_validate' => 0

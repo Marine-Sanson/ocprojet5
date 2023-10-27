@@ -44,7 +44,7 @@ class PostDetailsModel
     public function __construct(
         private readonly ?int $id,
         private readonly int $idUser,
-        private readonly string $title,
+        private string $title,
         private string $summary,
         private string $content,
         private readonly DateTime $lastUpdateDate,
@@ -92,6 +92,22 @@ class PostDetailsModel
         return $this->title;
 
     }//end getTitle()
+
+
+    /**
+     * Summary of setTitle
+     *
+     * @param string $title title
+     *
+     * @return \App\model\PostDetailsModel
+     */
+    public function setTitle(string $title): self
+    {
+
+        $this->title = $title;
+        return $this;
+
+    }//end setTitle()
 
 
     /**

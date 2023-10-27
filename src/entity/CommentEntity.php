@@ -62,13 +62,6 @@ class CommentEntity
     private readonly string $creationDate;
 
     /**
-     * Summary of lastUpdateDate
-     *
-     * @var string
-     */
-    private readonly string $lastUpdateDate;
-
-    /**
      * Summary of isValidate
      *
      * @var boolean
@@ -228,35 +221,6 @@ class CommentEntity
         return $this;
 
     }//end setCreationDate()
-
-
-    /**
-     * Summary of getLastUpdateDate
-     *
-     * @return string
-     */
-    public function getLastUpdateDate(): string
-    {
-
-        return $this->lastUpdateDate;
-
-    }//end getLastUpdateDate()
-
-
-    /**
-     * Summary of setLastUpdateDate
-     *
-     * @param string $lastUpdateDate Summary of lastUpdateDate
-     *
-     * @return self
-     */
-    public function setLastUpdateDate(string $lastUpdateDate): self
-    {
-
-        $this->lastUpdateDate = $lastUpdateDate;
-        return $this;
-
-    }//end setLastUpdateDate()
 
 
     /**
