@@ -112,7 +112,6 @@ class PostController extends AbstractController
         $message = null;
         $postDetails = $this->getPostDetails($postId);
 
-
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id'          => $postId,
@@ -156,9 +155,7 @@ class PostController extends AbstractController
             $message = $this->_commentService->createNewComment($comment);
         }
 
-        $postDetails = $this->_postService->getPostDetails($postId);
-        $postDetails->setSummary($this->toDisplay($postDetails->getSummary()));
-        $postDetails->setContent($this->toDisplay($postDetails->getContent()));
+        $postDetails = $this->getPostDetails($postId);
         
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
@@ -296,6 +293,7 @@ class PostController extends AbstractController
      */
     public function getPostDetails(int $postId): PostDetailsModel
     {
+
         $postDetails = $this->_postService->getPostDetails($postId);
 
         $postDetails->setTitle($this->toDisplay($postDetails->getTitle()));
@@ -311,7 +309,8 @@ class PostController extends AbstractController
         $postDetails->setComments($comments);
 
         return $postDetails;
-    }
+
+    }//end getPostDetails()
 
 
 }//end class

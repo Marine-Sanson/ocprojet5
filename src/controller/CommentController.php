@@ -169,6 +169,7 @@ class CommentController extends AbstractController
 
         $commentsToDisplay = [];
         foreach ($comments as $comment) {
+            $comment->setPostTitle($this->toDisplay($comment->getPostTitle()));
             $comment->setContent($this->toDisplay($comment->getContent()));
 
             $commentsToDisplay[] = $comment;

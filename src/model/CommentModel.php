@@ -32,14 +32,14 @@ class CommentModel
     /**
      * Summary of __construct
      *
-     * @param int|null    $id             id of the comment
-     * @param int         $idPost         id of the post
-     * @param int         $idUser         id of the author
-     * @param string|null $author         username
-     * @param string|null $postTitle      post title
-     * @param string      $content        content
-     * @param \DateTime   $creationDate   creation date
-     * @param bool        $isValidate     default 0
+     * @param int|null    $id           id of the comment
+     * @param int         $idPost       id of the post
+     * @param int         $idUser       id of the author
+     * @param string|null $author       username
+     * @param string|null $postTitle    post title
+     * @param string      $content      content
+     * @param \DateTime   $creationDate creation date
+     * @param bool        $isValidate   default 0
      */
     public function __construct(
         private ?int $id,
