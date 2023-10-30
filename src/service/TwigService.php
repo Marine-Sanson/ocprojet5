@@ -54,7 +54,7 @@ class TwigService implements TemplateInterface
         $loader = new FilesystemLoader('src/view');
         $twig = new Environment(
             $loader, [
-                'cache' => false, // __DIR__ . '/tmp'
+                'cache' => false,
                 'debug' => true
             ]
         );
