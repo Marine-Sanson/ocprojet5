@@ -34,7 +34,7 @@ class UserUpgradeController extends AbstractController
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserUpgradeController
      */

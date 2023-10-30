@@ -15,7 +15,9 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\mapper\PostsMapper;
+use App\model\PostModel;
 use App\repository\PostRepository;
+use App\repository\UserRepository;
 
 /**
  * HomeService Class Doc Comment
@@ -30,7 +32,7 @@ class HomeService
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var HomeService
      */
@@ -41,10 +43,14 @@ class HomeService
      * Summary of __construct
      *
      * @param \App\repository\PostRepository $_postRepository PostRepository
+     * @param \App\repository\UserRepository $_userRepository PostRepository
+     * @param \App\service\PostService       $_postService    PostService
      * @param \App\mapper\PostsMapper        $_postsMapper    PostsMapper
      */
     private function __construct(
         private readonly PostRepository $_postRepository,
+        private readonly UserRepository $_userRepository,
+        private readonly PostService $_postService,
         private readonly PostsMapper $_postsMapper
     ) {
 
@@ -61,7 +67,12 @@ class HomeService
     {
 
         if (self::$instance === null) {
-            self::$instance = new HomeService(PostRepository::getInstance(), PostsMapper::getInstance());
+            self::$instance = new HomeService(
+                PostRepository::getInstance(),
+                UserRepository::getInstance(),
+                PostService::getInstance(),
+                PostsMapper::getInstance()
+            );
         }
 
         return self::$instance;
@@ -72,14 +83,16 @@ class HomeService
     /**
      * Summary of getLastPosts
      *
-     * @return array
+     * @return array<PostModel>
      */
     public function getLastPosts(): array
     {
 
-        $results = $this->_postRepository->getListOfPosts();
+        $postEntities = $this->_postRepository->getListOfPosts();
+        $postEntities = $this->_postService->getPostAuthor($postEntities);
+        $postModels = $this->_postsMapper->transformToPostModels($postEntities);
 
-        return $this->_postsMapper->transformToListOfPostModel($results);
+        return $postModels;
 
     }//end getLastPosts()
 

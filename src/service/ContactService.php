@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\ContactEntity;
+use App\mapper\DateTimeMapper;
 use App\model\ContactModel;
 use App\repository\ContactRepository;
 use App\service\MailerService;
@@ -32,11 +33,22 @@ class ContactService
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var ContactService
      */
     private static $instance;
+
+
+    /**
+     * Summary of __construct
+     *
+     * @param \App\mapper\DateTimeMapper $_dateTimeMapper DateTimeMapper
+     */
+    private function __construct(private readonly DateTimeMapper $_dateTimeMapper)
+    {
+
+    }//end __construct()
 
 
      /**
@@ -49,7 +61,7 @@ class ContactService
     {
 
         if (self::$instance === null) {
-            self::$instance = new ContactService();
+            self::$instance = new ContactService(DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -75,7 +87,7 @@ class ContactService
             $contactModel->getFirstName(),
             $contactModel->getEmail(),
             $contactModel->getContent(),
-            $contactModel->getCreationDate()
+            $this->_dateTimeMapper->toString($contactModel->getCreationDate())
         );
 
         $contactRepository = new ContactRepository;
@@ -93,28 +105,26 @@ class ContactService
     /**
      * Summary of notify
      *
-     * @param \App\entity\ContactEntity $newContact call the MailerService to send the contact message by email
+     * @param \App\model\ContactModel $newContact call the MailerService to send the contact message by email
      *
      * @return bool
      */
     public function notify(ContactModel $newContact): bool
     {
 
-        $content = $newContact->getContent();
+        $message = sprintf(
+            " De: %s %s Email: %s Le %s Message:  %s",
+            $newContact->getFirstName(),
+            $newContact->getName(),
+            $newContact->getEmail(),
+            $this->_dateTimeMapper->toString($newContact->getCreationDate()),
+            $newContact->getContent()
+        );
 
-        $contactName = $newContact->getFirstName()." ".$newContact->getName();
-        $contactEmail = $newContact->getEmail();
         $subject = "contact depuis le blog";
-        $message = " De:  ".$contactName." Email:  ".$newContact->getEmail()." Le ".$newContact->getCreationDate()->format('d-m-Y H:i:s')." Message:  ".$content;
 
         $mailerService = new MailerService;
-        $mail = $mailerService->sendMail($contactEmail, $subject, $message);
-
-        if ($mail === true) {
-            return true;
-        }
-
-        return false;
+        return $mailerService->sendMail($_ENV['SMTP_USERNAME'], $subject, $message);
 
     }//end notify()
 

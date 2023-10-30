@@ -17,6 +17,7 @@ namespace App\controller;
 use App\controller\AbstractController;
 use App\mapper\MessageMapper;
 use App\mapper\RouteMapper;
+use App\model\PostDetailsModel;
 use App\service\CommentService;
 use App\service\PostService;
 use App\service\TemplateInterface;
@@ -34,7 +35,7 @@ class PostController extends AbstractController
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostController
      */
@@ -109,17 +110,7 @@ class PostController extends AbstractController
     {
 
         $message = null;
-        $postDetails = $this->_postService->getPostDetails($postId);
-        $postDetails->setSummary($this->toDisplay($postDetails->getSummary()));
-        $postDetails->setContent($this->toDisplay($postDetails->getContent()));
-
-        $comments = [];
-        foreach ($postDetails->getComments() as $postCom) {
-            $postCom["content"] = $this->toDisplay($postCom["content"]);
-            $comments[] = $postCom;
-        }
-
-        $postDetails->setComments($comments);
+        $postDetails = $this->getPostDetails($postId);
 
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
@@ -144,7 +135,6 @@ class PostController extends AbstractController
     {
 
         $message = [];
-
         $postId = (int) $post["postId"];
 
         if ($this->isValid($post) === false) {
@@ -159,13 +149,14 @@ class PostController extends AbstractController
             ];
         }
 
-        if (empty($message) === false) {
+        if (isset($message[MessageMapper::Error->getMessageLabel()]) === false) {
             $content = $this->sanitize($post["content"]);
             $comment = $this->_commentService->manageComment($post["username"], $postId, $content);
             $message = $this->_commentService->createNewComment($comment);
         }
 
-        $postDetails = $this->_postService->getPostDetails($postId);
+        $postDetails = $this->getPostDetails($postId);
+
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
                 'id'          => $postId,
@@ -257,19 +248,7 @@ class PostController extends AbstractController
             ];
         }
 
-        $postDetails = $this->_postService->getPostDetails($routeParam);
-
-        $postDetails->setSummary($this->toDisplay($postDetails->getSummary()));
-        $postDetails->setContent($this->toDisplay($postDetails->getContent()));
-
-        $comments = [];
-
-        foreach ($postDetails->getComments() as $postCom) {
-            $postCom["content"] = $this->toDisplay($postCom["content"]);
-            $comments[] = $postCom;
-        }
-
-        $postDetails->setComments($comments);
+        $postDetails = $this->getPostDetails($routeParam);
 
         $this->_template->display(
             RouteMapper::OnePostView->getTemplate(), [
@@ -303,6 +282,35 @@ class PostController extends AbstractController
         return $postsToDisplay;
 
     }//end postsToDisplay()
+
+
+    /**
+     * Summary of getPostDetails
+     *
+     * @param int $postId id of the post
+     *
+     * @return \App\model\PostDetailsModel
+     */
+    public function getPostDetails(int $postId): PostDetailsModel
+    {
+
+        $postDetails = $this->_postService->getPostDetails($postId);
+
+        $postDetails->setTitle($this->toDisplay($postDetails->getTitle()));
+        $postDetails->setSummary($this->toDisplay($postDetails->getSummary()));
+        $postDetails->setContent($this->toDisplay($postDetails->getContent()));
+
+        $comments = [];
+        foreach ($postDetails->getComments() as $postCom) {
+            $postCom->setContent($this->toDisplay($postCom->getContent()));
+            $comments[] = $postCom;
+        }
+
+        $postDetails->setComments($comments);
+
+        return $postDetails;
+
+    }//end getPostDetails()
 
 
 }//end class

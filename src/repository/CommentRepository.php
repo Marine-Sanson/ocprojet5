@@ -30,7 +30,7 @@ class CommentRepository
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var CommentRepository
      */
@@ -42,7 +42,7 @@ class CommentRepository
      *
      * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $db)
+    private function __construct(private readonly DatabaseService $db)
     {
 
     }//end __construct()
@@ -76,14 +76,13 @@ class CommentRepository
     public function insertComment(CommentEntity $newComment): int
     {
 
-        $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, last_update_date, is_validate) 
-                    VALUES (:id_post, :id_user, :content, :creation_date, :last_update_date, :is_validate)';
+        $request = 'INSERT INTO comments (id_post, id_user, content, creation_date, is_validate) 
+                    VALUES (:id_post, :id_user, :content, :creation_date, :is_validate)';
         $parameters = [
             'id_post'          => $newComment->getPostId(),
             'id_user'          => $newComment->getUserId(),
             'content'          => $newComment->getContent(),
-            'creation_date'    => $newComment->getCreationDate()->format('Y-m-d H:i:s'),
-            'last_update_date' => $newComment->getLastUpdateDate()->format('Y-m-d H:i:s'),
+            'creation_date'    => $newComment->getCreationDate(),
             'is_validate'      => 0
         ];
         $this->db->execute($request, $parameters);
@@ -104,14 +103,22 @@ class CommentRepository
     public function getOnePostComments(int $postId): array
     {
 
-        $request = 'SELECT id_user, content, comments.last_update_date, username FROM comments 
-                    JOIN users ON comments.id_user = users.id 
-                    WHERE id_post = :id AND is_validate = :is_validate';
+        $request = 'SELECT
+            id,
+            id_post AS postId,
+            id_user AS userId,
+            content,
+            creation_date AS creationDate,
+            is_validate AS isValidate
+            FROM comments
+            WHERE id_post = :id AND is_validate = :is_validate';
+
         $parameters = [
             'id'          => $postId,
             'is_validate' => 1
         ];
-        return $this->db->execute($request, $parameters);
+
+        return $this->db->fetchAllComments($request, $parameters);
 
     }//end getOnePostComments()
 
@@ -125,22 +132,20 @@ class CommentRepository
     {
 
         $request = 'SELECT
-            comments.id,
-            comments.id_user,
-            id_post,
-            comments.content,
-            comments.last_update_date,
-            is_validate,
-            username,
-            title
+            id,
+            id_post AS postId,
+            id_user AS userId,
+            content,
+            creation_date AS creationDate,
+            is_validate AS isValidate
         FROM comments
-        JOIN users ON comments.id_user = users.id
-        JOIN posts ON comments.id_post = posts.id
-        WHERE is_validate = :is_validate ORDER BY last_update_date DESC';
+        WHERE is_validate = :is_validate
+        ORDER BY creation_date DESC';
+
         $parameters = [
             'is_validate' => 0
         ];
-        return $this->db->execute($request, $parameters);
+        return $this->db->fetchAllComments($request, $parameters);
 
     }//end getPendingComments()
 

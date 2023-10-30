@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\entity\PostEntity;
 use App\model\NewPostModel;
 use App\model\UpdatePostModel;
 use App\service\DatabaseService;
@@ -31,7 +32,7 @@ class PostRepository
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostRepository
      */
@@ -43,7 +44,7 @@ class PostRepository
      *
      * @param \App\service\DatabaseService $db DatabaseService
      */
-    private function __construct(private DatabaseService $db)
+    private function __construct(private readonly DatabaseService $db)
     {
 
     }//end __construct()
@@ -138,37 +139,27 @@ class PostRepository
 
 
     /**
-     * Summary of getAllPostsWithAuthors
+     * Summary of getAllPosts
      *
      * @return array
      */
-    public function getPostsWithAuthors(): array
+    public function getAllPosts(): array
     {
 
-        $request = 'SELECT posts.*, username FROM posts
-                    JOIN users ON posts.id_user = users.id
-                    ORDER BY last_update_date DESC LIMIT 12';
+        $request = 'SELECT
+        id,
+        id_user AS idUser,
+        title,
+        summary,
+        content,
+        creation_date AS creationDate,
+        last_update_date AS lastUpdateDate
+        FROM posts 
+        ORDER BY last_update_date DESC';
 
-        return $this->db->execute($request, null);
+        return $this->db->fetchAllPosts($request);
 
-    }//end getPostsWithAuthors()
-
-
-    /**
-     * Summary of getAllPostsWithAuthors
-     *
-     * @return array
-     */
-    public function getAllPostsWithAuthors(): array
-    {
-
-        $request = 'SELECT posts.*, username FROM posts 
-                    JOIN users ON posts.id_user = users.id 
-                    ORDER BY last_update_date DESC';
-
-        return $this->db->execute($request, null);
-
-    }//end getAllPostsWithAuthors()
+    }//end getAllPosts()
 
 
     /**
@@ -178,16 +169,23 @@ class PostRepository
      *
      * @return array
      */
-    public function getOnePostData(int $postId): array
+    public function getOnePostData(int $postId): PostEntity
     {
 
-        $request = 'SELECT posts.*, username FROM posts JOIN users ON posts.id_user = users.id WHERE posts.id = :id ';
+        $request = 'SELECT 
+            id,
+            id_user AS idUser,
+            title,
+            summary,
+            content,
+            creation_date AS creationDate,
+            last_update_date AS lastUpdateDate
+            FROM posts WHERE posts.id = :id ';
         $parameters = [
             'id' => $postId
         ];
-        $result = $this->db->execute($request, $parameters);
 
-        return $result[0];
+        return $this->db->fetchPost($request, $parameters);
 
     }//end getOnePostData()
 
@@ -201,20 +199,41 @@ class PostRepository
     {
 
         $request = 'SELECT
-        posts.id,
-        posts.id_user,
-        posts.title,
-        posts.summary,
-        posts.content,
-        posts.creation_date,
-        posts.last_update_date,
-        username
+        id,
+        id_user AS idUser,
+        title,
+        summary,
+        content,
+        creation_date AS creationDate,
+        last_update_date AS lastUpdateDate
         FROM posts 
-        JOIN users ON posts.id_user = users.id ORDER BY last_update_date DESC LIMIT 3';
-        $parameters = [];
-        return $this->db->execute($request, $parameters);
+        ORDER BY last_update_date DESC LIMIT 3';
+
+        return $this->db->fetchAllPosts($request);
 
     }//end getListOfPosts()
+
+
+    /**
+     * Summary of getPostTitle
+     *
+     * @param integer $postId postId
+     *
+     * @return string
+     */
+    public function getPostTitle(int $postId): string
+    {
+
+        $request = 'SELECT title FROM posts WHERE id = :id';
+        $parameters = [
+            'id' => $postId
+        ];
+
+        $title = $this->db->execute($request, $parameters);
+
+        return $title[0]["title"];
+
+    }//end getPostTitle()
 
 
 }//end class

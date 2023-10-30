@@ -31,7 +31,7 @@ class UserRegisterService
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserRegisterService
      */

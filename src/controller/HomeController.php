@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App\controller;
 
 use App\mapper\RouteMapper;
+use App\model\PostModel;
 use App\service\HomeService;
 use App\service\TemplateInterface;
 
@@ -27,11 +28,11 @@ use App\service\TemplateInterface;
  * @license  https://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://www.blog.marinesanson.fr/ Not inline for the moment
  */
-class HomeController
+class HomeController extends AbstractController
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var HomeController
      */
@@ -89,6 +90,7 @@ class HomeController
     {
 
         $lastPosts = $this->_homeService->getLastPosts();
+        $lastPosts = $this->sanitizeLastPosts($lastPosts);
 
         $this->_template->display(
             RouteMapper::HomeView->getTemplate(), [
@@ -97,6 +99,28 @@ class HomeController
         );
 
     }//end displayHome()
+
+
+    /**
+     * Summary of sanitizeLastPosts
+     *
+     * @param array<PostModel> $lastPosts array of PostModel
+     *
+     * @return array<PostModel>
+     */
+    public function sanitizeLastPosts(array $lastPosts): array
+    {
+
+        return array_map(
+            function (PostModel $postModel) {
+                $postModel->setTitle($this->toDisplay($postModel->getTitle()));
+                $postModel->setSummary($this->toDisplay($postModel->getSummary()));
+                return $postModel;
+            },
+            $lastPosts
+        );
+
+    }//end sanitizeLastPosts()
 
 
 }//end class

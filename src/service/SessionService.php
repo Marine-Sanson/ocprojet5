@@ -30,7 +30,7 @@ class SessionService implements SessionInterface
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var SessionService
      */

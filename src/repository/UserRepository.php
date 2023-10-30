@@ -14,9 +14,10 @@ declare(strict_types=1);
 
 namespace App\repository;
 
+use App\entity\UserEntity;
+use App\mapper\DateTimeMapper;
 use App\model\UserRegisterModel;
 use App\service\DatabaseService;
-use DateTime;
 
 /**
  * UserRepository Class Doc Comment
@@ -31,7 +32,7 @@ class UserRepository
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserRepository
      */
@@ -41,9 +42,10 @@ class UserRepository
     /**
      * Summary of __construct
      *
-     * @param \App\service\DatabaseService $db DatabaseService
+     * @param \App\service\DatabaseService $db              DatabaseService
+     * @param \App\mapper\DateTimeMapper   $_dateTimeMapper DateTimeMapper
      */
-    private function __construct(private DatabaseService $db)
+    private function __construct(private readonly DatabaseService $db, private readonly DateTimeMapper $_dateTimeMapper)
     {
 
     }//end __construct()
@@ -58,7 +60,7 @@ class UserRepository
     {
 
         if (self::$instance === null) {
-            self::$instance = new UserRepository(DatabaseService::getInstance());
+            self::$instance = new UserRepository(DatabaseService::getInstance(), DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -75,8 +77,7 @@ class UserRepository
      */
     public function insertNewUser(UserRegisterModel $userRegisterModel): int
     {
-
-        $date = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+        $date = $this->_dateTimeMapper->getCurrentDate();
         $request = 'INSERT INTO users (
                 name,
                 first_name,
@@ -125,27 +126,49 @@ class UserRepository
      *
      * @return array with all the data of a User
      */
-    public function getUser(string $username): array
+    public function getUser(string $username): UserEntity
     {
 
         $request = 'SELECT
             id,
             name,
-            first_name,
+            first_name AS firstName,
             username,
             email,
             password,
             role,
-            creation_date,
-            last_update_date,
-            is_allowed
+            creation_date AS creationDate,
+            last_update_date AS lastUpdateDate,
+            is_allowed AS isAllowed
         FROM users WHERE username = :username';
         $parameters = [
             'username' => $username
         ];
-        return $this->db->execute($request, $parameters);
+        return $this->db->fetchUser($request, $parameters);
 
     }//end getUser()
+
+
+    /**
+     * Summary of getUsername
+     *
+     * @param int $userId userId
+     *
+     * @return string
+     */
+    public function getUsername(int $userId): string
+    {
+
+        $request = 'SELECT username FROM users WHERE id = :id';
+        $parameters = [
+            'id' => $userId
+        ];
+
+        $username = $this->db->execute($request, $parameters);
+
+        return $username[0]["username"];
+
+    }//end getUsername()
 
 
     /**
@@ -192,9 +215,19 @@ class UserRepository
     public function getAllUsers(): array
     {
 
-        $request = 'SELECT id, first_name, username, password, role, is_allowed FROM users';
+        $request = 'SELECT id,
+        name,
+        first_name AS firstName,
+        username,
+        email,
+        password,
+        role,
+        creation_date AS creationDate,
+        last_update_date AS lastUpdateDate,
+        is_allowed AS isAllowed
+        FROM users';
 
-        return $this->db->execute($request, []);
+        return $this->db->fetchAllUsers($request);
 
     }//end getAllUsers()
 

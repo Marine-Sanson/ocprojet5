@@ -66,9 +66,9 @@
                                                     <p class="mt-4 justify text-white">{{ comment.content }}</p>
                                                     <div class="row text-white">
                                                         <span class="col-lg-1"></span>
-                                                        <span class="col-lg-3">Auteur : {{ comment.username}}</span>
+                                                        <span class="col-lg-3">Auteur : {{ comment.author}}</span>
                                                         <span class="col-lg-5"></span>
-                                                        <span class="col-lg-2 text-right">Date : {{ comment.lastUpdateDate_at|date("d/m/Y")}}</span>
+                                                        <span class="col-lg-2 text-right">Date : {{ comment.creationDate|date("d/m/Y")}}</span>
                                                         <span class="col-lg-1"></span>
                                                     </div>
                                                 </div>
@@ -82,7 +82,6 @@
                                                 <h5 class="text-center text-primary"></h5>
                                                 <form action="" method="post" id="form-box" class="p-2">
                                                     <input type="hidden" id="commentAction" name="action" value="addComment">
-                                                    <input type="hidden" id="tokenContactForm" name="token" value="###">
                                                     <input type="hidden" id="username" name="username" value="{{ session.user.username }}">
                                                     <input type="hidden" id="postId" name="postId" value="{{ postDetails.id }}">
                                                     

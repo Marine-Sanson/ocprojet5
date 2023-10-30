@@ -20,9 +20,9 @@
                                         {% for comment in comments %}
                                             <li class="row g-0 p-2">
                                                 <div class="border border-primary rounded p-1 mx-auto my-2 row">
-                                                    <h2 class="text-primary "> {{ comment.title }} <span class="my-5 col-md text-white fs-5">de {{ comment.username }} :</span></h2>
+                                                    <h2 class="text-primary "> {{ comment.postTitle }}</h2>
                                                     <p class="text-white">{{ comment.content }}</p>
-                                                    <p class="text-right text-white">de {{ comment.username }}</p>
+                                                    <p class="text-right text-white">de {{ comment.author }}</p>
                                                     <div class="row-md btn-group">
                                                         <div class="col-md-4 offset-md-1 d-inline-block">
                                                             <form action="./validation" method="post" id="form-box" class="p-2 col-lg-10 row">
@@ -38,7 +38,6 @@
                                                         <div class="col-md-4 offset-md-2 d-inline-block">
                                                             <form action="./validation" method="post" id="form-box" class="p-2 col-lg-10 row">
                                                                 <input type="hidden" id="deleteAction" name="action" value="delete">
-                                                                <input type="hidden" id="tokenContactForm" name="token" value="###">
                                                                 <input type="hidden" id="commentId" name="commentId" value="{{ comment.id }}">
                                                                 <div class="form-group d-flex mx-auto">
                                                                     <div class="mx-auto my-4">

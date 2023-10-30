@@ -34,7 +34,7 @@ class ContactRepository
      *
      * @var DatabaseService $db connection between PHP and a database server
      */
-    private DatabaseService $db;
+    private readonly DatabaseService $db;
 
 
     /**
@@ -48,21 +48,15 @@ class ContactRepository
     public function insertContact(ContactEntity $newContact): int
     {
 
-        $firstName = $newContact->getFirstName();
-        $name = $newContact->getName();
-        $email = $newContact->getEmail();
-        $content = $newContact->getContent();
-        $creationDate = $newContact->getCreationDate();
-
         $this->db = DatabaseService::getInstance();
         $request = 'INSERT INTO contacts (first_name, name, email, content, creation_date) 
                     VALUES (:first_name, :name, :email, :content, :creationDate)';
         $parameters = [
-            'first_name'   => $firstName,
-            'name'         => $name,
-            'email'        => $email,
-            'content'      => $content,
-            'creationDate' => $creationDate->format('Y-m-d H:i:s')
+            'first_name'   => $newContact->getFirstName(),
+            'name'         => $newContact->getName(),
+            'email'        => $newContact->getEmail(),
+            'content'      => $newContact->getContent(),
+            'creationDate' => $newContact->getCreationDate()
         ];
         $this->db->execute($request, $parameters);
         $newReq = 'SELECT LAST_INSERT_ID()';

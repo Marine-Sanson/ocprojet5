@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace App\service;
 
+use App\entity\CommentEntity;
+use App\entity\PostEntity;
+use App\entity\UserEntity;
 use PDO;
 
 /**
@@ -28,7 +31,6 @@ use PDO;
 class DatabaseService
 {
 
-
     /**
      * Summary of db
      * Represents a connection between PHP and a database server.
@@ -38,7 +40,7 @@ class DatabaseService
     private PDO $db;
 
      /**
-      * Summary of _instance
+      * Summary of instance
       *
       * @var DatabaseService
       */
@@ -80,22 +82,125 @@ class DatabaseService
     /**
      * Summary of execute
      *
-     * @param string       $request    the sql request
-     * @param array | null $parameters if needed
+     * @param string     $request    the sql request
+     * @param array|null $parameters if needed
      *
      * @return array
      */
     public function execute(string $request, ?array $parameters): array
     {
 
-        $query = $this->db->prepare(
-            $request
-        );
+        $query = $this->db->prepare($request);
         $query->execute($parameters);
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
 
     }//end execute()
+
+
+    /**
+     * Summary of fetchPost
+     *
+     * @param string $request    SQL request
+     * @param array  $parameters parameters
+     *
+     * @return \App\entity\PostEntity
+     */
+    public function fetchPost(string $request, array $parameters): PostEntity
+    {
+        $query = $this->db->prepare($request);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class, null);
+
+        $query->execute($parameters);
+
+        return $query->fetch();
+
+    }//end fetchPost()
+
+
+    /**
+     * Summary of fetchAllPosts
+     *
+     * @param string $request SQL request
+     *
+     * @return array
+     */
+    public function fetchAllPosts(string $request): array
+    {
+
+        $query = $this->db->prepare($request);
+        $query->setFetchMode(PDO::FETCH_CLASS, PostEntity::class, null);
+
+        $query->execute();
+
+        return $query->fetchAll();
+
+    }//end fetchAllPosts()
+
+
+    /**
+     * Summary of fetchAllComments
+     *
+     * @param string $request    request
+     * @param array  $parameters parameters
+     *
+     * @return array
+     */
+    public function fetchAllComments(string $request, array $parameters): array
+    {
+
+        $query = $this->db->prepare($request);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, CommentEntity::class, null);
+
+        $query->execute($parameters);
+
+        return $query->fetchAll();
+
+    }//end fetchAllComments()
+
+
+    /**
+     * Summary of fetchUser
+     *
+     * @param string $request    request
+     * @param array  $parameters parameters
+     *
+     * @return \App\entity\UserEntity
+     */
+    public function fetchUser(string $request, array $parameters): UserEntity
+    {
+        $query = $this->db->prepare($request);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, UserEntity::class, null);
+
+        $query->execute($parameters);
+
+        return $query->fetch();
+
+    }//end fetchUser()
+
+
+    /**
+     * Summary of fetchAllUser
+     *
+     * @param string $request request
+     *
+     * @return array<UserEntity>
+     */
+    public function fetchAllUsers(string $request): array
+    {
+
+        $query = $this->db->prepare($request);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, UserEntity::class, null);
+
+        $query->execute();
+
+        return $query->fetchAll();
+
+    }//end fetchAllUsers()
 
 
 }//end class

@@ -15,11 +15,11 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\UserEntity;
+use App\mapper\DateTimeMapper;
 use App\mapper\UserMapper;
 use App\model\UserConnectionModel;
 use App\repository\UserRepository;
 use App\service\SessionService;
-use DateTime;
 
 /**
  * UserService Class Doc Comment
@@ -41,7 +41,7 @@ class UserService
     public TemplateInterface $template;
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var UserService
      */
@@ -51,11 +51,13 @@ class UserService
     /**
      * Summary of __construct
      *
+     * @param \App\mapper\DateTimeMapper     $_dateTimeMapper DateTimeMapper
      * @param \App\mapper\UserMapper         $_userMapper     UserMapper
      * @param \App\repository\UserRepository $_userRepository UserRepository
      * @param \App\service\SessionService    $_session        SessionService
      */
     private function __construct(
+        private readonly DateTimeMapper $_dateTimeMapper,
         private readonly UserMapper $_userMapper,
         private readonly UserRepository $_userRepository,
         private readonly SessionService $_session
@@ -75,6 +77,7 @@ class UserService
 
         if (self::$instance === null) {
             self::$instance = new UserService(
+                DateTimeMapper::getInstance(),
                 UserMapper::getInstance(),
                 UserRepository::getInstance(),
                 SessionService::getInstance()
@@ -128,34 +131,7 @@ class UserService
     public function getUser(string $username): ?UserEntity
     {
 
-        $result = $this->_userRepository->getUser($username);
-
-        $user = null;
-
-        if ($result !== []) {
-            $creationDate = $result[0]["creation_date"];
-            $creationDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
-
-            $updateDate = $result[0]["last_update_date"];
-            $updateDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
-
-            $allowed = boolval($result[0]["is_allowed"]);
-
-            $user = new UserEntity(
-                $result[0]["id"],
-                $result[0]["name"],
-                $result[0]["first_name"],
-                $result[0]["username"],
-                $result[0]["email"],
-                $result[0]["password"],
-                $result[0]["role"],
-                $creationDate,
-                $updateDate,
-                $allowed
-            );
-        }//end if
-
-        return $user;
+        return $this->_userRepository->getUser($username);
 
     }//end getUser()
 
@@ -228,41 +204,14 @@ class UserService
 
         $users = $this->_userRepository->getAllUsers();
         $list = [];
+
         foreach ($users as $user) {
-            $list[] = $this->transformToUserConnectionModel($user);
+            $list[] = $this->_userMapper->transformToUserConnectionModel($user);
         }
 
         return $list;
 
     }//end getAllUsers()
-
-
-    /**
-     * Summary of transformToUserConnectionModel
-     *
-     * @param array $user user
-     *
-     * @return \App\model\UserConnectionModel
-     */
-    public function transformToUserConnectionModel(array $user): UserConnectionModel
-    {
-
-        $isUserAllowed = false;
-
-        if ($user["is_allowed"] === 1) {
-            $isUserAllowed = true;
-        }
-
-        return new UserConnectionModel(
-            $user["id"],
-            $user["first_name"],
-            $user["username"],
-            $user["password"],
-            $user["role"],
-            $isUserAllowed
-        );
-
-    }//end transformToUserConnectionModel()
 
 
     /**

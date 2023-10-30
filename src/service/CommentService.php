@@ -15,10 +15,14 @@ declare(strict_types=1);
 namespace App\service;
 
 use App\entity\CommentEntity;
+use App\mapper\CommentMapper;
+use App\mapper\DateTimeMapper;
 use App\mapper\MessageMapper;
+use App\model\CommentModel;
 use App\repository\CommentRepository;
+use App\repository\PostRepository;
+use App\repository\UserRepository;
 use App\service\UserService;
-use DateTime;
 
 /**
  * CommentService Class Doc Comment
@@ -33,7 +37,7 @@ class CommentService
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var CommentService
      */
@@ -45,10 +49,19 @@ class CommentService
     /**
      * Summary of __construct
      *
+     * @param \App\mapper\CommentMapper         $_commentMapper     CommentMapper
+     * @param \App\mapper\DateTimeMapper        $_dateTimeMapper    DateTimeMapper
      * @param \App\repository\CommentRepository $_commentRepository CommentRepository
+     * @param \App\repository\PostRepository    $_postRepository    PostRepository
+     * @param \App\repository\UserRepository    $_userRepository    UserRepository
      */
-    private function __construct(private readonly CommentRepository $_commentRepository)
-    {
+    private function __construct(
+        private readonly CommentMapper $_commentMapper,
+        private readonly DateTimeMapper $_dateTimeMapper,
+        private readonly CommentRepository $_commentRepository,
+        private readonly PostRepository $_postRepository,
+        private readonly UserRepository $_userRepository
+    ) {
 
     }//end __construct()
 
@@ -63,7 +76,13 @@ class CommentService
     {
 
         if (self::$instance === null) {
-            self::$instance = new CommentService(CommentRepository::getInstance());
+            self::$instance = new CommentService(
+                CommentMapper::getInstance(),
+                DateTimeMapper::getInstance(),
+                CommentRepository::getInstance(),
+                PostRepository::getInstance(),
+                UserRepository::getInstance()
+            );
         }
 
         return self::$instance;
@@ -81,7 +100,17 @@ class CommentService
     public function getpostComments(int $postId): array
     {
 
-        return $this->_commentRepository->getOnePostComments($postId);
+        $comments = $this->_commentRepository->getOnePostComments($postId);
+
+        $listOfComments = [];
+        foreach ($comments as $comment) {
+            $username = $this->_userRepository->getUsername($comment->getUserId());
+            $commentModel = $this->_commentMapper->getCommentModel($comment, $username);
+
+            $listOfComments[] = $commentModel;
+        }
+
+        return $listOfComments;
 
     }//end getpostComments()
 
@@ -98,12 +127,19 @@ class CommentService
     public function manageComment(string $username, int $postId, string $content): CommentEntity
     {
 
-            $currentDate = DateTime::createFromFormat("Y-m-d H:i:s", date("Y-m-d H:i:s"));
+            $currentDate = $this->_dateTimeMapper->getCurrentDate();
+            $currentDate = $this->_dateTimeMapper->toString($currentDate);
 
             $userService = UserService::getInstance();
             $userId = $userService->getUserId($username);
 
-            return new CommentEntity(null, $postId, $userId, $content, $currentDate, $currentDate, false);
+            $comment = (new CommentEntity())
+                ->setUserId($userId)
+                ->setPostId($postId)
+                ->setContent($content)
+                ->setCreationDate($currentDate);
+
+            return $comment;
 
     }//end manageComment()
 
@@ -145,7 +181,19 @@ class CommentService
     public function getPendingComments(): array
     {
 
-        return $this->_commentRepository->getPendingComments();
+        $commentEntities = $this->_commentRepository->getPendingComments();
+        $commentModels = $this->_commentMapper->getCommentModels($commentEntities);
+
+        return array_map(
+            function (CommentModel $commentModel) {
+                $username = $this->_userRepository->getUsername($commentModel->getIdUser());
+                $title = $this->_postRepository->getPostTitle($commentModel->getIdPost());
+                $commentModel->setAuthor($username);
+                $commentModel->setPostTitle($title);
+                return $commentModel;
+            },
+            $commentModels
+        );
 
     }//end getPendingComments()
 
@@ -193,7 +241,7 @@ class CommentService
         $comments = $this->getPendingComments();
         $pendingCommentsIds = [];
         foreach ($comments as $comment) {
-            $pendingCommentsIds[] = $comment["id"];
+            $pendingCommentsIds[] = $comment->getId();
         }
 
         $isValid = in_array($commentId, $pendingCommentsIds);

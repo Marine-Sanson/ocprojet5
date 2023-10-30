@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace App\entity;
 
-use DateTime;
-
 /**
  * PostEntity Class Doc Comment
  *
@@ -28,27 +26,68 @@ use DateTime;
 class PostEntity
 {
 
+    /**
+     * Summary of id
+     *
+     * @var integer|null
+     */
+    private readonly ?int $id;
+
+    /**
+     * Summary of idUser
+     *
+     * @var integer
+     */
+    private readonly int $idUser;
+
+    /**
+     * Summary of username
+     *
+     * @var string|null
+     */
+    private readonly ?string $username;
+
+    /**
+     * Summary of title
+     *
+     * @var string
+     */
+    private readonly string $title;
+
+    /**
+     * Summary of summary
+     *
+     * @var string
+     */
+    private readonly string $summary;
+
+    /**
+     * Summary of content
+     *
+     * @var string
+     */
+    private readonly string $content;
+
+    /**
+     * Summary of creationDate
+     *
+     * @var string
+     */
+    private readonly string $creationDate;
+
+    /**
+     * Summary of lastUpdateDate
+     *
+     * @var string
+     */
+    private readonly string $lastUpdateDate;
+
 
     /**
      * Summary of __construct
-     *
-     * @param int | null $id             id of the post  - autoincrement in the DB
-     * @param int        $idUser         id of the post author
-     * @param string     $title          title of the post
-     * @param string     $summary        summary of the post
-     * @param string     $content        content of the post
-     * @param \DateTime  $creationDate   creation date in the db
-     * @param \DateTime  $lastUpdateDate last update date dat in the db
      */
-    public function __construct(
-        private readonly ?int $id,
-        private readonly int $idUser,
-        private readonly string $title,
-        private readonly string $summary,
-        private readonly string $content,
-        private readonly DateTime $creationDate,
-        private readonly DateTime $lastUpdateDate
-    ) {
+    public function __construct()
+    {
 
     }//end __construct()
 
@@ -121,9 +160,9 @@ class PostEntity
     /**
      * Summary of getCreationDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): string
     {
 
         return $this->creationDate;
@@ -134,14 +173,43 @@ class PostEntity
     /**
      * Summary of getLastUpdateDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdateDate(): DateTime
+    public function getLastUpdateDate(): string
     {
 
         return $this->lastUpdateDate;
 
     }//end getLastUpdateDate()
+
+
+    /**
+     * Summary of getUsername
+     *
+     * @return string|null
+     */
+    public function getUsername(): ?string
+    {
+
+        return $this->username;
+
+    }//end getUsername()
+
+
+    /**
+     * Summary of setUsername
+     *
+     * @param string $username username
+     *
+     * @return self
+     */
+    public function setUsername(string $username): self
+    {
+
+        $this->username = $username;
+        return $this;
+
+    }//end setUsername()
 
 
 }//end class

@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace App\mapper;
 
+use App\entity\PostEntity;
+use App\mapper\DateTimeMapper;
 use App\model\PostDetailsModel;
-use DateTime;
+
 
 /**
  * PostDetailsMapper Class Doc Comment
@@ -30,11 +32,22 @@ class PostDetailsMapper
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostDetailsMapper
      */
     private static $instance;
+
+
+    /**
+     * Summary of __construct
+     *
+     * @param \App\mapper\DateTimeMapper $_dateTimeMapper DateTimeMapper
+     */
+    private function __construct(private readonly DateTimeMapper $_dateTimeMapper)
+    {
+
+    }//end __construct()
 
 
     /**
@@ -47,7 +60,7 @@ class PostDetailsMapper
     {
 
         if (self::$instance === null) {
-            self::$instance = new PostDetailsMapper();
+            self::$instance = new PostDetailsMapper(DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -58,24 +71,24 @@ class PostDetailsMapper
     /**
      * Summary of getPostDetailsModel
      *
-     * @param array        $post     post
-     * @param array | null $comments comments
+     * @param PostEntity $post     post
+     * @param string     $username username
+     * @param array|null $comments comments
      *
      * @return \App\model\PostDetailsModel
      */
-    public function getPostDetailsModel(array $post, ?array $comments): PostDetailsModel
+    public function getPostDetailsModel(PostEntity $post, string $username, ?array $comments): PostDetailsModel
     {
 
-        $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
-
+        $lastUpdateDate = $this->_dateTimeMapper->toDateTime($post->getLastUpdateDate());
         $postDetails = new PostDetailsModel(
-            $post["id"],
-            $post["id_user"],
-            $post["title"],
-            $post["summary"],
-            $post["content"],
-            $date,
-            $post["username"],
+            $post->getId(),
+            $post->getIdUser(),
+            $post->getTitle(),
+            $post->getSummary(),
+            $post->getContent(),
+            $lastUpdateDate,
+            $username,
             $comments
         );
 

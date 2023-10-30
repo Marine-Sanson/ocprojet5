@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace App\entity;
 
-use DateTime;
-
 /**
  * UserEntity Class Doc Comment
  *
@@ -28,33 +26,82 @@ use DateTime;
 class UserEntity
 {
 
+    /**
+     * Summary of id
+     *
+     * @var integer|null
+     */
+    private readonly ?int $id;
+
+    /**
+     * Summary of name
+     *
+     * @var string
+     */
+    private readonly string $name;
+
+    /**
+     * Summary of firstName
+     *
+     * @var string
+     */
+    private readonly string $firstName;
+
+    /**
+     * Summary of username
+     *
+     * @var string
+     */
+    private readonly string $username;
+
+    /**
+     * Summary of email
+     *
+     * @var string
+     */
+    private readonly string $email;
+
+    /**
+     * Summary of password
+     *
+     * @var string
+     */
+    private readonly string $password;
+
+    /**
+     * Summary of role
+     *
+     * @var string
+     */
+    private readonly string $role;
+
+    /**
+     * Summary of creationDate
+     *
+     * @var string
+     */
+    private readonly string $creationDate;
+
+    /**
+     * Summary of lastUpdateDate
+     *
+     * @var string
+     */
+    private readonly string $lastUpdateDate;
+
+    /**
+     * Summary of isAllowed
+     *
+     * @var boolean
+     */
+    private readonly bool $isAllowed;
+
 
     /**
      * Summary of __construct UserEntity
-     *
-     * @param int|null $id             id - autoincrement in the DB
-     * @param string   $name           name of the user
-     * @param string   $firstName      first name of the user
-     * @param string   $username       username must be unique, used to login
-     * @param string   $email          email of the user
-     * @param string   $password       password - saved encrypt in the DB
-     * @param string   $role           may be user or supAdmin
-     * @param DateTime $creationDate   creation dat in the db
-     * @param DateTime $lastUpdateDate lat update in the db
-     * @param bool     $isAllowed      to know if this user is allowed
      */
-    public function __construct(
-        private readonly ?int $id,
-        private readonly string $name,
-        private readonly string $firstName,
-        private readonly string $username,
-        private readonly string $email,
-        private readonly string $password,
-        private readonly string $role,
-        private readonly DateTime $creationDate,
-        private readonly DateTime $lastUpdateDate,
-        private readonly bool $isAllowed
-    ) {
+    public function __construct()
+    {
 
     }//end __construct()
 
@@ -153,9 +200,9 @@ class UserEntity
     /**
      * Summary of getCreationDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): string
     {
 
         return $this->creationDate;
@@ -166,9 +213,9 @@ class UserEntity
     /**
      * Summary of getLastUpdateDate
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getLastUpdateDate(): DateTime
+    public function getLastUpdateDate(): string
     {
 
         return $this->lastUpdateDate;

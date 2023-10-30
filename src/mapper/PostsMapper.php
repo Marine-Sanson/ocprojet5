@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace App\mapper;
 
+use App\entity\PostEntity;
 use App\model\PostModel;
-use DateTime;
 
 /**
  * PostsMapper Class Doc Comment
@@ -30,11 +30,22 @@ class PostsMapper
 {
 
     /**
-     * Summary of _instance
+     * Summary of instance
      *
      * @var PostsMapper
      */
     private static $instance;
+
+
+    /**
+     * Summary of __construct
+     *
+     * @param \App\mapper\DateTimeMapper $_dateTimeMapper DateTimeMapper
+     */
+    private function __construct(private readonly DateTimeMapper $_dateTimeMapper)
+    {
+
+    }//end __construct()
 
 
     /**
@@ -47,7 +58,7 @@ class PostsMapper
     {
 
         if (self::$instance === null) {
-            self::$instance = new PostsMapper();
+            self::$instance = new PostsMapper(DateTimeMapper::getInstance());
         }
 
         return self::$instance;
@@ -56,25 +67,43 @@ class PostsMapper
 
 
     /**
-     * Summary of transformToListOfPostModel
+     * Summary of transformToPostModel
      *
-     * @param array $posts posts datas
+     * @param \App\entity\PostEntity $postEntity PostEntity
      *
-     * @return array
+     * @return PostModel
      */
-    public function transformToListOfPostModel(array $posts): array
+    public function transformToPostModel(PostEntity $postEntity): PostModel
     {
 
-        $listOfPosts = [];
-        foreach ($posts as $post) {
-            $date = DateTime::createFromFormat("Y-m-d H:i:s", date($post["last_update_date"]));
-            $post = new PostModel($post["id"], $post["username"], $post["title"], $post["summary"], $date);
-            $listOfPosts[] = $post;
-        }
+        return new PostModel(
+            $postEntity->getId(),
+            $postEntity->getUsername(),
+            $postEntity->getTitle(),
+            $postEntity->getSummary(),
+            $this->_dateTimeMapper->toDateTime($postEntity->getLastUpdateDate())
+        );
 
-        return $listOfPosts;
+    }//end transformToPostModel()
 
-    }//end transformToListOfPostModel()
+
+    /**
+     * Summary of transformToPostModels
+     *
+     * @param array<PostEntity> $postEntities array de PostEntities
+     *
+     * @return array<PostModel>
+     */
+    public function transformToPostModels(array $postEntities): array
+    {
+        return array_map(
+            function (PostEntity $postEntity) {
+                return $this->transformToPostModel($postEntity);
+            },
+            $postEntities
+        );
+
+    }//end transformToPostModels()
 
 
 }//end class
