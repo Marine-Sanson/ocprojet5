@@ -51,14 +51,9 @@ This project is avaliable on <a href="https://github.com/">GitHub</a>, and recei
 ## How to run this project :
 
 To run this project, you need to use composer, and run :
+
 ```
-composer require "twig/twig:^3.0"
-```
-```
-composer require phpmailer/phpmailer
-```
-```
-composer require vlucas/phpdotenv
+composer install
 ```
 
 For your connection informations (database and SMTP), copy the ```.env``` file in a ```.env.local``` file and replace the data by yours
