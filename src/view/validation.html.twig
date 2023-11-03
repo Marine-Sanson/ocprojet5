@@ -11,7 +11,7 @@
                 <div class="col-lg-8">
                     <div class="bg-black text-center">
                         <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <div class="project-text w-100 my-auto text-center">
                                 <div class="p-1">
                                     <h1 class="text-primary fw-bolder my-4">Valider les commentaires</h1>
                                     <p class="text-success font-weight-bold fs-4 bg-white bg-opacity-25 rounded">{{ message }}</p>
@@ -23,9 +23,9 @@
                                                     <h2 class="text-primary "> {{ comment.postTitle }}</h2>
                                                     <p class="text-white">{{ comment.content }}</p>
                                                     <p class="text-right text-white">de {{ comment.author }}</p>
-                                                    <div class="row-md btn-group">
-                                                        <div class="col-md-4 offset-md-1 d-inline-block">
-                                                            <form action="./validation" method="post" id="form-box" class="p-2 col-lg-10 row">
+                                                    <div class="row btn-group">
+                                                        <div class="col-12 col-lg-4 offset-lg-1">
+                                                            <form action="./validation" method="post" id="form-box" class="p-2 col-12 col-lg-10 row">
                                                                 <input type="hidden" id="validationAction" name="action" value="validate">
                                                                 <input type="hidden" id="commentId" name="commentId" value="{{ comment.id }}">
                                                                 <div class="form-group d-flex mx-auto">
@@ -35,8 +35,8 @@
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                        <div class="col-md-4 offset-md-2 d-inline-block">
-                                                            <form action="./validation" method="post" id="form-box" class="p-2 col-lg-10 row">
+                                                        <div class="col-12 col-lg-4 offset-lg-2">
+                                                            <form action="./validation" method="post" id="form-box" class="p-2 col-12 col-lg-10 row">
                                                                 <input type="hidden" id="deleteAction" name="action" value="delete">
                                                                 <input type="hidden" id="commentId" name="commentId" value="{{ comment.id }}">
                                                                 <div class="form-group d-flex mx-auto">
