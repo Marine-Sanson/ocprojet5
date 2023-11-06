@@ -16,7 +16,6 @@ namespace App\controller;
 
 use App\mapper\MessageMapper;
 use App\mapper\RouteMapper;
-use App\model\PostModel;
 use App\service\HomeService;
 use App\service\SessionService;
 use App\service\TemplateInterface;

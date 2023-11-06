@@ -52,7 +52,7 @@ class CommentController extends AbstractController
      *
      * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\CommentService    $_commentService CommentService
-    * @param \App\service\SessionService    $_sessionService SessionService
+     * @param \App\service\SessionService    $_sessionService SessionService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
