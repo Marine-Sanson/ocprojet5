@@ -101,26 +101,4 @@ class HomeController extends AbstractController
     }//end displayHome()
 
 
-    /**
-     * Summary of sanitizeLastPosts
-     *
-     * @param array<PostModel> $lastPosts array of PostModel
-     *
-     * @return array<PostModel>
-     */
-    public function sanitizeLastPosts(array $lastPosts): array
-    {
-
-        return array_map(
-            function (PostModel $postModel) {
-                $postModel->setTitle($this->toDisplay($postModel->getTitle()));
-                $postModel->setSummary($this->toDisplay($postModel->getSummary()));
-                return $postModel;
-            },
-            $lastPosts
-        );
-
-    }//end sanitizeLastPosts()
-
-
 }//end class
