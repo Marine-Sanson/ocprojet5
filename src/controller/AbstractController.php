@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 namespace App\controller;
+use App\model\PostModel;
 
 /**
  * AbstractController Class Doc Comment
@@ -83,6 +84,28 @@ class AbstractController
         return html_entity_decode(htmlspecialchars_decode($data));
 
     }//end toDisplay()
+
+
+    /**
+     * Summary of sanitizeLastPosts
+     *
+     * @param array<PostModel> $lastPosts array of PostModel
+     *
+     * @return array<PostModel>
+     */
+    public function sanitizeLastPosts(array $lastPosts): array
+    {
+
+        return array_map(
+            function (PostModel $postModel) {
+                $postModel->setTitle($this->toDisplay($postModel->getTitle()));
+                $postModel->setSummary($this->toDisplay($postModel->getSummary()));
+                return $postModel;
+            },
+            $lastPosts
+        );
+
+    }//end sanitizeLastPosts()
 
 
 }//end class

@@ -16,9 +16,11 @@ namespace App\controller;
 
 use App\controller\AbstractController;
 use App\mapper\MessageMapper;
+use App\mapper\RoleMapper;
 use App\mapper\RouteMapper;
 use App\model\CommentModel;
 use App\service\CommentService;
+use App\service\SessionService;
 use App\service\TemplateInterface;
 
 /**
@@ -50,10 +52,12 @@ class CommentController extends AbstractController
      *
      * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\CommentService    $_commentService CommentService
+    * @param \App\service\SessionService    $_sessionService SessionService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
-        private readonly CommentService $_commentService
+        private readonly CommentService $_commentService,
+        private readonly SessionService $_sessionService
     ) {
 
     }//end __construct()
@@ -71,7 +75,7 @@ class CommentController extends AbstractController
     {
 
         if (self::$instance === null) {
-            self::$instance = new CommentController($template, CommentService::getInstance());
+            self::$instance = new CommentController($template, CommentService::getInstance(), SessionService::getInstance());
         }
 
         return self::$instance;
@@ -86,10 +90,18 @@ class CommentController extends AbstractController
      */
     public function displayValidationPage(): void
     {
-        $data = [];
         $template = RouteMapper::ValidationComments->getTemplate();
-        $comments = $this->_commentService->getPendingComments();
-        $data["comments"] = $this->commentsToDisplay($comments);
+        $data = [];
+        $isAllowed = $this->_sessionService->getUser()->isUserAllowed();
+
+        if (isset($isAllowed) === false || $isAllowed !== true) {
+            $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+        }
+
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
+            $comments = $this->_commentService->getPendingComments();
+            $data["comments"] = $this->commentsToDisplay($comments);
+        }
 
         $this->_template->display($template, $data);
 
@@ -108,9 +120,17 @@ class CommentController extends AbstractController
 
         $template = RouteMapper::ValidationComments->getTemplate();
         $data = [];
-        $isvalid = $this->_commentService->validCommentId($commentId);
-        if ($isvalid === false) {
+        $isAllowed = $this->_sessionService->getUser()->isUserAllowed();
+
+        if (isset($isAllowed) === false || $isAllowed !== true) {
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+        }
+
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
+            $isvalid = $this->_commentService->validCommentId($commentId);
+            if ($isvalid === false) {
+                $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+            }
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
@@ -135,13 +155,19 @@ class CommentController extends AbstractController
      */
     public function deleteComment(int $commentId): void
     {
-        $data = [];
-
         $template = RouteMapper::ValidationComments->getTemplate();
-        $isvalid = $this->_commentService->validCommentId($commentId);
+        $data = [];
+        $isAllowed = $this->_sessionService->getUser()->isUserAllowed();
 
-        if ($isvalid === false) {
+        if (isset($isAllowed) === false || $isAllowed !== true) {
             $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+        }
+
+        if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {
+            $isvalid = $this->_commentService->validCommentId($commentId);
+            if ($isvalid === false) {
+                $data[MessageMapper::Error->getMessageLabel()] = MessageMapper::GeneralError->getMessage();
+            }
         }
 
         if (isset($data[MessageMapper::Error->getMessageLabel()]) === false) {

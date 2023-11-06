@@ -5,8 +5,13 @@
 
 {% include './partials/section_about.html.twig'%}
 {% include './partials/section_projects.html.twig'%}
-{% include './partials/section_login.html.twig'%}
-{% include './partials/section_last3posts.html.twig'%}
-{% include './partials/section_contact.html.twig'%}
+{% if session.user.username %}
+    {% include './partials/section_last3posts.html.twig'%}
+    {% include './partials/section_contact.html.twig'%}
+{% else %}
+    {% include './partials/section_login.html.twig'%}
+    {% include './partials/section_last3posts.html.twig'%}
+    {% include './partials/section_contact.html.twig'%}
+{% endif %}
 
 {% endblock %}

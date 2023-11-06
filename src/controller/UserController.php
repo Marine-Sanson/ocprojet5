@@ -16,6 +16,8 @@ namespace App\controller;
 
 use App\mapper\MessageMapper;
 use App\mapper\RouteMapper;
+use App\model\PostModel;
+use App\service\HomeService;
 use App\service\SessionService;
 use App\service\TemplateInterface;
 use App\service\UserService;
@@ -51,11 +53,13 @@ class UserController extends AbstractController
      * @param \App\service\TemplateInterface $_template       TemplateInterface
      * @param \App\service\UserService       $_userService    UserService
      * @param \App\service\SessionService    $_sessionService SessionService
+     * @param \App\service\HomeService       $_homeService    HomeService
      */
     private function __construct(
         private readonly TemplateInterface $_template,
         private readonly UserService $_userService,
-        private readonly SessionService $_sessionService
+        private readonly SessionService $_sessionService,
+        private readonly HomeService $_homeService
     ) {
 
     }//end __construct()
@@ -73,7 +77,7 @@ class UserController extends AbstractController
     {
 
         if (self::$instance === null) {
-            self::$instance = new UserController($template, UserService::getInstance(), SessionService::getInstance());
+            self::$instance = new UserController($template, UserService::getInstance(), SessionService::getInstance(), HomeService::getInstance());
         }
 
         return self::$instance;
@@ -121,6 +125,11 @@ class UserController extends AbstractController
 
             $data["session"] = $this->_sessionService->getSession();
 
+            $lastPosts = $this->_homeService->getLastPosts();
+            $lastPosts = $this->sanitizeLastPosts($lastPosts);
+
+            $data["lastPosts"] = $lastPosts;
+
             $template = RouteMapper::HomeView->getTemplate();
             $data[MessageMapper::Message->getMessageLabel()] = $user->getFirstName().MessageMapper::LoginSuccess->getMessage();
         }
@@ -148,6 +157,12 @@ class UserController extends AbstractController
         }
 
         $data["session"] = $this->_sessionService->getSession();
+
+        
+        $lastPosts = $this->_homeService->getLastPosts();
+        $lastPosts = $this->sanitizeLastPosts($lastPosts);
+
+        $data["lastPosts"] = $lastPosts;
 
         $this->_template->display($template, $data);
 

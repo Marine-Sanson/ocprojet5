@@ -19,7 +19,7 @@
                     {% if (session.user.role == "supadmin") %}
                         <li class="nav-item"><a class="nav-link" href=".././roles">Roles</a></li>
                     {% endif %}
-                    {% if (session.user.role == "supadmin") or (session.user.role == "user") %}
+                    {% if (session.user.role == "supadmin") and (session.user.isUserAllowed == true) or (session.user.role == "user") and (session.user.isUserAllowed == true) %}
                         <li class="nav-item"><a class="nav-link" href=".././validation">Validation</a></li>
                     {% endif %}
                 {% else %}
@@ -28,8 +28,8 @@
                     {% if (session.user.role == "supadmin") %}
                         <li class="nav-item"><a class="nav-link" href="./roles">Roles</a></li>
                     {% endif %}
-                    {% if (session.user.role == "supadmin") or (session.user.role == "user") %}
-                        <li class="nav-item"><a class="nav-link" href="./validation">Validation</a></li>
+                    {% if (session.user.role == "supadmin") and (session.user.isUserAllowed == true) or (session.user.role == "user") and (session.user.isUserAllowed == true) %}
+                            <li class="nav-item"><a class="nav-link" href="./validation">Validation</a></li>
                     {% endif %}
                 {% endif %}
 
