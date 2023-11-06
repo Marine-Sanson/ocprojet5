@@ -124,10 +124,11 @@ class UserRepository
      *
      * @param string $username username
      *
-     * @return array with all the data of a User
+     * @return UserEntity|null UserEntity or null
      */
-    public function getUser(string $username): UserEntity
+    public function getUser(string $username): ?UserEntity
     {
+        $user = null;
 
         $request = 'SELECT
             id,
@@ -144,7 +145,13 @@ class UserRepository
         $parameters = [
             'username' => $username
         ];
-        return $this->db->fetchUser($request, $parameters);
+        $user = $this->db->fetchUser($request, $parameters);
+
+        if (isset($user) === null) {
+            return null;
+        }
+
+        return $user;
 
     }//end getUser()
 

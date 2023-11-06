@@ -167,9 +167,9 @@ class DatabaseService
      * @param string $request    request
      * @param array  $parameters parameters
      *
-     * @return \App\entity\UserEntity
+     * @return UserEntity|null UserEntity or null
      */
-    public function fetchUser(string $request, array $parameters): UserEntity
+    public function fetchUser(string $request, array $parameters): ?UserEntity
     {
         $query = $this->db->prepare($request);
 
@@ -177,7 +177,13 @@ class DatabaseService
 
         $query->execute($parameters);
 
-        return $query->fetch();
+        $user = $query->fetch();
+
+        if ($user === false) {
+            $user = null;
+        }
+
+        return $user;
 
     }//end fetchUser()
 

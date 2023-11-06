@@ -149,7 +149,7 @@ class UserService
 
         $userEntity = $this->getUser($username);
 
-        if ($userEntity === false) {
+        if ($userEntity === null) {
             return null;
         }
 
